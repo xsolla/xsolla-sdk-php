@@ -1,0 +1,14 @@
+{
+    "name": "vendor_name/package_name",
+    "description": "description_text",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "author's name",
+            "email": "email@example.com"
+        }
+    ],
+    "require": {
+        "symfony/http-foundation": "2.4.x-dev"
+    }
+}
