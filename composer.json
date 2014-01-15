@@ -1,7 +1,7 @@
 {
-    "name": "vendor_name/package_name",
-    "description": "description_text",
+    "name": "xsolla/sdk",
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "authors": [
         {
             "name": "author's name",
@@ -10,5 +10,10 @@
     ],
     "require": {
         "symfony/http-foundation": "2.4.x-dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Xsolla\\SDK\\": "src/"
+        }
     }
 }
