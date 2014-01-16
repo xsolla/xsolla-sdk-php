@@ -11,7 +11,7 @@ abstract class Command {
         return $this->process($request);
     }
 
-    abstract protected function checkSign(Request $request);
+    abstract public function checkSign(Request $request);
 
-    abstract protected function process(Request $request);
+    abstract public function process(Request $request);
 }

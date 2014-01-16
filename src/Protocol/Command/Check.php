@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Xsolla\SDK\Storage\ProjectInterface;
 use Xsolla\SDK\Storage\UsersInterface;
 
-class CheckNickname extends Command
+class Check extends Command
 {
 
     /**
@@ -38,8 +38,9 @@ class CheckNickname extends Command
         }
     }
 
-    protected function checkSign(Request $request)
+    public function checkSign(Request $request)
     {
-        // TODO: Implement checkSign() method.
+        $signString = $request->get('command').$request->get('v1').$this->project->getSecretKey();
+        return (md5($signString) == $request->get('md5'));
     }
 }

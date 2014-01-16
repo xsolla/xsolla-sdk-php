@@ -4,5 +4,5 @@ namespace Xsolla\SDK\Protocol;
 
 class Cash extends Protocol
 {
-    protected $protocol = 'cash';
+    const PROTOCOL = 'Cash';
 }

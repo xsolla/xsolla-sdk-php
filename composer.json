@@ -4,8 +4,8 @@
     "prefer-stable": true,
     "authors": [
         {
-            "name": "author's name",
-            "email": "email@example.com"
+            "name": "Renat Bilalov",
+            "email": "renatbilalov@gmail.com"
         }
     ],
     "require": {
@@ -13,7 +13,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Xsolla\\SDK\\": "src/"
+            "Xsolla\\SDK\\": "src",
+            "Xsolla\\SDK\\Tests\\": "tests"
         }
     }
 }

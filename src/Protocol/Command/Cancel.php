@@ -21,8 +21,9 @@ class Cancel extends Command
 
     }
 
-    protected function checkSign(Request $request)
+    public function checkSign(Request $request)
     {
-        // TODO: Implement checkSign() method.
+        $signString = $request->get('command').$request->get('id').$this->project->getSecretKey();
+        return (md5($signString) == $request->get('md5'));
     }
 }

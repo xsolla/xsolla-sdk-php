@@ -4,5 +4,5 @@ namespace Xsolla\SDK\Protocol;
 
 class Standard extends Protocol
 {
-    protected $protocol = 'standard';
+    const PROTOCOL = 'Standard';
 }

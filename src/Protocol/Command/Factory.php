@@ -2,9 +2,11 @@
 
 namespace Xsolla\SDK\Protocol\Command;
 
-use Xsolla\SDK\Protocol\PayCash;
-use Xsolla\SDK\Protocol\PayStandard;
+
+use Xsolla\SDK\Exception\WrongCommandException;
+use Xsolla\SDK\Protocol\Cash;
 use Xsolla\SDK\Protocol\Protocol;
+use Xsolla\SDK\Protocol\Standard;
 
 class Factory
 {
@@ -16,24 +18,25 @@ class Factory
      */
     public function getCommand(Protocol $protocol, $command)
     {
-        switch ($command) {
-            case 'check':
-                $command = new CheckNickname(new Security(), new Project(), new Users());
-                break;
-
-            case 'pay':
-                if($protocol->getProtocol() == 'cash') {
-                    $command = new PayCash($protocol->getProject(), new Payments());
-                }
-                else {
-                    $command = new PayStandard(new Security(), new Project(), new Payments());
-                }
-                break;
-
-            case 'cancel':
-                $command = new Cancel($protocol->getProject(), $protocol->getUsers());
-                break;
+        if($protocol->getProtocol() == Cash::PROTOCOL) {
+            if($command == 'pay') {
+                return new PayCash($protocol->getProject(), $protocol->getPayments());
+            }
+            else if ($command == 'cancel') {
+                return new Cancel($protocol->getProject(), $protocol->getUsers());
+            }
         }
-        return $command;
+        else if ($protocol->getProtocol() == Standard::PROTOCOL) {
+            if($command == 'check') {
+                return new Check($protocol->getProject(), $protocol->getUsers());
+            }
+            elseif($command == 'pay') {
+                return new PayStandard($protocol->getProject(), $protocol->getPayments());
+            }
+            elseif($command == 'cancel') {
+                return new Cancel($protocol->getProject(), $protocol->getUsers());
+            }
+        }
+        throw new WrongCommandException;
     }
 }

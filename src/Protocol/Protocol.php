@@ -12,7 +12,7 @@ use Xsolla\SDK\Storage\UsersInterface;
 
 abstract class Protocol
 {
-    protected $protocol;
+    const PROTOCOL = '';
     protected $response;
     /**
      * @var ProjectInterface
@@ -73,7 +73,7 @@ abstract class Protocol
      */
     public function getProtocol()
     {
-        return $this->protocol;
+        return static::PROTOCOL;
     }
 
     protected function checkSecurity(Request $request)

@@ -1,10 +1,8 @@
 <?php
 
-namespace Xsolla\SDK\Protocol;
+namespace Xsolla\SDK\Protocol\Command;
 
 use Symfony\Component\HttpFoundation\Request;
-use Xsolla\SDK\Protocol\Command\Command;
-use Xsolla\SDK\Security;
 use Xsolla\SDK\Storage\PaymentsInterface;
 use Xsolla\SDK\Storage\ProjectInterface;
 
@@ -32,8 +30,9 @@ class PayCash extends Command
 
     }
 
-    protected function checkSign(Request $request)
+    public function checkSign(Request $request)
     {
-
+        $signString = $request->get('v1').$request->get('amount').$request->get('currency').$request->get('id').$this->project->getSecretKey();
+        return (md5($signString) == $request->get('sign'));
     }
 }
