@@ -49,7 +49,7 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     'query' => array(
                         'project_id' => 'projectId',
-                        'getype_id' => 'geotypeId',
+                        'geotype_id' => 'geotypeId',
                         'sum' => 'sum'
                     )
                 ))->will($this->returnValue($this->requestMock));
