@@ -14,7 +14,7 @@ class Xml
 
         $response = new \Symfony\Component\HttpFoundation\Response();
         $response->setContent($responseXml->asXML());
-        $sdkVersion = 'php-sdk/1.0; php/' . phpversion();
+        $sdkVersion = 'php-sdk/0.1; php/' . phpversion();
         $response->headers->set('X-Xsolla-SDK', $sdkVersion);
         return $response;
     }
