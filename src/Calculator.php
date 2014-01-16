@@ -8,6 +8,7 @@ use Xsolla\SDK\Storage\ProjectInterface;
 class Calculator
 {
     protected $client;
+    protected $project;
 
     public function __construct(Client $client, ProjectInterface $project)
     {
