@@ -4,7 +4,7 @@ use \Guzzle\Http\Client;
 use \Xsolla\SDK\Storage\Project;
 include '../vendor/autoload.php';
 
-$calculator = new Calculator(new Client('https://secure.xsolla.com/api/'), new Project());
+$calculator = new Calculator(new Client('https://api.xsolla.com'), new Project());
 
 // Calculation of the amount of the game currency on the basis of the sum of payment 100 via payment system "1"
 $calculator->calculateOut(1, 100);

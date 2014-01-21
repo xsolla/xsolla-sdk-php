@@ -8,6 +8,7 @@ use Xsolla\SDK\Storage\ProjectInterface;
 class Calculator
 {
     protected $client;
+    protected $project;
 
     public function __construct(Client $client, ProjectInterface $project)
     {
@@ -22,7 +23,7 @@ class Calculator
             array(
                 'query' => array(
                     'project_id' => $this->project->getProjectId(),
-                    'getype_id' => $geotypeId,
+                    'geotype_id' => $geotypeId,
                     'sum' => $sum
                 )
             )
@@ -38,7 +39,7 @@ class Calculator
             array(
                 'query' => array(
                     'project_id' => $this->project->getProjectId(),
-                    'getype_id' => $geotypeId,
+                    'geotype_id' => $geotypeId,
                     'sum' => $sum
                 )
             )
