@@ -9,6 +9,7 @@ class User
     protected $v3;
     protected $email;
     protected $phone;
+    protected $userIP;
 
     function __construct($v1, $v2 = null, $v3 = null, $email = null, $phone = null)
     {
@@ -43,4 +44,10 @@ class User
     {
         return $this->v3;
     }
+
+    public function getUserIP()
+    {
+        return $this->userIP;
+    }
+
 }
