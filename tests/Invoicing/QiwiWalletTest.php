@@ -5,7 +5,8 @@ namespace Xsolla\SDK\Tests\Invoicing;
 
 use Xsolla\SDK\Invoicing\QiwiWallet;
 
-class QiwiWalletTest extends MobilePaymentTest {
+class QiwiWalletTest extends MobilePaymentTest
+{
     protected $qiwiWallet;
     protected $requestMock;
     protected $responseMock;
@@ -13,9 +14,9 @@ class QiwiWalletTest extends MobilePaymentTest {
     protected $projectMock;
     protected $mobilePayment;
     protected $userMock;
-    protected $url =  'invoicing/index.php';
+    protected $url = 'invoicing/index.php';
 
-    protected  $queryParamsCalculateWithSum = array(
+    protected $queryParamsCalculateWithSum = array(
         'command' => 'calculate',
         'project' => 'projectId',
         'phone' => 'phone',
@@ -41,7 +42,6 @@ class QiwiWalletTest extends MobilePaymentTest {
         'out' => '100',
         'phone' => 'phone',
         'userip' => 'userIP',
-        'email' => 'support@xsolla.com',
         'ps' => 'qiwi',
     );
 
@@ -105,9 +105,8 @@ class QiwiWalletTest extends MobilePaymentTest {
         'out' => '100',
         'phone' => 'phone',
         'userip' => 'userIP',
-        'email' => 'support@xsolla.com',
         'ps' => 'qiwi'
-        );
+    );
     protected $queryParamsWithoutPs = array(
         'command' => 'invoice',
         'project' => 'projectId',
@@ -159,72 +158,92 @@ class QiwiWalletTest extends MobilePaymentTest {
             <failUrl>failUrl</failUrl>
         </response>';
 
-    public function setUp() {
+
+    public function setUp()
+    {
         $this->requestMock = $this->getMock('\Guzzle\Http\Message\RequestInterface', [], [], '', false);
         $this->responseMock = $this->getMock('\Guzzle\Http\Message\Response', [], [], '', false);
         $this->clientMock = $this->getMock('\Guzzle\Http\Client', [], [], '', false);
         $this->requestMock->expects($this->any())->method('send')->will($this->returnValue($this->responseMock));
 
-        $this->projectMock = $this->getMock('\Xsolla\SDK\Storage\ProjectInterface', ['getProjectId','getSecretKey'], [], '', false);
+        $this->projectMock = $this->getMock(
+            '\Xsolla\SDK\Storage\ProjectInterface',
+            ['getProjectId', 'getSecretKey'],
+            [],
+            '',
+            false
+        );
         $this->projectMock->expects($this->any())->method('getProjectId')->will($this->returnValue('projectId'));
         $this->projectMock->expects($this->any())->method('getSecretKey')->will($this->returnValue('key'));
 
-        $this->userMock = $this->getMock('\Xsolla\SDK\User',[],[],'',false);
+        $this->userMock = $this->getMock('\Xsolla\SDK\User', [], [], '', false);
 
         $this->userMock->expects($this->any())->method('getUserIP')->will($this->returnValue('userIP'));
         $this->userMock->expects($this->any())->method('getV1')->will($this->returnValue('v1'));
         $this->userMock->expects($this->any())->method('getV2')->will($this->returnValue('v2'));
         $this->userMock->expects($this->any())->method('getV3')->will($this->returnValue('v3'));
+        $this->userMock->expects($this->any())->method('getPhone')->will($this->returnValue('phone'));
 
-        $this->invoiceMock = $this->getMock('\Xsolla\SDK\Invoice',[],[],'',false);
+        $this->invoiceMock = $this->getMock('\Xsolla\SDK\Invoice', [], [], '', false);
 
         $this->mobilePayment = new QiwiWallet($this->clientMock, $this->projectMock);
 
     }
+
     public function testCreateInvoiceWithoutEmail()
     {
         $this->invoiceMock->expects($this->any())->method('getSum')->will($this->returnValue('10'));
         $this->invoiceMock->expects($this->any())->method('getOut')->will($this->returnValue('100'));
         $this->userMock->expects($this->any())->method('getEmail')->will($this->returnValue(''));
 
-        $this->responseMock->expects($this->once())->method('getBody')->will($this->returnValue($this->responseCreateInvoiceWithoutEmail));
+        $this->responseMock->expects($this->once())->method('getBody')->will(
+            $this->returnValue($this->responseCreateInvoiceWithoutEmail)
+        );
 
         $signString = $this->createSignString($this->queryParamsWithoutEmail);
-        $this->queryParamsWithoutEmail['md5'] = md5($signString.$this->projectMock->getSecretKey());
+        $this->queryParamsWithoutEmail['md5'] = md5($signString . $this->projectMock->getSecretKey());
 
         $this->clientMock->expects($this->once())
             ->method('get')
             ->with(
-               $this->url,
+                $this->url,
                 array(),
-                array('query' => $this->queryParamsWithoutEmail))
+                array('query' => $this->queryParamsWithoutEmail)
+            )
             ->will($this->returnValue($this->requestMock));
 
-        $this->assertInstanceOf('\Xsolla\SDK\Invoice', $this->mobilePayment->createInvoice($this->userMock,$this->invoiceMock,'phone'));
+        $this->assertInstanceOf(
+            '\Xsolla\SDK\Invoice',
+            $this->mobilePayment->createInvoice($this->userMock, $this->invoiceMock)
+        );
     }
 
     public function testCreateInvoiceWithPS()
     {
-        $this->responseMock->expects($this->once())->method('getBody')->will($this->returnValue($this->responseCreateInvoiceWithPS));
+        $this->responseMock->expects($this->once())->method('getBody')->will(
+            $this->returnValue($this->responseCreateInvoiceWithPS)
+        );
         $this->clientMock->expects($this->once())
             ->method('get')
             ->will($this->returnValue($this->requestMock));
 
-        $this->mobilePayment->createInvoice($this->userMock,$this->invoiceMock,'phone');
+        $this->mobilePayment->createInvoice($this->userMock, $this->invoiceMock);
     }
 
     public function testCreateInvoiceWithoutPS()
     {
         $this->setExpectedException('\Xsolla\SDK\Exception\InvalidArgumentException');
-        $this->responseMock->expects($this->once())->method('getBody')->will($this->returnValue($this->responseCreateInvoiceWithoutPS));
+        $this->responseMock->expects($this->once())->method('getBody')->will(
+            $this->returnValue($this->responseCreateInvoiceWithoutPS)
+        );
         $signString = $this->createSignString($this->queryParamsWithoutPs);
-        $this->queryParamsWithoutPs['md5'] = md5($signString.$this->projectMock->getSecretKey());
+        $this->queryParamsWithoutPs['md5'] = md5($signString . $this->projectMock->getSecretKey());
 
         $this->clientMock->expects($this->once())
             ->method('get')
             ->will($this->returnValue($this->requestMock));
 
-        $this->mobilePayment->createInvoice($this->userMock,$this->invoiceMock,'phone');
+        $this->mobilePayment->createInvoice($this->userMock, $this->invoiceMock);
     }
 
 }

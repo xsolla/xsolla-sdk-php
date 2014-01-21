@@ -26,7 +26,7 @@ class MobilePayment
         $this->project = $project;
     }
 
-    public function createInvoice(User $user, Invoice $invoice, $phone = null)
+    public function createInvoice(User $user, Invoice $invoice)
     {
         $email = $user->getEmail();
         $queryParams = array(
@@ -37,12 +37,15 @@ class MobilePayment
             'v3' => $user->getV3(),
             'sum' => $invoice->getSum(),
             'out' => $invoice->getOut(),
-            'phone' => $phone,
-            'userip' => $user->getUserIP(),
-            'email' => (!empty($email) ? $email : 'support@xsolla.com'),
+            'phone' => $user->getPhone(),
+            'userip' => $user->getUserIP()
         );
 
-        $result = $this->send($queryParams, __DIR__.$this->xsd_path_invoice);
+        if (!empty($email)) {
+            $queryParams['email'] = $email;
+        }
+
+        $result = $this->send($queryParams, __DIR__ . $this->xsd_path_invoice);
 
         $this->checkCodeResult($result);
 
@@ -50,22 +53,22 @@ class MobilePayment
 
     }
 
-    public function calculate(Invoice $invoice, $phone = null)
+    public function calculate(User $user, Invoice $invoice)
     {
         $queryParams = array(
             'command' => 'calculate',
             'project' => $this->project->getProjectId(),
-            'phone'=> $phone
+            'phone' => $user->getPhone()
         );
 
         $userSum = $invoice->getSum();
-        if(!empty($userSum)){
+        if (!empty($userSum)) {
             $queryParams['sum'] = $userSum;
-        }else{
+        } else {
             $queryParams['out'] = $invoice->getOut();
         }
 
-        $result = $this->send($queryParams, __DIR__.$this->xsd_path_calculate);
+        $result = $this->send($queryParams, __DIR__ . $this->xsd_path_calculate);
 
         $this->checkCodeResult($result);
 
@@ -75,9 +78,8 @@ class MobilePayment
     protected function createSignString($params)
     {
         $signString = '';
-        foreach($params as $value)
-        {
-            $signString.=$value;
+        foreach ($params as $value) {
+            $signString .= $value;
         }
         return $signString;
     }
@@ -85,12 +87,11 @@ class MobilePayment
     protected function send(array $queryParams, $schemaFilename)
     {
         $signString = $this->createSignString($queryParams);
-        $queryParams['md5'] = md5($signString.$this->project->getSecretKey());
-        $request = $this->client->get($this->url,array(),array('query' => $queryParams));
+        $queryParams['md5'] = md5($signString . $this->project->getSecretKey());
+        $request = $this->client->get($this->url, array(), array('query' => $queryParams));
 
         $xsollaResponse = $request->send()->getBody();
-        if((new Xsd())->check($xsollaResponse,$schemaFilename))
-        {
+        if ((new Xsd())->check($xsollaResponse, $schemaFilename)) {
             $result = new \SimpleXMLElement($xsollaResponse);
             return $result;
         }
@@ -98,14 +99,12 @@ class MobilePayment
 
     protected function checkCodeResult($result)
     {
-        if($result->result == 3) {
-            throw new SecurityException((string)$result->comment, (int) $result->result);
-        }
-        elseif ($result->result == 1) {
-            throw new InternalServerException((string)$result->comment,(int)  $result->result);
-        }
-        elseif($result->result != 0){
-            throw new InvalidArgumentException((string)$result->comment, (int) $result->result);
+        if ($result->result == 3) {
+            throw new SecurityException((string)$result->comment, (int)$result->result);
+        } elseif ($result->result == 1) {
+            throw new InternalServerException((string)$result->comment, (int)$result->result);
+        } elseif ($result->result != 0) {
+            throw new InvalidArgumentException((string)$result->comment, (int)$result->result);
         }
     }
 }

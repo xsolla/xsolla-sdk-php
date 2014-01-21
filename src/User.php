@@ -11,13 +11,14 @@ class User
     protected $phone;
     protected $userIP;
 
-    function __construct($v1, $v2 = null, $v3 = null, $email = null, $phone = null)
+    function __construct($v1, $v2 = null, $v3 = null, $email = null, $phone = null, $userIp = null)
     {
         $this->email = $email;
         $this->phone = $phone;
         $this->v1 = $v1;
         $this->v2 = $v2;
         $this->v3 = $v3;
+        $this->userIP = $userIp;
     }
 
     public function getEmail()
@@ -48,6 +49,47 @@ class User
     public function getUserIP()
     {
         return $this->userIP;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @param string $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+
+
+    /**
+     * @param string $v2
+     */
+    public function setV2($v2)
+    {
+        $this->v2 = $v2;
+    }
+
+    /**
+     * @param string $v3
+     */
+    public function setV3($v3)
+    {
+        $this->v3 = $v3;
+    }
+
+    /**
+     * @param string $userIp
+     */
+    public function setUserIp($userIp)
+    {
+        $this->userIP = $userIp;
     }
 
 }
