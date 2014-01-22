@@ -2,55 +2,58 @@
 
 namespace Xsolla\SDK\Tests\Protocol\Command;
 
+use Xsolla\SDK\Exception\InvoiceNotBeRollbackException;
+use Xsolla\SDK\Exception\InvoiceNotFoundException;
 use Xsolla\SDK\Protocol\Command\Cancel;
 
-class CancelTest extends \PHPUnit_Framework_TestCase
+class CancelTest extends CommandTest
 {
-    const SECRETKEY = 'key';
-    /**
-     * @var Cancel
-     */
-    protected $cancel;
-    protected $projectMock;
-    protected $paymentsMock;
-    protected $requestMock;
+
+    protected $signParams = array('command', 'id');
 
     public function setUp()
     {
-        $this->paymentsMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsInterface');
-        $this->projectMock = $this->getMock('\Xsolla\SDK\Storage\ProjectInterface', ['getSecretKey']);
-        $this->requestMock = $this->getMock('\Symfony\Component\HttpFoundation\Request', [], [], '', false);
+        parent::setUp();
 
-        $this->projectMock->expects($this->once())->method('getSecretKey')->will($this->returnValue(self::SECRETKEY));
-
-        $this->cancel = new Cancel($this->projectMock, $this->paymentsMock);
+        $this->command = new Cancel($this->projectMock, $this->paymentsStandardMock);
     }
 
-    public function testCheckSign()
-    {
+
+    public function testCheckSign() {
         $request = array(
-            'command' => 'v1',
+            'command' => 'cancel',
             'id' => '456'
         );
-
-        $request['md5'] = md5($request['command'] . $request['id'] . self::SECRETKEY);
-        $this->requestMock->expects($this->any())->method('get')->will(
-            $this->returnCallback(
-                function ($name) use ($request) {
-                    return (isset($request[$name]) ? $request[$name] : null);
-                }
-            )
-        );
-
-        $this->assertTrue($this->cancel->checkSign($this->requestMock));
+        $this->checkSignTest($request);
     }
 
-    public function testCheckSignFalse()
-    {
-        $request['md5'] = md5('wrong sign');
-        $this->requestMock->expects($this->any())->method('get')->will($this->returnValue('1'));
 
-        $this->assertFalse($this->cancel->checkSign($this->requestMock));
+    public function testProcess()
+    {
+        $this->requestMock->expects($this->once())->method('get')->with('id')->will($this->returnValue('id'));
+        $this->paymentsStandardMock->expects($this->once())->method('cancel')->with('id')->will($this->returnValue(true));
+        $result = $this->command->process($this->requestMock);
+
+        $this->assertArrayHasKey('result', $result);
+        $this->assertEquals($result['result'], 0);
+    }
+
+    public function testProcessInvoiceNotFound() {
+        $this->requestMock->expects($this->once())->method('get')->with('id')->will($this->returnValue('id'));
+        $this->paymentsStandardMock->expects($this->once())->method('cancel')->with('id')->will($this->throwException(new InvoiceNotFoundException()));
+        $result = $this->command->process($this->requestMock);
+
+        $this->assertArrayHasKey('result', $result);
+        $this->assertEquals($result['result'], 2);
+    }
+
+    public function testProcessInvoiceNotBeRollback() {
+        $this->requestMock->expects($this->once())->method('get')->with('id')->will($this->returnValue('id'));
+        $this->paymentsStandardMock->expects($this->once())->method('cancel')->with('id')->will($this->throwException(new InvoiceNotBeRollbackException()));
+        $result = $this->command->process($this->requestMock);
+
+        $this->assertArrayHasKey('result', $result);
+        $this->assertEquals($result['result'], 7);
     }
 }
  

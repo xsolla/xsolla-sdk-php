@@ -11,33 +11,47 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     protected $factory;
     protected $projectMock;
-    protected $paymentsMock;
+    protected $paymentsCashMock;
+    protected $paymentsStandardMock;
     protected $usersMock;
 
-    protected $protocolMock;
+    protected $protocolStandardMock;
+    protected $protocolCashMock;
 
     public function setUp() {
         $this->factory = new Factory();
         $this->usersMock = $this->getMock('\Xsolla\SDK\Storage\UsersInterface');
         $this->projectMock = $this->getMock('\Xsolla\SDK\Storage\ProjectInterface');
-        $this->paymentsMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsInterface');
-        $this->protocolMock = $this->getMock('\Xsolla\SDK\Protocol\Standard', [], [], '', false);
+        $this->paymentsCashMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsCashInterface');
+        $this->paymentsStandardMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsStandardInterface');
+        $this->protocolStandardMock = $this->getMock('\Xsolla\SDK\Protocol\Standard', [], [], '', false);
+        $this->protocolCashMock = $this->getMock('\Xsolla\SDK\Protocol\Cash', [], [], '', false);
 
-        $this->protocolMock->expects($this->any())->method('getProject')->will($this->returnValue($this->projectMock));
-        $this->protocolMock->expects($this->any())->method('getUsers')->will($this->returnValue($this->usersMock));
-        $this->protocolMock->expects($this->any())->method('getPayments')->will($this->returnValue($this->paymentsMock));
+        $this->protocolStandardMock->expects($this->any())->method('getProject')->will($this->returnValue($this->projectMock));
+        $this->protocolStandardMock->expects($this->any())->method('getUsers')->will($this->returnValue($this->usersMock));
+        $this->protocolStandardMock->expects($this->any())->method('getPayments')->will($this->returnValue($this->paymentsStandardMock));
+
+        $this->protocolCashMock->expects($this->any())->method('getProject')->will($this->returnValue($this->projectMock));
+        $this->protocolCashMock->expects($this->any())->method('getUsers')->will($this->returnValue($this->usersMock));
+        $this->protocolCashMock->expects($this->any())->method('getPayments')->will($this->returnValue($this->paymentsCashMock));
     }
 
-    public function testGetWrongCommand() {
-
+    public function testGetWrongCommand()
+    {
         $this->setExpectedException('\Xsolla\SDK\Exception\WrongCommandException');
-        $this->factory->getCommand($this->protocolMock, 'wrongCommand');
+        $this->factory->getCommand($this->protocolStandardMock, 'wrongCommand');
     }
 
-    public function testGetPay() {
-        $this->protocolMock->expects($this->once())->method('getProtocol')->will($this->returnValue('Cash'));
+    public function testGetPayCash() {
+        $this->protocolCashMock->expects($this->once())->method('getProtocol')->will($this->returnValue('Cash'));
 
-        $this->assertInstanceOf('\Xsolla\SDK\Protocol\Command\PayCash', $this->factory->getCommand($this->protocolMock, 'pay'));
+        $this->assertInstanceOf('\Xsolla\SDK\Protocol\Command\PayCash', $this->factory->getCommand($this->protocolCashMock, 'pay'));
+    }
+
+    public function testGetPayStandard() {
+        $this->protocolStandardMock->expects($this->exactly(2))->method('getProtocol')->will($this->returnValue('Standard'));
+
+        $this->assertInstanceOf('\Xsolla\SDK\Protocol\Command\PayStandard', $this->factory->getCommand($this->protocolStandardMock, 'pay'));
     }
 }
  

@@ -13,10 +13,6 @@ class Check extends Command
      * @var UsersInterface
      */
     protected $users;
-    /**
-     * @var ProjectInterface
-     */
-    protected $project;
 
     function __construct(ProjectInterface $project, UsersInterface $users)
     {
@@ -40,7 +36,10 @@ class Check extends Command
 
     public function checkSign(Request $request)
     {
-        $signString = $request->get('command').$request->get('v1').$this->project->getSecretKey();
-        return (md5($signString) == $request->get('md5'));
+        return ($this->generateSign($request, array('command', 'v1')) == $request->get('md5'));
+    }
+
+    public function getRequiredParams() {
+        return array('command', 'v1', 'md5');
     }
 }

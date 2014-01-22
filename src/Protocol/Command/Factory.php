@@ -18,25 +18,22 @@ class Factory
      */
     public function getCommand(Protocol $protocol, $command)
     {
-        if($protocol->getProtocol() == Cash::PROTOCOL) {
-            if($command == 'pay') {
+        if ($protocol->getProtocol() == Cash::PROTOCOL) {
+            if ($command == 'pay') {
                 return new PayCash($protocol->getProject(), $protocol->getPayments());
-            }
-            else if ($command == 'cancel') {
+            } elseif ($command == 'cancel') {
                 return new Cancel($protocol->getProject(), $protocol->getUsers());
             }
-        }
-        else if ($protocol->getProtocol() == Standard::PROTOCOL) {
-            if($command == 'check') {
+        } elseif ($protocol->getProtocol() == Standard::PROTOCOL) {
+            if ($command == 'check') {
                 return new Check($protocol->getProject(), $protocol->getUsers());
-            }
-            elseif($command == 'pay') {
-                return new PayStandard($protocol->getProject(), $protocol->getPayments());
-            }
-            elseif($command == 'cancel') {
+            } elseif ($command == 'pay') {
+                return new PayStandard($protocol->getProject(), $protocol->getUsers(), $protocol->getPayments());
+            } elseif ($command == 'cancel') {
                 return new Cancel($protocol->getProject(), $protocol->getUsers());
             }
         }
+
         throw new WrongCommandException;
     }
 }

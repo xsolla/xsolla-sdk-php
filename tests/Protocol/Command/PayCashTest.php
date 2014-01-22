@@ -6,49 +6,67 @@ namespace Xsolla\SDK\Tests\Protocol\Command;
 
 use Xsolla\SDK\Protocol\Command\PayCash;
 
-class PayCashTest extends \PHPUnit_Framework_TestCase
+class PayCashTest extends CommandTest
 {
-    const SECRETKEY = 'key';
-    /**
-     * @var PayCash
-     */
-    protected $payCash;
-    protected $projectMock;
-    protected $paymentsMock;
-    protected $requestMock;
+    protected $signParams = array('v1', 'amount', 'currency', 'id');
+    protected $signParamName = 'sign';
 
-    public function setUp() {
-        $this->paymentsMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsInterface');
-        $this->projectMock = $this->getMock('\Xsolla\SDK\Storage\ProjectInterface', ['getSecretKey']);
-        $this->requestMock = $this->getMock('\Symfony\Component\HttpFoundation\Request', [], [], '', false);
-        $this->projectMock->expects($this->once())->method('getSecretKey')->will($this->returnValue(self::SECRETKEY));
-
-
-        $this->payCash = new PayCash($this->projectMock, $this->paymentsMock);
+    public function setUp()
+    {
+        parent::setUp();
+        $this->command = new PayCash($this->projectMock, $this->paymentsCashMock);
     }
 
-    public function testCheckSign() {
+    public function testCheckSign()
+    {
         $request = array(
             'v1' => 'v1',
             'amount' => '123',
             'currency' => 'RUR',
             'id' => '456'
         );
-
-        $request['sign'] = md5($request['v1'].$request['amount'].$request['currency'].$request['id'].self::SECRETKEY);
-        $this->requestMock->expects($this->any())->method('get')->will($this->returnCallback(
-                function($name) use ($request) {
-                    return (isset($request[$name])?$request[$name]:null);
-                }
-            ));
-
-        $this->assertTrue($this->payCash->checkSign($this->requestMock));
+        $this->checkSignTest($request);
     }
 
-    public function testCheckSignFalse() {
-        $request['sign'] = md5('wrong sign');
-        $this->requestMock->expects($this->any())->method('get')->will($this->returnValue('1'));
 
-        $this->assertFalse($this->payCash->checkSign($this->requestMock));
+    public function testProcess() {
+        $request = array(
+            'id' => 'id',
+            'amount' => 'amount',
+            'v1' => 'v1',
+            'v2' => 'v2',
+            'v3' => 'v3',
+            'currency' => 'currency',
+            'date' => 'date',
+            'userAmount' => 'userAmount',
+            'userCurrency' => 'userCurrency',
+            'transferAmount' => 'transferAmount',
+            'transferCurrency' => 'transferCurrency',
+            'pid' => 'pid',
+            'geotype' => 'geotype'  
+        );
+        $this->requestMock->expects($this->any())->method('get')->will(
+            $this->returnCallback(
+                function ($name) use ($request) {
+                    return (isset($request[$name]) ? $request[$name] : null);
+                }
+            )
+        );
+
+        $this->paymentsCashMock->expects($this->once())->method('pay')->will($this->returnValue('id'));
+        $result = $this->command->process($this->requestMock);
+
+        $this->assertArrayHasKey('result', $result);
+        $this->assertEquals('0', $result['result']);
+        $this->assertEquals('id', $result['fields']['id_shop']);
+    }
+
+    public function testProcessWithFail() {
+        $this->paymentsCashMock->expects($this->once())->method('pay')->will($this->throwException(new \Exception('Message', 1)));
+        $result = $this->command->process($this->requestMock);
+
+        $this->assertArrayHasKey('result', $result);
+        $this->assertEquals('5', $result['result']);
+        $this->assertEquals('Message', $result['comment']);
     }
 }
