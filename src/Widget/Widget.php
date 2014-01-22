@@ -74,7 +74,7 @@ abstract class Widget implements WidgetInterface
 
         foreach ($requiredParams as $key) {
             if (!isset($params[$key])) {
-                throw new InvalidArgumentException('Param "' . $key . '" is not entered', 1);
+                throw new InvalidArgumentException(sprintf('Parameter %s is not defined',$key));
             }
         }
 
