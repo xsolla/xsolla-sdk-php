@@ -2,12 +2,15 @@
 
 namespace Xsolla\SDK\Widget;
 
-use Xsolla\SDK\Storage\ProjectInterface;
-
-class Paystation implements WidgetInterface
+class Paystation extends Widget
 {
-    protected $project;
-    public function __construct(ProjectInterface $project) {
-        $this->project = $project;
+    public function getMarketplace()
+    {
+        return 'paystation';
+    }
+
+    public function getRequiredParams()
+    {
+        return array('project');
     }
 } 
