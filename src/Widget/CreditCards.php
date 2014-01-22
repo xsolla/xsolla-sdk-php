@@ -3,7 +3,7 @@
 namespace Xsolla\SDK\Widget;
 
 
-class Directpayment extends Paystation
+class CreditCards extends Paystation
 {
     public function getMarketplace()
     {
@@ -15,4 +15,8 @@ class Directpayment extends Paystation
         return array('project','pid','marketplace');
     }
 
+    public function getDefaultParams()
+    {
+        return array('pid'=> 1380, 'theme' => 201);
+    }
 }
