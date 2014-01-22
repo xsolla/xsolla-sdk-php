@@ -2,10 +2,14 @@
 
 namespace Xsolla\SDK\Storage;
 
+use Xsolla\SDK\Exception\InvoiceNotFoundException;
+use Xsolla\SDK\Exception\InvoiceNotBeRollbackException;
+
 interface PaymentsInterface
 {
-
-    public function pay();
-
-    public function cancel();
-} 
+    /**
+     * @throws InvoiceNotFoundException
+     * @throws InvoiceNotBeRollbackException
+     */
+    public function cancel($invoiceId);
+}

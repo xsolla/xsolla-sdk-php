@@ -75,7 +75,7 @@ class MobilePayment
         return new Invoice((string)$result->out, (string)$result->sum);
     }
 
-    protected function createSignString($params)
+    protected function createSignString(array $params)
     {
         $signString = '';
         foreach ($params as $value) {

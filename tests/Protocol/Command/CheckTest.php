@@ -4,27 +4,17 @@ namespace Xsolla\SDK\Tests\Protocol\Command;
 
 use Xsolla\SDK\Protocol\Command\Check;
 
-class CheckTest extends \PHPUnit_Framework_TestCase
+class CheckTest extends CommandTest
 {
-    const SECRETKEY = 'key';
-    /**
-     * @var Check
-     */
-    protected $check;
-    protected $projectMock;
-    protected $usersMock;
-    protected $requestMock;
+
+    protected $signParams = array('command', 'v1');
 
     public function setUp()
     {
-        $this->usersMock = $this->getMock('\Xsolla\SDK\Storage\UsersInterface');
-        $this->projectMock = $this->getMock('\Xsolla\SDK\Storage\ProjectInterface', ['getSecretKey']);
-        $this->requestMock = $this->getMock('\Symfony\Component\HttpFoundation\Request', [], [], '', false);
-
-        $this->projectMock->expects($this->once())->method('getSecretKey')->will($this->returnValue(self::SECRETKEY));
-
-        $this->check = new Check($this->projectMock, $this->usersMock);
+        parent::setUp();
+        $this->command = new Check($this->projectMock, $this->usersMock);
     }
+
 
     public function testCheckSign()
     {
@@ -32,25 +22,30 @@ class CheckTest extends \PHPUnit_Framework_TestCase
             'command' => 'check',
             'v1' => 'v1'
         );
-
-        $request['md5'] = md5($request['command'] . $request['v1'] . self::SECRETKEY);
-        $this->requestMock->expects($this->any())->method('get')->will(
-            $this->returnCallback(
-                function ($name) use ($request) {
-                    return (isset($request[$name]) ? $request[$name] : null);
-                }
-            )
-        );
-
-        $this->assertTrue($this->check->checkSign($this->requestMock));
+        $this->checkSignTest($request);
     }
 
-    public function testCheckSignFalse()
-    {
-        $request['md5'] = md5('wrong sign');
-        $this->requestMock->expects($this->any())->method('get')->will($this->returnValue('1'));
+    protected function prepareProcess($return) {
+        $this->requestMock->expects($this->at(0))->method('get')->with('v1')->will($this->returnValue('v1'));
+        $this->requestMock->expects($this->at(1))->method('get')->with('v2')->will($this->returnValue('v2'));
+        $this->requestMock->expects($this->at(2))->method('get')->with('v3')->will($this->returnValue('v3'));
 
-        $this->assertFalse($this->check->checkSign($this->requestMock));
+        $this->usersMock->expects($this->once())->method('check')->with('v1', 'v2', 'v3')->will($this->returnValue($return));
+    }
+    public function testProcess()
+    {
+        $this->prepareProcess(true);
+        $result = $this->command->process($this->requestMock);
+        $this->assertArrayHasKey('result', $result);
+        $this->assertEquals('0', $result['result']);
+    }
+
+    public function testProcessNicknameNotFound()
+    {
+        $this->prepareProcess(false);
+        $result = $this->command->process($this->requestMock);
+        $this->assertArrayHasKey('result', $result);
+        $this->assertEquals('7', $result['result']);
     }
 }
  

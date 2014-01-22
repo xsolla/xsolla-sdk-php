@@ -286,7 +286,7 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    protected function createSignString($params)
+    protected function createSignString(array $params)
     {
         $signString = '';
         foreach ($params as $value) {
