@@ -13,4 +13,11 @@
         stopOnFailure               = "false"
         bootstrap                   = "./vendor/autoload.php"
         >
+
+    <testsuites>
+        <testsuite name="default test suite">
+            <directory>./tests</directory>
+        </testsuite>
+    </testsuites>
+
 </phpunit>
