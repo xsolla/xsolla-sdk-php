@@ -2,6 +2,7 @@
 
 namespace Xsolla\SDK\User;
 
+use Symfony\Component\HttpFoundation\Response;
 use Guzzle\Http\Client;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use Xsolla\SDK\Exception\InvalidArgumentException;
@@ -33,6 +34,11 @@ class Subscriptions
         $this->isTest = $isTest;
     }
 
+    /**
+     * @param User $user
+     * @param int $type One of Subscriptions::TYPE_* constants
+     * @return Subscription[]
+     */
     public function search(User $user, $type = null)
     {
         $parameters = array(
@@ -103,7 +109,7 @@ class Subscriptions
         );
 
         try {
-            return ($request->send()->getStatusCode() == 204);
+            return Response::HTTP_NO_CONTENT == $request->send()->getStatusCode();
         } catch (ClientErrorResponseException $e) {
             $this->processException($e);
         }
