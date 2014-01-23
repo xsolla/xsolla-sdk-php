@@ -39,10 +39,9 @@ abstract class Widget implements WidgetInterface
                 unset($params[$key]);
             }
         }
-        if ($this->checkRequiredParams($params)) {
-            $params['sign'] = $this->generateSign($params);
-            return $this->baseUrl.http_build_query($params);
-        }
+        $this->checkRequiredParams($params);
+        $params['sign'] = $this->generateSign($params);
+        return $this->baseUrl.http_build_query($params);
     }
 
     private function signParamList()
