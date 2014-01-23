@@ -91,10 +91,9 @@ class MobilePayment
         $request = $this->client->get($this->url, array(), array('query' => $queryParams));
 
         $xsollaResponse = $request->send()->getBody();
-        if ((new Xsd())->check($xsollaResponse, $schemaFilename)) {
-            $result = new \SimpleXMLElement($xsollaResponse);
-            return $result;
-        }
+        (new Xsd())->check($xsollaResponse, $schemaFilename);
+        $result = new \SimpleXMLElement($xsollaResponse);
+        return $result;
     }
 
     protected function checkCodeResult($result)

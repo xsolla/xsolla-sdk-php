@@ -25,26 +25,26 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
 
     public function testCalculateOut()
     {
-        $this->generateAsserts('in');
+        $this->generateAsserts('in', '/calc/inn.php');
 
         $this->assertEquals('in', $this->calculator->calculateIn('geotypeId', 'sum'));
     }
 
     public function testCalculateIn()
     {
-        $this->generateAsserts('sum');
+        $this->generateAsserts('sum',  '/calc/out.php');
 
-        $this->assertEquals('sum', $this->calculator->calculateIn('geotypeId', 'sum'));
+        $this->assertEquals('sum', $this->calculator->calculateOut('geotypeId', 'sum'));
     }
 
-    protected function generateAsserts($return)
+    protected function generateAsserts($return, $url)
     {
         $this->responseMock->expects($this->once())->method('getBody')->will($this->returnValue($return));
 
         $this->clientMock->expects($this->once())
             ->method('get')
             ->with(
-                '/calc/inn.php',
+                $url,
                 array(),
                 array(
                     'query' => array(

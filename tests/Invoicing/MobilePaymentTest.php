@@ -2,8 +2,8 @@
 
 namespace Xsolla\SDK\Tests\Invoicing;
 
-use Guzzle\Service\Client;
 use Xsolla\SDK\Invoicing\MobilePayment;
+use Xsolla\SDK\Validator\Xsd;
 
 class MobilePaymentTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,6 +17,7 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
     protected $invoiceMock;
 
     protected $url = 'mobile/payment/index.php';
+    protected $xsd_path_invoice;
 
     protected $queryParamsCalculateWithSum = array(
         'command' => 'calculate',
@@ -337,5 +338,27 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
 
         $this->mobilePayment->createInvoice($this->userMock, $this->invoiceMock);
     }
+
+    public function testCheckXSDWithWrongFile()
+    {
+        $this->setExpectedException('\Xsolla\SDK\Exception\InvalidResponseException');
+        (new Xsd())->check('',__DIR__ . $this->xsd_path_invoice.'1');
+
+    }
+
+    public function testCheckXSDWithWrongXML()
+    {
+        $this->setExpectedException('\Xsolla\SDK\Exception\InvalidResponseException');
+        (new Xsd())->check('1',__DIR__ . $this->xsd_path_invoice);
+
+    }
+
+    public function testCheckXSDWithWrongXMLSchemaValidate()
+    {
+        $this->setExpectedException('\Xsolla\SDK\Exception\InvalidResponseException');
+        (new Xsd())->check('<response><result>test</result></response>',__DIR__ . $this->xsd_path_invoice);
+
+    }
+
 }
  
