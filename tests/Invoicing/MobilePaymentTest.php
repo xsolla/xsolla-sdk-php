@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\tests\Invoicing;
+namespace Xsolla\SDK\Tests\Invoicing;
 
 use Xsolla\SDK\Invoicing\MobilePayment;
 use Xsolla\SDK\Validator\Xsd;

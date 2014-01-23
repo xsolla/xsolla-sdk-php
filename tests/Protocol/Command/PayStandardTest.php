@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\tests\Protocol\Command;
+namespace Xsolla\SDK\Tests\Protocol\Command;
 
 use Xsolla\SDK\Protocol\Command\PayStandard;
 

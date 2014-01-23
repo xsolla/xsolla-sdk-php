@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\tests\Protocol;
+namespace Xsolla\SDK\Tests\Protocol;
 
 class StandardTest extends ProtocolTest
 {

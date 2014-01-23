@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\tests\Widget;
+namespace Xsolla\SDK\Tests\Widget;
 
 use Xsolla\SDK\Widget\CreditCards;
 use Xsolla\SDK\Widget\Directpayment;
