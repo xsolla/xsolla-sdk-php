@@ -7,7 +7,7 @@ use Xsolla\SDK\User;
 
 include_once '../vendor/autoload.php';
 
-$user = new User('v1', 'v2', 'v3', 'renatbilalov@gmail.com');
+$user = new User('v1', 'v2', 'v3', 'example@example.com');
 
 $number = new Number(new Client('https://api.xsolla.com'), new Project());
 echo $number->getNumber($user);
