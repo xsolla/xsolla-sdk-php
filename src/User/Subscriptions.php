@@ -55,12 +55,14 @@ class Subscriptions
 
         try {
             $response = $request->send();
-        } catch (\Exception $e) {
+        } catch (ClientErrorResponseException $e) {
             $this->processException($e);
         }
 
         $subscriptions = array();
-        foreach (json_decode($response->getBody(true), true) as $row) {
+        $rows = json_decode($response->getBody(true), true);
+
+        foreach ($rows['subscriptions'] as $row) {
             $subscriptions[] = new Subscription($row['id'], $row['name'], $row['type'], $row['currency']);
         }
         return $subscriptions;
@@ -82,8 +84,8 @@ class Subscriptions
         );
 
         try {
-            $result = json_decode($request->send()->getBody(true));
-        } catch (\Exception $e) {
+            $result = json_decode($request->send()->getBody(true), true);
+        } catch (ClientErrorResponseException $e) {
             $this->processException($e);
         }
         return $result['id'];
@@ -103,7 +105,7 @@ class Subscriptions
 
         try {
             return ($request->send()->getStatusCode() == 204);
-        } catch (\Exception $e) {
+        } catch (ClientErrorResponseException $e) {
             $this->processException($e);
         }
     }
@@ -116,7 +118,7 @@ class Subscriptions
             $signString .= $key . '=' . $val;
         }
 
-        return md5($signString . $this->project->getSecretKey() . ' 11');
+        return md5($signString . $this->project->getSecretKey());
     }
 
     public function processException(ClientErrorResponseException $e)

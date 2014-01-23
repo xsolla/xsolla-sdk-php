@@ -7,10 +7,10 @@ use Xsolla\SDK\Storage\Project;
 use Xsolla\SDK\User\Subscriptions;
 use Xsolla\SDK\User;
 
-include '../vendor/autoload.php';
+include __DIR__.'/../vendor/autoload.php';
 
 $user = new User('v1', 'v2');
-$subscription = new Subscriptions(new Client('http://api-r-bilalov.user'), new Project());
+$subscription = new Subscriptions(new Client('https://api.xsolla.com'), new Project());
 
 /**
  * Поиск подписок
