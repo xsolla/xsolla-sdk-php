@@ -5,7 +5,7 @@ use Xsolla\SDK\Storage\Project;
 use Xsolla\SDK\User;
 use Xsolla\SDK\Widget\Paystation;
 
-include '../vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
 $user = new User('v1');
 $invoice = new Invoice(100);

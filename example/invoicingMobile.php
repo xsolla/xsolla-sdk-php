@@ -7,7 +7,7 @@ use Xsolla\SDK\User;
 
 use \Guzzle\Http\Client;
 
-include '../vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
 $user = new User('username');
 $user->setPhone('79120000000');

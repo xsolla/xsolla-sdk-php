@@ -2,7 +2,7 @@
 use \Xsolla\SDK\Calculator;
 use \Guzzle\Http\Client;
 use \Xsolla\SDK\Storage\Project;
-include '../vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
 $calculator = new Calculator(new Client('https://api.xsolla.com'), new Project());
 
