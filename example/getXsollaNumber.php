@@ -5,7 +5,7 @@ use Xsolla\SDK\Storage\Project;
 use Xsolla\SDK\User\Number;
 use Xsolla\SDK\User;
 
-include_once '../vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
 $user = new User('v1', 'v2', 'v3', 'example@example.com');
 
