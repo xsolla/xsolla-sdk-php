@@ -11,6 +11,6 @@
         convertWarningsToExceptions = "true"
         processIsolation            = "false"
         stopOnFailure               = "false"
-        bootstrap                   = "./tests/bootstrap.php"
+        bootstrap                   = "./vendor/autoload.php"
         >
 </phpunit>
