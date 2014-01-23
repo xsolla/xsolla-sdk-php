@@ -20,9 +20,8 @@ class Subscriptions
 
     const URL = '/v1/subscriptions';
 
-    /**
-     * @var ProjectInterface
-     */
+    const ERROR_CODE_INVALID_SIGN = 23;
+
     protected $project;
     protected $client;
     protected $isTest;
@@ -124,7 +123,7 @@ class Subscriptions
     public function processException(ClientErrorResponseException $e)
     {
         $response = json_decode($e->getResponse()->getBody(true), true);
-        if ($response['error']['code'] == 23) {
+        if (self::ERROR_CODE_INVALID_SIGN == $response['error']['code']) {
             throw new SecurityException($response['error']['message'], $response['error']['code']);
         }
         throw new InvalidArgumentException($response['error']['message'], $response['error']['code']);
