@@ -5,7 +5,6 @@ use Xsolla\SDK\Protocol\Cash;
 use Xsolla\SDK\Protocol\Command\Factory as CommandFactory;
 use Xsolla\SDK\Response\Xml;
 use Xsolla\SDK\Security;
-use Xsolla\SDK\Storage\Payments;
 use Xsolla\SDK\Storage\PaymentsCash;
 use Xsolla\SDK\Storage\Project;
 use Xsolla\SDK\Storage\Users;
@@ -18,4 +17,3 @@ $protocol = new Cash(new Security(), new CommandFactory(), new Project(), new Us
 
 $response = (new Xml())->get($protocol->getResponse($request));
 $response->send();
-

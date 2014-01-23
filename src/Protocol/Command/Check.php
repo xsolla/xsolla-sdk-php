@@ -14,7 +14,7 @@ class Check extends Command
      */
     protected $users;
 
-    function __construct(ProjectInterface $project, UsersInterface $users)
+    public function __construct(ProjectInterface $project, UsersInterface $users)
     {
         $this->users = $users;
         $this->project = $project;
@@ -39,7 +39,8 @@ class Check extends Command
         return ($this->generateSign($request, array('command', 'v1')) == $request->get('md5'));
     }
 
-    public function getRequiredParams() {
+    public function getRequiredParams()
+    {
         return array('command', 'v1', 'md5');
     }
 }

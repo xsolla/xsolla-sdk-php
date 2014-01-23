@@ -2,10 +2,8 @@
 
 namespace Xsolla\SDK\User;
 
-
 use Guzzle\Http\Client;
 use Guzzle\Http\Exception\ClientErrorResponseException;
-use Guzzle\Http\Exception\RequestException;
 use Xsolla\SDK\Exception\InvalidArgumentException;
 use Xsolla\SDK\Exception\SecurityException;
 use Xsolla\SDK\Invoice;
@@ -65,6 +63,7 @@ class Subscriptions
         foreach ($rows['subscriptions'] as $row) {
             $subscriptions[] = new Subscription($row['id'], $row['name'], $row['type'], $row['currency']);
         }
+
         return $subscriptions;
     }
 
@@ -88,6 +87,7 @@ class Subscriptions
         } catch (ClientErrorResponseException $e) {
             $this->processException($e);
         }
+
         return $result['id'];
     }
 
@@ -129,4 +129,4 @@ class Subscriptions
         }
         throw new InvalidArgumentException($response['error']['message'], $response['error']['code']);
     }
-} 
+}

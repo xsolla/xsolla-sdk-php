@@ -1,8 +1,6 @@
 <?php
 
-
-namespace Xsolla\SDK\Tests\Protocol\Command;
-
+namespace Xsolla\SDK\tests\Protocol\Command;
 
 use Xsolla\SDK\Protocol\Command\PayCash;
 
@@ -28,8 +26,8 @@ class PayCashTest extends CommandTest
         $this->checkSignTest($request);
     }
 
-
-    public function testProcess() {
+    public function testProcess()
+    {
         $request = array(
             'id' => 'id',
             'amount' => 'amount',
@@ -43,7 +41,7 @@ class PayCashTest extends CommandTest
             'transferAmount' => 'transferAmount',
             'transferCurrency' => 'transferCurrency',
             'pid' => 'pid',
-            'geotype' => 'geotype'  
+            'geotype' => 'geotype'
         );
         $this->requestMock->expects($this->any())->method('get')->will(
             $this->returnCallback(
@@ -61,7 +59,8 @@ class PayCashTest extends CommandTest
         $this->assertEquals('id', $result['fields']['id_shop']);
     }
 
-    public function testProcessWithFail() {
+    public function testProcessWithFail()
+    {
         $this->paymentsCashMock->expects($this->once())->method('pay')->will($this->throwException(new \Exception('Message', 1)));
         $result = $this->command->process($this->requestMock);
 

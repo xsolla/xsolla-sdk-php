@@ -1,7 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\Tests\Invoicing;
-
+namespace Xsolla\SDK\tests\Invoicing;
 
 use Xsolla\SDK\Invoicing\QiwiWallet;
 
@@ -158,7 +157,6 @@ class QiwiWalletTest extends MobilePaymentTest
             <failUrl>failUrl</failUrl>
         </response>';
 
-
     public function setUp()
     {
         $this->requestMock = $this->getMock('\Guzzle\Http\Message\RequestInterface', [], [], '', false);
@@ -247,4 +245,3 @@ class QiwiWalletTest extends MobilePaymentTest
     }
 
 }
- 

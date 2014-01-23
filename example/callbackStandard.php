@@ -5,7 +5,6 @@ use Xsolla\SDK\Protocol\Command\Factory as CommandFactory;
 use Xsolla\SDK\Protocol\Standard;
 use Xsolla\SDK\Response\Xml;
 use Xsolla\SDK\Security;
-use Xsolla\SDK\Storage\Payments;
 use Xsolla\SDK\Storage\PaymentsStandard;
 use Xsolla\SDK\Storage\Project;
 use Xsolla\SDK\Storage\Users;

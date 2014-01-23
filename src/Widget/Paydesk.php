@@ -2,7 +2,6 @@
 
 namespace Xsolla\SDK\Widget;
 
-
 class Paydesk extends Paystation
 {
     public function getMarketplace()

@@ -2,7 +2,6 @@
 
 namespace Xsolla\SDK\User;
 
-
 use Guzzle\Http\Client;
 use Xsolla\SDK\Exception\InternalServerException;
 use Xsolla\SDK\Exception\InvalidArgumentException;
@@ -51,4 +50,4 @@ class Number
         }
 
     }
-} 
+}

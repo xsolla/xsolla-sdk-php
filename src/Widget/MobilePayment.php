@@ -8,7 +8,6 @@
 
 namespace Xsolla\SDK\Widget;
 
-
 class MobilePayment extends Paystation
 {
 
@@ -26,4 +25,4 @@ class MobilePayment extends Paystation
     {
         return array('pid'=> 1738,'theme' => 201);
     }
-} 
+}

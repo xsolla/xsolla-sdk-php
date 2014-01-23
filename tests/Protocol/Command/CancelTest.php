@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\Tests\Protocol\Command;
+namespace Xsolla\SDK\tests\Protocol\Command;
 
 use Xsolla\SDK\Exception\InvoiceNotBeRollbackException;
 use Xsolla\SDK\Exception\InvoiceNotFoundException;
@@ -18,15 +18,14 @@ class CancelTest extends CommandTest
         $this->command = new Cancel($this->projectMock, $this->paymentsStandardMock);
     }
 
-
-    public function testCheckSign() {
+    public function testCheckSign()
+    {
         $request = array(
             'command' => 'cancel',
             'id' => '456'
         );
         $this->checkSignTest($request);
     }
-
 
     public function testProcess()
     {
@@ -38,7 +37,8 @@ class CancelTest extends CommandTest
         $this->assertEquals($result['result'], 0);
     }
 
-    public function testProcessInvoiceNotFound() {
+    public function testProcessInvoiceNotFound()
+    {
         $this->requestMock->expects($this->once())->method('get')->with('id')->will($this->returnValue('id'));
         $this->paymentsStandardMock->expects($this->once())->method('cancel')->with('id')->will($this->throwException(new InvoiceNotFoundException()));
         $result = $this->command->process($this->requestMock);
@@ -47,7 +47,8 @@ class CancelTest extends CommandTest
         $this->assertEquals($result['result'], 2);
     }
 
-    public function testProcessInvoiceNotBeRollback() {
+    public function testProcessInvoiceNotBeRollback()
+    {
         $this->requestMock->expects($this->once())->method('get')->with('id')->will($this->returnValue('id'));
         $this->paymentsStandardMock->expects($this->once())->method('cancel')->with('id')->will($this->throwException(new InvoiceNotBeRollbackException()));
         $result = $this->command->process($this->requestMock);
@@ -56,4 +57,3 @@ class CancelTest extends CommandTest
         $this->assertEquals($result['result'], 7);
     }
 }
- 

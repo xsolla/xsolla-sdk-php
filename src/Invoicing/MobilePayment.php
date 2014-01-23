@@ -49,7 +49,7 @@ class MobilePayment
 
         $this->checkCodeResult($result);
 
-        return new Invoice(null, null, null, (string)$result->invoice);
+        return new Invoice(null, null, null, (string) $result->invoice);
 
     }
 
@@ -72,7 +72,7 @@ class MobilePayment
 
         $this->checkCodeResult($result);
 
-        return new Invoice((string)$result->out, (string)$result->sum);
+        return new Invoice((string) $result->out, (string) $result->sum);
     }
 
     protected function createSignString(array $params)
@@ -81,6 +81,7 @@ class MobilePayment
         foreach ($params as $value) {
             $signString .= $value;
         }
+
         return $signString;
     }
 
@@ -93,17 +94,18 @@ class MobilePayment
         $xsollaResponse = $request->send()->getBody();
         (new Xsd())->check($xsollaResponse, $schemaFilename);
         $result = new \SimpleXMLElement($xsollaResponse);
+
         return $result;
     }
 
     protected function checkCodeResult($result)
     {
         if ($result->result == 3) {
-            throw new SecurityException((string)$result->comment, (int)$result->result);
+            throw new SecurityException((string) $result->comment, (int) $result->result);
         } elseif ($result->result == 1) {
-            throw new InternalServerException((string)$result->comment, (int)$result->result);
+            throw new InternalServerException((string) $result->comment, (int) $result->result);
         } elseif ($result->result != 0) {
-            throw new InvalidArgumentException((string)$result->comment, (int)$result->result);
+            throw new InvalidArgumentException((string) $result->comment, (int) $result->result);
         }
     }
 }

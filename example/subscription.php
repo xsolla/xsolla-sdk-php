@@ -1,7 +1,6 @@
 <?php
 
 use Guzzle\Http\Client;
-use Xsolla\SDK\Exception\Exception;
 use Xsolla\SDK\Invoice;
 use Xsolla\SDK\Storage\Project;
 use Xsolla\SDK\User\Subscriptions;
@@ -21,7 +20,6 @@ $userSubscriptions = $subscription->search($user, Subscriptions::TYPE_CARD);
  */
 $invoice = new Invoice(100);
 $subscription->pay($userSubscriptions[0], $invoice);
-
 
 /**
  * Удалить карту

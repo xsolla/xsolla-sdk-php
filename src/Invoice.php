@@ -9,7 +9,7 @@ class Invoice
     protected $currency;
     protected $id;
 
-    function __construct($out = null, $sum = null, $currency = null, $id = null)
+    public function __construct($out = null, $sum = null, $currency = null, $id = null)
     {
         $this->sum = $sum;
         $this->out = $out;

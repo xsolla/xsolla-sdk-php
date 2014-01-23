@@ -1,7 +1,6 @@
 <?php
 namespace Xsolla\SDK\Storage;
 
-
 class Project implements ProjectInterface
 {
 

@@ -9,7 +9,7 @@ class Subscription
     protected $name;
     protected $currency;
 
-    function __construct($id, $name, $type, $currency)
+    public function __construct($id, $name, $type, $currency)
     {
         $this->currency = $currency;
         $this->id = $id;

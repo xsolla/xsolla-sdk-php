@@ -27,6 +27,7 @@ abstract class Command
                 'comment' => 'Invalid md5 signature'
             );
         }
+
         return $this->process($request);
     }
 
@@ -40,6 +41,7 @@ abstract class Command
                 return false;
             }
         }
+
         return true;
     }
 
@@ -49,6 +51,7 @@ abstract class Command
         foreach ($parameters as $parameter) {
             $signString .= $request->get($parameter);
         }
+
         return md5($signString . $this->project->getSecretKey());
     }
 

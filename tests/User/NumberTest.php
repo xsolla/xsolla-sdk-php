@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\Tests\User;
+namespace Xsolla\SDK\tests\User;
 
 use Xsolla\SDK\User\Number;
 
@@ -27,7 +27,6 @@ class NumberTest extends \PHPUnit_Framework_TestCase
         $this->userMock->expects($this->once())->method('getV2')->will($this->returnValue('v2'));
         $this->userMock->expects($this->once())->method('getV3')->will($this->returnValue('v3'));
         $this->userMock->expects($this->once())->method('getEmail')->will($this->returnValue('email'));
-
 
         $this->clientMock = $this->getMock('\Guzzle\Http\Client', [], [], '', false);
         $this->requestMock = $this->getMock('\Guzzle\Http\Message\RequestInterface', [], [], '', false);
@@ -83,4 +82,3 @@ class NumberTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('number', $this->number->getNumber($this->userMock));
     }
 }
- 

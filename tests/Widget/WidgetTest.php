@@ -1,14 +1,14 @@
 <?php
 
-namespace Xsolla\SDK\Tests\Widget;
+namespace Xsolla\SDK\tests\Widget;
 
 use Xsolla\SDK\Widget\CreditCards;
 use Xsolla\SDK\Widget\Directpayment;
 use Xsolla\SDK\Widget\MobilePayment;
 use Xsolla\SDK\Widget\Paystation;
 
-class WidgetTest extends \PHPUnit_Framework_TestCase {
-
+class WidgetTest extends \PHPUnit_Framework_TestCase
+{
     protected $url = 'https://secure.xsolla.com/paystation2/';
     protected $projectMock;
     protected $userMock;
@@ -56,7 +56,6 @@ class WidgetTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(1738, $query['pid']);
     }
 
-
     public function testCreditCardsWithoutPid()
     {
         $this->paystation = new CreditCards($this->projectMock);
@@ -88,7 +87,4 @@ class WidgetTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($url, $this->paystation->getLink($this->userMock, $this->invoiceMock, []));
     }
 
-
-
 }
- 

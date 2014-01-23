@@ -2,7 +2,6 @@
 
 namespace Xsolla\SDK\Widget;
 
-
 class CreditCards extends Paystation
 {
     public function getMarketplace()

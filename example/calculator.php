@@ -11,5 +11,3 @@ echo $calculator->calculateOut(1, 100);
 
 // Calculation of the amount of payment via payment system "1" on the basis of the amount of game currency 100
 echo $calculator->calculateIn(1, 100);
-
-

@@ -1,10 +1,8 @@
 <?php
 
-
-namespace Xsolla\SDK\Tests\Protocol\Command;
+namespace Xsolla\SDK\tests\Protocol\Command;
 
 use Xsolla\SDK\Protocol\Command\Command;
-
 
 abstract class CommandTest extends \PHPUnit_Framework_TestCase
 {
@@ -58,7 +56,6 @@ abstract class CommandTest extends \PHPUnit_Framework_TestCase
         $this->requestMock->expects($this->any())->method('get')->will($this->returnValue(null));
         $this->assertFalse($this->command->checkRequiredParams($this->requestMock));
     }
-
 
     public function checkSignTest($request)
     {
@@ -123,4 +120,3 @@ abstract class CommandTest extends \PHPUnit_Framework_TestCase
     }
 
 }
- 

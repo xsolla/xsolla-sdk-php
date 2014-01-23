@@ -2,7 +2,6 @@
 
 namespace Xsolla\SDK\Response;
 
-
 class Xml
 {
     public function get(array $response)
@@ -13,6 +12,7 @@ class Xml
         $response->setContent($responseXml->asXML());
         $sdkVersion = 'php-sdk/2.0; php/' . phpversion();
         $response->headers->set('X-Xsolla-SDK', $sdkVersion);
+
         return $response;
     }
 
@@ -26,6 +26,7 @@ class Xml
                 $element->addChild($key, $value);
             }
         }
+
         return $element;
     }
 }

@@ -22,17 +22,16 @@ class Cancel extends Command
     {
         try {
             $this->payments->cancel($request->get('id'));
+
             return array(
                 'result' => '0'
             );
-        }
-        catch(InvoiceNotFoundException $e) {
+        } catch (InvoiceNotFoundException $e) {
             return array(
                 'result' => '2',
                 'comment' => 'The payment specified in the request is not found in the system'
             );
-        }
-        catch(InvoiceNotBeRollbackException $e) {
+        } catch (InvoiceNotBeRollbackException $e) {
             return array(
                 'result' => '7',
                 'comment' => 'The payment cannot be canceled'
@@ -45,7 +44,8 @@ class Cancel extends Command
         return ($this->generateSign($request, array('command', 'id')) == $request->get('md5'));
     }
 
-    public function getRequiredParams() {
+    public function getRequiredParams()
+    {
         return array('command', 'md5', 'id');
     }
 }

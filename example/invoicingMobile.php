@@ -33,7 +33,3 @@ echo "Amount of virtual currency for 10 rubles : " . $invoice->getOut() . "\r\n"
  */
 $invoice = $mobile->createInvoice($user, new Invoice(null, 10));
 echo "Your invoice number : " . $invoice->getId() . "\r\n";
-
-
-
-

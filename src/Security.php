@@ -17,4 +17,4 @@ class Security
     {
         return IpUtils::checkIp($ip, $this->ips);
     }
-} 
+}

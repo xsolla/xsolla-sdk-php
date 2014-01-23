@@ -2,6 +2,6 @@
 
 namespace Xsolla\SDK\Exception;
 
-class InternalServerException extends Exception {
-
+class InternalServerException extends Exception
+{
 }

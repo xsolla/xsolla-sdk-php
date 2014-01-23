@@ -2,7 +2,6 @@
 
 namespace Xsolla\SDK\Protocol\Command;
 
-
 use Xsolla\SDK\Exception\WrongCommandException;
 use Xsolla\SDK\Protocol\Cash;
 use Xsolla\SDK\Protocol\Protocol;
@@ -12,7 +11,7 @@ class Factory
 {
 
     /**
-     * @param Protocol $protocol
+     * @param  Protocol $protocol
      * @param $command
      * @return Command
      */

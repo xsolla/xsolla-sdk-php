@@ -1,7 +1,6 @@
 <?php
 
-
-namespace Xsolla\SDK\Tests\User;
+namespace Xsolla\SDK\tests\User;
 
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use Xsolla\SDK\Subscription;
@@ -22,7 +21,6 @@ class SubscriptionsTest extends \PHPUnit_Framework_TestCase
     protected $subscriptionMock;
     protected $invoiceMock;
 
-
     public function setUp()
     {
         $this->projectMock = $this->getMock('\Xsolla\SDK\Storage\ProjectInterface');
@@ -33,13 +31,11 @@ class SubscriptionsTest extends \PHPUnit_Framework_TestCase
         $this->userMock->expects($this->any())->method('getV2')->will($this->returnValue('v2'));
         $this->userMock->expects($this->any())->method('getV3')->will($this->returnValue('v3'));
 
-
         $this->clientMock = $this->getMock('\Guzzle\Http\Client', [], [], '', false);
         $this->requestMock = $this->getMock('\Guzzle\Http\Message\RequestInterface', [], [], '', false);
         $this->responseMock = $this->getMock('\Guzzle\Http\Message\Response', [], [], '', false);
 
         $this->requestMock->expects($this->once())->method('send')->will($this->returnValue($this->responseMock));
-
 
         $this->subscriptionMock = $this->getMock('\Xsolla\SDK\Subscription', [], [], '', false);
         $this->subscriptionMock->expects($this->any())->method('getId')->will($this->returnValue('id'));
@@ -48,7 +44,6 @@ class SubscriptionsTest extends \PHPUnit_Framework_TestCase
 
         $this->invoiceMock = $this->getMock('\Xsolla\SDK\Invoice', [], [], '', false);
         $this->invoiceMock->expects($this->any())->method('getOut')->will($this->returnValue('out'));
-
 
         $this->subscriptions = new Subscriptions($this->clientMock, $this->projectMock);
     }
@@ -115,7 +110,8 @@ class SubscriptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('invoiceId', $this->subscriptions->pay($this->subscriptionMock, $this->invoiceMock));
     }
 
-    public function testPayException() {
+    public function testPayException()
+    {
         $this->setExpectedException('Xsolla\SDK\Exception\InvalidArgumentException');
         $exceptionMock = new ClientErrorResponseException();
         $exceptionMock->setResponse($this->responseMock);
@@ -140,7 +136,8 @@ class SubscriptionsTest extends \PHPUnit_Framework_TestCase
         $this->subscriptions->delete($this->subscriptionMock);
     }
 
-    public function testDeleteException() {
+    public function testDeleteException()
+    {
         $this->setExpectedException('Xsolla\SDK\Exception\InvalidArgumentException');
         $exceptionMock = new ClientErrorResponseException();
         $exceptionMock->setResponse($this->responseMock);
@@ -156,4 +153,3 @@ class SubscriptionsTest extends \PHPUnit_Framework_TestCase
     }
 
 }
- 

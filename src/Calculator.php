@@ -47,4 +47,4 @@ class Calculator
 
         return $request->send()->getBody();
     }
-} 
+}

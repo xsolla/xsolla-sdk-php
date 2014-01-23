@@ -9,7 +9,7 @@ class Xsd
     {
         if (!is_readable($schemaFilename)) {
             throw new InvalidResponseException("Schema file: $schemaFilename is not readable.");
-        }else{
+        } else {
             $internalErrors = libxml_use_internal_errors();
             libxml_use_internal_errors(true);
 

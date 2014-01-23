@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\Tests\Invoicing;
+namespace Xsolla\SDK\tests\Invoicing;
 
 use Xsolla\SDK\Invoicing\MobilePayment;
 use Xsolla\SDK\Validator\Xsd;
@@ -293,6 +293,7 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
         foreach ($params as $value) {
             $signString .= $value;
         }
+
         return $signString;
     }
 
@@ -309,7 +310,6 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
 
         $this->mobilePayment->createInvoice($this->userMock, $this->invoiceMock);
     }
-
 
     public function testCreateInvoiceWithInvalidRequest()
     {
@@ -361,4 +361,3 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
     }
 
 }
- 

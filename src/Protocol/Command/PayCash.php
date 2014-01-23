@@ -4,7 +4,6 @@ namespace Xsolla\SDK\Protocol\Command;
 
 use Symfony\Component\HttpFoundation\Request;
 use Xsolla\SDK\Storage\PaymentsCashInterface;
-use Xsolla\SDK\Storage\PaymentsInterface;
 use Xsolla\SDK\Storage\ProjectInterface;
 
 class PayCash extends Command
@@ -44,6 +43,7 @@ class PayCash extends Command
                 $request->get('pid'),
                 $request->get('geotype')
             );
+
             return array(
                 'result' => '0',
                 'description' => 'Success',

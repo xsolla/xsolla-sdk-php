@@ -13,4 +13,4 @@ class Paystation extends Widget
     {
         return array('project');
     }
-} 
+}

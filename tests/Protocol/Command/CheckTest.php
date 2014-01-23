@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\Tests\Protocol\Command;
+namespace Xsolla\SDK\tests\Protocol\Command;
 
 use Xsolla\SDK\Protocol\Command\Check;
 
@@ -15,7 +15,6 @@ class CheckTest extends CommandTest
         $this->command = new Check($this->projectMock, $this->usersMock);
     }
 
-
     public function testCheckSign()
     {
         $request = array(
@@ -25,7 +24,8 @@ class CheckTest extends CommandTest
         $this->checkSignTest($request);
     }
 
-    protected function prepareProcess($return) {
+    protected function prepareProcess($return)
+    {
         $this->requestMock->expects($this->at(0))->method('get')->with('v1')->will($this->returnValue('v1'));
         $this->requestMock->expects($this->at(1))->method('get')->with('v2')->will($this->returnValue('v2'));
         $this->requestMock->expects($this->at(2))->method('get')->with('v3')->will($this->returnValue('v3'));
@@ -48,4 +48,3 @@ class CheckTest extends CommandTest
         $this->assertEquals('7', $result['result']);
     }
 }
- 

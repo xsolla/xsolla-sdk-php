@@ -26,5 +26,3 @@ echo $creditCards->getLink($user, new Invoice(), [] )."\r\n";
 //Link on mobile payment widget
 $mobilePayment = new \Xsolla\SDK\Widget\MobilePayment(new Project());
 echo $mobilePayment->getLink($user, new Invoice(), [] )."\r\n";
-
-

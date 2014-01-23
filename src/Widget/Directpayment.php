@@ -2,7 +2,6 @@
 
 namespace Xsolla\SDK\Widget;
 
-
 class Directpayment extends Paystation
 {
     public function getMarketplace()

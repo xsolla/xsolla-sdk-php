@@ -2,8 +2,6 @@
 
 namespace Xsolla\SDK\Invoicing;
 
-use Xsolla\SDK\User;
-
 class QiwiWallet extends MobilePayment
 {
     protected $xsd_path_calculate = '/../../resources/schema/qiwi/calculate.xsd';
@@ -11,10 +9,10 @@ class QiwiWallet extends MobilePayment
 
     protected $url = 'invoicing/index.php';
 
-
     public function send(array $queryParams, $schemaFilename)
     {
         $queryParams['ps'] = 'qiwi';
+
         return parent::send($queryParams, $schemaFilename);
     }
 }

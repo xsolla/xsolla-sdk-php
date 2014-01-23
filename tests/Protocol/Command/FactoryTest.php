@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\Tests\Protocol\Command;
+namespace Xsolla\SDK\tests\Protocol\Command;
 
 use Xsolla\SDK\Protocol\Command\Factory;
 
@@ -18,7 +18,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     protected $protocolStandardMock;
     protected $protocolCashMock;
 
-    public function setUp() {
+    public function setUp()
+    {
         $this->factory = new Factory();
         $this->usersMock = $this->getMock('\Xsolla\SDK\Storage\UsersInterface');
         $this->projectMock = $this->getMock('\Xsolla\SDK\Storage\ProjectInterface');
@@ -42,16 +43,17 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->factory->getCommand($this->protocolStandardMock, 'wrongCommand');
     }
 
-    public function testGetPayCash() {
+    public function testGetPayCash()
+    {
         $this->protocolCashMock->expects($this->once())->method('getProtocol')->will($this->returnValue('Cash'));
 
         $this->assertInstanceOf('\Xsolla\SDK\Protocol\Command\PayCash', $this->factory->getCommand($this->protocolCashMock, 'pay'));
     }
 
-    public function testGetPayStandard() {
+    public function testGetPayStandard()
+    {
         $this->protocolStandardMock->expects($this->exactly(2))->method('getProtocol')->will($this->returnValue('Standard'));
 
         $this->assertInstanceOf('\Xsolla\SDK\Protocol\Command\PayStandard', $this->factory->getCommand($this->protocolStandardMock, 'pay'));
     }
 }
- 

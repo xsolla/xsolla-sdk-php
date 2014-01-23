@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Xsolla\SDK\Widget;
-
 
 use Xsolla\SDK\Storage\ProjectInterface;
 use Xsolla\SDK\User;
@@ -41,6 +39,7 @@ abstract class Widget implements WidgetInterface
         }
         $this->checkRequiredParams($params);
         $params['sign'] = $this->generateSign($params);
+
         return $this->baseUrl.http_build_query($params);
     }
 
@@ -64,6 +63,7 @@ abstract class Widget implements WidgetInterface
         }
 
         $key = $this->project->getSecretKey();
+
         return md5($sign . $key);
     }
 
@@ -80,12 +80,12 @@ abstract class Widget implements WidgetInterface
         return true;
     }
 
-    abstract function getMarketplace();
+    abstract public function getMarketplace();
 
-    abstract function getRequiredParams();
+    abstract public function getRequiredParams();
 
     protected function getDefaultParams()
     {
         return array();
     }
-} 
+}

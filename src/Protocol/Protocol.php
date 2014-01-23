@@ -84,22 +84,24 @@ abstract class Protocol
     }
 
     /**
-     * @param Request $request
+     * @param  Request $request
      * @return array
      */
     public function getResponse(Request $request)
     {
         $this->checkSecurity($request);
+
         return $this->process($request);
     }
 
     /**
-     * @param Request $request
+     * @param  Request $request
      * @return array
      */
     protected function process(Request $request)
     {
         $command = $this->commandFactory->getCommand($this, $request->get('command'));
+
         return $command->getResponse($request);
     }
 }

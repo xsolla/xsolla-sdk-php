@@ -1,14 +1,13 @@
 <?php
 
-
-namespace Xsolla\SDK\Tests;
-
+namespace Xsolla\SDK\tests;
 
 use Xsolla\SDK\User;
 
 class UserTest extends \PHPUnit_Framework_TestCase
 {
-    public function test() {
+    public function test()
+    {
         $user = new User('v1', 'v2', 'v3', 'email', 'phone');
 
         $this->assertEquals('v1', $user->getV1());
@@ -18,4 +17,3 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('phone', $user->getPhone());
     }
 }
- 

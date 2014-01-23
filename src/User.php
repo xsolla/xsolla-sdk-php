@@ -11,7 +11,7 @@ class User
     protected $phone;
     protected $userIP;
 
-    function __construct($v1, $v2 = null, $v3 = null, $email = null, $phone = null, $userIp = null)
+    public function __construct($v1, $v2 = null, $v3 = null, $email = null, $phone = null, $userIp = null)
     {
         $this->email = $email;
         $this->phone = $phone;
@@ -66,7 +66,6 @@ class User
     {
         $this->phone = $phone;
     }
-
 
     /**
      * @param string $v2
