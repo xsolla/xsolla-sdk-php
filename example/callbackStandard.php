@@ -15,5 +15,6 @@ $request = Request::createFromGlobals();
 
 $protocol = new Standard(new Security(), new CommandFactory(), new Project(), new Users(), new PaymentsStandard());
 
-$response = (new Xml())->get($protocol->getResponse($request));
+$xmlResponse = new Xml();
+$response = $xmlResponse->get($protocol->getResponse($request));
 $response->send();

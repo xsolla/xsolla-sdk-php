@@ -48,7 +48,7 @@ abstract class CommandTest extends \PHPUnit_Framework_TestCase
 
         $this->usersMock = $this->getMock('\Xsolla\SDK\Storage\UsersInterface');
 
-        $this->commandMock = $this->getMock('Xsolla\SDK\Protocol\Command\Command', ['checkSign', 'process', 'getRequiredParams', 'checkRequiredParams'], array(), '', false);
+        $this->commandMock = $this->getMock('Xsolla\SDK\Protocol\Command\Command', array('checkSign', 'process', 'getRequiredParams', 'checkRequiredParams'), array(), '', false);
     }
 
     public function testCheckNoRequiredParams()

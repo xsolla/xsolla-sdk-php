@@ -342,21 +342,24 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
     public function testCheckXSDWithWrongFile()
     {
         $this->setExpectedException('\Xsolla\SDK\Exception\InvalidResponseException');
-        (new Xsd())->check('',__DIR__ . $this->xsd_path_invoice.'1');
+        $xsd = new Xsd();
+        $xsd->check('',__DIR__ . $this->xsd_path_invoice.'1');
 
     }
 
     public function testCheckXSDWithWrongXML()
     {
         $this->setExpectedException('\Xsolla\SDK\Exception\InvalidResponseException');
-        (new Xsd())->check('1',__DIR__ . $this->xsd_path_invoice);
+        $xsd = new Xsd();
+        $xsd->check('1',__DIR__ . $this->xsd_path_invoice);
 
     }
 
     public function testCheckXSDWithWrongXMLSchemaValidate()
     {
         $this->setExpectedException('\Xsolla\SDK\Exception\InvalidResponseException');
-        (new Xsd())->check('<response><result>test</result></response>',__DIR__ . $this->xsd_path_invoice);
+        $xsd = new Xsd();
+        $xsd->check('<response><result>test</result></response>',__DIR__ . $this->xsd_path_invoice);
 
     }
 

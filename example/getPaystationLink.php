@@ -11,4 +11,4 @@ $user = new User('v1');
 $invoice = new Invoice(100);
 
 $paystationWidget = new Paystation(new Project());
-echo $paystationWidget->getLink($user, $invoice, 'en');
+echo $paystationWidget->getLink($user, $invoice, array('local' => 'en'));

@@ -60,9 +60,10 @@ class SubscriptionsTest extends \PHPUnit_Framework_TestCase
             )
         );
 
+        $subscriptions = $this->subscriptions->search($this->userMock, Subscriptions::TYPE_CARD);
         $this->assertInstanceOf(
             '\Xsolla\SDK\Subscription',
-            $this->subscriptions->search($this->userMock, Subscriptions::TYPE_CARD)[0]
+            $subscriptions[0]
         );
     }
 
@@ -78,7 +79,7 @@ class SubscriptionsTest extends \PHPUnit_Framework_TestCase
             $this->returnValue(json_encode(array('error' => array('code' => '23', 'message' => 'message'))))
         );
 
-        $this->subscriptions->search($this->userMock, Subscriptions::TYPE_CARD)[0];
+        $subscriptions = $this->subscriptions->search($this->userMock, Subscriptions::TYPE_CARD);
     }
 
     public function testSearchInvalidArgumentException()
@@ -93,7 +94,7 @@ class SubscriptionsTest extends \PHPUnit_Framework_TestCase
             $this->returnValue(json_encode(array('error' => array('code' => '1234', 'message' => 'message'))))
         );
 
-        $this->subscriptions->search($this->userMock, Subscriptions::TYPE_CARD)[0];
+        $this->subscriptions->search($this->userMock, Subscriptions::TYPE_CARD);
     }
 
     public function testPay()
