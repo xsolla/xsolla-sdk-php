@@ -84,11 +84,11 @@ class User
     }
 
     /**
-     * @param string $userIp
+     * @param string $userIP
      */
-    public function setUserIp($userIp)
+    public function setUserIp($userIP)
     {
-        $this->userIP = $userIp;
+        $this->userIP = $userIP;
     }
 
 }

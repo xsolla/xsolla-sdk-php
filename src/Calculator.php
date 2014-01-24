@@ -18,23 +18,22 @@ class Calculator
 
     public function calculateOut($geotypeId, $sum)
     {
-        $request = $this->client->get('/calc/out.php',
-            array(),
-            array(
-                'query' => array(
-                    'project_id' => $this->project->getProjectId(),
-                    'geotype_id' => $geotypeId,
-                    'sum' => $sum
-                )
-            )
-        );
+        $request = $this->createRequest('/calc/out.php', $geotypeId, $sum);
 
         return $request->send()->getBody();
     }
 
     public function calculateIn($geotypeId, $sum)
     {
-        $request = $this->client->get('/calc/inn.php',
+        $request = $this->createRequest('/calc/inn.php', $geotypeId, $sum);
+
+        return $request->send()->getBody();
+    }
+
+    protected function createRequest($url, $geotypeId, $sum)
+    {
+        return $this->client->get(
+            $url,
             array(),
             array(
                 'query' => array(
@@ -44,7 +43,5 @@ class Calculator
                 )
             )
         );
-
-        return $request->send()->getBody();
     }
 }
