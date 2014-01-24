@@ -14,9 +14,9 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->requestMock = $this->getMock('\Guzzle\Http\Message\RequestInterface', [], [], '', false);
-        $this->responseMock = $this->getMock('\Guzzle\Http\Message\Response', [], [], '', false);
-        $this->clientMock = $this->getMock('\Guzzle\Http\Client', [], [], '', false);
+        $this->requestMock = $this->getMock('\Guzzle\Http\Message\RequestInterface', array(), array(), '', false);
+        $this->responseMock = $this->getMock('\Guzzle\Http\Message\Response', array(), array(), '', false);
+        $this->clientMock = $this->getMock('\Guzzle\Http\Client', array(), array(), '', false);
         $this->requestMock->expects($this->once())->method('send')->will($this->returnValue($this->responseMock));
 
         $this->projectMock = $this->getMock('\Xsolla\SDK\Storage\ProjectInterface');

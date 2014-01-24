@@ -22,15 +22,15 @@ class NumberTest extends \PHPUnit_Framework_TestCase
         $this->projectMock = $this->getMock('\Xsolla\SDK\Storage\ProjectInterface');
         $this->projectMock->expects($this->once())->method('getProjectId')->will($this->returnValue('projectId'));
 
-        $this->userMock = $this->getMock('\Xsolla\SDK\User', [], [], '', false);
+        $this->userMock = $this->getMock('\Xsolla\SDK\User', array(), array(), '', false);
         $this->userMock->expects($this->once())->method('getV1')->will($this->returnValue('v1'));
         $this->userMock->expects($this->once())->method('getV2')->will($this->returnValue('v2'));
         $this->userMock->expects($this->once())->method('getV3')->will($this->returnValue('v3'));
         $this->userMock->expects($this->once())->method('getEmail')->will($this->returnValue('email'));
 
-        $this->clientMock = $this->getMock('\Guzzle\Http\Client', [], [], '', false);
-        $this->requestMock = $this->getMock('\Guzzle\Http\Message\RequestInterface', [], [], '', false);
-        $this->responseMock = $this->getMock('\Guzzle\Http\Message\Response', [], [], '', false);
+        $this->clientMock = $this->getMock('\Guzzle\Http\Client', array(), array(), '', false);
+        $this->requestMock = $this->getMock('\Guzzle\Http\Message\RequestInterface', array(), array(), '', false);
+        $this->responseMock = $this->getMock('\Guzzle\Http\Message\Response', array(), array(), '', false);
 
         $this->requestMock->expects($this->once())->method('send')->will($this->returnValue($this->responseMock));
         $this->clientMock->expects($this->once())->method('get')->with(

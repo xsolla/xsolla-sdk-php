@@ -22,8 +22,8 @@ abstract class ProtocolTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->securityMock = $this->getMock('\Xsolla\SDK\Security', [], [], '', false);
-        $this->factoryMock = $this->getMock('\Xsolla\SDK\Protocol\Command\Factory', [], [], '', false);
+        $this->securityMock = $this->getMock('\Xsolla\SDK\Security', array(), array(), '', false);
+        $this->factoryMock = $this->getMock('\Xsolla\SDK\Protocol\Command\Factory', array(), array(), '', false);
         $this->projectMock = $this->getMock('\Xsolla\SDK\Storage\ProjectInterface');
         $this->usersMock = $this->getMock('\Xsolla\SDK\Storage\UsersInterface');
         $this->paymentsMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsInterface');
@@ -52,7 +52,7 @@ abstract class ProtocolTest extends \PHPUnit_Framework_TestCase
 
     public function testGetResponse()
     {
-        $command = $this->getMock('\Xsolla\SDK\Protocol\Command\Check', [], [], '', false);
+        $command = $this->getMock('\Xsolla\SDK\Protocol\Command\Check', array(), array(), '', false);
         $command->expects($this->once())->method('getResponse')->will($this->returnValue('result'));
         $this->requestMock->expects($this->once())->method('getClientIp')->will($this->returnValue('ip'));
         $this->securityMock->expects($this->once())->method('checkIp')->with('ip')->will($this->returnValue(true));

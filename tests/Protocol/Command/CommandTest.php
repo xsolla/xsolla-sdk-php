@@ -26,29 +26,29 @@ abstract class CommandTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->paymentsCashMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsCashInterface', [], [], '', false);
+        $this->paymentsCashMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsCashInterface', array(), array(), '', false);
         $this->paymentsStandardMock = $this->getMock(
             '\Xsolla\SDK\Storage\PaymentsStandardInterface',
-            [],
-            [],
+            array(),
+            array(),
             '',
             false
         );
         $this->projectMock = $this->getMock(
             '\Xsolla\SDK\Storage\ProjectInterface',
-            ['getProjectId', 'getSecretKey'],
-            [],
+            array('getProjectId', 'getSecretKey'),
+            array(),
             '',
             false
         );
-        $this->requestMock = $this->getMock('\Symfony\Component\HttpFoundation\Request', [], [], '', false);
+        $this->requestMock = $this->getMock('\Symfony\Component\HttpFoundation\Request', array(), array(), '', false);
 
         $this->projectMock->expects($this->any())->method('getProjectId')->will($this->returnValue(self::PROJECTID));
         $this->projectMock->expects($this->any())->method('getSecretKey')->will($this->returnValue(self::SECRETKEY));
 
         $this->usersMock = $this->getMock('\Xsolla\SDK\Storage\UsersInterface');
 
-        $this->commandMock = $this->getMock('Xsolla\SDK\Protocol\Command\Command', ['checkSign', 'process', 'getRequiredParams', 'checkRequiredParams'], [], '', false);
+        $this->commandMock = $this->getMock('Xsolla\SDK\Protocol\Command\Command', ['checkSign', 'process', 'getRequiredParams', 'checkRequiredParams'], array(), '', false);
     }
 
     public function testCheckNoRequiredParams()

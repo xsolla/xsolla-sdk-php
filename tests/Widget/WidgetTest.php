@@ -17,18 +17,18 @@ class WidgetTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->userMock = $this->getMock('\Xsolla\SDK\User', [], [], '', false);
+        $this->userMock = $this->getMock('\Xsolla\SDK\User', array(), array(), '', false);
         $this->userMock->expects($this->any())->method('getEmail')->will($this->returnValue('email'));
         $this->userMock->expects($this->any())->method('getUserIP')->will($this->returnValue('userIP'));
         $this->userMock->expects($this->any())->method('getV1')->will($this->returnValue('v1'));
         $this->userMock->expects($this->any())->method('getPhone')->will($this->returnValue('phone'));
 
-        $this->invoiceMock = $this->getMock('\Xsolla\SDK\Invoice', [], [], '', false);
+        $this->invoiceMock = $this->getMock('\Xsolla\SDK\Invoice', array(), array(), '', false);
 
         $this->projectMock = $this->getMock(
             '\Xsolla\SDK\Storage\ProjectInterface',
-            ['getProjectId', 'getSecretKey'],
-            [],
+            array('getProjectId', 'getSecretKey'),
+            array(),
             '',
             false
         );
@@ -41,15 +41,15 @@ class WidgetTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('\Xsolla\SDK\Exception\InvalidArgumentException');
 
         $this->paystation = new Directpayment($this->projectMock);
-        $this->paystation->getLink($this->userMock, $this->invoiceMock, []);
+        $this->paystation->getLink($this->userMock, $this->invoiceMock, array());
     }
 
     public function testMobileWidgetWithoutPid()
     {
         $this->paystation = new MobilePayment($this->projectMock);
-        $this->paystation->getLink($this->userMock, $this->invoiceMock, []);
+        $this->paystation->getLink($this->userMock, $this->invoiceMock, array());
 
-        $url =  $this->paystation->getLink($this->userMock, $this->invoiceMock, []);
+        $url =  $this->paystation->getLink($this->userMock, $this->invoiceMock, array());
         $parts = parse_url($url);
         parse_str($parts['query'], $query);
 
@@ -59,9 +59,9 @@ class WidgetTest extends \PHPUnit_Framework_TestCase
     public function testCreditCardsWithoutPid()
     {
         $this->paystation = new CreditCards($this->projectMock);
-        $this->paystation->getLink($this->userMock, $this->invoiceMock, []);
+        $this->paystation->getLink($this->userMock, $this->invoiceMock, array());
 
-        $url =  $this->paystation->getLink($this->userMock, $this->invoiceMock, []);
+        $url =  $this->paystation->getLink($this->userMock, $this->invoiceMock, array());
         $parts = parse_url($url);
         parse_str($parts['query'], $query);
 
@@ -73,7 +73,7 @@ class WidgetTest extends \PHPUnit_Framework_TestCase
         $this->userMock->expects($this->any())->method('getV2')->will($this->returnValue(''));
 
         $this->paystation = new Paystation($this->projectMock);
-        $url =  $this->paystation->getLink($this->userMock, $this->invoiceMock, []);
+        $url =  $this->paystation->getLink($this->userMock, $this->invoiceMock, array());
         $parts = parse_url($url);
         parse_str($parts['query'], $query);
 
@@ -84,7 +84,7 @@ class WidgetTest extends \PHPUnit_Framework_TestCase
     {
         $this->paystation = new Paystation($this->projectMock);
         $url = 'https://secure.xsolla.com/paystation2/?marketplace=paystation&project=projectid&v1=v1&email=email&userip=userIP&phone=phone&sign=908df703503673b6359c273952f3378f';
-        $this->assertEquals($url, $this->paystation->getLink($this->userMock, $this->invoiceMock, []));
+        $this->assertEquals($url, $this->paystation->getLink($this->userMock, $this->invoiceMock, array()));
     }
 
 }

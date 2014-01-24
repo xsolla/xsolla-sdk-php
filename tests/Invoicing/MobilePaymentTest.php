@@ -103,22 +103,22 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->requestMock = $this->getMock('\Guzzle\Http\Message\RequestInterface', [], [], '', false);
-        $this->responseMock = $this->getMock('\Guzzle\Http\Message\Response', [], [], '', false);
-        $this->clientMock = $this->getMock('\Guzzle\Http\Client', [], [], '', false);
+        $this->requestMock = $this->getMock('\Guzzle\Http\Message\RequestInterface', array(), array(), '', false);
+        $this->responseMock = $this->getMock('\Guzzle\Http\Message\Response', array(), array(), '', false);
+        $this->clientMock = $this->getMock('\Guzzle\Http\Client', array(), array(), '', false);
         $this->requestMock->expects($this->any())->method('send')->will($this->returnValue($this->responseMock));
 
         $this->projectMock = $this->getMock(
             '\Xsolla\SDK\Storage\ProjectInterface',
-            ['getProjectId', 'getSecretKey'],
-            [],
+            array('getProjectId', 'getSecretKey'),
+            array(),
             '',
             false
         );
         $this->projectMock->expects($this->any())->method('getProjectId')->will($this->returnValue('projectId'));
         $this->projectMock->expects($this->any())->method('getSecretKey')->will($this->returnValue('key'));
 
-        $this->userMock = $this->getMock('\Xsolla\SDK\User', [], [], '', false);
+        $this->userMock = $this->getMock('\Xsolla\SDK\User', array(), array(), '', false);
         $this->userMock->expects($this->any())->method('getEmail')->will($this->returnValue('email'));
         $this->userMock->expects($this->any())->method('getUserIP')->will($this->returnValue('userIP'));
         $this->userMock->expects($this->any())->method('getV1')->will($this->returnValue('v1'));
@@ -126,7 +126,7 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
         $this->userMock->expects($this->any())->method('getV3')->will($this->returnValue('v3'));
         $this->userMock->expects($this->any())->method('getPhone')->will($this->returnValue('phone'));
 
-        $this->invoiceMock = $this->getMock('\Xsolla\SDK\Invoice', [], [], '', false);
+        $this->invoiceMock = $this->getMock('\Xsolla\SDK\Invoice', array(), array(), '', false);
 
         $this->mobilePayment = new MobilePayment($this->clientMock, $this->projectMock);
     }
