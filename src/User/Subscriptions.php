@@ -84,6 +84,7 @@ class Subscriptions
         $request = $this->client->post(
             self::URL . '/' . $subscription->getType(),
             array('X-Xsolla-Sign' => $this->generateSign($parameters)),
+            null,
             array('query' => $parameters)
         );
 
@@ -105,6 +106,7 @@ class Subscriptions
         $request = $this->client->delete(
             self::URL . '/' . $subscription->getType(),
             array('X-Xsolla-Sign' => $this->generateSign($parameters)),
+            null,
             array('query' => $parameters)
         );
 
