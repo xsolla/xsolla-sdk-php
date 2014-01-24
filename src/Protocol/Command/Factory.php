@@ -21,7 +21,7 @@ class Factory
             if ($command == 'pay') {
                 return new PayCash($protocol->getProject(), $protocol->getPayments());
             } elseif ($command == 'cancel') {
-                return new Cancel($protocol->getProject(), $protocol->getUsers());
+                return new Cancel($protocol->getProject(), $protocol->getPayments());
             }
         } elseif ($protocol->getProtocol() == Standard::PROTOCOL) {
             if ($command == 'check') {
@@ -29,7 +29,7 @@ class Factory
             } elseif ($command == 'pay') {
                 return new PayStandard($protocol->getProject(), $protocol->getUsers(), $protocol->getPayments());
             } elseif ($command == 'cancel') {
-                return new Cancel($protocol->getProject(), $protocol->getUsers());
+                return new Cancel($protocol->getProject(), $protocol->getPayments());
             }
         }
 
