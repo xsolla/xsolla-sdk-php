@@ -1,9 +1,9 @@
 {
     "name": "xsolla/xsolla-sdk-php",
     "type": "library",
-    "description":"Xsolla is the authorized reseller and merchant providing e-commerce services for online games.",
-    "keywords": ["sdk", "xsolla", "api"],
-    "homepage": "http://xsolla.com",
+    "description":"Xsolla SDK for PHP. Xsolla is the authorized reseller and merchant providing e-commerce services for online games.",
+    "keywords": ["sdk", "xsolla", "api", "payment", "games"],
+    "homepage": "http://xsolla.github.io",
     "license": "MIT",
     "authors": [
         {
