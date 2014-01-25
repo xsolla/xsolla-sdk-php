@@ -23,6 +23,11 @@ class Number
         $this->project = $project;
     }
 
+    /**
+     * @param User $user
+     * @return int
+     * @throws \RuntimeException
+     */
     public function getNumber(User $user)
     {
         $request = $this->client->get(
@@ -40,7 +45,7 @@ class Number
             )
         );
 
-        $response = json_decode($request->send()->getBody(), true);
+        $response = $request->send()->json();
         if ($response['result'] == 0) {
             return $response['number'];
         } elseif (in_array($response['result'], array(10, 11))) {
