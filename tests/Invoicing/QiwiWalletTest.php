@@ -7,12 +7,33 @@ use Xsolla\SDK\Invoicing\QiwiWallet;
 class QiwiWalletTest extends MobilePaymentTest
 {
     protected $qiwiWallet;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $requestMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $responseMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $clientMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $projectMock;
     protected $mobilePayment;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $userMock;
+
     protected $url = 'invoicing/index.php';
 
     protected $queryParamsCalculateWithSum = array(

@@ -8,11 +8,34 @@ abstract class ProtocolTest extends \PHPUnit_Framework_TestCase
 {
     protected $protocolName;
 
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $securityMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $factoryMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $projectMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $usersMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $paymentsMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $requestMock;
 
     /**

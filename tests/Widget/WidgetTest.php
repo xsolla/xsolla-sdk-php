@@ -10,9 +10,22 @@ use Xsolla\SDK\Widget\Paystation;
 class WidgetTest extends \PHPUnit_Framework_TestCase
 {
     protected $url = 'https://secure.xsolla.com/paystation2/';
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $projectMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $userMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $invoiceMock;
+
     protected $paystation;
 
     public function setUp()

@@ -10,12 +10,35 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      * @var Factory;
      */
     protected $factory;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $projectMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $paymentsCashMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $paymentsStandardMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $usersMock;
 
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $protocolStandardMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $protocolCashMock;
 
     public function setUp()

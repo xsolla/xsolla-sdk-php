@@ -12,16 +12,40 @@ abstract class CommandTest extends \PHPUnit_Framework_TestCase
 
     const SECRETKEY = 'key';
     const PROJECTID = 'project';
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $projectMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $paymentsCashMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $paymentsStandardMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $requestMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $usersMock;
+
     /**
      * @var Command
      */
     protected $command;
 
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $commandMock;
 
     public function setUp()

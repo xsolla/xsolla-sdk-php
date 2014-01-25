@@ -12,13 +12,40 @@ class SubscriptionsTest extends \PHPUnit_Framework_TestCase
      * @var Subscriptions
      */
     protected $subscriptions;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $clientMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $projectMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $requestMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $userMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $responseMock;
 
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $subscriptionMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $invoiceMock;
 
     public function setUp()
