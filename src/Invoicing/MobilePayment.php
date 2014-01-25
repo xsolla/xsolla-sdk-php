@@ -11,6 +11,9 @@ use Guzzle\Http\Client;
 use Xsolla\SDK\Storage\ProjectInterface;
 use Xsolla\SDK\Validator\Xsd;
 
+/**
+ * @link http://xsolla.github.io/en/APImobile.html
+ */
 class MobilePayment
 {
     protected $xsd_path_calculate = '/../../resources/schema/mobilepayment/calculate.xsd';

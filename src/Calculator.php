@@ -5,6 +5,9 @@ namespace Xsolla\SDK;
 use Guzzle\Http\Client;
 use Xsolla\SDK\Storage\ProjectInterface;
 
+/**
+ * @link http://xsolla.github.io/en/APIcalc.html
+ */
 class Calculator
 {
     protected $client;

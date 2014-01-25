@@ -8,11 +8,11 @@ use Xsolla\SDK\Exception\InvalidArgumentException;
 use Xsolla\SDK\Storage\ProjectInterface;
 use Xsolla\SDK\User;
 
+/**
+ * @link http://xsolla.github.io/en/apixsolla.html
+ */
 class Number
 {
-    /**
-     * @var ProjectInterface
-     */
     protected $project;
 
     protected $client;
@@ -48,6 +48,5 @@ class Number
         } else {
             throw new InvalidArgumentException($response['description'], $response['result']);
         }
-
     }
 }

@@ -24,7 +24,7 @@ abstract class Widget implements WidgetInterface
         $params['marketplace'] = $this->getMarketplace();
         $params['project'] = $this->project->getProjectId();
         $params['v1'] = $user->getV1();
-        $params['v2'] = $user->getV2();;
+        $params['v2'] = $user->getV2();
         $params['v3'] = $user->getV3();
         $params['email'] = $user->getEmail();
         $params['userip'] = $user->getUserIP();
