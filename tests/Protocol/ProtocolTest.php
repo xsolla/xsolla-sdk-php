@@ -65,14 +65,6 @@ abstract class ProtocolTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->protocolName, $this->protocol->getProtocol());
     }
 
-    public function testCheckSecurity()
-    {
-        $this->setExpectedException('\Xsolla\SDK\Exception\SecurityException');
-        $this->requestMock->expects($this->once())->method('getClientIp')->will($this->returnValue('ip'));
-        $this->IpCheckerMock->expects($this->once())->method('checkIp')->with('ip')->will($this->returnValue(false));
-        $this->protocol->getResponse($this->requestMock);
-    }
-
     public function testGetResponse()
     {
         $command = $this->getMock('\Xsolla\SDK\Protocol\Command\Check', array(), array(), '', false);
