@@ -47,7 +47,7 @@ abstract class ProtocolTest extends \PHPUnit_Framework_TestCase
     {
         $this->IpCheckerMock = $this->getMock('\Xsolla\SDK\Validator\IpChecker', array(), array(), '', false);
         $this->factoryMock = $this->getMock('\Xsolla\SDK\Protocol\Command\Factory', array(), array(), '', false);
-        $this->projectMock = $this->getMock('\Xsolla\SDK\Storage\ProjectInterface');
+        $this->projectMock = $this->getMock('\Xsolla\SDK\Project', array(), array(), '', false);
         $this->usersMock = $this->getMock('\Xsolla\SDK\Storage\UsersInterface');
         $this->paymentsMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsInterface');
 

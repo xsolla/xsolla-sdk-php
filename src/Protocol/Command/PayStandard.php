@@ -5,7 +5,7 @@ namespace Xsolla\SDK\Protocol\Command;
 use Symfony\Component\HttpFoundation\Request;
 use Xsolla\SDK\Storage\PaymentsInterface;
 use Xsolla\SDK\Storage\PaymentsStandardInterface;
-use Xsolla\SDK\Storage\ProjectInterface;
+use Xsolla\SDK\Project;
 use Xsolla\SDK\Storage\UsersInterface;
 
 class PayStandard extends Command
@@ -20,7 +20,7 @@ class PayStandard extends Command
      */
     protected $users;
 
-    public function __construct(ProjectInterface $project, UsersInterface $users, PaymentsStandardInterface $payments)
+    public function __construct(Project $project, UsersInterface $users, PaymentsStandardInterface $payments)
     {
         $this->users = $users;
         $this->project = $project;

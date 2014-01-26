@@ -5,7 +5,7 @@ namespace Xsolla\SDK\User;
 use Guzzle\Http\Client;
 use Xsolla\SDK\Exception\InternalServerException;
 use Xsolla\SDK\Exception\InvalidArgumentException;
-use Xsolla\SDK\Storage\ProjectInterface;
+use Xsolla\SDK\Project;
 use Xsolla\SDK\User;
 
 /**
@@ -17,7 +17,7 @@ class Number
 
     protected $client;
 
-    public function __construct(Client $client, ProjectInterface $project)
+    public function __construct(Client $client, Project $project)
     {
         $this->client = $client;
         $this->project = $project;

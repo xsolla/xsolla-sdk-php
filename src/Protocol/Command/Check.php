@@ -3,7 +3,7 @@
 namespace Xsolla\SDK\Protocol\Command;
 
 use Symfony\Component\HttpFoundation\Request;
-use Xsolla\SDK\Storage\ProjectInterface;
+use Xsolla\SDK\Project;
 use Xsolla\SDK\Storage\UsersInterface;
 
 class Check extends Command
@@ -14,7 +14,7 @@ class Check extends Command
      */
     protected $users;
 
-    public function __construct(ProjectInterface $project, UsersInterface $users)
+    public function __construct(Project $project, UsersInterface $users)
     {
         $this->users = $users;
         $this->project = $project;

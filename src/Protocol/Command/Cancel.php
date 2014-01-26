@@ -6,13 +6,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Xsolla\SDK\Exception\InvoiceNotBeRollbackException;
 use Xsolla\SDK\Exception\InvoiceNotFoundException;
 use Xsolla\SDK\Storage\PaymentsInterface;
-use Xsolla\SDK\Storage\ProjectInterface;
+use Xsolla\SDK\Project;
 
 class Cancel extends Command
 {
     protected $payments;
 
-    public function __construct(ProjectInterface $project, PaymentsInterface $payments)
+    public function __construct(Project $project, PaymentsInterface $payments)
     {
         $this->project = $project;
         $this->payments = $payments;

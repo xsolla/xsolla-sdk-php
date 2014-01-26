@@ -49,7 +49,7 @@ class SubscriptionsTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->projectMock = $this->getMock('\Xsolla\SDK\Storage\ProjectInterface');
+        $this->projectMock = $this->getMock('\Xsolla\SDK\Project', array(), array(), '', false);
         $this->projectMock->expects($this->once())->method('getProjectId')->will($this->returnValue('projectId'));
 
         $this->userMock = $this->getMock('\Xsolla\SDK\User', array(), array(), '', false);

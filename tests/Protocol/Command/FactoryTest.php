@@ -45,7 +45,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     {
         $this->factory = new Factory();
         $this->usersMock = $this->getMock('\Xsolla\SDK\Storage\UsersInterface');
-        $this->projectMock = $this->getMock('\Xsolla\SDK\Storage\ProjectInterface');
+        $this->projectMock = $this->getMock('\Xsolla\SDK\Project', array(), array(), '', false);
         $this->paymentsCashMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsCashInterface');
         $this->paymentsStandardMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsStandardInterface');
         $this->protocolStandardMock = $this->getMock('\Xsolla\SDK\Protocol\Standard', array(), array(), '', false);

@@ -39,7 +39,7 @@ class WidgetTest extends \PHPUnit_Framework_TestCase
 
         $this->invoiceMock = $this->getMock('\Xsolla\SDK\Invoice', array(), array(), '', false);
 
-        $this->projectMock = $this->getMock('\Xsolla\SDK\Storage\ProjectInterface', array(), array(), '', false);
+        $this->projectMock = $this->getMock('\Xsolla\SDK\Project', array(), array(), '', false);
         $this->projectMock->expects($this->any())->method('getProjectId')->will($this->returnValue('projectid'));
         $this->projectMock->expects($this->any())->method('getSecretKey')->will($this->returnValue('key'));
     }

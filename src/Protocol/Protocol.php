@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Xsolla\SDK\Protocol\Command\Factory;
 use Xsolla\SDK\Validator\IpChecker;
 use Xsolla\SDK\Storage\PaymentsInterface;
-use Xsolla\SDK\Storage\ProjectInterface;
+use Xsolla\SDK\Project;
 use Xsolla\SDK\Storage\UsersInterface;
 
 abstract class Protocol
@@ -14,7 +14,7 @@ abstract class Protocol
     const PROTOCOL = '';
     protected $response;
     /**
-     * @var ProjectInterface
+     * @var \Xsolla\SDK\Project
      */
     protected $project;
     /**
@@ -34,7 +34,7 @@ abstract class Protocol
      */
     protected $commandFactory;
 
-    public function __construct(IpChecker $ipChecker, Factory $factory, ProjectInterface $project, UsersInterface $users, PaymentsInterface $payments)
+    public function __construct(IpChecker $ipChecker, Factory $factory, Project $project, UsersInterface $users, PaymentsInterface $payments)
     {
         $this->ipChecker = $ipChecker;
         $this->commandFactory = $factory;
@@ -44,7 +44,7 @@ abstract class Protocol
     }
 
     /**
-     * @return ProjectInterface
+     * @return \Xsolla\SDK\Project
      */
     public function getProject()
     {

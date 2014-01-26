@@ -8,7 +8,7 @@ use Xsolla\SDK\Exception\SecurityException;
 use Xsolla\SDK\Invoice;
 use Xsolla\SDK\User;
 use Guzzle\Http\Client;
-use Xsolla\SDK\Storage\ProjectInterface;
+use Xsolla\SDK\Project;
 use Xsolla\SDK\Validator\Xsd;
 
 /**
@@ -27,7 +27,7 @@ class MobilePayment
     protected $project;
     protected $url = 'mobile/payment/index.php';
 
-    public function __construct(Client $client, ProjectInterface $project)
+    public function __construct(Client $client, Project $project)
     {
         $this->client = $client;
         $this->project = $project;

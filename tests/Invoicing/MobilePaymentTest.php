@@ -145,7 +145,7 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
         $this->requestMock->expects($this->any())->method('send')->will($this->returnValue($this->responseMock));
 
         $this->projectMock = $this->getMock(
-            '\Xsolla\SDK\Storage\ProjectInterface',
+            '\Xsolla\SDK\Project',
             array(),
             array(),
             '',

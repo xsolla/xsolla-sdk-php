@@ -3,7 +3,7 @@
 namespace Xsolla\SDK;
 
 use Guzzle\Http\Client;
-use Xsolla\SDK\Storage\ProjectInterface;
+use Xsolla\SDK\Project;
 
 /**
  * @link http://xsolla.github.io/en/APIcalc.html
@@ -13,7 +13,7 @@ class Calculator
     protected $client;
     protected $project;
 
-    public function __construct(Client $client, ProjectInterface $project)
+    public function __construct(Client $client, Project $project)
     {
         $this->client = $client;
         $this->project = $project;

@@ -29,12 +29,15 @@ $ composer require xsolla/xsolla-sdk-php:~1.0
 ``` php
 <?php
 
-use Xsolla\SDK\Storage\Project;
+use Xsolla\SDK\Project;
 use Xsolla\SDK\User;
 use Xsolla\SDK\Invoice;
 use Xsolla\SDK\Widget\Paystation
 
-$project = new Project('YOUR_PROJECT_ID', 'YOUR_SECRET_KEY');
+$project = new Project(
+    '4783',//demo project id
+    'key'//demo project secret key
+ );
 $paystation = new Paystation($project);
 
 $user = new User('username');

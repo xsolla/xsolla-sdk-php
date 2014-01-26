@@ -51,22 +51,10 @@ abstract class CommandTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->paymentsCashMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsCashInterface', array(), array(), '', false);
-        $this->paymentsStandardMock = $this->getMock(
-            '\Xsolla\SDK\Storage\PaymentsStandardInterface',
-            array(),
-            array(),
-            '',
-            false
-        );
-        $this->projectMock = $this->getMock(
-            '\Xsolla\SDK\Storage\ProjectInterface',
-            array('getProjectId', 'getSecretKey'),
-            array(),
-            '',
-            false
-        );
+        $this->paymentsStandardMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsStandardInterface', array(), array(), '', false);
         $this->requestMock = $this->getMock('\Symfony\Component\HttpFoundation\Request', array(), array(), '', false);
 
+        $this->projectMock = $this->getMock('\Xsolla\SDK\Project', array(), array(), '', false);
         $this->projectMock->expects($this->any())->method('getProjectId')->will($this->returnValue(self::PROJECTID));
         $this->projectMock->expects($this->any())->method('getSecretKey')->will($this->returnValue(self::SECRETKEY));
 

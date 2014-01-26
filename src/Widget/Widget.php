@@ -2,7 +2,7 @@
 
 namespace Xsolla\SDK\Widget;
 
-use Xsolla\SDK\Storage\ProjectInterface;
+use Xsolla\SDK\Project;
 use Xsolla\SDK\User;
 use Xsolla\SDK\Invoice;
 use Xsolla\SDK\Exception\InvalidArgumentException;
@@ -13,7 +13,7 @@ abstract class Widget implements WidgetInterface
 
     protected $project;
 
-    public function __construct(ProjectInterface $project)
+    public function __construct(Project $project)
     {
         $this->project = $project;
     }

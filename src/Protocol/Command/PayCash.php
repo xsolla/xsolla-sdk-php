@@ -4,7 +4,7 @@ namespace Xsolla\SDK\Protocol\Command;
 
 use Symfony\Component\HttpFoundation\Request;
 use Xsolla\SDK\Storage\PaymentsCashInterface;
-use Xsolla\SDK\Storage\ProjectInterface;
+use Xsolla\SDK\Project;
 
 class PayCash extends Command
 {
@@ -14,7 +14,7 @@ class PayCash extends Command
      */
     protected $payments;
 
-    public function __construct(ProjectInterface $project, PaymentsCashInterface $payments)
+    public function __construct(Project $project, PaymentsCashInterface $payments)
     {
         $this->project = $project;
         $this->payments = $payments;

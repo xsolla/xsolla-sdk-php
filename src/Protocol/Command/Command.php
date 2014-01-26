@@ -3,12 +3,12 @@
 namespace Xsolla\SDK\Protocol\Command;
 
 use Symfony\Component\HttpFoundation\Request;
-use Xsolla\SDK\Storage\ProjectInterface;
+use Xsolla\SDK\Project;
 
 abstract class Command
 {
     /**
-     * @var ProjectInterface
+     * @var Project
      */
     protected $project;
 
