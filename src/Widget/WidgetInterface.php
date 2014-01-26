@@ -7,5 +7,5 @@ use Xsolla\SDK\Invoice;
 
 interface WidgetInterface
 {
-    public function getLink(User $user, Invoice $invoice, array $params);
+    public function getLink(User $user, Invoice $invoice = null, array $params = array());
 }

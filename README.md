@@ -41,8 +41,7 @@ $user = new User('username');
 $user->setEmail('example@example.com');
 
 $invoice = new Invoice;
-$invoice->setSum(5);
-$invoice->setCurrency('USD');
+$invoice->setOut(5);
 
 echo $paystation->getLink($user, $invoice).PHP_EOL;
 ```

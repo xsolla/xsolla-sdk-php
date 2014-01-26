@@ -9,16 +9,22 @@ use Xsolla\SDK\Exception\InvalidArgumentException;
 
 abstract class Widget implements WidgetInterface
 {
+    const BASE_URL = 'https://secure.xsolla.com/paystation2/?';
 
     protected $project;
-    protected $baseUrl = 'https://secure.xsolla.com/paystation2/?';
 
     public function __construct(ProjectInterface $project)
     {
         $this->project = $project;
     }
 
-    public function getLink(User $user, Invoice $invoice, array $params)
+    /**
+     * @param User $user
+     * @param Invoice $invoice
+     * @param array $params local, country, pid, hidden
+     * @return string
+     */
+    public function getLink(User $user, Invoice $invoice = null, array $params = array())
     {
         $params = array_merge($params, $this->getDefaultParams());
         $params['marketplace'] = $this->getMarketplace();
@@ -29,8 +35,10 @@ abstract class Widget implements WidgetInterface
         $params['email'] = $user->getEmail();
         $params['userip'] = $user->getUserIP();
         $params['phone'] = $user->getPhone();
-        $params['out'] = $invoice->getOut();
-        $params['currency'] = $invoice->getCurrency();
+        if ($invoice) {
+            $params['out'] = $invoice->getOut();
+            $params['currency'] = $invoice->getCurrency();
+        }
 
         foreach ($params as $key => $value) {
             if (empty($value)) {
@@ -40,17 +48,15 @@ abstract class Widget implements WidgetInterface
         $this->checkRequiredParams($params);
         $params['sign'] = $this->generateSign($params);
 
-        return $this->baseUrl.http_build_query($params);
+        return self::BASE_URL.http_build_query($params);
     }
 
     private function signParamList()
     {
-        return array('theme', 'project', 'signparams', 'v0', 'v1', 'v2', 'v3', 'out', 'email', 'currency', 'userip',
-            'allowSubscription', 'fastcheckout'
-        );
+        return array('theme', 'project', 'signparams', 'v0', 'v1', 'v2', 'v3', 'out', 'email', 'currency', 'userip', 'allowSubscription', 'fastcheckout');
     }
 
-    private function generateSign($params = array())
+    private function generateSign(array $params)
     {
         $keys = $this->signParamList();
         sort($keys);
@@ -67,17 +73,16 @@ abstract class Widget implements WidgetInterface
         return md5($sign . $key);
     }
 
-    private function checkRequiredParams($params = array())
+    private function checkRequiredParams(array $params)
     {
-        $requiredParams = $this->getRequiredParams();
-
-        foreach ($requiredParams as $key) {
-            if (!isset($params[$key])) {
-                throw new InvalidArgumentException(sprintf('Parameter %s is not defined',$key));
-            }
+        $paramsKeys = array_keys($params);
+        $diff = array_diff($this->getRequiredParams(), $paramsKeys);
+        if ($diff) {
+            throw new InvalidArgumentException(sprintf(
+                'Following required parameters not passed: %s',
+                implode(', ', $diff)
+            ));
         }
-
-        return true;
     }
 
     abstract public function getMarketplace();
