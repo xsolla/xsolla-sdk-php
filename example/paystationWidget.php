@@ -5,7 +5,8 @@ use Xsolla\SDK\Invoice;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$user = new User('username', null, null, 'email@xsolla.com');
+$user = new User('username');
+$user->setEmail('example@example.com');
 
 //Link on paystation
 $paystation = new \Xsolla\SDK\Widget\Paystation(new Project());

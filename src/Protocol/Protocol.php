@@ -5,7 +5,7 @@ namespace Xsolla\SDK\Protocol;
 use Symfony\Component\HttpFoundation\Request;
 use Xsolla\SDK\Exception\SecurityException;
 use Xsolla\SDK\Protocol\Command\Factory;
-use Xsolla\SDK\Security;
+use Xsolla\SDK\Validator\IpChecker;
 use Xsolla\SDK\Storage\PaymentsInterface;
 use Xsolla\SDK\Storage\ProjectInterface;
 use Xsolla\SDK\Storage\UsersInterface;
@@ -27,17 +27,17 @@ abstract class Protocol
      */
     protected $payments;
     /**
-     * @var Security
+     * @var IpChecker
      */
-    protected $security;
+    protected $ipChecker;
     /**
      * @var Factory
      */
     protected $commandFactory;
 
-    public function __construct(Security $security, Factory $factory, ProjectInterface $project, UsersInterface $users, PaymentsInterface $payments)
+    public function __construct(IpChecker $ipChecker, Factory $factory, ProjectInterface $project, UsersInterface $users, PaymentsInterface $payments)
     {
-        $this->security = $security;
+        $this->ipChecker = $ipChecker;
         $this->commandFactory = $factory;
         $this->project = $project;
         $this->users = $users;
@@ -78,7 +78,7 @@ abstract class Protocol
 
     protected function checkSecurity(Request $request)
     {
-        if (!$this->security->checkIp($request->getClientIp())) {
+        if (!$this->ipChecker->checkIp($request->getClientIp())) {
             throw new SecurityException('Wrong ip');
         }
     }

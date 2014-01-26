@@ -1,10 +1,10 @@
 <?php
 
-namespace Xsolla\SDK;
+namespace Xsolla\SDK\Validator;
 
 use Symfony\Component\HttpFoundation\IpUtils;
 
-class Security
+class IpChecker
 {
     protected $ips = array(
         '94.103.26.176/29',

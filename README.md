@@ -48,8 +48,15 @@ echo $paystation->getLink($user, $invoice).PHP_EOL;
 ```
 ### Receive [Instant Payment Notification](http://xsolla.github.io/en/currency.html)
 
+IPN handler check client IP address for existing in [IP whitelist](https://github.com/xsolla/xsolla-sdk-php/blob/tweaks/src/Validator/IpChecker.php#L9). If you use reverse proxy, you should set a list of trusted proxies via Request::setTrustedProxies()
+
 ``` php
 <?php
+
+use Symfony\Component\HttpFoundation\Request;
+
+$request = Request::createFromGlobals();
+
 
 
 ```
