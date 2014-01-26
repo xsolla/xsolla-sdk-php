@@ -6,34 +6,6 @@ use Xsolla\SDK\Invoicing\QiwiWallet;
 
 class QiwiWalletTest extends MobilePaymentTest
 {
-    protected $qiwiWallet;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $requestMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $responseMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $clientMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $projectMock;
-    protected $mobilePayment;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $userMock;
-
     protected $url = 'invoicing/index.php';
 
     protected $queryParamsCalculateWithSum = array(
@@ -49,19 +21,6 @@ class QiwiWalletTest extends MobilePaymentTest
         'project' => 'projectId',
         'phone' => 'phone',
         'out' => '100',
-        'ps' => 'qiwi',
-    );
-
-    protected $queryParamsForCreateInvoice = array(
-        'command' => 'invoice',
-        'project' => 'projectId',
-        'v1' => 'v1',
-        'v2' => 'v2',
-        'v3' => 'v3',
-        'sum' => '10',
-        'out' => '100',
-        'phone' => 'phone',
-        'userip' => 'userIP',
         'ps' => 'qiwi',
     );
 
@@ -180,33 +139,9 @@ class QiwiWalletTest extends MobilePaymentTest
 
     public function setUp()
     {
-        $this->requestMock = $this->getMock('\Guzzle\Http\Message\RequestInterface', array(), array(), '', false);
-        $this->responseMock = $this->getMock('\Guzzle\Http\Message\Response', array(), array(), '', false);
-        $this->clientMock = $this->getMock('\Guzzle\Http\Client', array(), array(), '', false);
-        $this->requestMock->expects($this->any())->method('send')->will($this->returnValue($this->responseMock));
-
-        $this->projectMock = $this->getMock(
-            '\Xsolla\SDK\Storage\ProjectInterface',
-            array('getProjectId', 'getSecretKey'),
-            array(),
-            '',
-            false
-        );
-        $this->projectMock->expects($this->any())->method('getProjectId')->will($this->returnValue('projectId'));
-        $this->projectMock->expects($this->any())->method('getSecretKey')->will($this->returnValue('key'));
-
-        $this->userMock = $this->getMock('\Xsolla\SDK\User', array(), array(), '', false);
-
-        $this->userMock->expects($this->any())->method('getUserIP')->will($this->returnValue('userIP'));
-        $this->userMock->expects($this->any())->method('getV1')->will($this->returnValue('v1'));
-        $this->userMock->expects($this->any())->method('getV2')->will($this->returnValue('v2'));
-        $this->userMock->expects($this->any())->method('getV3')->will($this->returnValue('v3'));
-        $this->userMock->expects($this->any())->method('getPhone')->will($this->returnValue('phone'));
-
-        $this->invoiceMock = $this->getMock('\Xsolla\SDK\Invoice', array(), array(), '', false);
-
+        $this->SetUpMocks();
+        $this->queryParamsForCreateInvoice['ps'] = 'qiwi';
         $this->mobilePayment = new QiwiWallet($this->clientMock, $this->projectMock);
-
     }
 
     public function testCreateInvoiceWithoutEmail()
@@ -220,7 +155,7 @@ class QiwiWalletTest extends MobilePaymentTest
         );
 
         $signString = $this->createSignString($this->queryParamsWithoutEmail);
-        $this->queryParamsWithoutEmail['md5'] = md5($signString . $this->projectMock->getSecretKey());
+        $this->queryParamsWithoutEmail['md5'] = md5($signString . self::PROJECT_SECRET_KEY);
 
         $this->clientMock->expects($this->once())
             ->method('get')
@@ -256,7 +191,7 @@ class QiwiWalletTest extends MobilePaymentTest
             $this->returnValue($this->responseCreateInvoiceWithoutPS)
         );
         $signString = $this->createSignString($this->queryParamsWithoutPs);
-        $this->queryParamsWithoutPs['md5'] = md5($signString . $this->projectMock->getSecretKey());
+        $this->queryParamsWithoutPs['md5'] = md5($signString . self::PROJECT_SECRET_KEY);
 
         $this->clientMock->expects($this->once())
             ->method('get')
