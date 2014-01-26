@@ -16,6 +16,10 @@ use Xsolla\SDK\Validator\Xsd;
  */
 class MobilePayment
 {
+    const CODE_SUCCESS = 0;
+    const CODE_ERROR_WRONG_SIGN = 3;
+    const CODE_ERROR_INTERNAL_SERVER = 1;
+
     protected $xsd_path_calculate = '/../../resources/schema/mobilepayment/calculate.xsd';
     protected $xsd_path_invoice = '/../../resources/schema/mobilepayment/invoice.xsd';
 
@@ -104,11 +108,11 @@ class MobilePayment
 
     protected function checkCodeResult($result)
     {
-        if ($result->result == 3) {
+        if ($result->result == self::CODE_ERROR_WRONG_SIGN) {
             throw new SecurityException((string) $result->comment, (int) $result->result);
-        } elseif ($result->result == 1) {
+        } elseif ($result->result == self::CODE_ERROR_INTERNAL_SERVER) {
             throw new InternalServerException((string) $result->comment, (int) $result->result);
-        } elseif ($result->result != 0) {
+        } elseif ($result->result != self::CODE_SUCCESS) {
             throw new InvalidArgumentException((string) $result->comment, (int) $result->result);
         }
     }
