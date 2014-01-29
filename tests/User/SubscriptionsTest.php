@@ -3,7 +3,6 @@
 namespace Xsolla\SDK\Tests\User;
 
 use Guzzle\Http\Exception\ClientErrorResponseException;
-use Xsolla\SDK\Subscription;
 use Xsolla\SDK\User\Subscriptions;
 
 class SubscriptionsTest extends \PHPUnit_Framework_TestCase
@@ -12,18 +11,45 @@ class SubscriptionsTest extends \PHPUnit_Framework_TestCase
      * @var Subscriptions
      */
     protected $subscriptions;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $clientMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $projectMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $requestMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $userMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $responseMock;
 
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $subscriptionMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $invoiceMock;
 
     public function setUp()
     {
-        $this->projectMock = $this->getMock('\Xsolla\SDK\Storage\ProjectInterface');
+        $this->projectMock = $this->getMock('\Xsolla\SDK\Project', array(), array(), '', false);
         $this->projectMock->expects($this->once())->method('getProjectId')->will($this->returnValue('projectId'));
 
         $this->userMock = $this->getMock('\Xsolla\SDK\User', array(), array(), '', false);
@@ -54,11 +80,18 @@ class SubscriptionsTest extends \PHPUnit_Framework_TestCase
             '/v1/subscriptions'
         )->will($this->returnValue($this->requestMock));
 
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue(
-                json_encode(array('subscriptions' => array(array('id' => 'id', 'name' => 'name', 'type' => 'type', 'currency' => 'currency'))))
-            )
-        );
+        $this->responseMock->expects($this->once())
+            ->method('json')
+            ->will($this->returnValue(
+                    array('subscriptions' => array(
+                        array(
+                            'id' => 'id',
+                            'name' => 'name',
+                            'type' => 'type',
+                            'currency' => 'currency',
+                        )
+                    ))
+                ));
 
         $subscriptions = $this->subscriptions->search($this->userMock, Subscriptions::TYPE_CARD);
         $this->assertInstanceOf(
@@ -75,11 +108,11 @@ class SubscriptionsTest extends \PHPUnit_Framework_TestCase
 
         $this->clientMock->expects($this->once())->method('get')->with()->will($this->returnValue($this->requestMock));
         $this->requestMock->expects($this->once())->method('send')->will($this->throwException($exceptionMock));
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue(json_encode(array('error' => array('code' => '23', 'message' => 'message'))))
-        );
+        $this->responseMock->expects($this->once())
+            ->method('json')
+            ->will($this->returnValue(array('error' => array('code' => '23', 'message' => 'message'))));
 
-        $subscriptions = $this->subscriptions->search($this->userMock, Subscriptions::TYPE_CARD);
+        $this->subscriptions->search($this->userMock, Subscriptions::TYPE_CARD);
     }
 
     public function testSearchInvalidArgumentException()
@@ -90,9 +123,9 @@ class SubscriptionsTest extends \PHPUnit_Framework_TestCase
 
         $this->clientMock->expects($this->once())->method('get')->with()->will($this->returnValue($this->requestMock));
         $this->requestMock->expects($this->once())->method('send')->will($this->throwException($exceptionMock));
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue(json_encode(array('error' => array('code' => '1234', 'message' => 'message'))))
-        );
+        $this->responseMock->expects($this->once())
+            ->method('json')
+            ->will($this->returnValue(array('error' => array('code' => '1234', 'message' => 'message'))));
 
         $this->subscriptions->search($this->userMock, Subscriptions::TYPE_CARD);
     }
@@ -103,11 +136,9 @@ class SubscriptionsTest extends \PHPUnit_Framework_TestCase
             '/v1/subscriptions/type'
         )->will($this->returnValue($this->requestMock));
 
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue(
-                json_encode(array('id' => 'invoiceId'))
-            )
-        );
+        $this->responseMock->expects($this->once())
+            ->method('json')
+            ->will($this->returnValue(array('id' => 'invoiceId')));
         $this->assertEquals('invoiceId', $this->subscriptions->pay($this->subscriptionMock, $this->invoiceMock));
     }
 
@@ -120,9 +151,9 @@ class SubscriptionsTest extends \PHPUnit_Framework_TestCase
         $this->clientMock->expects($this->once())->method('post')->with()->will($this->returnValue($this->requestMock));
         $this->requestMock->expects($this->once())->method('send')->will($this->throwException($exceptionMock));
 
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue(json_encode(array('error' => array('code' => '1234', 'message' => 'message'))))
-        );
+        $this->responseMock->expects($this->once())
+            ->method('json')
+            ->will($this->returnValue(array('error' => array('code' => '1234', 'message' => 'message'))));
 
         $this->subscriptions->pay($this->subscriptionMock, $this->invoiceMock);
     }
@@ -146,11 +177,10 @@ class SubscriptionsTest extends \PHPUnit_Framework_TestCase
         $this->clientMock->expects($this->once())->method('delete')->with()->will($this->returnValue($this->requestMock));
         $this->requestMock->expects($this->once())->method('send')->will($this->throwException($exceptionMock));
 
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue(json_encode(array('error' => array('code' => '1234', 'message' => 'message'))))
-        );
+        $this->responseMock->expects($this->once())
+            ->method('json')
+            ->will($this->returnValue(array('error' => array('code' => '1234', 'message' => 'message'))));
 
         $this->subscriptions->delete($this->subscriptionMock);
     }
-
 }

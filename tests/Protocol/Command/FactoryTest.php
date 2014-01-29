@@ -10,19 +10,42 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      * @var Factory;
      */
     protected $factory;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $projectMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $paymentsCashMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $paymentsStandardMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $usersMock;
 
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $protocolStandardMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $protocolCashMock;
 
     public function setUp()
     {
         $this->factory = new Factory();
         $this->usersMock = $this->getMock('\Xsolla\SDK\Storage\UsersInterface');
-        $this->projectMock = $this->getMock('\Xsolla\SDK\Storage\ProjectInterface');
+        $this->projectMock = $this->getMock('\Xsolla\SDK\Project', array(), array(), '', false);
         $this->paymentsCashMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsCashInterface');
         $this->paymentsStandardMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsStandardInterface');
         $this->protocolStandardMock = $this->getMock('\Xsolla\SDK\Protocol\Standard', array(), array(), '', false);

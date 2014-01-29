@@ -5,24 +5,29 @@ namespace Xsolla\SDK\User;
 use Guzzle\Http\Client;
 use Xsolla\SDK\Exception\InternalServerException;
 use Xsolla\SDK\Exception\InvalidArgumentException;
-use Xsolla\SDK\Storage\ProjectInterface;
+use Xsolla\SDK\Project;
 use Xsolla\SDK\User;
 
+/**
+ * @link http://xsolla.github.io/en/apixsolla.html
+ */
 class Number
 {
-    /**
-     * @var ProjectInterface
-     */
     protected $project;
 
     protected $client;
 
-    public function __construct(Client $client, ProjectInterface $project)
+    public function __construct(Client $client, Project $project)
     {
         $this->client = $client;
         $this->project = $project;
     }
 
+    /**
+     * @param User $user
+     * @return int
+     * @throws \RuntimeException
+     */
     public function getNumber(User $user)
     {
         $request = $this->client->get(
@@ -40,7 +45,7 @@ class Number
             )
         );
 
-        $response = json_decode($request->send()->getBody(), true);
+        $response = $request->send()->json();
         if ($response['result'] == 0) {
             return $response['number'];
         } elseif (in_array($response['result'], array(10, 11))) {
@@ -48,6 +53,5 @@ class Number
         } else {
             throw new InvalidArgumentException($response['description'], $response['result']);
         }
-
     }
 }

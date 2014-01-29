@@ -12,37 +12,49 @@ abstract class CommandTest extends \PHPUnit_Framework_TestCase
 
     const SECRETKEY = 'key';
     const PROJECTID = 'project';
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $projectMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $paymentsCashMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $paymentsStandardMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $requestMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $usersMock;
+
     /**
      * @var Command
      */
     protected $command;
 
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $commandMock;
 
     public function setUp()
     {
         $this->paymentsCashMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsCashInterface', array(), array(), '', false);
-        $this->paymentsStandardMock = $this->getMock(
-            '\Xsolla\SDK\Storage\PaymentsStandardInterface',
-            array(),
-            array(),
-            '',
-            false
-        );
-        $this->projectMock = $this->getMock(
-            '\Xsolla\SDK\Storage\ProjectInterface',
-            array('getProjectId', 'getSecretKey'),
-            array(),
-            '',
-            false
-        );
+        $this->paymentsStandardMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsStandardInterface', array(), array(), '', false);
         $this->requestMock = $this->getMock('\Symfony\Component\HttpFoundation\Request', array(), array(), '', false);
 
+        $this->projectMock = $this->getMock('\Xsolla\SDK\Project', array(), array(), '', false);
         $this->projectMock->expects($this->any())->method('getProjectId')->will($this->returnValue(self::PROJECTID));
         $this->projectMock->expects($this->any())->method('getSecretKey')->will($this->returnValue(self::SECRETKEY));
 

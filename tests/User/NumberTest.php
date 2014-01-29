@@ -6,12 +6,31 @@ use Xsolla\SDK\User\Number;
 
 class NumberTest extends \PHPUnit_Framework_TestCase
 {
-
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $projectMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $userMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $clientMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $requestMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $responseMock;
+
     /**
      * @var Number
      */
@@ -19,7 +38,7 @@ class NumberTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->projectMock = $this->getMock('\Xsolla\SDK\Storage\ProjectInterface');
+        $this->projectMock = $this->getMock('\Xsolla\SDK\Project', array(), array(), '', false);
         $this->projectMock->expects($this->once())->method('getProjectId')->will($this->returnValue('projectId'));
 
         $this->userMock = $this->getMock('\Xsolla\SDK\User', array(), array(), '', false);
@@ -53,9 +72,9 @@ class NumberTest extends \PHPUnit_Framework_TestCase
 
     public function testGetNumber()
     {
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue(json_encode(array('result' => 0, 'number' => 'number')))
-        );
+        $this->responseMock->expects($this->once())
+            ->method('json')
+            ->will($this->returnValue(array('result' => 0, 'number' => 'number')));
 
         $this->assertEquals('number', $this->number->getNumber($this->userMock));
     }
@@ -64,9 +83,9 @@ class NumberTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('\Xsolla\SDK\Exception\InternalServerException', 'description', 10);
 
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue(json_encode(array('result' => 10, 'description' => 'description')))
-        );
+        $this->responseMock->expects($this->once())
+            ->method('json')
+            ->will($this->returnValue(array('result' => 10, 'description' => 'description')));
 
         $this->assertEquals('number', $this->number->getNumber($this->userMock));
     }
@@ -75,9 +94,9 @@ class NumberTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('\Xsolla\SDK\Exception\InvalidArgumentException', 'description', 1);
 
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue(json_encode(array('result' => 1, 'description' => 'description')))
-        );
+        $this->responseMock->expects($this->once())
+            ->method('json')
+            ->will($this->returnValue(array('result' => 1, 'description' => 'description')));
 
         $this->assertEquals('number', $this->number->getNumber($this->userMock));
     }

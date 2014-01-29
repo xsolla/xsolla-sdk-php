@@ -1,13 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: abets
- * Date: 22.01.14
- * Time: 11:13
- */
 
 namespace Xsolla\SDK\Widget;
 
+/**
+ * @link http://xsolla.github.io/en/mversion.html
+ */
 class MobilePayment extends Paystation
 {
 

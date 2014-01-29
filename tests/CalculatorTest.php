@@ -6,10 +6,26 @@ use Xsolla\SDK\Calculator;
 
 class CalculatorTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $requestMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $responseMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $clientMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $projectMock;
+
     protected $calculator;
 
     public function setUp()
@@ -19,7 +35,7 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
         $this->clientMock = $this->getMock('\Guzzle\Http\Client', array(), array(), '', false);
         $this->requestMock->expects($this->once())->method('send')->will($this->returnValue($this->responseMock));
 
-        $this->projectMock = $this->getMock('\Xsolla\SDK\Storage\ProjectInterface');
+        $this->projectMock = $this->getMock('\Xsolla\SDK\Project', array(), array(), '', false);
         $this->projectMock->expects($this->once())->method('getProjectId')->will($this->returnValue('projectId'));
         $this->calculator = new Calculator($this->clientMock, $this->projectMock);
     }

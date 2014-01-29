@@ -36,4 +36,36 @@ class Invoice
     {
         return $this->id;
     }
+
+    /**
+     * @param string $currency
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @param float $out
+     */
+    public function setOut($out)
+    {
+        $this->out = $out;
+    }
+
+    /**
+     * @param float $sum
+     */
+    public function setSum($sum)
+    {
+        $this->sum = $sum;
+    }
 }

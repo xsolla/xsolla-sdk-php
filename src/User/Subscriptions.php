@@ -8,7 +8,7 @@ use Guzzle\Http\Exception\ClientErrorResponseException;
 use Xsolla\SDK\Exception\InvalidArgumentException;
 use Xsolla\SDK\Exception\SecurityException;
 use Xsolla\SDK\Invoice;
-use Xsolla\SDK\Storage\ProjectInterface;
+use Xsolla\SDK\Project;
 use Xsolla\SDK\Subscription;
 use Xsolla\SDK\User;
 
@@ -27,7 +27,7 @@ class Subscriptions
     protected $client;
     protected $isTest;
 
-    public function __construct(Client $client, ProjectInterface $project, $isTest = false)
+    public function __construct(Client $client, Project $project, $isTest = false)
     {
         $this->client = $client;
         $this->project = $project;
@@ -57,14 +57,12 @@ class Subscriptions
         );
 
         try {
-            $response = $request->send();
+            $rows = $request->send()->json();
         } catch (ClientErrorResponseException $e) {
             $this->processException($e);
         }
 
         $subscriptions = array();
-        $rows = json_decode($response->getBody(true), true);
-
         foreach ($rows['subscriptions'] as $row) {
             $subscriptions[] = new Subscription($row['id'], $row['name'], $row['type'], $row['currency']);
         }
@@ -89,12 +87,11 @@ class Subscriptions
         );
 
         try {
-            $result = json_decode($request->send()->getBody(true), true);
+            $result = $request->send()->json();
+            return $result['id'];
         } catch (ClientErrorResponseException $e) {
             $this->processException($e);
         }
-
-        return $result['id'];
     }
 
     public function delete(Subscription $subscription)
@@ -130,7 +127,7 @@ class Subscriptions
 
     public function processException(ClientErrorResponseException $e)
     {
-        $response = json_decode($e->getResponse()->getBody(true), true);
+        $response = $e->getResponse()->json();
         if (self::ERROR_CODE_INVALID_SIGN == $response['error']['code']) {
             throw new SecurityException($response['error']['message'], $response['error']['code']);
         }

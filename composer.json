@@ -1,9 +1,9 @@
 {
     "name": "xsolla/xsolla-sdk-php",
     "type": "library",
-    "description":"Xsolla is the authorized reseller and merchant providing e-commerce services for online games.",
-    "keywords": ["sdk", "xsolla", "api"],
-    "homepage": "http://xsolla.com",
+    "description":"Xsolla SDK for PHP. Xsolla is the authorized reseller and merchant providing e-commerce services for online games.",
+    "keywords": ["sdk", "xsolla", "api", "payment", "games"],
+    "homepage": "http://xsolla.github.io",
     "license": "MIT",
     "authors": [
         {
@@ -18,7 +18,7 @@
     "require": {
         "php": ">=5.3.3",
         "symfony/http-foundation": "~2.4",
-        "guzzle/guzzle": "~3.8.0"
+        "guzzle/http": "~3.8.0"
     },
     "autoload": {
         "psr-4": {

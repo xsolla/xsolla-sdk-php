@@ -7,13 +7,41 @@ use Xsolla\SDK\Validator\Xsd;
 
 class MobilePaymentTest extends \PHPUnit_Framework_TestCase
 {
-
+    const PROJECT_SECRET_KEY = 'key';
+    
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $requestMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $responseMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $clientMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $projectMock;
+
+    /**
+     * @var MobilePayment
+     */
     protected $mobilePayment;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $userMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $invoiceMock;
 
     protected $url = 'mobile/payment/index.php';
@@ -42,7 +70,7 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
         'out' => '100',
         'phone' => 'phone',
         'userip' => 'userIP',
-        'email' => 'email',
+        //'email' => 'email',
     );
 
     protected $responseWithInvalidRequest =
@@ -103,23 +131,30 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        $this->setUpMocks();
+        $this->queryParamsForCreateInvoice['email'] = 'email';
+        $this->userMock->expects($this->any())->method('getEmail')->will($this->returnValue('email'));
+        $this->mobilePayment = new MobilePayment($this->clientMock, $this->projectMock);
+    }
+
+    protected function setUpMocks()
+    {
         $this->requestMock = $this->getMock('\Guzzle\Http\Message\RequestInterface', array(), array(), '', false);
         $this->responseMock = $this->getMock('\Guzzle\Http\Message\Response', array(), array(), '', false);
         $this->clientMock = $this->getMock('\Guzzle\Http\Client', array(), array(), '', false);
         $this->requestMock->expects($this->any())->method('send')->will($this->returnValue($this->responseMock));
 
         $this->projectMock = $this->getMock(
-            '\Xsolla\SDK\Storage\ProjectInterface',
-            array('getProjectId', 'getSecretKey'),
+            '\Xsolla\SDK\Project',
+            array(),
             array(),
             '',
             false
         );
         $this->projectMock->expects($this->any())->method('getProjectId')->will($this->returnValue('projectId'));
-        $this->projectMock->expects($this->any())->method('getSecretKey')->will($this->returnValue('key'));
+        $this->projectMock->expects($this->any())->method('getSecretKey')->will($this->returnValue(self::PROJECT_SECRET_KEY));
 
         $this->userMock = $this->getMock('\Xsolla\SDK\User', array(), array(), '', false);
-        $this->userMock->expects($this->any())->method('getEmail')->will($this->returnValue('email'));
         $this->userMock->expects($this->any())->method('getUserIP')->will($this->returnValue('userIP'));
         $this->userMock->expects($this->any())->method('getV1')->will($this->returnValue('v1'));
         $this->userMock->expects($this->any())->method('getV2')->will($this->returnValue('v2'));
@@ -127,8 +162,6 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
         $this->userMock->expects($this->any())->method('getPhone')->will($this->returnValue('phone'));
 
         $this->invoiceMock = $this->getMock('\Xsolla\SDK\Invoice', array(), array(), '', false);
-
-        $this->mobilePayment = new MobilePayment($this->clientMock, $this->projectMock);
     }
 
     public function testCalculateWithSum()
@@ -141,7 +174,7 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
         );
 
         $signString = $this->createSignString($this->queryParamsCalculateWithSum);
-        $this->queryParamsCalculateWithSum['md5'] = md5($signString . $this->projectMock->getSecretKey());
+        $this->queryParamsCalculateWithSum['md5'] = md5($signString . self::PROJECT_SECRET_KEY);
 
         $this->clientMock->expects($this->once())
             ->method('get')
@@ -167,7 +200,7 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
         );
 
         $signString = $this->createSignString($this->queryParamsCalculateWithOut);
-        $this->queryParamsCalculateWithOut['md5'] = md5($signString . $this->projectMock->getSecretKey());
+        $this->queryParamsCalculateWithOut['md5'] = md5($signString . self::PROJECT_SECRET_KEY);
 
         $this->clientMock->expects($this->once())
             ->method('get')
@@ -270,7 +303,7 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
         );
 
         $signString = $this->createSignString($this->queryParamsForCreateInvoice);
-        $this->queryParamsForCreateInvoice['md5'] = md5($signString . $this->projectMock->getSecretKey());
+        $this->queryParamsForCreateInvoice['md5'] = md5($signString . self::PROJECT_SECRET_KEY);
 
         $this->clientMock->expects($this->once())
             ->method('get')
