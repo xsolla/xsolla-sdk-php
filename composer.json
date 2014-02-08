@@ -17,8 +17,10 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "symfony/http-foundation": "~2.4",
-        "guzzle/http": "~3.8.0"
+        "symfony/http-foundation": "~2.4"
+    },
+    "suggest": {
+        "guzzle/http": "Required for advanced API commands"
     },
     "autoload": {
         "psr-4": {
