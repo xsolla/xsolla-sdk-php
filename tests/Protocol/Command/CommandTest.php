@@ -71,6 +71,15 @@ abstract class CommandTest extends \PHPUnit_Framework_TestCase
         $this->commandMock = $this->getMock('Xsolla\SDK\Protocol\Command\Command', array('checkSign', 'process', 'getRequiredParams', 'checkRequiredParams'), array(), '', false);
     }
 
+    public function dryRunDataProvider()
+    {
+        return [
+            [null, false],
+            [0, false],
+            [1, true],
+        ];
+    }
+
     public function testCheckNoRequiredParams()
     {
         $this->assertFalse($this->command->checkRequiredParams($this->requestMock));

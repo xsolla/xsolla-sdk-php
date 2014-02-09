@@ -12,6 +12,7 @@ interface PaymentsCashInterface extends PaymentsInterface
         $v3,
         $currency,
         \DateTime $datetime,
+        $dryRun,
         $userAmount = null,
         $userCurrency = null,
         $transferAmount = null,

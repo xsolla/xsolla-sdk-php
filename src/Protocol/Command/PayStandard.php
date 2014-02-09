@@ -46,7 +46,8 @@ class PayStandard extends Command
             $request->query->get('sum'),
             $request->query->get('v1'),
             $request->query->get('v2'),
-            $request->query->get('v3')
+            $request->query->get('v3'),
+            (bool) $request->query->get('dry_run')
         );
 
         return array('result' => 0, 'comment' => '', 'id' => $request->query->get('id'), 'id_shop' => $id);

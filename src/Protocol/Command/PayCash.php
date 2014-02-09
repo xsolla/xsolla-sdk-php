@@ -40,6 +40,7 @@ class PayCash extends Command
                 $request->query->get('v3'),
                 $request->query->get('currency'),
                 $datetime,
+                (bool) $request->query->get('dry_run'),
                 $request->query->get('userAmount'),
                 $request->query->get('userCurrency'),
                 $request->query->get('transferAmount'),

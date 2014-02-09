@@ -9,7 +9,7 @@ class PaymentsStandard implements PaymentsStandardInterface
         // TODO: Implement cancel() method.
     }
 
-    public function pay($invoiceId, $amountVirtual, $v1, $v2, $v3)
+    public function pay($invoiceId, $amountVirtual, $v1, $v2, $v3, $dryRun)
     {
         // TODO: Implement pay() method.
     }

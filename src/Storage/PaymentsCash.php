@@ -12,6 +12,7 @@ class PaymentsCash implements PaymentsCashInterface
         $v3,
         $currency,
         \DateTime $datetime,
+        $dryRun,
         $userAmount = null,
         $userCurrency = null,
         $transferAmount = null,

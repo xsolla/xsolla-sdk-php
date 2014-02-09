@@ -24,21 +24,28 @@ class PayStandardTest extends CommandTest
         $this->checkSignTest($request);
     }
 
-    public function testProcess()
+
+    /**
+     * @dataProvider dryRunDataProvider
+     */
+    public function testProcess($dryRunQueryParameter, $expectedDryRun)
     {
         $request = array(
             'v1' => 'v1',
             'v2' => 'v2',
             'v3' => 'v3',
             'id' => 'id',
-            'sum' => 'sum'
+            'sum' => 'sum',
         );
+        if (!is_null($dryRunQueryParameter)) {
+            $request['dry_run'] = $dryRunQueryParameter;
+        }
         $this->queryBag->replace($request);
 
         $this->usersMock->expects($this->once())->method('check')->will($this->returnValue(true));
         $this->paymentsStandardMock->expects($this->once())
             ->method('pay')
-            ->with('id', 'sum', 'v1', 'v2', 'v3')
+            ->with('id', 'sum', 'v1', 'v2', 'v3', $expectedDryRun)
             ->will($this->returnValue('id_shop'));
         $result = $this->command->process($this->requestMock);
         $this->assertEquals('0', $result['result']);
