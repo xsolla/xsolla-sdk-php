@@ -20,7 +20,7 @@ class PayCashTest extends CommandTest
             'v2' => 'v2',
             'v3' => 'v3',
             'currency' => 'currency',
-            'date' => '20131212110000',
+            'datetime' => '20131212110000',
             'userAmount' => 'userAmount',
             'userCurrency' => 'userCurrency',
             'transferAmount' => 'transferAmount',
@@ -49,6 +49,15 @@ class PayCashTest extends CommandTest
         $result = $this->command->process($this->requestMock);
 
         $this->assertEquals(PayCash::CODE_SUCCESS, $result['result']);
+    }
+
+    public function testProcessWithInvalidDateTime()
+    {
+        $invalidDateTimeFormat = '2014-01-01 01:01:01';
+        $this->queryBag->set('datetime', $invalidDateTimeFormat);
+        $result = $this->command->process($this->requestMock);
+        $this->assertEquals(PayCash::CODE_ERROR_TEMPORARY, $result['result']);
+        $this->assertContains($invalidDateTimeFormat, $result['description']);
     }
 
     public function testProcessWithFail()

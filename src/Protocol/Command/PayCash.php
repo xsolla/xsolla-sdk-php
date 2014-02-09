@@ -3,6 +3,7 @@
 namespace Xsolla\SDK\Protocol\Command;
 
 use Symfony\Component\HttpFoundation\Request;
+use Xsolla\SDK\Exception\InvalidArgumentException;
 use Xsolla\SDK\Storage\PaymentsCashInterface;
 use Xsolla\SDK\Project;
 
@@ -30,6 +31,7 @@ class PayCash extends Command
     public function process(Request $request)
     {
         try {
+            $datetime = $this->getDateTimeXsolla($request->query->get('datetime'));
             $this->payments->pay(
                 $request->query->get('id'),
                 $request->query->get('amount'),
@@ -37,7 +39,7 @@ class PayCash extends Command
                 $request->query->get('v2'),
                 $request->query->get('v3'),
                 $request->query->get('currency'),
-                $request->query->get('date'),
+                $datetime,
                 $request->query->get('userAmount'),
                 $request->query->get('userCurrency'),
                 $request->query->get('transferAmount'),
@@ -56,5 +58,15 @@ class PayCash extends Command
     {
         $actualSign = $this->generateSign($request, array('v1', 'amount', 'currency', 'id'));
         return $actualSign == $request->query->get('sign');
+    }
+
+    protected function getDateTimeXsolla($datetime)
+    {
+        $xsollaTimeZone = new \DateTimeZone('Europe/Moscow');
+        $datetimeObj = \DateTime::createFromFormat('YmdHis', $datetime, $xsollaTimeZone);
+        if (!$datetimeObj) {
+            throw new InvalidArgumentException(sprintf('Datetime string %s could not be converted to DateTime object from format \'YmdHis\'', $datetime));
+        }
+        return $datetimeObj;
     }
 }

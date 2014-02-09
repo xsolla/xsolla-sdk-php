@@ -11,7 +11,7 @@ class PaymentsCash implements PaymentsCashInterface
         $v2,
         $v3,
         $currency,
-        $date,
+        \DateTime $datetime,
         $userAmount,
         $userCurrency,
         $transferAmount,
