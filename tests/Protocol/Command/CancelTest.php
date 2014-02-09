@@ -8,14 +8,15 @@ use Xsolla\SDK\Protocol\Command\Cancel;
 
 class CancelTest extends CommandTest
 {
+    const ID = 'example_id';
 
     protected $signParams = array('command', 'id');
 
     public function setUp()
     {
         parent::setUp();
-
         $this->command = new Cancel($this->projectMock, $this->paymentsStandardMock);
+        $this->queryBag->set('id', 'example_id');
     }
 
     public function testCheckSign()
@@ -29,31 +30,34 @@ class CancelTest extends CommandTest
 
     public function testProcess()
     {
-        $this->queryMock->expects($this->once())->method('get')->with('id')->will($this->returnValue('id'));
-        $this->paymentsStandardMock->expects($this->once())->method('cancel')->with('id')->will($this->returnValue(true));
+        $this->paymentsStandardMock->expects($this->once())
+            ->method('cancel')
+            ->with(self::ID)
+            ->will($this->returnValue(true));
         $result = $this->command->process($this->requestMock);
 
-        $this->assertArrayHasKey('result', $result);
         $this->assertEquals($result['result'], 0);
     }
 
     public function testProcessInvoiceNotFound()
     {
-        $this->queryMock->expects($this->once())->method('get')->with('id')->will($this->returnValue('id'));
-        $this->paymentsStandardMock->expects($this->once())->method('cancel')->with('id')->will($this->throwException(new InvoiceNotFoundException()));
+        $this->paymentsStandardMock->expects($this->once())
+            ->method('cancel')
+            ->with(self::ID)
+            ->will($this->throwException(new InvoiceNotFoundException()));
         $result = $this->command->process($this->requestMock);
 
-        $this->assertArrayHasKey('result', $result);
         $this->assertEquals($result['result'], 2);
     }
 
     public function testProcessInvoiceNotBeRollback()
     {
-        $this->queryMock->expects($this->once())->method('get')->with('id')->will($this->returnValue('id'));
-        $this->paymentsStandardMock->expects($this->once())->method('cancel')->with('id')->will($this->throwException(new InvoiceNotBeRollbackException()));
+        $this->paymentsStandardMock->expects($this->once())
+            ->method('cancel')
+            ->with(self::ID)
+            ->will($this->throwException(new InvoiceNotBeRollbackException()));
         $result = $this->command->process($this->requestMock);
 
-        $this->assertArrayHasKey('result', $result);
         $this->assertEquals($result['result'], 7);
     }
 }

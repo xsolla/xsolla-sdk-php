@@ -13,6 +13,22 @@ class PayCashTest extends CommandTest
     {
         parent::setUp();
         $this->command = new PayCash($this->projectMock, $this->paymentsCashMock);
+        $request = array(
+            'id' => 'id',
+            'amount' => 'amount',
+            'v1' => 'v1',
+            'v2' => 'v2',
+            'v3' => 'v3',
+            'currency' => 'currency',
+            'date' => '20131212110000',
+            'userAmount' => 'userAmount',
+            'userCurrency' => 'userCurrency',
+            'transferAmount' => 'transferAmount',
+            'transferCurrency' => 'transferCurrency',
+            'pid' => 'pid',
+            'geotype' => 'geotype'
+        );
+        $this->queryBag->replace($request);
     }
 
     public function testCheckSign()
@@ -28,30 +44,8 @@ class PayCashTest extends CommandTest
 
     public function testProcess()
     {
-        $request = array(
-            'id' => 'id',
-            'amount' => 'amount',
-            'v1' => 'v1',
-            'v2' => 'v2',
-            'v3' => 'v3',
-            'currency' => 'currency',
-            'date' => 'date',
-            'userAmount' => 'userAmount',
-            'userCurrency' => 'userCurrency',
-            'transferAmount' => 'transferAmount',
-            'transferCurrency' => 'transferCurrency',
-            'pid' => 'pid',
-            'geotype' => 'geotype'
-        );
-        $this->requestMock->expects($this->any())->method('get')->will(
-            $this->returnCallback(
-                function ($name) use ($request) {
-                    return (isset($request[$name]) ? $request[$name] : null);
-                }
-            )
-        );
-
-        $this->paymentsCashMock->expects($this->once())->method('pay')->will($this->returnValue('id'));
+        $this->paymentsCashMock->expects($this->once())
+            ->method('pay');
         $result = $this->command->process($this->requestMock);
 
         $this->assertEquals(PayCash::CODE_SUCCESS, $result['result']);
@@ -59,7 +53,9 @@ class PayCashTest extends CommandTest
 
     public function testProcessWithFail()
     {
-        $this->paymentsCashMock->expects($this->once())->method('pay')->will($this->throwException(new \Exception('Message')));
+        $this->paymentsCashMock->expects($this->once())
+            ->method('pay')
+            ->will($this->throwException(new \Exception('Message')));
         $result = $this->command->process($this->requestMock);
 
         $this->assertEquals(PayCash::CODE_ERROR_TEMPORARY, $result['result']);

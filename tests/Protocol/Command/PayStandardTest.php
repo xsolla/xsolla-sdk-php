@@ -33,13 +33,7 @@ class PayStandardTest extends CommandTest
             'id' => 'id',
             'sum' => 'sum'
         );
-        $this->queryMock->expects($this->any())->method('get')->will(
-            $this->returnCallback(
-                function ($name) use ($request) {
-                    return (isset($request[$name]) ? $request[$name] : null);
-                }
-            )
-        );
+        $this->queryBag->replace($request);
 
         $this->usersMock->expects($this->once())->method('check')->will($this->returnValue(true));
         $this->paymentsStandardMock->expects($this->once())

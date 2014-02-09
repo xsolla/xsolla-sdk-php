@@ -6,6 +6,9 @@ use Xsolla\SDK\Protocol\Command\Check;
 
 class CheckTest extends CommandTest
 {
+    const V1 = 'example_v1';
+    const V2 = 'example_v2';
+    const V3 = 'example_v3';
 
     protected $signParams = array('command', 'v1');
 
@@ -13,6 +16,9 @@ class CheckTest extends CommandTest
     {
         parent::setUp();
         $this->command = new Check($this->projectMock, $this->usersMock);
+        $this->queryBag->set('v1', self::V1);
+        $this->queryBag->set('v2', self::V2);
+        $this->queryBag->set('v3', self::V3);
     }
 
     public function testCheckSign()
@@ -24,27 +30,24 @@ class CheckTest extends CommandTest
         $this->checkSignTest($request);
     }
 
-    protected function prepareProcess($return)
+    protected function initUsersMock($hasUser)
     {
-        $this->queryMock->expects($this->at(0))->method('get')->with('v1')->will($this->returnValue('v1'));
-        $this->queryMock->expects($this->at(1))->method('get')->with('v2')->will($this->returnValue('v2'));
-        $this->queryMock->expects($this->at(2))->method('get')->with('v3')->will($this->returnValue('v3'));
-
-        $this->usersMock->expects($this->once())->method('check')->with('v1', 'v2', 'v3')->will($this->returnValue($return));
+        $this->usersMock->expects($this->once())
+            ->method('check')
+            ->with(self::V1, self::V2, self::V3)
+            ->will($this->returnValue($hasUser));
     }
     public function testProcess()
     {
-        $this->prepareProcess(true);
+        $this->initUsersMock(true);
         $result = $this->command->process($this->requestMock);
-        $this->assertArrayHasKey('result', $result);
         $this->assertEquals('0', $result['result']);
     }
 
     public function testProcessNicknameNotFound()
     {
-        $this->prepareProcess(false);
+        $this->initUsersMock(false);
         $result = $this->command->process($this->requestMock);
-        $this->assertArrayHasKey('result', $result);
         $this->assertEquals('7', $result['result']);
     }
 }

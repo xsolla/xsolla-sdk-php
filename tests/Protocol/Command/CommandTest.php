@@ -3,6 +3,7 @@
 namespace Xsolla\SDK\Tests\Protocol\Command;
 
 use Xsolla\SDK\Protocol\Command\Command;
+use \Symfony\Component\HttpFoundation\ParameterBag;
 
 abstract class CommandTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,9 +35,9 @@ abstract class CommandTest extends \PHPUnit_Framework_TestCase
     protected $requestMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var ParameterBag
      */
-    protected $queryMock;
+    protected $queryBag;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -58,9 +59,8 @@ abstract class CommandTest extends \PHPUnit_Framework_TestCase
         $this->paymentsCashMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsCashInterface', array(), array(), '', false);
         $this->paymentsStandardMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsStandardInterface', array(), array(), '', false);
 
-        $this->queryMock = $this->getMock('\Symfony\Component\HttpFoundation\ParameterBag', array(), array(), '', false);
         $this->requestMock = $this->getMock('\Symfony\Component\HttpFoundation\Request', array(), array(), '', false);
-        $this->requestMock->query = $this->queryMock;
+        $this->requestMock->query = $this->queryBag = new ParameterBag;
 
         $this->projectMock = $this->getMock('\Xsolla\SDK\Project', array(), array(), '', false);
         $this->projectMock->expects($this->any())->method('getProjectId')->will($this->returnValue(self::PROJECTID));
@@ -73,28 +73,20 @@ abstract class CommandTest extends \PHPUnit_Framework_TestCase
 
     public function testCheckNoRequiredParams()
     {
-        $this->queryMock->expects($this->any())->method('get')->will($this->returnValue(null));
         $this->assertFalse($this->command->checkRequiredParams($this->requestMock));
     }
 
-    public function checkSignTest($request)
+    public function checkSignTest(array $request)
     {
         $request[$this->signParamName] = md5($this->getSignString($request) . self::SECRETKEY);
-        $this->queryMock->expects($this->any())->method('get')->will(
-            $this->returnCallback(
-                function ($name) use ($request) {
-                    return (isset($request[$name]) ? $request[$name] : null);
-                }
-            )
-        );
+        $this->queryBag->replace($request);
 
         $this->assertTrue($this->command->checkSign($this->requestMock));
     }
 
     public function testCheckSignFalse()
     {
-        $request['md5'] = md5('wrong sign');
-        $this->queryMock->expects($this->any())->method('get')->will($this->returnValue('1'));
+        $this->queryBag->set('md5', 'incorrect sign');
 
         $this->assertFalse($this->command->checkSign($this->requestMock));
     }
