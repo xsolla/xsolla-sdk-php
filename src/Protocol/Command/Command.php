@@ -36,7 +36,7 @@ abstract class Command
         $requiredParameters = $this->getRequiredParams();
 
         foreach ($requiredParameters as $param) {
-            $value = $request->get($param);
+            $value = $request->query->get($param);
             if (empty($value)) {
                 return false;
             }
@@ -49,7 +49,7 @@ abstract class Command
     {
         $signString = '';
         foreach ($parameters as $parameter) {
-            $signString .= $request->get($parameter);
+            $signString .= $request->query->get($parameter);
         }
 
         return md5($signString . $this->project->getSecretKey());

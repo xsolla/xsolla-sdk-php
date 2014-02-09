@@ -26,9 +26,9 @@ class CheckTest extends CommandTest
 
     protected function prepareProcess($return)
     {
-        $this->requestMock->expects($this->at(0))->method('get')->with('v1')->will($this->returnValue('v1'));
-        $this->requestMock->expects($this->at(1))->method('get')->with('v2')->will($this->returnValue('v2'));
-        $this->requestMock->expects($this->at(2))->method('get')->with('v3')->will($this->returnValue('v3'));
+        $this->queryMock->expects($this->at(0))->method('get')->with('v1')->will($this->returnValue('v1'));
+        $this->queryMock->expects($this->at(1))->method('get')->with('v2')->will($this->returnValue('v2'));
+        $this->queryMock->expects($this->at(2))->method('get')->with('v3')->will($this->returnValue('v3'));
 
         $this->usersMock->expects($this->once())->method('check')->with('v1', 'v2', 'v3')->will($this->returnValue($return));
     }

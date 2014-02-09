@@ -34,7 +34,7 @@ class PayStandard extends Command
 
     public function process(Request $request)
     {
-        if (!$this->users->check($request->get('v1'), $request->get('v2'), $request->get('v3'))) {
+        if (!$this->users->check($request->query->get('v1'), $request->query->get('v2'), $request->query->get('v3'))) {
             return array(
                 'result' => '2',
                 'comment' => 'Invalid user’s ID'
@@ -42,18 +42,18 @@ class PayStandard extends Command
         }
 
         $id = $this->payments->pay(
-            $request->get('id'),
-            $request->get('sum'),
-            $request->get('v1'),
-            $request->get('v2'),
-            $request->get('v3')
+            $request->query->get('id'),
+            $request->query->get('sum'),
+            $request->query->get('v1'),
+            $request->query->get('v2'),
+            $request->query->get('v3')
         );
 
-        return array('result' => 0, 'comment' => '', 'id' => $request->get('id'), 'id_shop' => $id);
+        return array('result' => 0, 'comment' => '', 'id' => $request->query->get('id'), 'id_shop' => $id);
     }
 
     public function checkSign(Request $request)
     {
-        return ($this->generateSign($request, array('command', 'v1', 'id')) == $request->get('md5'));
+        return ($this->generateSign($request, array('command', 'v1', 'id')) == $request->query->get('md5'));
     }
 }

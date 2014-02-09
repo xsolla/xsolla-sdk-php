@@ -36,6 +36,11 @@ abstract class CommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
+    protected $queryMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $usersMock;
 
     /**
@@ -52,7 +57,10 @@ abstract class CommandTest extends \PHPUnit_Framework_TestCase
     {
         $this->paymentsCashMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsCashInterface', array(), array(), '', false);
         $this->paymentsStandardMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsStandardInterface', array(), array(), '', false);
+
+        $this->queryMock = $this->getMock('\Symfony\Component\HttpFoundation\ParameterBag', array(), array(), '', false);
         $this->requestMock = $this->getMock('\Symfony\Component\HttpFoundation\Request', array(), array(), '', false);
+        $this->requestMock->query = $this->queryMock;
 
         $this->projectMock = $this->getMock('\Xsolla\SDK\Project', array(), array(), '', false);
         $this->projectMock->expects($this->any())->method('getProjectId')->will($this->returnValue(self::PROJECTID));
@@ -65,14 +73,14 @@ abstract class CommandTest extends \PHPUnit_Framework_TestCase
 
     public function testCheckNoRequiredParams()
     {
-        $this->requestMock->expects($this->any())->method('get')->will($this->returnValue(null));
+        $this->queryMock->expects($this->any())->method('get')->will($this->returnValue(null));
         $this->assertFalse($this->command->checkRequiredParams($this->requestMock));
     }
 
     public function checkSignTest($request)
     {
         $request[$this->signParamName] = md5($this->getSignString($request) . self::SECRETKEY);
-        $this->requestMock->expects($this->any())->method('get')->will(
+        $this->queryMock->expects($this->any())->method('get')->will(
             $this->returnCallback(
                 function ($name) use ($request) {
                     return (isset($request[$name]) ? $request[$name] : null);
@@ -86,7 +94,7 @@ abstract class CommandTest extends \PHPUnit_Framework_TestCase
     public function testCheckSignFalse()
     {
         $request['md5'] = md5('wrong sign');
-        $this->requestMock->expects($this->any())->method('get')->will($this->returnValue('1'));
+        $this->queryMock->expects($this->any())->method('get')->will($this->returnValue('1'));
 
         $this->assertFalse($this->command->checkSign($this->requestMock));
     }

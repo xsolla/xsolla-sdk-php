@@ -21,7 +21,7 @@ class Cancel extends Command
     public function process(Request $request)
     {
         try {
-            $this->payments->cancel($request->get('id'));
+            $this->payments->cancel($request->query->get('id'));
 
             return array(
                 'result' => '0'
@@ -41,7 +41,7 @@ class Cancel extends Command
 
     public function checkSign(Request $request)
     {
-        return ($this->generateSign($request, array('command', 'id')) == $request->get('md5'));
+        return ($this->generateSign($request, array('command', 'id')) == $request->query->get('md5'));
     }
 
     public function getRequiredParams()

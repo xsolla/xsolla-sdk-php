@@ -29,7 +29,7 @@ class CancelTest extends CommandTest
 
     public function testProcess()
     {
-        $this->requestMock->expects($this->once())->method('get')->with('id')->will($this->returnValue('id'));
+        $this->queryMock->expects($this->once())->method('get')->with('id')->will($this->returnValue('id'));
         $this->paymentsStandardMock->expects($this->once())->method('cancel')->with('id')->will($this->returnValue(true));
         $result = $this->command->process($this->requestMock);
 
@@ -39,7 +39,7 @@ class CancelTest extends CommandTest
 
     public function testProcessInvoiceNotFound()
     {
-        $this->requestMock->expects($this->once())->method('get')->with('id')->will($this->returnValue('id'));
+        $this->queryMock->expects($this->once())->method('get')->with('id')->will($this->returnValue('id'));
         $this->paymentsStandardMock->expects($this->once())->method('cancel')->with('id')->will($this->throwException(new InvoiceNotFoundException()));
         $result = $this->command->process($this->requestMock);
 
@@ -49,7 +49,7 @@ class CancelTest extends CommandTest
 
     public function testProcessInvoiceNotBeRollback()
     {
-        $this->requestMock->expects($this->once())->method('get')->with('id')->will($this->returnValue('id'));
+        $this->queryMock->expects($this->once())->method('get')->with('id')->will($this->returnValue('id'));
         $this->paymentsStandardMock->expects($this->once())->method('cancel')->with('id')->will($this->throwException(new InvoiceNotBeRollbackException()));
         $result = $this->command->process($this->requestMock);
 

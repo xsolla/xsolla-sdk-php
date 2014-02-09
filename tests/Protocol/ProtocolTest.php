@@ -39,6 +39,11 @@ abstract class ProtocolTest extends \PHPUnit_Framework_TestCase
     protected $requestMock;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $queryMock;
+
+    /**
      * @var Protocol
      */
     protected $protocol;
@@ -51,7 +56,9 @@ abstract class ProtocolTest extends \PHPUnit_Framework_TestCase
         $this->usersMock = $this->getMock('\Xsolla\SDK\Storage\UsersInterface');
         $this->paymentsMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsInterface');
 
-        $this->requestMock = $this->getMock('\Symfony\Component\HttpFoundation\Request');
+        $this->queryMock = $this->getMock('\Symfony\Component\HttpFoundation\ParameterBag', array(), array(), '', false);
+        $this->requestMock = $this->getMock('\Symfony\Component\HttpFoundation\Request', array(), array(), '', false);
+        $this->requestMock->query = $this->queryMock;
 
         $protocol = '\Xsolla\SDK\Protocol\\'.$this->protocolName;
         $this->protocol = new $protocol($this->IpCheckerMock, $this->factoryMock, $this->projectMock, $this->usersMock, $this->paymentsMock);
@@ -71,7 +78,7 @@ abstract class ProtocolTest extends \PHPUnit_Framework_TestCase
         $command->expects($this->once())->method('getResponse')->will($this->returnValue('result'));
         $this->requestMock->expects($this->once())->method('getClientIp')->will($this->returnValue('ip'));
         $this->IpCheckerMock->expects($this->once())->method('checkIp')->with('ip')->will($this->returnValue(true));
-        $this->requestMock->expects($this->once())->method('get')->with('command')->will($this->returnValue('command'));
+        $this->queryMock->expects($this->once())->method('get')->with('command')->will($this->returnValue('command'));
         $this->factoryMock->expects($this->once())->method('getCommand')->with($this->protocol, 'command')->will(
             $this->returnValue($command)
         );

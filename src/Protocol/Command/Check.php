@@ -22,7 +22,7 @@ class Check extends Command
 
     public function process(Request $request)
     {
-        if ($this->users->check($request->get('v1'), $request->get('v2'), $request->get('v3'))) {
+        if ($this->users->check($request->query->get('v1'), $request->query->get('v2'), $request->query->get('v3'))) {
             return array(
                 'result' => '0'
             );
@@ -36,7 +36,7 @@ class Check extends Command
 
     public function checkSign(Request $request)
     {
-        return ($this->generateSign($request, array('command', 'v1')) == $request->get('md5'));
+        return ($this->generateSign($request, array('command', 'v1')) == $request->query->get('md5'));
     }
 
     public function getRequiredParams()

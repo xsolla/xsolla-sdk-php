@@ -92,7 +92,7 @@ abstract class Protocol
      */
     protected function process(Request $request)
     {
-        $command = $this->commandFactory->getCommand($this, $request->get('command'));
+        $command = $this->commandFactory->getCommand($this, $request->query->get('command'));
 
         return $command->getResponse($request);
     }

@@ -33,7 +33,7 @@ class PayStandardTest extends CommandTest
             'id' => 'id',
             'sum' => 'sum'
         );
-        $this->requestMock->expects($this->any())->method('get')->will(
+        $this->queryMock->expects($this->any())->method('get')->will(
             $this->returnCallback(
                 function ($name) use ($request) {
                     return (isset($request[$name]) ? $request[$name] : null);
@@ -42,13 +42,14 @@ class PayStandardTest extends CommandTest
         );
 
         $this->usersMock->expects($this->once())->method('check')->will($this->returnValue(true));
-        $this->paymentsStandardMock->expects($this->once())->method('pay')->with('id', 'sum', 'v1', 'v2', 'v3')->will(
-            $this->returnValue('id')
-        );
+        $this->paymentsStandardMock->expects($this->once())
+            ->method('pay')
+            ->with('id', 'sum', 'v1', 'v2', 'v3')
+            ->will($this->returnValue('id_shop'));
         $result = $this->command->process($this->requestMock);
-        $this->assertArrayHasKey('result', $result);
         $this->assertEquals('0', $result['result']);
-        $this->assertEquals('id', $result['id_shop']);
+        $this->assertEquals('id', $result['id']);
+        $this->assertEquals('id_shop', $result['id_shop']);
     }
 
     public function testProcessFailV1()
