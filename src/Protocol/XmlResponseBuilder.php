@@ -1,11 +1,11 @@
 <?php
 
-namespace Xsolla\SDK\Response;
+namespace Xsolla\SDK\Protocol;
 
 use \Symfony\Component\HttpFoundation\Response;
 use Xsolla\SDK\Version;
 
-class Xml
+class XmlResponseBuilder
 {
     const VERSION_HEADER = 'X-Xsolla-SDK';
 

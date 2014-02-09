@@ -1,28 +1,27 @@
 <?php
 
+namespace Xsolla\SDK\Tests\Protocol;
 
-namespace Xsolla\SDK\Tests\Response;
-
-use Xsolla\SDK\Response\Xml;
+use Xsolla\SDK\Protocol\XmlResponseBuilder;
 use Xsolla\SDK\Version;
 
-class XmlTest extends \PHPUnit_Framework_TestCase
+class XmlResponseBuilderTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Xml
+     * @var XmlResponseBuilder
      */
     protected $xml;
 
     public function setUp()
     {
-        $this->xml = new Xml();
+        $this->xml = new XmlResponseBuilder();
     }
 
     public function testDisabledVersionHeader()
     {
-        $xml = new Xml(false);
+        $xml = new XmlResponseBuilder(false);
         $response = $xml->get(array());
-        $this->assertFalse($response->headers->has(Xml::VERSION_HEADER));
+        $this->assertFalse($response->headers->has(XmlResponseBuilder::VERSION_HEADER));
     }
 
     public function testGet()
@@ -41,7 +40,7 @@ XML;
         $this->assertEquals('text/xml; charset=UTF-8', $response->headers->get('Content-Type'));
         $this->assertEquals(
             'xsolla-sdk-php/'.Version::VERSION.' PHP/'.PHP_VERSION,
-            $response->headers->get(Xml::VERSION_HEADER)
+            $response->headers->get(XmlResponseBuilder::VERSION_HEADER)
         );
     }
 
