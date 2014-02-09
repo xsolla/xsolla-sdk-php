@@ -54,18 +54,15 @@ class PayCashTest extends CommandTest
         $this->paymentsCashMock->expects($this->once())->method('pay')->will($this->returnValue('id'));
         $result = $this->command->process($this->requestMock);
 
-        $this->assertArrayHasKey('result', $result);
-        $this->assertEquals('0', $result['result']);
-        $this->assertEquals('id', $result['fields']['id_shop']);
+        $this->assertEquals(PayCash::CODE_SUCCESS, $result['result']);
     }
 
     public function testProcessWithFail()
     {
-        $this->paymentsCashMock->expects($this->once())->method('pay')->will($this->throwException(new \Exception('Message', 1)));
+        $this->paymentsCashMock->expects($this->once())->method('pay')->will($this->throwException(new \Exception('Message')));
         $result = $this->command->process($this->requestMock);
 
-        $this->assertArrayHasKey('result', $result);
-        $this->assertEquals('5', $result['result']);
-        $this->assertEquals('Message', $result['comment']);
+        $this->assertEquals(PayCash::CODE_ERROR_TEMPORARY, $result['result']);
+        $this->assertEquals('Message', $result['description']);
     }
 }

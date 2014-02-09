@@ -8,6 +8,8 @@ use Xsolla\SDK\Project;
 
 class PayCash extends Command
 {
+    const CODE_SUCCESS = 0;
+    const CODE_ERROR_TEMPORARY = 30;
 
     /**
      * @var PaymentsCashInterface
@@ -28,7 +30,7 @@ class PayCash extends Command
     public function process(Request $request)
     {
         try {
-            $id = $this->payments->pay(
+            $this->payments->pay(
                 $request->query->get('id'),
                 $request->query->get('amount'),
                 $request->query->get('v1'),
@@ -44,26 +46,15 @@ class PayCash extends Command
                 $request->query->get('geotype')
             );
 
-            return array(
-                'result' => '0',
-                'description' => 'Success',
-                'fields' => array(
-                    'id' => $request->query->get('id'),
-                    'order' => $request->query->get('v1'),
-                    'id_shop' => $id,
-                    'amount' => $request->query->get('amount'),
-                    'currency' => $request->query->get('currency'),
-                    'datetime' => $request->query->get('datetime'),
-                    'sign' => $request->query->get('sign')
-                )
-            );
+            return array('result' => self::CODE_SUCCESS);
         } catch (\Exception $e) {
-            return array('result' => '5', 'comment' => $e->getMessage());
+            return array('result' => self::CODE_ERROR_TEMPORARY, 'description' => $e->getMessage());
         }
     }
 
     public function checkSign(Request $request)
     {
-        return ($this->generateSign($request, array('v1', 'amount', 'currency', 'id')) == $request->query->get('sign'));
+        $actualSign = $this->generateSign($request, array('v1', 'amount', 'currency', 'id'));
+        return $actualSign == $request->query->get('sign');
     }
 }
