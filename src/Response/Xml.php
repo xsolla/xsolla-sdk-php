@@ -2,16 +2,30 @@
 
 namespace Xsolla\SDK\Response;
 
+use \Symfony\Component\HttpFoundation\Response;
+use Xsolla\SDK\Version;
+
 class Xml
 {
+    const VERSION_HEADER = 'X-Xsolla-SDK';
+
+    private $enableVersionHeader;
+
+    public function __construct($enableVersionHeader = true)
+    {
+        $this->enableVersionHeader = $enableVersionHeader;
+    }
+
     public function get(array $response)
     {
-        $responseXml = $this->addChildren(new \SimpleXMLElement('<response></response>'), $response);
+        $xml = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><response></response>');
+        $simpleXml = $this->addChildren($xml, $response);
 
-        $response = new \Symfony\Component\HttpFoundation\Response();
-        $response->setContent($responseXml->asXML());
-        $sdkVersion = 'php-sdk/0.1; php/' . phpversion();
-        $response->headers->set('X-Xsolla-SDK', $sdkVersion);
+        $response = new Response($simpleXml->asXML());
+        $response->headers->set('Content-Type', 'text/xml; charset=UTF-8');
+        if ($this->enableVersionHeader) {
+            $response->headers->set(self::VERSION_HEADER, Version::getVersion());
+        }
 
         return $response;
     }
