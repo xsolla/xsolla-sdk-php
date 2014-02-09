@@ -12,12 +12,12 @@ class PaymentsCash implements PaymentsCashInterface
         $v3,
         $currency,
         \DateTime $datetime,
-        $userAmount,
-        $userCurrency,
-        $transferAmount,
-        $transferCurrency,
-        $pid,
-        $geotype
+        $userAmount = null,
+        $userCurrency = null,
+        $transferAmount = null,
+        $transferCurrency = null,
+        $pid = null,
+        $geotype = null
     ) {
         // TODO: Implement pay() method.
     }
