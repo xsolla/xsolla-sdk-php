@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\Invoicing;
+namespace Xsolla\SDK\Api;
 
 /**
  * @link http://xsolla.github.io/en/APIqiwi.html

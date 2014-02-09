@@ -1,8 +1,8 @@
 <?php
 
-namespace Xsolla\SDK\Tests\Invoicing;
+namespace Xsolla\SDK\Tests\Api;
 
-use Xsolla\SDK\Invoicing\MobilePayment;
+use Xsolla\SDK\Api\MobilePayment;
 use Xsolla\SDK\Validator\Xsd;
 
 class MobilePaymentTest extends \PHPUnit_Framework_TestCase

@@ -3,7 +3,7 @@
 use Guzzle\Http\Client;
 use Xsolla\SDK\Invoice;
 use Xsolla\SDK\Project;
-use Xsolla\SDK\User\Subscriptions;
+use Xsolla\SDK\Api\Subscriptions;
 use Xsolla\SDK\User;
 
 require_once __DIR__.'/../vendor/autoload.php';

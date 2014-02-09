@@ -1,7 +1,7 @@
 <?php
 
 use Xsolla\SDK\Invoice;
-use Xsolla\SDK\Invoicing\MobilePayment;
+use Xsolla\SDK\Api\MobilePayment;
 use Xsolla\SDK\Project;
 use Xsolla\SDK\User;
 

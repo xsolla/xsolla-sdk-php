@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\Invoicing;
+namespace Xsolla\SDK\Api;
 
 use Xsolla\SDK\Exception\InternalServerException;
 use Xsolla\SDK\Exception\InvalidArgumentException;

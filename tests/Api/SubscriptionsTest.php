@@ -1,9 +1,9 @@
 <?php
 
-namespace Xsolla\SDK\Tests\User;
+namespace Xsolla\SDK\Tests\Api;
 
 use Guzzle\Http\Exception\ClientErrorResponseException;
-use Xsolla\SDK\User\Subscriptions;
+use Xsolla\SDK\Api\Subscriptions;
 
 class SubscriptionsTest extends \PHPUnit_Framework_TestCase
 {

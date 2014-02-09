@@ -1,7 +1,7 @@
 <?php
 
 use Xsolla\SDK\Invoice;
-use Xsolla\SDK\Invoicing\QiwiWallet;
+use Xsolla\SDK\Api\QiwiWallet;
 use Xsolla\SDK\Project;
 use Xsolla\SDK\User;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\User;
+namespace Xsolla\SDK\Api;
 
 use Symfony\Component\HttpFoundation\Response;
 use Guzzle\Http\Client;

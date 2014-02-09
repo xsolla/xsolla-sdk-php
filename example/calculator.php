@@ -1,5 +1,5 @@
 <?php
-use \Xsolla\SDK\Calculator;
+use \Xsolla\SDK\Api\Calculator;
 use \Guzzle\Http\Client;
 use Xsolla\SDK\Project;
 

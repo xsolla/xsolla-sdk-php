@@ -1,8 +1,8 @@
 <?php
 
-namespace Xsolla\SDK\Tests\User;
+namespace Xsolla\SDK\Tests\Api;
 
-use Xsolla\SDK\User\Number;
+use Xsolla\SDK\Api\Number;
 
 class NumberTest extends \PHPUnit_Framework_TestCase
 {

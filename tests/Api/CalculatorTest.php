@@ -1,8 +1,8 @@
 <?php
 
-namespace Xsolla\SDK\Tests;
+namespace Xsolla\SDK\Tests\Api;
 
-use Xsolla\SDK\Calculator;
+use Xsolla\SDK\Api\Calculator;
 
 class CalculatorTest extends \PHPUnit_Framework_TestCase
 {

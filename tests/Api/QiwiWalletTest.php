@@ -1,8 +1,8 @@
 <?php
 
-namespace Xsolla\SDK\Tests\Invoicing;
+namespace Xsolla\SDK\Tests\Api;
 
-use Xsolla\SDK\Invoicing\QiwiWallet;
+use Xsolla\SDK\Api\QiwiWallet;
 
 class QiwiWalletTest extends MobilePaymentTest
 {

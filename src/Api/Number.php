@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\User;
+namespace Xsolla\SDK\Api;
 
 use Guzzle\Http\Client;
 use Xsolla\SDK\Exception\InternalServerException;

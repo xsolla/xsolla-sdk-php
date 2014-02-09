@@ -2,7 +2,7 @@
 
 use Guzzle\Http\Client;
 use Xsolla\SDK\Project;
-use Xsolla\SDK\User\Number;
+use Xsolla\SDK\Api\Number;
 use Xsolla\SDK\User;
 
 require_once __DIR__.'/../vendor/autoload.php';
