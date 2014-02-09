@@ -8,7 +8,7 @@ use Xsolla\SDK\Storage\PaymentsStandardInterface;
 use Xsolla\SDK\Project;
 use Xsolla\SDK\Storage\UsersInterface;
 
-class PayStandard extends Command
+class PayStandard extends StandardCommand
 {
     /**
      * @var PaymentsInterface
@@ -34,7 +34,8 @@ class PayStandard extends Command
 
     public function process(Request $request)
     {
-        if (!$this->users->check($request->query->get('v1'), $request->query->get('v2'), $request->query->get('v3'))) {
+        $user = $this->createUser($request);
+        if (!$this->users->check($user)) {
             return array(
                 'result' => '2',
                 'comment' => 'Invalid user’s ID'
@@ -44,9 +45,7 @@ class PayStandard extends Command
         $id = $this->payments->pay(
             $request->query->get('id'),
             $request->query->get('sum'),
-            $request->query->get('v1'),
-            $request->query->get('v2'),
-            $request->query->get('v3'),
+            $user,
             (bool) $request->query->get('dry_run')
         );
 

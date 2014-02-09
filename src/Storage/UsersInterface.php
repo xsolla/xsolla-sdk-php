@@ -1,7 +1,9 @@
 <?php
 namespace Xsolla\SDK\Storage;
 
+use Xsolla\SDK\User;
+
 interface UsersInterface
 {
-    public function check($v1, $v2 = null, $v3 = null);
+    public function check(User $user);
 }

@@ -2,7 +2,9 @@
 
 namespace Xsolla\SDK\Storage;
 
+use Xsolla\SDK\User;
+
 interface PaymentsStandardInterface extends PaymentsInterface
 {
-    public function pay($invoiceId, $amountVirtual, $v1, $v2, $v3, $dryRun);
+    public function pay($invoiceId, $amountVirtual, User $user, $dryRun);
 }

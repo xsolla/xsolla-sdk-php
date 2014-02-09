@@ -3,6 +3,7 @@
 namespace Xsolla\SDK\Tests\Protocol\Command;
 
 use Xsolla\SDK\Protocol\Command\PayStandard;
+use Xsolla\SDK\User;
 
 class PayStandardTest extends CommandTest
 {
@@ -42,10 +43,14 @@ class PayStandardTest extends CommandTest
         }
         $this->queryBag->replace($request);
 
-        $this->usersMock->expects($this->once())->method('check')->will($this->returnValue(true));
+        $user = new User('v1', 'v2', 'v3');
+        $this->usersMock->expects($this->once())
+            ->method('check')
+            ->with($user)
+            ->will($this->returnValue(true));
         $this->paymentsStandardMock->expects($this->once())
             ->method('pay')
-            ->with('id', 'sum', 'v1', 'v2', 'v3', $expectedDryRun)
+            ->with('id', 'sum', $user, $expectedDryRun)
             ->will($this->returnValue('id_shop'));
         $result = $this->command->process($this->requestMock);
         $this->assertEquals('0', $result['result']);

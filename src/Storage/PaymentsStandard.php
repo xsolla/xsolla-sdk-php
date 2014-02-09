@@ -1,6 +1,8 @@
 <?php
 namespace Xsolla\SDK\Storage;
 
+use Xsolla\SDK\User;
+
 class PaymentsStandard implements PaymentsStandardInterface
 {
 
@@ -9,7 +11,7 @@ class PaymentsStandard implements PaymentsStandardInterface
         // TODO: Implement cancel() method.
     }
 
-    public function pay($invoiceId, $amountVirtual, $v1, $v2, $v3, $dryRun)
+    public function pay($invoiceId, $amountVirtual, User $user, $dryRun)
     {
         // TODO: Implement pay() method.
     }

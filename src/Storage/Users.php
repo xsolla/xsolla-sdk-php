@@ -1,10 +1,12 @@
 <?php
 namespace Xsolla\SDK\Storage;
 
+use Xsolla\SDK\User;
+
 class Users implements UsersInterface
 {
-    public function check($v1, $v2 = null, $v3 = null)
+    public function check(User $user)
     {
-        return ($v1 == 'demo');
+        return ($user->getV1() == 'demo');
     }
 }

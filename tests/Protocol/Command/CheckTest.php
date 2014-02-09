@@ -3,6 +3,7 @@
 namespace Xsolla\SDK\Tests\Protocol\Command;
 
 use Xsolla\SDK\Protocol\Command\Check;
+use Xsolla\SDK\User;
 
 class CheckTest extends CommandTest
 {
@@ -32,9 +33,10 @@ class CheckTest extends CommandTest
 
     protected function initUsersMock($hasUser)
     {
+        $user = new User(self::V1, self::V2, self::V3);
         $this->usersMock->expects($this->once())
             ->method('check')
-            ->with(self::V1, self::V2, self::V3)
+            ->with($user)
             ->will($this->returnValue($hasUser));
     }
     public function testProcess()

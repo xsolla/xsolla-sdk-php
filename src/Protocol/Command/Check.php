@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Xsolla\SDK\Project;
 use Xsolla\SDK\Storage\UsersInterface;
 
-class Check extends Command
+class Check extends StandardCommand
 {
 
     /**
@@ -22,7 +22,8 @@ class Check extends Command
 
     public function process(Request $request)
     {
-        if ($this->users->check($request->query->get('v1'), $request->query->get('v2'), $request->query->get('v3'))) {
+        $user = $this->createUser($request);
+        if ($this->users->check($user)) {
             return array(
                 'result' => '0'
             );
