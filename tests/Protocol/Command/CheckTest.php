@@ -43,13 +43,27 @@ class CheckTest extends CommandTest
     {
         $this->initUsersMock(true);
         $result = $this->command->process($this->requestMock);
-        $this->assertEquals('0', $result['result']);
+        $this->assertEquals(Check::CODE_SUCCESS, $result['result']);
+        $this->assertEquals('', $result['comment']);
     }
 
     public function testProcessNicknameNotFound()
     {
         $this->initUsersMock(false);
         $result = $this->command->process($this->requestMock);
-        $this->assertEquals('7', $result['result']);
+        $this->assertEquals(Check::CODE_USER_NOT_FOUND, $result['result']);
+        $this->assertEquals('', $result['comment']);
+    }
+
+    public function testProcessException()
+    {
+        $exceptionMessage = 'exception_message';
+        $e = new \Exception($exceptionMessage);
+        $this->usersMock->expects($this->once())
+            ->method('check')
+            ->will($this->throwException($e));
+        $result = $this->command->process($this->requestMock);
+        $this->assertEquals(Check::CODE_USER_NOT_FOUND, $result['result']);
+        $this->assertEquals($exceptionMessage, $result['comment']);
     }
 }

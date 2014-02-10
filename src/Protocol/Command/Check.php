@@ -8,6 +8,8 @@ use Xsolla\SDK\Storage\UsersInterface;
 
 class Check extends StandardCommand
 {
+    const CODE_SUCCESS = 0;
+    const CODE_USER_NOT_FOUND = 7;
 
     /**
      * @var UsersInterface
@@ -22,15 +24,19 @@ class Check extends StandardCommand
 
     public function process(Request $request)
     {
-        $user = $this->createUser($request);
-        if ($this->users->check($user)) {
+        try {
+            $user = $this->createUser($request);
+            $hasUser = $this->users->check($user);
+            if ($hasUser) {
+                $code = self::CODE_SUCCESS;
+            } else {
+                $code = self::CODE_USER_NOT_FOUND;
+            }
+            return array('result' => $code, 'comment' => '');
+        } catch (\Exception $e) {
             return array(
-                'result' => '0'
-            );
-        } else {
-            return array(
-                'result' => '7',
-                'comment' => 'Account is disabled or not present'
+                'result' => self::CODE_USER_NOT_FOUND,
+                'comment' => $e->getMessage()
             );
         }
     }
