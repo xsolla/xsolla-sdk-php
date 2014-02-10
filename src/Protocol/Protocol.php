@@ -9,9 +9,10 @@ use Xsolla\SDK\Storage\PaymentsInterface;
 use Xsolla\SDK\Project;
 use Xsolla\SDK\Storage\UsersInterface;
 
-abstract class Protocol
+class Protocol
 {
-    const PROTOCOL = '';
+    const PROTOCOL_STANDARD = 'Standard';
+    const PROTOCOL_CASH = 'Cash';
 
     protected $response;
 
@@ -71,14 +72,6 @@ abstract class Protocol
     public function getUsers()
     {
         return $this->users;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getProtocol()
-    {
-        return static::PROTOCOL;
     }
 
     /**

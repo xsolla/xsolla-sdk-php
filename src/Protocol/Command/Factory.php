@@ -3,13 +3,10 @@
 namespace Xsolla\SDK\Protocol\Command;
 
 use Xsolla\SDK\Exception\WrongCommandException;
-use Xsolla\SDK\Protocol\Cash;
 use Xsolla\SDK\Protocol\Protocol;
-use Xsolla\SDK\Protocol\Standard;
 
 class Factory
 {
-
     /**
      * @param  Protocol $protocol
      * @param $command
@@ -17,13 +14,14 @@ class Factory
      */
     public function getCommand(Protocol $protocol, $command)
     {
-        if ($protocol->getProtocol() == Cash::PROTOCOL) {
+        $protocolName = $protocol->getProject()->getProtocol();
+        if (Protocol::PROTOCOL_CASH == $protocolName) {
             if ($command == 'pay') {
                 return new PayCash($protocol->getProject(), $protocol->getPayments());
             } elseif ($command == 'cancel') {
                 return new Cancel($protocol->getProject(), $protocol->getPayments());
             }
-        } elseif ($protocol->getProtocol() == Standard::PROTOCOL) {
+        } elseif (Protocol::PROTOCOL_STANDARD == $protocolName) {
             if ($command == 'check') {
                 return new Check($protocol->getProject(), $protocol->getUsers());
             } elseif ($command == 'pay') {

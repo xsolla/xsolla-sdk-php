@@ -4,11 +4,8 @@ namespace Xsolla\SDK\Tests\Protocol;
 
 use Xsolla\SDK\Protocol\Protocol;
 
-abstract class ProtocolTest extends \PHPUnit_Framework_TestCase
+class ProtocolTest extends \PHPUnit_Framework_TestCase
 {
-    protected $protocolName;
-    protected $protocolFullName;
-
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
@@ -61,7 +58,7 @@ abstract class ProtocolTest extends \PHPUnit_Framework_TestCase
         $this->requestMock = $this->getMock('\Symfony\Component\HttpFoundation\Request', array(), array(), '', false);
         $this->requestMock->query = $this->queryMock;
 
-        $this->protocol = new $this->protocolFullName($this->factoryMock, $this->projectMock, $this->usersMock, $this->paymentsMock, $this->IpCheckerMock);
+        $this->protocol = new Protocol($this->factoryMock, $this->projectMock, $this->usersMock, $this->paymentsMock, $this->IpCheckerMock);
     }
 
     public function testGet()
@@ -69,7 +66,6 @@ abstract class ProtocolTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->projectMock, $this->protocol->getProject());
         $this->assertSame($this->usersMock, $this->protocol->getUsers());
         $this->assertSame($this->paymentsMock, $this->protocol->getPayments());
-        $this->assertSame($this->protocolName, $this->protocol->getProtocol());
     }
 
     /**
@@ -78,7 +74,7 @@ abstract class ProtocolTest extends \PHPUnit_Framework_TestCase
     public function testGetResponse($setIpCheckerToConstructor)
     {
         $ipChecker = $setIpCheckerToConstructor ? $this->IpCheckerMock : null;
-        $this->protocol = new $this->protocolFullName($this->factoryMock, $this->projectMock, $this->usersMock, $this->paymentsMock, $ipChecker);
+        $this->protocol = new Protocol($this->factoryMock, $this->projectMock, $this->usersMock, $this->paymentsMock, $ipChecker);
         $command = $this->getMock('\Xsolla\SDK\Protocol\Command\Check', array(), array(), '', false);
         $command->expects($this->once())
             ->method('getResponse')

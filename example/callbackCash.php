@@ -1,7 +1,7 @@
 <?php
 
 use Symfony\Component\HttpFoundation\Request;
-use Xsolla\SDK\Protocol\Cash;
+use Xsolla\SDK\Protocol\Protocol;
 use Xsolla\SDK\Protocol\Command\Factory as CommandFactory;
 use Xsolla\SDK\Protocol\XmlResponseBuilder;
 use Xsolla\SDK\Validator\IpChecker;
@@ -15,10 +15,11 @@ $request = Request::createFromGlobals();
 
 $demoProject = new Project(
     '4783',//demo project id
-    'key'//demo project secret key
+    'key',//demo project secret key
+    Protocol::PROTOCOL_CASH
 );
 
-$protocol = new Cash(new CommandFactory(), $demoProject, new Users(), new PaymentsCash(), new IpChecker());
+$protocol = new Protocol(new CommandFactory(), $demoProject, new Users(), new PaymentsCash(), new IpChecker());
 
 $xmlResponse = new XmlResponseBuilder();
 $response = $xmlResponse->get($protocol->getResponse($request));

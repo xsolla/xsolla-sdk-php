@@ -3,6 +3,7 @@
 namespace Xsolla\SDK\Tests\Protocol\Command;
 
 use Xsolla\SDK\Protocol\Command\Factory;
+use Xsolla\SDK\Protocol\Protocol;
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -48,8 +49,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->projectMock = $this->getMock('\Xsolla\SDK\Project', array(), array(), '', false);
         $this->paymentsCashMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsCashInterface');
         $this->paymentsStandardMock = $this->getMock('\Xsolla\SDK\Storage\PaymentsStandardInterface');
-        $this->protocolStandardMock = $this->getMock('\Xsolla\SDK\Protocol\Standard', array(), array(), '', false);
-        $this->protocolCashMock = $this->getMock('\Xsolla\SDK\Protocol\Cash', array(), array(), '', false);
+        $this->protocolStandardMock = $this->getMock('\Xsolla\SDK\Protocol\Protocol', array(), array(), '', false);
+        $this->protocolCashMock = $this->getMock('\Xsolla\SDK\Protocol\Protocol', array(), array(), '', false);
 
         $this->protocolStandardMock->expects($this->any())->method('getProject')->will($this->returnValue($this->projectMock));
         $this->protocolStandardMock->expects($this->any())->method('getUsers')->will($this->returnValue($this->usersMock));
@@ -68,14 +69,14 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testGetPayCash()
     {
-        $this->protocolCashMock->expects($this->once())->method('getProtocol')->will($this->returnValue('Cash'));
+        $this->projectMock->expects($this->once())->method('getProtocol')->will($this->returnValue(Protocol::PROTOCOL_CASH));
 
         $this->assertInstanceOf('\Xsolla\SDK\Protocol\Command\PayCash', $this->factory->getCommand($this->protocolCashMock, 'pay'));
     }
 
     public function testGetPayStandard()
     {
-        $this->protocolStandardMock->expects($this->exactly(2))->method('getProtocol')->will($this->returnValue('Standard'));
+        $this->projectMock->expects($this->once())->method('getProtocol')->will($this->returnValue(Protocol::PROTOCOL_STANDARD));
 
         $this->assertInstanceOf('\Xsolla\SDK\Protocol\Command\PayStandard', $this->factory->getCommand($this->protocolStandardMock, 'pay'));
     }
