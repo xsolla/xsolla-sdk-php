@@ -68,6 +68,7 @@ class PayCash extends Command
         if (!$datetimeObj) {
             throw new InvalidArgumentException(sprintf('Datetime string %s could not be converted to DateTime object from format \'YmdHis\'', $datetime));
         }
+        $datetimeObj->setTimezone(new \DateTimeZone(date_default_timezone_get()));
         return $datetimeObj;
     }
 }

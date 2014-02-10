@@ -9,6 +9,9 @@ class PayCashTest extends CommandTest
     protected $signParams = array('v1', 'amount', 'currency', 'id');
     protected $signParamName = 'sign';
 
+    protected $previousTimezone;
+    protected $testTimezone = 'Pacific/Tongatapu';
+
     public function setUp()
     {
         parent::setUp();
@@ -29,6 +32,14 @@ class PayCashTest extends CommandTest
             'geotype' => 'example_geotype'
         );
         $this->queryBag->replace($this->request);
+
+        $this->previousTimezone = date_default_timezone_get();
+        date_default_timezone_set('Pacific/Tongatapu');
+    }
+
+    public function tearDown()
+    {
+        date_default_timezone_set($this->previousTimezone);
     }
 
     public function testCheckSign()
@@ -50,6 +61,8 @@ class PayCashTest extends CommandTest
         if (!is_null($dryRunQueryParameter)) {
             $this->queryBag->set('dry_run', $dryRunQueryParameter);
         }
+        $expectedDate = new \DateTime('2013-12-12 11:00:00', new \DateTimeZone('Europe/Moscow'));
+        $expectedDate->setTimezone(new \DateTimeZone($this->testTimezone));
         $this->paymentsCashMock->expects($this->once())
             ->method('pay')
             ->with(
@@ -59,7 +72,7 @@ class PayCashTest extends CommandTest
                 'example_v2',
                 'example_v3',
                 'example_currency',
-                new \DateTime('2013-12-12 11:00:00'),
+                $expectedDate,
                 $expectedDryRun,
                 'example_userAmount',
                 'example_userCurrency',
