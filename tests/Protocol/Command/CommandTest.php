@@ -73,11 +73,11 @@ abstract class CommandTest extends \PHPUnit_Framework_TestCase
 
     public function dryRunDataProvider()
     {
-        return [
-            [null, false],
-            [0, false],
-            [1, true],
-        ];
+        return array(
+            array(null, false),
+            array(0, false),
+            array(1, true),
+        );
     }
 
     public function testCheckNoRequiredParams()
