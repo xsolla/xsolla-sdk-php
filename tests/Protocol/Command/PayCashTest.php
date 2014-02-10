@@ -70,7 +70,12 @@ class PayCashTest extends CommandTest
             );
         $result = $this->command->process($this->requestMock);
 
-        $this->assertEquals(PayCash::CODE_SUCCESS, $result['result']);
+        $exceptionMessage = isset($result['description']) ? $result['description'] : '';
+        $this->assertEquals(
+            PayCash::CODE_SUCCESS,
+            $result['result'],
+            $exceptionMessage
+        );
     }
 
     public function testProcessWithInvalidDateTime()
