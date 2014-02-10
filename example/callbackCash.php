@@ -18,7 +18,7 @@ $demoProject = new Project(
     'key'//demo project secret key
 );
 
-$protocol = new Cash(new IpChecker(), new CommandFactory(), $demoProject, new Users(), new PaymentsCash());
+$protocol = new Cash(new CommandFactory(), $demoProject, new Users(), new PaymentsCash(), new IpChecker());
 
 $xmlResponse = new XmlResponseBuilder();
 $response = $xmlResponse->get($protocol->getResponse($request));

@@ -7,6 +7,7 @@ use Xsolla\SDK\Protocol\Protocol;
 abstract class ProtocolTest extends \PHPUnit_Framework_TestCase
 {
     protected $protocolName;
+    protected $protocolFullName;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -60,8 +61,7 @@ abstract class ProtocolTest extends \PHPUnit_Framework_TestCase
         $this->requestMock = $this->getMock('\Symfony\Component\HttpFoundation\Request', array(), array(), '', false);
         $this->requestMock->query = $this->queryMock;
 
-        $protocol = '\Xsolla\SDK\Protocol\\'.$this->protocolName;
-        $this->protocol = new $protocol($this->IpCheckerMock, $this->factoryMock, $this->projectMock, $this->usersMock, $this->paymentsMock);
+        $this->protocol = new $this->protocolFullName($this->factoryMock, $this->projectMock, $this->usersMock, $this->paymentsMock, $this->IpCheckerMock);
     }
 
     public function testGet()
@@ -72,17 +72,43 @@ abstract class ProtocolTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->protocolName, $this->protocol->getProtocol());
     }
 
-    public function testGetResponse()
+    /**
+     * @dataProvider ipCheckerDataProvider
+     */
+    public function testGetResponse($setIpCheckerToConstructor)
     {
+        $ipChecker = $setIpCheckerToConstructor ? $this->IpCheckerMock : null;
+        $this->protocol = new $this->protocolFullName($this->factoryMock, $this->projectMock, $this->usersMock, $this->paymentsMock, $ipChecker);
         $command = $this->getMock('\Xsolla\SDK\Protocol\Command\Check', array(), array(), '', false);
-        $command->expects($this->once())->method('getResponse')->will($this->returnValue('result'));
-        $this->requestMock->expects($this->once())->method('getClientIp')->will($this->returnValue('ip'));
-        $this->IpCheckerMock->expects($this->once())->method('checkIp')->with('ip')->will($this->returnValue(true));
-        $this->queryMock->expects($this->once())->method('get')->with('command')->will($this->returnValue('command'));
-        $this->factoryMock->expects($this->once())->method('getCommand')->with($this->protocol, 'command')->will(
-            $this->returnValue($command)
+        $command->expects($this->once())
+            ->method('getResponse')
+            ->will($this->returnValue('result'));
+        if ($setIpCheckerToConstructor) {
+            $this->requestMock->expects($this->once())
+                ->method('getClientIp')
+                ->will($this->returnValue('client_ip'));
+            $this->IpCheckerMock->expects($this->once())
+                ->method('checkIp')
+                ->with('client_ip');
+        }
+        $this->queryMock->expects($this->once())
+            ->method('get')
+            ->with('command')
+            ->will($this->returnValue('command'));
+        $this->factoryMock->expects($this->once())
+            ->method('getCommand')
+            ->with($this->protocol, 'command')
+            ->will($this->returnValue($command)
         );
         $this->assertEquals('result', $this->protocol->getResponse($this->requestMock));
+    }
+
+    public function ipCheckerDataProvider()
+    {
+        return array(
+            array(true),
+            array(false),
+        );
     }
 
 }

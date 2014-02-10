@@ -12,35 +12,41 @@ use Xsolla\SDK\Storage\UsersInterface;
 abstract class Protocol
 {
     const PROTOCOL = '';
+
     protected $response;
+
     /**
      * @var \Xsolla\SDK\Project
      */
     protected $project;
+
     /**
      * @var UsersInterface
      */
     protected $users;
+
     /**
      * @var PaymentsInterface
      */
     protected $payments;
+
     /**
      * @var IpChecker
      */
     protected $ipChecker;
+
     /**
      * @var Factory
      */
     protected $commandFactory;
 
-    public function __construct(IpChecker $ipChecker, Factory $factory, Project $project, UsersInterface $users, PaymentsInterface $payments)
+    public function __construct(Factory $factory, Project $project, UsersInterface $users, PaymentsInterface $payments, IpChecker $ipChecker = null)
     {
-        $this->ipChecker = $ipChecker;
         $this->commandFactory = $factory;
         $this->project = $project;
         $this->users = $users;
         $this->payments = $payments;
+        $this->ipChecker = $ipChecker;
     }
 
     /**
@@ -81,7 +87,9 @@ abstract class Protocol
      */
     public function getResponse(Request $request)
     {
-        $this->ipChecker->checkIp($request->getClientIp());
+        if ($this->ipChecker) {
+            $this->ipChecker->checkIp($request->getClientIp());
+        }
 
         return $this->process($request);
     }
