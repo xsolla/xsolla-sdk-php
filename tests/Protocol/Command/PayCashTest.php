@@ -89,6 +89,7 @@ class PayCashTest extends CommandTest
             $result['result'],
             $exceptionMessage
         );
+        $this->assertEquals('', $result['description']);
     }
 
     public function testProcessWithInvalidDateTime()

@@ -49,7 +49,7 @@ class PayCash extends Command
                 $request->query->get('geotype')
             );
 
-            return array('result' => self::CODE_SUCCESS);
+            return array('result' => self::CODE_SUCCESS, 'description' => '');
         } catch (\Exception $e) {
             return array('result' => self::CODE_ERROR_TEMPORARY, 'description' => $e->getMessage());
         }
