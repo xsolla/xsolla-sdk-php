@@ -41,7 +41,7 @@ class Cancel extends Command
 
     public function checkSign(Request $request)
     {
-        return ($this->generateSign($request, array('command', 'id')) == $request->query->get('md5'));
+        return $this->generateSign($request, array('command', 'id')) == $request->query->get('md5');
     }
 
     public function getRequiredParams()

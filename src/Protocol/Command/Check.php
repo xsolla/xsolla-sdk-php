@@ -43,7 +43,7 @@ class Check extends StandardCommand
 
     public function checkSign(Request $request)
     {
-        return ($this->generateSign($request, array('command', 'v1')) == $request->query->get('md5'));
+        return $this->generateSign($request, array('command', 'v1')) == $request->query->get('md5');
     }
 
     public function getRequiredParams()

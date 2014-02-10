@@ -54,6 +54,6 @@ class PayStandard extends StandardCommand
 
     public function checkSign(Request $request)
     {
-        return ($this->generateSign($request, array('command', 'v1', 'id')) == $request->query->get('md5'));
+        return $this->generateSign($request, array('command', 'v1', 'id')) == $request->query->get('md5');
     }
 }
