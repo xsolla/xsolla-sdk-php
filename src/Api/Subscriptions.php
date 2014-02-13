@@ -35,8 +35,8 @@ class Subscriptions
     }
 
     /**
-     * @param User $user
-     * @param int $type One of Subscriptions::TYPE_* constants
+     * @param  User           $user
+     * @param  int            $type One of Subscriptions::TYPE_* constants
      * @return Subscription[]
      */
     public function search(User $user, $type = null)
@@ -88,6 +88,7 @@ class Subscriptions
 
         try {
             $result = $request->send()->json();
+
             return $result['id'];
         } catch (ClientErrorResponseException $e) {
             $this->processException($e);

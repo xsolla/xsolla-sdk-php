@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\Tests;
+namespace Xsolla\SDK\tests;
 
 use Xsolla\SDK\User;
 

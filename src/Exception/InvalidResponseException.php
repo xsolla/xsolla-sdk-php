@@ -2,6 +2,6 @@
 
 namespace Xsolla\SDK\Exception;
 
-class InvalidResponseException extends Exception {
-
+class InvalidResponseException extends Exception
+{
 }

@@ -3,13 +3,13 @@
 namespace Xsolla\SDK\Storage;
 
 use Xsolla\SDK\Exception\InvoiceNotFoundException;
-use Xsolla\SDK\Exception\InvoiceNotBeRollbackException;
+use Xsolla\SDK\Exception\UnprocessableRequestException;
 
 interface PaymentsInterface
 {
     /**
      * @throws InvoiceNotFoundException
-     * @throws InvoiceNotBeRollbackException
+     * @throws UnprocessableRequestException
      */
     public function cancel($invoiceId);
 }

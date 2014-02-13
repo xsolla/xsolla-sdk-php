@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\Tests\Protocol\Command;
+namespace Xsolla\SDK\tests\Protocol\Command;
 
 use Xsolla\SDK\Protocol\Command\Factory;
 use Xsolla\SDK\Protocol\Protocol;

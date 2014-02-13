@@ -3,24 +3,29 @@
 namespace Xsolla\SDK\Protocol\Command;
 
 use Symfony\Component\HttpFoundation\Request;
-use Xsolla\SDK\Exception\InvalidArgumentException;
+use Xsolla\SDK\Exception\InvalidRequestException;
+use Xsolla\SDK\Protocol\Cash;
+use Xsolla\SDK\Protocol\Protocol;
 use Xsolla\SDK\Storage\PaymentsCashInterface;
 use Xsolla\SDK\Project;
 
 class PayCash extends Command
 {
-    const CODE_SUCCESS = 0;
-    const CODE_ERROR_TEMPORARY = 30;
+    const CODE_FATAL_ERROR = 40;
+    const CODE_TEMPORARY_ERROR = 30;
+    const CODE_INVALID_REQUEST = 20;
+
+    const COMMENT_FIELD_NAME = 'description';
 
     /**
      * @var PaymentsCashInterface
      */
     protected $payments;
 
-    public function __construct(Project $project, PaymentsCashInterface $payments)
+    public function __construct(Cash $protocol)
     {
-        $this->project = $project;
-        $this->payments = $payments;
+        $this->project = $protocol->getProject();
+        $this->payments = $protocol->getPaymentsCash();
     }
 
     public function getRequiredParams()
@@ -30,34 +35,31 @@ class PayCash extends Command
 
     public function process(Request $request)
     {
-        try {
-            $datetime = $this->getDateTimeXsolla($request->query->get('datetime'));
-            $this->payments->pay(
-                $request->query->get('id'),
-                $request->query->get('amount'),
-                $request->query->get('v1'),
-                $request->query->get('v2'),
-                $request->query->get('v3'),
-                $request->query->get('currency'),
-                $datetime,
-                (bool) $request->query->get('dry_run'),
-                $request->query->get('userAmount'),
-                $request->query->get('userCurrency'),
-                $request->query->get('transferAmount'),
-                $request->query->get('transferCurrency'),
-                $request->query->get('pid'),
-                $request->query->get('geotype')
-            );
+        $datetime = $this->getDateTimeXsolla($request->query->get('datetime'));
+        $this->payments->pay(
+            $request->query->get('id'),
+            $request->query->get('amount'),
+            $request->query->get('v1'),
+            $request->query->get('v2'),
+            $request->query->get('v3'),
+            $request->query->get('currency'),
+            $datetime,
+            (bool) $request->query->get('dry_run'),
+            $request->query->get('userAmount'),
+            $request->query->get('userCurrency'),
+            $request->query->get('transferAmount'),
+            $request->query->get('transferCurrency'),
+            $request->query->get('pid'),
+            $request->query->get('geotype')
+        );
 
-            return array('result' => self::CODE_SUCCESS, 'description' => '');
-        } catch (\Exception $e) {
-            return array('result' => self::CODE_ERROR_TEMPORARY, 'description' => $e->getMessage());
-        }
+        return array('result' => self::CODE_SUCCESS, $this->commentFieldName => '');
     }
 
     public function checkSign(Request $request)
     {
         $actualSign = $this->generateSign($request, array('v1', 'amount', 'currency', 'id'));
+
         return $actualSign == $request->query->get('sign');
     }
 
@@ -66,9 +68,35 @@ class PayCash extends Command
         $xsollaTimeZone = new \DateTimeZone('Europe/Moscow');
         $datetimeObj = \DateTime::createFromFormat('YmdHis', $datetime, $xsollaTimeZone);
         if (!$datetimeObj) {
-            throw new InvalidArgumentException(sprintf('Datetime string %s could not be converted to DateTime object from format \'YmdHis\'', $datetime));
+            throw new InvalidRequestException(sprintf('Datetime string %s could not be converted to DateTime object from format \'YmdHis\'', $datetime));
         }
         $datetimeObj->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+
         return $datetimeObj;
+    }
+
+    public function getCommentFieldName()
+    {
+        return self::COMMENT_FIELD_NAME;
+    }
+
+    public function getInvalidSignResponseCode()
+    {
+        return self::CODE_INVALID_REQUEST;
+    }
+
+    public function getInvalidRequestResponseCode()
+    {
+        return self::CODE_INVALID_REQUEST;
+    }
+
+    public function getUnprocessableRequestResponseCode()
+    {
+        return self::CODE_FATAL_ERROR;
+    }
+
+    public function getTemporaryServerErrorResponseCode()
+    {
+        return self::CODE_TEMPORARY_ERROR;
     }
 }

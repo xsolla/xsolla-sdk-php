@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\Tests\Protocol;
+namespace Xsolla\SDK\tests\Protocol;
 
 use Xsolla\SDK\Protocol\XmlResponseBuilder;
 use Xsolla\SDK\Version;
@@ -51,4 +51,3 @@ XML;
         libxml_use_internal_errors($previous);
     }
 }
- 

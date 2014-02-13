@@ -1,10 +1,6 @@
 <?php
 
 use Symfony\Component\HttpFoundation\Request;
-use Xsolla\SDK\Protocol\Command\Factory as CommandFactory;
-use Xsolla\SDK\Protocol\Standard;
-use Xsolla\SDK\Protocol\XmlResponseBuilder;
-use Xsolla\SDK\Validator\IpChecker;
 use Xsolla\SDK\Storage\PaymentsStandard;
 use Xsolla\SDK\Project;
 use Xsolla\SDK\Storage\Users;
@@ -18,8 +14,13 @@ $demoProject = new Project(
     'key'//demo project secret key
 );
 
-$protocol = new Protocol(new CommandFactory(), $demoProject, new Users(), new PaymentsStandard(), new IpChecker());
+$usersStorage = new \Xsolla\SDK\Storage\Null\Users();
+$paymentsStorage = new \Xsolla\SDK\Storage\Null\PaymentsStandard();
 
-$xmlResponse = new XmlResponseBuilder();
-$response = $xmlResponse->get($protocol->getResponse($request));
+$protocolBuilder = new \Xsolla\SDK\Protocol\ProtocolBuilder($demoProject);
+
+$protocol = $protocolBuilder->getStandardProtocol($usersStorage, $paymentsStorage);
+
+$response = $protocol->run($request);
+
 $response->send();

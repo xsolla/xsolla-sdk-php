@@ -4,11 +4,12 @@ namespace Xsolla\SDK\Protocol\Command;
 
 use Symfony\Component\HttpFoundation\Request;
 use Xsolla\SDK\Project;
+use Xsolla\SDK\Protocol\Protocol;
+use Xsolla\SDK\Protocol\Standard;
 use Xsolla\SDK\Storage\UsersInterface;
 
 class Check extends StandardCommand
 {
-    const CODE_SUCCESS = 0;
     const CODE_USER_NOT_FOUND = 7;
 
     /**
@@ -16,29 +17,23 @@ class Check extends StandardCommand
      */
     protected $users;
 
-    public function __construct(Project $project, UsersInterface $users)
+    public function __construct(Standard $protocol)
     {
-        $this->users = $users;
-        $this->project = $project;
+        $this->users = $protocol->getUsers();
+        $this->project = $protocol->getProject();
     }
 
     public function process(Request $request)
     {
-        try {
-            $user = $this->createUser($request);
-            $hasUser = $this->users->check($user);
-            if ($hasUser) {
-                $code = self::CODE_SUCCESS;
-            } else {
-                $code = self::CODE_USER_NOT_FOUND;
-            }
-            return array('result' => $code, 'comment' => '');
-        } catch (\Exception $e) {
-            return array(
-                'result' => self::CODE_USER_NOT_FOUND,
-                'comment' => $e->getMessage()
-            );
+        $user = $this->createUser($request);
+        $hasUser = $this->users->check($user);
+        if ($hasUser) {
+            $code = self::CODE_SUCCESS;
+        } else {
+            $code = self::CODE_USER_NOT_FOUND;
         }
+
+        return array('result' => $code, self::COMMENT_FIELD_NAME => '');
     }
 
     public function checkSign(Request $request)

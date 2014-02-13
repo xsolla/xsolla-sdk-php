@@ -2,8 +2,14 @@
 
 namespace Xsolla\SDK\Storage;
 
+use Xsolla\SDK\Exception\UnprocessableRequestException;
+
 interface PaymentsCashInterface extends PaymentsInterface
 {
+    /**
+     * @throws UnprocessableRequestException
+     * @return int Payment unique ID in your system
+     */
     public function pay(
         $invoiceId,
         $amount,

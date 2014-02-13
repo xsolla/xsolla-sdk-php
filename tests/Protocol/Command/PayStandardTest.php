@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\Tests\Protocol\Command;
+namespace Xsolla\SDK\tests\Protocol\Command;
 
 use Xsolla\SDK\Protocol\Command\PayStandard;
 use Xsolla\SDK\User;
@@ -24,7 +24,6 @@ class PayStandardTest extends CommandTest
         );
         $this->checkSignTest($request);
     }
-
 
     /**
      * @dataProvider dryRunDataProvider

@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\Tests\Protocol;
+namespace Xsolla\SDK\tests\Protocol;
 
 use Xsolla\SDK\Protocol\Protocol;
 

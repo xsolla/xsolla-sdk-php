@@ -19,9 +19,9 @@ abstract class Widget implements WidgetInterface
     }
 
     /**
-     * @param User $user
-     * @param Invoice $invoice
-     * @param array $params local, country, pid, hidden
+     * @param  User    $user
+     * @param  Invoice $invoice
+     * @param  array   $params  local, country, pid, hidden
      * @return string
      */
     public function getLink(User $user, Invoice $invoice = null, array $params = array())

@@ -3,29 +3,39 @@
 namespace Xsolla\SDK\Protocol\Command;
 
 use Symfony\Component\HttpFoundation\Request;
+use Xsolla\SDK\Exception\InvalidRequestException;
+use Xsolla\SDK\Exception\InvalidSignException;
 use Xsolla\SDK\Project;
+use Xsolla\SDK\Protocol\Protocol;
 
 abstract class Command
 {
+    const CODE_SUCCESS = 0;
+
+    /**
+     * @var Protocol
+     */
+    protected $protocol;
+
     /**
      * @var Project
      */
     protected $project;
 
+    protected $commentFieldName = 'comment';
+
     public function getResponse(Request $request)
     {
         if (!$this->checkRequiredParams($request)) {
-            return array(
-                'result' => '4',
-                'comment' => 'Invalid request format'
-            );
+            throw new InvalidRequestException(sprintf(
+                'Invalid request format. Not enough arguments. Required: "%s". But received: "%s".',
+                join('", "', $this->getRequiredParams()),
+                join('", "', $request->query->keys())
+            ));
         }
 
         if (!$this->checkSign($request)) {
-            return array(
-                'result' => '3',
-                'comment' => 'Invalid md5 signature'
-            );
+            throw new InvalidSignException('Invalid md5 signature');
         }
 
         return $this->process($request);
@@ -60,4 +70,14 @@ abstract class Command
     abstract public function process(Request $request);
 
     abstract public function getRequiredParams();
+
+    abstract public function getInvalidSignResponseCode();
+
+    abstract public function getInvalidRequestResponseCode();
+
+    abstract public function getCommentFieldName();
+
+    abstract public function getUnprocessableRequestResponseCode();
+
+    abstract public function getTemporaryServerErrorResponseCode();
 }

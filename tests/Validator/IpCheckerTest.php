@@ -1,5 +1,5 @@
 <?php
-namespace Xsolla\SDK\Tests\Validator;
+namespace Xsolla\SDK\tests\Validator;
 
 use Xsolla\SDK\Validator\IpChecker;
 
@@ -14,7 +14,7 @@ class IpCheckerTest extends \PHPUnit_Framework_TestCase
     {
         $this->ipChecker = new IpChecker;
     }
-    
+
     public function testCheckIp()
     {
         $this->assertNull($this->ipChecker->checkIp('185.30.20.16'));

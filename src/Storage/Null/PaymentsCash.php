@@ -1,5 +1,7 @@
 <?php
-namespace Xsolla\SDK\Storage;
+namespace Xsolla\SDK\Storage\Null;
+
+use Xsolla\SDK\Storage\PaymentsCashInterface;
 
 class PaymentsCash implements PaymentsCashInterface
 {
@@ -20,11 +22,11 @@ class PaymentsCash implements PaymentsCashInterface
         $pid = null,
         $geotype = null
     ) {
-        // TODO: Implement pay() method.
+        return time();//"unique" id
     }
 
     public function cancel($invoiceId)
     {
-        // TODO: Implement cancel() method.
+        //do nothing
     }
 }

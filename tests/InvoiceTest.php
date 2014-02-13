@@ -1,5 +1,5 @@
 <?php
-namespace Xsolla\SDK\Tests;
+namespace Xsolla\SDK\tests;
 
 use Xsolla\SDK\Invoice;
 
@@ -19,7 +19,7 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->invoice = new Invoice;
     }
-    
+
     public function testConstructor()
     {
         $invoice = new Invoice(self::OUT, self::SUM, self::CURRENCY, self::ID);

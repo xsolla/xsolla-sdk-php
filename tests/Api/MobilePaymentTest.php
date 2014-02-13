@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\Tests\Api;
+namespace Xsolla\SDK\tests\Api;
 
 use Xsolla\SDK\Api\MobilePayment;
 use Xsolla\SDK\Validator\Xsd;
@@ -8,7 +8,7 @@ use Xsolla\SDK\Validator\Xsd;
 class MobilePaymentTest extends \PHPUnit_Framework_TestCase
 {
     const PROJECT_SECRET_KEY = 'key';
-    
+
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */

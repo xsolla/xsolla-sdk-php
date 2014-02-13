@@ -1,12 +1,11 @@
 <?php
 
-namespace Xsolla\SDK\Tests\Widget;
+namespace Xsolla\SDK\tests\Widget;
 
 use Xsolla\SDK\Widget\CreditCards;
 use Xsolla\SDK\Widget\Directpayment;
 use Xsolla\SDK\Widget\MobilePayment;
 use Xsolla\SDK\Widget\Paystation;
-use Xsolla\SDK\Widget\Paydesk;
 
 class WidgetTest extends \PHPUnit_Framework_TestCase
 {

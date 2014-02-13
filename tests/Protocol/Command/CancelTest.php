@@ -1,8 +1,8 @@
 <?php
 
-namespace Xsolla\SDK\Tests\Protocol\Command;
+namespace Xsolla\SDK\tests\Protocol\Command;
 
-use Xsolla\SDK\Exception\InvoiceNotBeRollbackException;
+use Xsolla\SDK\Exception\UnprocessableRequestException;
 use Xsolla\SDK\Exception\InvoiceNotFoundException;
 use Xsolla\SDK\Protocol\Command\Cancel;
 
@@ -55,7 +55,7 @@ class CancelTest extends CommandTest
         $this->paymentsStandardMock->expects($this->once())
             ->method('cancel')
             ->with(self::ID)
-            ->will($this->throwException(new InvoiceNotBeRollbackException()));
+            ->will($this->throwException(new UnprocessableRequestException()));
         $result = $this->command->process($this->requestMock);
 
         $this->assertEquals($result['result'], 7);

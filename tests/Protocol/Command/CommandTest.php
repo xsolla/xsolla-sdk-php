@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\Tests\Protocol\Command;
+namespace Xsolla\SDK\tests\Protocol\Command;
 
 use Xsolla\SDK\Protocol\Command\Command;
 use \Symfony\Component\HttpFoundation\ParameterBag;
@@ -68,7 +68,7 @@ abstract class CommandTest extends \PHPUnit_Framework_TestCase
 
         $this->usersMock = $this->getMock('\Xsolla\SDK\Storage\UsersInterface');
 
-        $this->commandMock = $this->getMock('Xsolla\SDK\Protocol\Command\Command', array('checkSign', 'process', 'getRequiredParams', 'checkRequiredParams'), array(), '', false);
+        $this->commandMock = $this->getMockForAbstractClass('Xsolla\SDK\Protocol\Command\Command', array(), '', '', false);
     }
 
     public function dryRunDataProvider()

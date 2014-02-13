@@ -3,18 +3,18 @@
 namespace Xsolla\SDK\Protocol\Command;
 
 use Symfony\Component\HttpFoundation\Request;
-use Xsolla\SDK\Exception\InvoiceNotBeRollbackException;
 use Xsolla\SDK\Exception\InvoiceNotFoundException;
+use Xsolla\SDK\Protocol\Protocol;
 use Xsolla\SDK\Storage\PaymentsInterface;
 use Xsolla\SDK\Project;
 
-class Cancel extends Command
+class Cancel extends StandardCommand
 {
     protected $payments;
 
-    public function __construct(Project $project, PaymentsInterface $payments)
+    public function __construct(Protocol $protocol, PaymentsInterface $payments)
     {
-        $this->project = $project;
+        $this->project = $protocol->getProject();
         $this->payments = $payments;
     }
 
@@ -24,17 +24,13 @@ class Cancel extends Command
             $this->payments->cancel($request->query->get('id'));
 
             return array(
-                'result' => '0'
+                'result' => self::CODE_SUCCESS,
+                self::COMMENT_FIELD_NAME => '',
             );
         } catch (InvoiceNotFoundException $e) {
             return array(
-                'result' => '2',
-                'comment' => 'The payment specified in the request is not found in the system'
-            );
-        } catch (InvoiceNotBeRollbackException $e) {
-            return array(
-                'result' => '7',
-                'comment' => 'The payment cannot be canceled'
+                'result' => self::CODE_INVALID_ORDER_DETAILS,
+                self::COMMENT_FIELD_NAME => trim('Invoice not found. ' . $e->getMessage()),
             );
         }
     }
@@ -48,4 +44,5 @@ class Cancel extends Command
     {
         return array('command', 'md5', 'id');
     }
+
 }
