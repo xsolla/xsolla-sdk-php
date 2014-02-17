@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\tests\Api;
+namespace Xsolla\SDK\Tests\Api;
 
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use Xsolla\SDK\Api\Subscriptions;

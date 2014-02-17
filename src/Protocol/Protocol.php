@@ -19,6 +19,8 @@ abstract class Protocol
 
     protected $ipChecker;
 
+    protected $commandFactory;
+
     protected $xmlResponseBuilder;
 
     protected $currentCommand;
@@ -77,9 +79,9 @@ abstract class Protocol
             $commandResponse = $this->getResponseForWrongCommand($e->getMessage());
 
         } catch (\Exception $e) {
-            if (!$this->currentCommand) {
+            if ($this->currentCommand) {
                 $commandResponse = array(
-                    'result' => $this->currentCommand>getTemporaryServerErrorResponseCode(),
+                    'result' => $this->currentCommand->getTemporaryServerErrorResponseCode(),
                     $this->currentCommand->getCommentFieldName() => $e->getMessage()
                 );
             } else {

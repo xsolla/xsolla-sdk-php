@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\tests\Api;
+namespace Xsolla\SDK\Tests\Api;
 
 use Xsolla\SDK\Api\Calculator;
 
@@ -32,7 +32,7 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
     {
         $this->requestMock = $this->getMock('\Guzzle\Http\Message\RequestInterface', array(), array(), '', false);
         $this->responseMock = $this->getMock('\Guzzle\Http\Message\Response', array(), array(), '', false);
-        $this->clientMock = $this->getMock('\Guzzle\Http\Client', array(), array(), '', false);
+        $this->clientMock = $this->getMock('\Guzzle\Http\Client', array('get'), array(), '', false);
         $this->requestMock->expects($this->once())->method('send')->will($this->returnValue($this->responseMock));
 
         $this->projectMock = $this->getMock('\Xsolla\SDK\Project', array(), array(), '', false);

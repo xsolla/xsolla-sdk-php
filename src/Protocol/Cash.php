@@ -15,11 +15,6 @@ class Cash extends Protocol
      */
     protected $paymentsCash;
 
-    /**
-     * @var CashFactory
-     */
-    protected $commandFactory;
-
     public function __construct(
         Project $project,
         XmlResponseBuilder $xmlResponseBuilder,

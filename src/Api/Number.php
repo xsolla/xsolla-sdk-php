@@ -5,6 +5,7 @@ namespace Xsolla\SDK\Api;
 use Guzzle\Http\Client;
 use Xsolla\SDK\Exception\InternalServerException;
 use Xsolla\SDK\Exception\InvalidArgumentException;
+use Xsolla\SDK\Exception\InvalidRequestException;
 use Xsolla\SDK\Project;
 use Xsolla\SDK\User;
 

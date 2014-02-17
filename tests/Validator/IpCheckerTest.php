@@ -1,5 +1,5 @@
 <?php
-namespace Xsolla\SDK\tests\Validator;
+namespace Xsolla\SDK\Tests\Validator;
 
 use Xsolla\SDK\Validator\IpChecker;
 

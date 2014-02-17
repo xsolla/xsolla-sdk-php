@@ -30,7 +30,7 @@ class PayCash extends Command
 
     public function getRequiredParams()
     {
-        return array('command', 'md5', 'id', 'v1', 'amount', 'currency', 'datetime');
+        return array('command', 'sign', 'id', 'v1', 'amount', 'currency', 'datetime');
     }
 
     public function process(Request $request)
@@ -53,7 +53,7 @@ class PayCash extends Command
             $request->query->get('geotype')
         );
 
-        return array('result' => self::CODE_SUCCESS, $this->commentFieldName => '');
+        return array('result' => self::CODE_SUCCESS, self::COMMENT_FIELD_NAME => '');
     }
 
     public function checkSign(Request $request)

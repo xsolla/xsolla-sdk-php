@@ -26,11 +26,6 @@ class Standard extends Protocol
      */
     protected $paymentsStandard;
 
-    /**
-     * @var \Xsolla\SDK\Protocol\CommandFactory\StandardFactory
-     */
-    protected $commandFactory;
-
     public function __construct(
         Project $project,
         XmlResponseBuilder $xmlResponseBuilder,

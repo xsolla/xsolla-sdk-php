@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\tests\Api;
+namespace Xsolla\SDK\Tests\Api;
 
 use Xsolla\SDK\Api\QiwiWallet;
 

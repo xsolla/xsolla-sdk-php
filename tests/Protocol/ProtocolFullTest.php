@@ -1,0 +1,229 @@
+<?php
+
+namespace Xsolla\SDK\Tests\Protocol;
+
+use Xsolla\SDK\Exception\InvoiceNotFoundException;
+use Xsolla\SDK\Exception\UnprocessableRequestException;
+use Xsolla\SDK\Storage\PaymentsInterface;
+
+abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
+{
+    const PROJECT_ID = 12345;
+    const PROJECT_KEY = 'key';
+
+    const CANCEL_ID_VALID = 100;
+    const CANCEL_ID_NOT_FOUND = 101;
+    const CANCEL_ID_UNPROCESSIBLE = 102;
+    const CANCEL_ID_ANY_EXCEPTION = 103;
+
+    const PAY_SHOP_ID = 123100;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $projectMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $paymentStorageMock;
+
+    /**
+     * @var \Xsolla\SDK\Protocol\ProtocolBuilder
+     */
+    protected $protocolBuilder;
+
+    /**
+     * @var \Symfony\Component\HttpFoundation\Request
+     */
+    protected $requestMock;
+
+    /**
+     * @var \Symfony\Component\HttpFoundation\Response
+     */
+    protected $response;
+
+    /**
+     * @var \Xsolla\SDK\Protocol\Protocol
+     */
+    protected $protocol;
+
+    public function setUp()
+    {
+        $this->projectMock = $this->getMock('\Xsolla\SDK\Project', array(), array(), '', false);
+        $this->projectMock->expects($this->any())
+            ->method('getProjectId')
+            ->will($this->returnValue(self::PROJECT_ID));
+        $this->projectMock->expects($this->any())
+            ->method('getSecretKey')
+            ->will($this->returnValue(self::PROJECT_KEY));
+
+        $this->protocolBuilder = new \Xsolla\SDK\Protocol\ProtocolBuilder($this->projectMock);
+
+        $this->requestMock = $this->getMock('Symfony\Component\HttpFoundation\Request');
+
+    }
+
+    public function protocolTest(array $params, $expectedXml)
+    {
+        $requestMock = $this->buildRequestMock($params);
+        $response = $this->protocol->run($requestMock);
+        $this->assertEquals($expectedXml, $response->getContent());
+    }
+
+    /**
+     * @dataProvider noCommandProvider
+     */
+    public function testNoCommand(array $params, $expectedXml) {
+        $this->protocolTest($params, $expectedXml);
+    }
+
+    /**
+     * @dataProvider cancelProvider
+     */
+    public function testCancel(array $params, $expectedXml) {
+        $this->protocolTest($params, $expectedXml);
+    }
+
+    /**
+     * @dataProvider payProvider
+     */
+    public function testPay(array $params, $expectedXml) {
+        $this->protocolTest($params, $expectedXml);
+    }
+
+    public function cancelProvider()
+    {
+        return array(
+            array(
+                array(
+                    'command' => 'cancel'
+                ),
+                '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
+                '<response><result>4</result>' .
+                '<comment>Invalid request format. Not enough arguments. Required: "command", "md5", "id". But received: "command".</comment>' .
+                '</response>' . PHP_EOL
+            ),
+            array(
+                array(
+                    'command' => 'cancel',
+                    'id' => '500'
+                ),
+                '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
+                '<response><result>4</result>' .
+                '<comment>Invalid request format. Not enough arguments. Required: "command", "md5", "id". But received: "command", "id".</comment>' .
+                '</response>' . PHP_EOL
+            ),
+            array(
+                array(
+                    'command' => 'cancel',
+                    'id' => '500',
+                    'md5' => '11111109bbf31111211175a111c3f11'
+                ),
+                '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
+                '<response><result>3</result><comment>Invalid md5 signature</comment></response>' . PHP_EOL
+            ),
+            array(
+                array(
+                    'command' => 'cancel',
+                    'id' => self::CANCEL_ID_VALID,
+                    'md5' => 'bc763ff5a8665c7c4c5fa0d8eba75ac8'
+                ),
+                '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
+                '<response><result>0</result><comment/></response>' . PHP_EOL
+            ),
+            array(
+                array(
+                    'command' => 'cancel',
+                    'id' => self::CANCEL_ID_NOT_FOUND,
+                    'md5' => '19715f09bc5b2e9c2e47ce00cb40fc54'
+                ),
+                '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
+                '<response><result>2</result><comment>Invoice not found.</comment></response>' . PHP_EOL
+            ),
+            array(
+                array(
+                    'command' => 'cancel',
+                    'id' => self::CANCEL_ID_UNPROCESSIBLE,
+                    'md5' => '9e652f044a63f2248633eb9a8afecf8e'
+                ),
+                '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
+                '<response><result>7</result><comment>Unprocessable request.</comment></response>' . PHP_EOL
+            ),
+            array(
+                array(
+                    'command' => 'cancel',
+                    'id' => self::CANCEL_ID_ANY_EXCEPTION,
+                    'md5' => 'a4bbcb6f3e1da6366661181f888ef8be'
+                ),
+                '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
+                '<response><result>1</result><comment>Any exception</comment></response>' . PHP_EOL
+            )
+        );
+    }
+
+    /**
+     * @dataProvider noCommandProvider
+     */
+    /*
+    public function testNoCommand(array $params, $expectedXml)
+    {
+        $requestMock = $this->buildRequestMock($params);
+        $response = $this->protocol->run($requestMock);
+        $this->assertEquals($expectedXml, $response->getContent());
+    }
+    */
+
+    public function buildCancelRequestMock()
+    {
+        return $this->buildRequestMock(array(
+                'command' => 'cancel',
+                'id' => '500',
+                'md5' => '680f9109bbf3d008120e275a4ebc3f45'
+            ));
+    }
+
+    public function addCancelHandler(PaymentsInterface &$paymentsStorageMock)
+    {
+        $paymentsStorageMock->expects($this->any())
+            ->method('cancel')
+            ->will($this->returnCallback(
+                   function($id) {
+                       switch ($id) {
+                           case self::CANCEL_ID_NOT_FOUND:
+                               throw new InvoiceNotFoundException();
+                           case self::CANCEL_ID_UNPROCESSIBLE:
+                               throw new UnprocessableRequestException();
+                           case self::CANCEL_ID_ANY_EXCEPTION;
+                               throw new \Exception('Any exception');
+                           default:
+                               return;
+                       }
+                   }
+                ));
+    }
+
+    public function buildRequestMock(Array $params)
+    {
+        $queryMock = $this->getMock('Symfony\Component\HttpFoundation\ParameterBag');
+        $queryMock->expects($this->any())
+            ->method('get')
+            ->will($this->returnCallback(
+                    function($key) use (&$params)
+                    {
+                        if (array_key_exists($key, $params)) {
+                            return $params[$key];
+                        } else {
+                            return null;
+                        }
+                    }
+                ));
+        $queryMock->expects($this->any())
+            ->method('keys')
+            ->will($this->returnValue(array_keys($params)));
+        $requestMock = $this->getMock('Symfony\Component\HttpFoundation\Request');
+        $requestMock->query = $queryMock;
+        return $requestMock;
+    }
+
+} 
