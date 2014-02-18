@@ -7,12 +7,12 @@ namespace Xsolla\SDK\Widget;
  */
 class Paystation extends Widget
 {
-    public function getMarketplace()
+    protected function getMarketplace()
     {
         return 'paystation';
     }
 
-    public function getRequiredParams()
+    protected function getRequiredParams()
     {
         return array('project');
     }

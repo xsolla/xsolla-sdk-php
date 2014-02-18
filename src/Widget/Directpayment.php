@@ -7,14 +7,14 @@ namespace Xsolla\SDK\Widget;
  */
 class Directpayment extends Paystation
 {
-    public function getMarketplace()
+    protected function getMarketplace()
     {
         return 'landing';
     }
 
-    public function getRequiredParams()
+    protected function getRequiredParams()
     {
-        return array('project','pid','marketplace');
+        return array('project', 'pid', 'marketplace');
     }
 
 }

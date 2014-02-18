@@ -8,18 +8,18 @@ namespace Xsolla\SDK\Widget;
 class MobilePayment extends Paystation
 {
 
-    public function getMarketplace()
+    protected function getMarketplace()
     {
         return 'landing';
     }
 
-    public function getRequiredParams()
+    protected function getRequiredParams()
     {
-        return array('project','pid','marketplace');
+        return array('project', 'pid', 'marketplace');
     }
 
-    public function getDefaultParams()
+    protected function getDefaultParams()
     {
-        return array('pid'=> 1738,'theme' => 201);
+        return array('pid'=> 1738, 'theme' => 201);
     }
 }

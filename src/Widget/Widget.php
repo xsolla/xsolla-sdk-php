@@ -18,12 +18,6 @@ abstract class Widget implements WidgetInterface
         $this->project = $project;
     }
 
-    /**
-     * @param  User    $user
-     * @param  Invoice $invoice
-     * @param  array   $params  local, country, pid, hidden
-     * @return string
-     */
     public function getLink(User $user, Invoice $invoice = null, array $params = array())
     {
         $params = array_merge($params, $this->getDefaultParams());
@@ -51,12 +45,12 @@ abstract class Widget implements WidgetInterface
         return self::BASE_URL.http_build_query($params);
     }
 
-    private function signParamList()
+    protected function signParamList()
     {
         return array('theme', 'project', 'signparams', 'v0', 'v1', 'v2', 'v3', 'out', 'email', 'currency', 'userip', 'allowSubscription', 'fastcheckout');
     }
 
-    private function generateSign(array $params)
+    protected function generateSign(array $params)
     {
         $keys = $this->signParamList();
         sort($keys);
@@ -73,7 +67,7 @@ abstract class Widget implements WidgetInterface
         return md5($sign . $key);
     }
 
-    private function checkRequiredParams(array $params)
+    protected function checkRequiredParams(array $params)
     {
         $paramsKeys = array_keys($params);
         $diff = array_diff($this->getRequiredParams(), $paramsKeys);
@@ -85,9 +79,9 @@ abstract class Widget implements WidgetInterface
         }
     }
 
-    abstract public function getMarketplace();
+    abstract protected function getMarketplace();
 
-    abstract public function getRequiredParams();
+    abstract protected function getRequiredParams();
 
     protected function getDefaultParams()
     {
