@@ -1,15 +1,11 @@
 <?php
+namespace Xsolla\SDK\Protocol\Storage\Null;
 
-namespace Xsolla\SDK\Storage;
+use Xsolla\SDK\Protocol\Storage\PaymentsCashInterface;
 
-use Xsolla\SDK\Exception\UnprocessableRequestException;
-
-interface PaymentsCashInterface extends PaymentsInterface
+class PaymentsCash implements PaymentsCashInterface
 {
-    /**
-     * @throws UnprocessableRequestException
-     * @return int Payment unique ID in your system
-     */
+
     public function pay(
         $invoiceId,
         $amount,
@@ -25,5 +21,12 @@ interface PaymentsCashInterface extends PaymentsInterface
         $transferCurrency = null,
         $pid = null,
         $geotype = null
-    );
+    ) {
+        return time();//"unique" id
+    }
+
+    public function cancel($invoiceId)
+    {
+        //do nothing
+    }
 }

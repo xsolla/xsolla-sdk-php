@@ -5,8 +5,8 @@ namespace Xsolla\SDK\Protocol;
 use Xsolla\SDK\Project;
 use Xsolla\SDK\Protocol\Command\StandardCommand;
 use Xsolla\SDK\Protocol\CommandFactory\StandardFactory;
-use Xsolla\SDK\Storage\PaymentsStandardInterface;
-use Xsolla\SDK\Storage\UsersInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentsStandardInterface;
+use Xsolla\SDK\Protocol\Storage\UsersInterface;
 use Xsolla\SDK\Validator\IpChecker;
 
 class Standard extends Protocol
@@ -50,7 +50,7 @@ class Standard extends Protocol
     }
 
     /**
-     * @return \Xsolla\SDK\Storage\PaymentsStandardInterface
+     * @return \Xsolla\SDK\Protocol\Storage\PaymentsStandardInterface
      */
     public function getPaymentsStandard()
     {
@@ -58,7 +58,7 @@ class Standard extends Protocol
     }
 
     /**
-     * @return \Xsolla\SDK\Storage\UsersInterface
+     * @return \Xsolla\SDK\Protocol\Storage\UsersInterface
      */
     public function getUsers()
     {

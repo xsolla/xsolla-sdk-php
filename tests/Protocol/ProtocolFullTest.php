@@ -4,7 +4,7 @@ namespace Xsolla\SDK\Tests\Protocol;
 
 use Xsolla\SDK\Exception\InvoiceNotFoundException;
 use Xsolla\SDK\Exception\UnprocessableRequestException;
-use Xsolla\SDK\Storage\PaymentsInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentsInterface;
 
 abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
 {

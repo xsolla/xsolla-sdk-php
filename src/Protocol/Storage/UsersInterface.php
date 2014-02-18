@@ -1,5 +1,6 @@
 <?php
-namespace Xsolla\SDK\Storage;
+
+namespace Xsolla\SDK\Protocol\Storage;
 
 use Xsolla\SDK\User;
 

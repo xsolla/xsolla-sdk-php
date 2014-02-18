@@ -4,9 +4,9 @@ namespace Xsolla\SDK\Protocol;
 
 use Xsolla\SDK\Protocol\CommandFactory\CashFactory;
 use Xsolla\SDK\Protocol\CommandFactory\StandardFactory;
-use Xsolla\SDK\Storage\PaymentsCashInterface;
-use Xsolla\SDK\Storage\PaymentsStandardInterface;
-use Xsolla\SDK\Storage\UsersInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentsCashInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentsStandardInterface;
+use Xsolla\SDK\Protocol\Storage\UsersInterface;
 
 class ProtocolBuilder
 {

@@ -1,10 +1,9 @@
 <?php
 
-namespace Xsolla\SDK\Storage\Pdo;
+namespace Xsolla\SDK\Protocol\Storage\Pdo;
 
 use Xsolla\SDK\Exception\UnprocessableRequestException;
-use Xsolla\SDK\Storage\PaymentsCashInterface;
-use Xsolla\SDK\User;
+use Xsolla\SDK\Protocol\Storage\PaymentsCashInterface;
 
 class PaymentsCash extends Payments implements PaymentsCashInterface
 {

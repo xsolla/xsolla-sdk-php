@@ -1,7 +1,7 @@
 <?php
-namespace Xsolla\SDK\Storage\Null;
+namespace Xsolla\SDK\Protocol\Storage\Null;
 
-use Xsolla\SDK\Storage\UsersInterface;
+use Xsolla\SDK\Protocol\Storage\UsersInterface;
 use Xsolla\SDK\User;
 
 class Users implements UsersInterface

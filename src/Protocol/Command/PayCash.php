@@ -5,7 +5,7 @@ namespace Xsolla\SDK\Protocol\Command;
 use Symfony\Component\HttpFoundation\Request;
 use Xsolla\SDK\Exception\InvalidRequestException;
 use Xsolla\SDK\Protocol\Cash;
-use Xsolla\SDK\Storage\PaymentsCashInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentsCashInterface;
 
 class PayCash extends Command
 {

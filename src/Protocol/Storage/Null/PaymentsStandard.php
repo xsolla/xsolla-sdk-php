@@ -1,7 +1,7 @@
 <?php
-namespace Xsolla\SDK\Storage\Null;
+namespace Xsolla\SDK\Protocol\Storage\Null;
 
-use Xsolla\SDK\Storage\PaymentsStandardInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentsStandardInterface;
 use Xsolla\SDK\User;
 
 class PaymentsStandard implements PaymentsStandardInterface

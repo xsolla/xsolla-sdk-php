@@ -1,11 +1,10 @@
 <?php
 
-namespace Xsolla\SDK\Storage\Pdo;
+namespace Xsolla\SDK\Protocol\Storage\Pdo;
 
 
 use Xsolla\SDK\Exception\InvoiceNotFoundException;
-use Xsolla\SDK\Exception\UnprocessableRequestException;
-use Xsolla\SDK\Storage\PaymentsInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentsInterface;
 
 abstract class Payments implements PaymentsInterface
 {

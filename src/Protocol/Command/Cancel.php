@@ -5,7 +5,7 @@ namespace Xsolla\SDK\Protocol\Command;
 use Symfony\Component\HttpFoundation\Request;
 use Xsolla\SDK\Exception\InvoiceNotFoundException;
 use Xsolla\SDK\Protocol\Protocol;
-use Xsolla\SDK\Storage\PaymentsInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentsInterface;
 
 class Cancel extends StandardCommand
 {

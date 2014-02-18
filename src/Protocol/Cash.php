@@ -5,7 +5,7 @@ namespace Xsolla\SDK\Protocol;
 use Xsolla\SDK\Project;
 use Xsolla\SDK\Protocol\CommandFactory\CashFactory;
 use Xsolla\SDK\Protocol\Command\PayCash;
-use Xsolla\SDK\Storage\PaymentsCashInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentsCashInterface;
 use Xsolla\SDK\Validator\IpChecker;
 
 class Cash extends Protocol
