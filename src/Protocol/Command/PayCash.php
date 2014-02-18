@@ -5,9 +5,7 @@ namespace Xsolla\SDK\Protocol\Command;
 use Symfony\Component\HttpFoundation\Request;
 use Xsolla\SDK\Exception\InvalidRequestException;
 use Xsolla\SDK\Protocol\Cash;
-use Xsolla\SDK\Protocol\Protocol;
 use Xsolla\SDK\Storage\PaymentsCashInterface;
-use Xsolla\SDK\Project;
 
 class PayCash extends Command
 {
@@ -40,8 +38,8 @@ class PayCash extends Command
             $request->query->get('id'),
             $request->query->get('amount'),
             $request->query->get('v1'),
-            $request->query->get('v2'),
-            $request->query->get('v3'),
+            $this->emptyStringToNull($request->query->get('v2')),
+            $this->emptyStringToNull($request->query->get('v3')),
             $request->query->get('currency'),
             $datetime,
             (bool) $request->query->get('dry_run'),
@@ -54,6 +52,12 @@ class PayCash extends Command
         );
 
         return array('result' => self::CODE_SUCCESS, self::COMMENT_FIELD_NAME => '');
+    }
+
+    public function emptyStringToNull($string)
+    {
+        $trimmedString = trim($string);
+        return $trimmedString == '' ? null : $trimmedString;
     }
 
     public function checkSign(Request $request)

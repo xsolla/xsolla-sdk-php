@@ -3,10 +3,8 @@
 namespace Xsolla\SDK\Protocol\Command;
 
 use Symfony\Component\HttpFoundation\Request;
-use Xsolla\SDK\Protocol\Protocol;
 use Xsolla\SDK\Protocol\Standard;
 use Xsolla\SDK\Storage\PaymentsInterface;
-use Xsolla\SDK\Project;
 use Xsolla\SDK\Storage\UsersInterface;
 
 class PayStandard extends StandardCommand

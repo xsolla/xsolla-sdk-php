@@ -13,7 +13,7 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
 
     const CANCEL_ID_VALID = 100;
     const CANCEL_ID_NOT_FOUND = 101;
-    const CANCEL_ID_UNPROCESSIBLE = 102;
+    const CANCEL_ID_UNPROCESSABLE = 102;
     const CANCEL_ID_ANY_EXCEPTION = 103;
 
     const PAY_SHOP_ID = 123100;
@@ -60,7 +60,7 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
 
         $this->protocolBuilder = new \Xsolla\SDK\Protocol\ProtocolBuilder($this->projectMock);
 
-        $this->requestMock = $this->getMock('Symfony\Component\HttpFoundation\Request');
+        $this->requestMock = $this->getMock('Symfony\Component\HttpFoundation\Request', array(), array(), '', false);
 
     }
 
@@ -144,7 +144,7 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
             array(
                 array(
                     'command' => 'cancel',
-                    'id' => self::CANCEL_ID_UNPROCESSIBLE,
+                    'id' => self::CANCEL_ID_UNPROCESSABLE,
                     'md5' => '9e652f044a63f2248633eb9a8afecf8e'
                 ),
                 '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
@@ -183,7 +183,7 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
             ));
     }
 
-    public function addCancelHandler(PaymentsInterface &$paymentsStorageMock)
+    public function addCancelHandler(PaymentsInterface $paymentsStorageMock)
     {
         $paymentsStorageMock->expects($this->any())
             ->method('cancel')
@@ -192,12 +192,10 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
                        switch ($id) {
                            case self::CANCEL_ID_NOT_FOUND:
                                throw new InvoiceNotFoundException();
-                           case self::CANCEL_ID_UNPROCESSIBLE:
+                           case self::CANCEL_ID_UNPROCESSABLE:
                                throw new UnprocessableRequestException();
                            case self::CANCEL_ID_ANY_EXCEPTION;
                                throw new \Exception('Any exception');
-                           default:
-                               return;
                        }
                    }
                 ));

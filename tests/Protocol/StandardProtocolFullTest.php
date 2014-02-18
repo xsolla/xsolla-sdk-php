@@ -23,8 +23,8 @@ class StandardProtocolFullTest extends ProtocolFullTest {
     public function setUp()
     {
         parent::setUp();
-        $this->userStorageMock = $this->getMock('Xsolla\SDK\Storage\UsersInterface');
-        $this->paymentStorageMock = $this->getMock('Xsolla\SDK\Storage\PaymentsStandardInterface');
+        $this->userStorageMock = $this->getMock('Xsolla\SDK\Storage\UsersInterface', array(), array(), '', false);
+        $this->paymentStorageMock = $this->getMock('Xsolla\SDK\Storage\PaymentsStandardInterface', array(), array(), '', false);
         $this->addCancelHandler($this->paymentStorageMock);
         $this->addPayHandler($this->paymentStorageMock);
         $this->addCheckHandler($this->userStorageMock);
@@ -136,7 +136,7 @@ class StandardProtocolFullTest extends ProtocolFullTest {
         );
     }
 
-    public function addCheckHandler(UsersInterface &$userStorageMock)
+    public function addCheckHandler(UsersInterface $userStorageMock)
     {
         $userStorageMock->expects($this->any())
             ->method('check')
@@ -154,7 +154,7 @@ class StandardProtocolFullTest extends ProtocolFullTest {
                 ));
     }
 
-    public function addPayHandler(PaymentsStandardInterface &$paymentStorageMock)
+    public function addPayHandler(PaymentsStandardInterface $paymentStorageMock)
     {
         $paymentStorageMock->expects($this->any())
             ->method('pay')
