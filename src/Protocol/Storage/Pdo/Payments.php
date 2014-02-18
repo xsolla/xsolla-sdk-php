@@ -21,13 +21,13 @@ abstract class Payments implements PaymentsInterface
 
     public function cancel($invoiceId)
     {
-        $update = $this->getCancelUpdateStatement();
+        $update = $this->db->prepare($this->getCancelUpdateQuery());
         $update->bindValue(':id_xsolla', $invoiceId, \PDO::PARAM_INT);
         $update->execute();
         if ($update->rowCount() == 1) {
             return;
         }
-        $select = $this->getCancelSelectStatement();
+        $select = $this->db->prepare($this->getCancelSelectQuery());
         $select->bindValue(':id_xsolla', $invoiceId, \PDO::PARAM_INT);
         $select->execute();
         $result = $select->fetch(\PDO::FETCH_ASSOC);
@@ -39,7 +39,7 @@ abstract class Payments implements PaymentsInterface
         }
     }
 
-    abstract public function getCancelUpdateStatement();
+    abstract public function getCancelUpdateQuery();
 
-    abstract public function getCancelSelectStatement();
+    abstract public function getCancelSelectQuery();
 } 

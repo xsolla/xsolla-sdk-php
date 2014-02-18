@@ -101,23 +101,23 @@ class PaymentsCash extends Payments implements PaymentsCashInterface
         throw new UnprocessableRequestException($exceptionMessage);
     }
 
-    public function getCancelUpdateStatement()
+    public function getCancelUpdateQuery()
     {
-        return $this->db->prepare("
+        return "
             UPDATE xsolla_shopping_cart_invoice SET
             is_canceled = 1,
             timestamp_canceled = NOW()
             WHERE id_xsolla = :id_xsolla
-        ;");
+        ;";
     }
 
-    public function getCancelSelectStatement()
+    public function getCancelSelectQuery()
     {
-        return $this->db->prepare("
+        return "
             SELECT is_canceled, timestamp_canceled
             FROM xsolla_shopping_cart_invoice
             WHERE id_xsolla = :id_xsolla
-        ;");
+        ;";
     }
 
 } 
