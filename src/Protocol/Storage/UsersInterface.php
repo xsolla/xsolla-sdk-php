@@ -7,4 +7,6 @@ use Xsolla\SDK\User;
 interface UsersInterface
 {
     public function check(User $user);
+
+    public function getSpec(User $user);
 }

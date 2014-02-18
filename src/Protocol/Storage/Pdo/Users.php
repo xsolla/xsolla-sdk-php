@@ -33,4 +33,9 @@ class Users implements UsersInterface
             return false;
         }
     }
+
+    public function getSpec(User $user)
+    {
+        return array();
+    }
 } 

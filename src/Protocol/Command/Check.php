@@ -26,12 +26,17 @@ class Check extends StandardCommand
         $user = $this->createUser($request);
         $hasUser = $this->users->check($user);
         if ($hasUser) {
-            $code = self::CODE_SUCCESS;
+            $response = array('result' => self::CODE_SUCCESS);
+            $spec = $this->users->getSpec($user);
+            if (count($spec) > 0) {
+                $response['specification'] = $spec;
+            }
         } else {
-            $code = self::CODE_USER_NOT_FOUND;
+            $response = array('result' => self::CODE_USER_NOT_FOUND);
         }
+        $response['comment'] = '';
 
-        return array('result' => $code, self::COMMENT_FIELD_NAME => '');
+        return $response;
     }
 
     public function checkSign(Request $request)
