@@ -57,12 +57,12 @@ class PaymentsStandard extends Payments implements PaymentsStandardInterface
         $select->execute();
         $result = $select->fetch(\PDO::FETCH_ASSOC);
         if ($result === false) {
-            throw new \Exception('Can\'t insert payment');
+            throw new \Exception('Temporary error.');
         }
         if ($result['amount_virtual_currency'] != $amountVirtual)
         {
             throw new UnprocessableRequestException(sprintf(
-                'Found payment with same invoiceId=%s and different amount=%s (must be %s).',
+                'Found payment with same invoiceId=%s and different amount=%0.2f (must be %0.2f).',
                 $invoiceId,
                 $result['amount_virtual_currency'],
                 $amountVirtual

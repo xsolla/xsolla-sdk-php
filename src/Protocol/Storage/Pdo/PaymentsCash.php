@@ -84,8 +84,8 @@ class PaymentsCash extends Payments implements PaymentsCashInterface
             $exceptionMessage = 'Invoice with xsolla_id = ' . $invoiceId . ' not found';
         } else {
             $exceptionMessage = sprintf(
-                'Found invoice with values: v1=%s, v2=%s, v3=%s, amount=%s, currency=%s, dryRun=%d. ' .
-                'Must be: v1=%s, v2=%s, v3=%s, amount=%s, currency=%s, dryRun=%d.',
+                'Found invoice with values: v1=%s, v2=%s, v3=%s, amount=%0.2f, currency=%s, dryRun=%d. ' .
+                'Must be: v1=%s, v2=%s, v3=%s, amount=%0.2f, currency=%s, dryRun=%d.',
                 $result['v1'],
                 is_null($result['v2']) ? 'NULL' : $result['v2'],
                 is_null($result['v3']) ? 'NULL' : $result['v3'],
