@@ -13,6 +13,7 @@
     ],
     "require": {
         "php": ">=5.3.3",
+        "ext-simplexml": "*",
         "symfony/http-foundation": "~2.4"
 
     },
@@ -20,7 +21,8 @@
         "guzzle/http": "~3.8.0"
     },
     "suggest": {
-        "guzzle/http": "Required for advanced API commands"
+        "guzzle/http": "Required for advanced API commands",
+        "ext-pdo": "Required for Protocol/Storage/Pdo classes usage"
     },
     "autoload": {
         "psr-4": {
