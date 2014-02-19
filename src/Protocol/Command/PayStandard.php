@@ -28,7 +28,7 @@ class PayStandard extends StandardCommand
 
     public function getRequiredParams()
     {
-        return array('command', 'md5', 'id', 'sum', 'v1');
+        return array('command', 'md5', 'id', 'sum', 'v1', 'date');
     }
 
     public function process(Request $request)
@@ -40,10 +40,12 @@ class PayStandard extends StandardCommand
                 self::COMMENT_FIELD_NAME => 'User not found'
             );
         }
+        $datetime = $this->getDateTimeXsolla('Y-m-d H:i:s', $request->query->get('date'));
         $id = $this->paymentStorage->pay(
             $request->query->get('id'),
             $request->query->get('sum'),
             $user,
+            $datetime,
             (bool) $request->query->get('dry_run')
         );
 

@@ -10,5 +10,5 @@ interface PaymentStandardStorageInterface extends PaymentStorageInterface
     /**
      * @throws UnprocessableRequestException
      */
-    public function pay($invoiceId, $amountVirtual, User $user, $dryRun);
+    public function pay($invoiceId, $amountVirtual, User $user, \DateTime $date, $dryRun);
 }

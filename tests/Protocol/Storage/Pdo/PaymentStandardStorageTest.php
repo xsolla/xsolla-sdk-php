@@ -16,6 +16,7 @@ class PaymentStandardStorageTest extends PaymentStorageTest
     {
         parent::setUp();
         $this->paymentStorage = new PaymentStandardStorage($this->dbMock);
+        $this->datetimeObj = \DateTime::createFromFormat('Y-m-d H:i:s', '2013-03-25 18:48:22', $this->xsollaTimeZone);
     }
 
     protected function setUpPayDbMock()
@@ -31,10 +32,10 @@ class PaymentStandardStorageTest extends PaymentStorageTest
 
     protected function setUpPayInsertMock()
     {
-        $this->insertMock->expects($this->exactly(4))
+        $this->insertMock->expects($this->exactly(5))
             ->method('bindValue')
             ->with($this->anything(), $this->anything());
-        $this->insertMock->expects($this->at(4))
+        $this->insertMock->expects($this->at(5))
             ->method('execute');
     }
 
@@ -52,7 +53,7 @@ class PaymentStandardStorageTest extends PaymentStorageTest
             ->method('lastInsertId')
             ->will($this->returnValue($expectedId));
 
-        $this->assertEquals($expectedId, $this->paymentStorage->pay(10, 10, $this->userMock, false));
+        $this->assertEquals($expectedId, $this->paymentStorage->pay(10, 10, $this->userMock, $this->datetimeObj, false));
     }
 
     public function testPayExists()
@@ -74,7 +75,7 @@ class PaymentStandardStorageTest extends PaymentStorageTest
             ->with($this->anything())
             ->will($this->returnValue($this->selectMock));
 
-        $this->assertEquals($expectedId, $this->paymentStorage->pay(10, $expectedAmount, $this->userMock, false));
+        $this->assertEquals($expectedId, $this->paymentStorage->pay(10, $expectedAmount, $this->userMock, $this->datetimeObj, false));
     }
 
     /**
@@ -97,7 +98,7 @@ class PaymentStandardStorageTest extends PaymentStorageTest
             ->will($this->returnValue($this->selectMock));
 
         $this->setExpectedException($exceptionDesc[0], $exceptionDesc[1]);
-        $this->paymentStorage->pay($result['id'], 100.20, $this->userMock, 0);
+        $this->paymentStorage->pay($result['id'], 100.20, $this->userMock, $this->datetimeObj, 0);
     }
 
     public function payErrorProvider()

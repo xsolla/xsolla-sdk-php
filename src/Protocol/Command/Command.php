@@ -65,6 +65,18 @@ abstract class Command
         return md5($signString . $this->project->getSecretKey());
     }
 
+    protected function getDateTimeXsolla($format, $datetime)
+    {
+        $xsollaTimeZone = new \DateTimeZone('Europe/Moscow');
+        $datetimeObj = \DateTime::createFromFormat($format, $datetime, $xsollaTimeZone);
+        if (!$datetimeObj) {
+            throw new InvalidRequestException(sprintf('Datetime string %s could not be converted to DateTime object from format \'%s\'', $datetime, $format));
+        }
+        $datetimeObj->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+
+        return $datetimeObj;
+    }
+
     abstract public function checkSign(Request $request);
 
     abstract public function process(Request $request);

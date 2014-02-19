@@ -16,7 +16,6 @@ class CashProtocolFullTest extends ProtocolFullTest
         $this->addCancelHandler($this->paymentStorageMock);
         $this->addPayHandler($this->paymentStorageMock);
         $this->protocol = $this->protocolBuilder->getCashProtocol($this->paymentStorageMock);
-        date_default_timezone_set('Europe/Moscow');
     }
 
     public function payProvider()

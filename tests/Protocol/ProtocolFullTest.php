@@ -62,6 +62,8 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
 
         $this->requestMock = $this->getMock('Symfony\Component\HttpFoundation\Request', array(), array(), '', false);
 
+        date_default_timezone_set('Europe/Moscow');
+
     }
 
     public function protocolTest(array $params, $expectedXml)

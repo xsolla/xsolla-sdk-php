@@ -34,6 +34,16 @@ abstract class PaymentStorageTest extends \PHPUnit_Framework_TestCase
      */
     protected $paymentStorage;
 
+    /**
+     * @var \DateTime
+     */
+    protected $datetimeObj;
+
+    /**
+     * @var \DateTimeZone
+     */
+    protected $xsollaTimeZone;
+
     public function setUp()
     {
         $this->dbMock = $this->getMock('Xsolla\SDK\Tests\Protocol\Storage\Pdo\PDOMock');
@@ -41,6 +51,7 @@ abstract class PaymentStorageTest extends \PHPUnit_Framework_TestCase
         $this->insertMock = $this->getMock('PDOStatement');
         $this->updateMock = $this->getMock('PDOStatement');
         $this->selectMock = $this->getMock('PDOStatement');
+        $this->xsollaTimeZone = new \DateTimeZone('Europe/Moscow');
     }
 
     protected function setUpSelectMock()

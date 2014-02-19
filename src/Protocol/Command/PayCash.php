@@ -33,7 +33,7 @@ class PayCash extends Command
 
     public function process(Request $request)
     {
-        $datetime = $this->getDateTimeXsolla($request->query->get('datetime'));
+        $datetime = $this->getDateTimeXsolla('YmdHis', $request->query->get('datetime'));
         $this->paymentStorage->pay(
             $request->query->get('id'),
             $request->query->get('amount'),
@@ -65,18 +65,6 @@ class PayCash extends Command
         $actualSign = $this->generateSign($request, array('v1', 'amount', 'currency', 'id'));
 
         return $actualSign == $request->query->get('sign');
-    }
-
-    protected function getDateTimeXsolla($datetime)
-    {
-        $xsollaTimeZone = new \DateTimeZone('Europe/Moscow');
-        $datetimeObj = \DateTime::createFromFormat('YmdHis', $datetime, $xsollaTimeZone);
-        if (!$datetimeObj) {
-            throw new InvalidRequestException(sprintf('Datetime string %s could not be converted to DateTime object from format \'YmdHis\'', $datetime));
-        }
-        $datetimeObj->setTimezone(new \DateTimeZone(date_default_timezone_get()));
-
-        return $datetimeObj;
     }
 
     public function getCommentFieldName()

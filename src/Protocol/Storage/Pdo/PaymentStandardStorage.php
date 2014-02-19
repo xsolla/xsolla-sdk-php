@@ -21,35 +21,36 @@ class PaymentStandardStorage extends PaymentStorage implements PaymentStandardSt
 
     }
 
-    public function pay($invoiceId, $amountVirtual, User $user, $dryRun)
+    public function pay($invoiceId, $amountVirtual, User $user, \DateTime $date, $dryRun)
     {
-        $id = $this->insertPay($invoiceId, $amountVirtual, $user, $dryRun);
+        $id = $this->insertPay($invoiceId, $amountVirtual, $user, $date, $dryRun);
         if ($id > 0) {
             return $id;
         }
-        return $this->selectPayId($invoiceId, $amountVirtual, $user, $dryRun);
+        return $this->selectPayId($invoiceId, $amountVirtual);
 
     }
 
-    protected function insertPay($invoiceId, $amountVirtual, User $user, $dryRun)
+    protected function insertPay($invoiceId, $amountVirtual, User $user, \DateTime $date, $dryRun)
     {
         $insert = $this->db->prepare(
             "INSERT INTO `xsolla_standard_invoice`
-                (`v1`, `id_xsolla`, `amount_virtual_currency`, `is_dry_run`)
-                VALUES (:v1, :id_xsolla, :amount_virtual_currency, :is_dry_run)"
+                (`v1`, `id_xsolla`, `amount_virtual_currency`, `timestamp_xsolla_ipn`, `is_dry_run`)
+                VALUES (:v1, :id_xsolla, :amount_virtual_currency, :timestamp_xsolla_ipn, :is_dry_run)"
         );
         $insert->bindValue(':v1', $user->getV1());
         $insert->bindValue(':id_xsolla', $invoiceId, \PDO::PARAM_INT);
         $insert->bindValue(':amount_virtual_currency', $amountVirtual, \PDO::PARAM_INT);
+        $insert->bindValue(':timestamp_xsolla_ipn', $date->getTimestamp());
         $insert->bindValue(':is_dry_run', $dryRun, \PDO::PARAM_BOOL);
         $insert->execute();
         return $this->db->lastInsertId();
     }
 
-    protected function selectPayId($invoiceId, $amountVirtual, User $user, $dryRun)
+    protected function selectPayId($invoiceId, $amountVirtual)
     {
         $select = $this->db->prepare(
-            "SELECT id, amount_virtual_currency, is_dry_run
+            "SELECT id, amount_virtual_currency, timestamp_xsolla_ipn, is_dry_run
                 FROM `xsolla_standard_invoice`
                 WHERE id_xsolla = :id_xsolla
         ");

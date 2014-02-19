@@ -9,18 +9,11 @@ class PaymentsCashTest extends PaymentStorageTest
      */
     protected $paymentStorage;
 
-    /**
-     * @var \DateTime
-     */
-    protected $datetimeObj;
-
     public function setUp()
     {
         parent::setUp();
         $this->paymentStorage = new \Xsolla\SDK\Protocol\Storage\Pdo\PaymentCashStorage($this->dbMock);
-        $xsollaTimeZone = new \DateTimeZone('Europe/Moscow');
-        $this->datetimeObj = \DateTime::createFromFormat('YmdHis', '20130325184822', $xsollaTimeZone);
-
+        $this->datetimeObj = \DateTime::createFromFormat('YmdHis', '20130325184822', $this->xsollaTimeZone);
     }
 
     protected function setUpPayDbMock()
