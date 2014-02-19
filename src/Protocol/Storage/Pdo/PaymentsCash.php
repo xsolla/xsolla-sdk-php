@@ -103,7 +103,7 @@ class PaymentsCash extends Payments implements PaymentsCashInterface
         throw new UnprocessableRequestException($exceptionMessage);
     }
 
-    public function getTable()
+    protected function getTable()
     {
         return self::table;
     }

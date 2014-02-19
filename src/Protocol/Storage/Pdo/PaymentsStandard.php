@@ -31,7 +31,7 @@ class PaymentsStandard extends Payments implements PaymentsStandardInterface
 
     }
 
-    public function insertPay($invoiceId, $amountVirtual, User $user, $dryRun)
+    protected function insertPay($invoiceId, $amountVirtual, User $user, $dryRun)
     {
         $insert = $this->db->prepare(
             "INSERT INTO `xsolla_standard_invoice`
@@ -46,7 +46,7 @@ class PaymentsStandard extends Payments implements PaymentsStandardInterface
         return $this->db->lastInsertId();
     }
 
-    public function selectPayId($invoiceId, $amountVirtual, User $user, $dryRun)
+    protected function selectPayId($invoiceId, $amountVirtual, User $user, $dryRun)
     {
         $select = $this->db->prepare(
             "SELECT id, amount_virtual_currency, is_dry_run
@@ -71,7 +71,7 @@ class PaymentsStandard extends Payments implements PaymentsStandardInterface
         return $result['id'];
     }
 
-    public function getTable()
+    protected function getTable()
     {
         return self::table;
     }

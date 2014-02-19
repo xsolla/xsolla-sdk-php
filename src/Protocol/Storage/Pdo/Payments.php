@@ -48,6 +48,6 @@ abstract class Payments implements PaymentsInterface
         }
     }
 
-    abstract public function getTable();
+    abstract protected function getTable();
 
 } 
