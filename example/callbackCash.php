@@ -1,25 +1,22 @@
 <?php
-
-use Symfony\Component\HttpFoundation\Request;
-use Xsolla\SDK\Protocol\Protocol;
-use Xsolla\SDK\Storage\PaymentsCash;
-use Xsolla\SDK\Project;
-
 require_once __DIR__.'/../vendor/autoload.php';
 
-$request = Request::createFromGlobals();
+use Symfony\Component\HttpFoundation\Request;
+use Xsolla\SDK\Validator\IpChecker;
+use Xsolla\SDK\Protocol\Storage\Pdo\PaymentsCash;
+use Xsolla\SDK\Project;
+use Xsolla\SDK\Protocol\ProtocolBuilder;
 
 $demoProject = new Project(
     '4783',//demo project id
     'key'//demo project secret key
 );
-
-$paymentsStorage = new \Xsolla\SDK\Storage\Null\PaymentsCash();
-
-$protocolBuilder = new \Xsolla\SDK\Protocol\ProtocolBuilder($demoProject);
-
+$pdo = new \PDO(sprintf('mysql:dbname=%s;host=%s;', 'YOUR_DB_NAME', 'YOUR_DB_HOST'), 'YOUR_DB_USER', 'YOUR_DB_PASSWORD');
+$paymentsStorage = new PaymentsCash($pdo);
+$ipChecker = new IpChecker;
+$protocolBuilder = new ProtocolBuilder($demoProject, $ipChecker);
 $protocol = $protocolBuilder->getCashProtocol($paymentsStorage);
 
+$request = Request::createFromGlobals();
 $response = $protocol->run($request);
-
 $response->send();
