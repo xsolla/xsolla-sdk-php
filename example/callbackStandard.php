@@ -16,7 +16,7 @@ class PaymentStandardDemoStorage implements PaymentStandardStorageInterface
         //do nothing
     }
 
-    public function pay($invoiceId, $amountVirtual, User $user, $dryRun)
+    public function pay($invoiceId, $amountVirtual, User $user, \DateTime $date, $dryRun)
     {
         if (1 == $invoiceId) {
             return time();//"unique" id
@@ -38,14 +38,15 @@ class UsersDemoStorage implements UserStorageInterface
     }
 }
 
-$usersStorage = new UsersDemoStorage;
-$paymentsStorage = new PaymentStandardDemoStorage;
+$userStorage = new UsersDemoStorage;
+$paymentStorage = new PaymentStandardDemoStorage;
+
 $demoProject = new Project(
     '4783',//demo project id
     'key'//demo project secret key
 );
 $protocolBuilder = new ProtocolBuilder($demoProject);
-$protocol = $protocolBuilder->getStandardProtocol($usersStorage, $paymentsStorage);
+$protocol = $protocolBuilder->getStandardProtocol($userStorage, $paymentStorage);
 
 $request = Request::createFromGlobals();
 $response = $protocol->run($request);
