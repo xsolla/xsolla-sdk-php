@@ -26,7 +26,7 @@ class StandardFactory
             case 'pay':
                 return new PayStandard($protocol);
             case 'cancel':
-                return new Cancel($protocol, $protocol->getPaymentsStandard());
+                return new Cancel($protocol, $protocol->getPaymentStandardStorage());
             default:
                 throw new WrongCommandException(sprintf(
                     'Wrong command: "%s". Available commands for Standard protocol are: "%s".',

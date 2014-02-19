@@ -22,7 +22,7 @@ class CashFactory
             case 'pay':
                 return new PayCash($protocol);
             case 'cancel':
-                return new Cancel($protocol, $protocol->getPaymentsCash());
+                return new Cancel($protocol, $protocol->getPaymentCashStorage());
             default:
                 throw new WrongCommandException(sprintf(
                     'Wrong command: "%s". Available commands for protocol Cash 2.0 are: "%s".',

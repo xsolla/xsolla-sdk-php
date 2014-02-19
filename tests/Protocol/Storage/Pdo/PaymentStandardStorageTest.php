@@ -2,10 +2,12 @@
 
 namespace Xsolla\SDK\Tests\Protocol\Storage\Pdo;
 
-class PaymentsStandardTest extends PaymentsTest
+use Xsolla\SDK\Protocol\Storage\Pdo\PaymentStandardStorage;
+
+class PaymentStandardStorageTest extends PaymentStorageTest
 {
     /**
-     * @var \Xsolla\SDK\Protocol\Storage\PaymentsStandardInterface
+     * @var \Xsolla\SDK\Protocol\Storage\PaymentStandardStorageInterface
      */
     protected $paymentStorage;
 
@@ -13,7 +15,7 @@ class PaymentsStandardTest extends PaymentsTest
     public function setUp()
     {
         parent::setUp();
-        $this->paymentStorage = new \Xsolla\SDK\Protocol\Storage\Pdo\PaymentsStandard($this->dbMock);
+        $this->paymentStorage = new PaymentStandardStorage($this->dbMock);
     }
 
     protected function setUpPayDbMock()

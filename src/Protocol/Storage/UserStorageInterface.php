@@ -4,7 +4,7 @@ namespace Xsolla\SDK\Protocol\Storage;
 
 use Xsolla\SDK\User;
 
-interface UsersInterface
+interface UserStorageInterface
 {
     public function check(User $user);
 

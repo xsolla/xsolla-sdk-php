@@ -2,10 +2,10 @@
 
 namespace Xsolla\SDK\Protocol\Storage\Pdo;
 
-use Xsolla\SDK\Protocol\Storage\UsersInterface;
+use Xsolla\SDK\Protocol\Storage\UserStorageInterface;
 use Xsolla\SDK\User;
 
-class Users implements UsersInterface
+class UserStorage implements UserStorageInterface
 {
     /**
      * @var \PDO

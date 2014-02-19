@@ -2,7 +2,7 @@
 
 namespace Xsolla\SDK\Tests\Protocol\Storage\Pdo;
 
-abstract class PaymentsTest extends \PHPUnit_Framework_TestCase
+abstract class PaymentStorageTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -30,7 +30,7 @@ abstract class PaymentsTest extends \PHPUnit_Framework_TestCase
     protected $userMock;
 
     /**
-     * @var \Xsolla\SDK\Protocol\Storage\PaymentsInterface
+     * @var \Xsolla\SDK\Protocol\Storage\PaymentStorageInterface
      */
     protected $paymentStorage;
 

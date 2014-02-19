@@ -3,10 +3,10 @@
 namespace Xsolla\SDK\Protocol\Storage\Pdo;
 
 use Xsolla\SDK\Exception\UnprocessableRequestException;
-use Xsolla\SDK\Protocol\Storage\PaymentsStandardInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentStandardStorageInterface;
 use Xsolla\SDK\User;
 
-class PaymentsStandard extends Payments implements PaymentsStandardInterface
+class PaymentStandardStorage extends PaymentStorage implements PaymentStandardStorageInterface
 {
     const table = 'xsolla_standard_invoice';
 

@@ -5,7 +5,7 @@ namespace Xsolla\SDK\Protocol\Storage;
 use Xsolla\SDK\Exception\InvoiceNotFoundException;
 use Xsolla\SDK\Exception\UnprocessableRequestException;
 
-interface PaymentsInterface
+interface PaymentStorageInterface
 {
     /**
      * @throws InvoiceNotFoundException

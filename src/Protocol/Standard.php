@@ -5,8 +5,8 @@ namespace Xsolla\SDK\Protocol;
 use Xsolla\SDK\Project;
 use Xsolla\SDK\Protocol\Command\StandardCommand;
 use Xsolla\SDK\Protocol\CommandFactory\StandardFactory;
-use Xsolla\SDK\Protocol\Storage\PaymentsStandardInterface;
-use Xsolla\SDK\Protocol\Storage\UsersInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentStandardStorageInterface;
+use Xsolla\SDK\Protocol\Storage\UserStorageInterface;
 use Xsolla\SDK\Validator\IpChecker;
 
 class Standard extends Protocol
@@ -17,28 +17,28 @@ class Standard extends Protocol
     protected $protocolCommands = array('check', 'pay', 'cancel');
 
     /**
-     * @var UsersInterface
+     * @var UserStorageInterface
      */
-    protected $users;
+    protected $userStorage;
 
     /**
-     * @var PaymentsStandardInterface
+     * @var PaymentStandardStorageInterface
      */
-    protected $paymentsStandard;
+    protected $paymentStandardStorage;
 
     public function __construct(
         Project $project,
         XmlResponseBuilder $xmlResponseBuilder,
         StandardFactory $commandFactory,
-        UsersInterface $users,
-        PaymentsStandardInterface $paymentsStandard,
+        UserStorageInterface $userStorage,
+        PaymentStandardStorageInterface $paymentStandardStorage,
         IpChecker $ipChecker = null
     )
     {
         parent::__construct($project, $xmlResponseBuilder, $ipChecker);
         $this->commandFactory = $commandFactory;
-        $this->users = $users;
-        $this->paymentsStandard = $paymentsStandard;
+        $this->userStorage = $userStorage;
+        $this->paymentStandardStorage = $paymentStandardStorage;
     }
 
     /**
@@ -50,19 +50,19 @@ class Standard extends Protocol
     }
 
     /**
-     * @return \Xsolla\SDK\Protocol\Storage\PaymentsStandardInterface
+     * @return \Xsolla\SDK\Protocol\Storage\PaymentStandardStorageInterface
      */
-    public function getPaymentsStandard()
+    public function getPaymentStandardStorage()
     {
-        return $this->paymentsStandard;
+        return $this->paymentStandardStorage;
     }
 
     /**
-     * @return \Xsolla\SDK\Protocol\Storage\UsersInterface
+     * @return \Xsolla\SDK\Protocol\Storage\UserStorageInterface
      */
-    public function getUsers()
+    public function getUserStorage()
     {
-        return $this->users;
+        return $this->userStorage;
     }
 
     /**

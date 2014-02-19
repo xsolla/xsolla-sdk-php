@@ -2,7 +2,7 @@
 
 namespace Xsolla\SDK\Tests\Protocol;
 
-use Xsolla\SDK\Protocol\Storage\PaymentsCashInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentCashStorageInterface;
 
 class CashProtocolFullTest extends ProtocolFullTest
 {
@@ -12,7 +12,7 @@ class CashProtocolFullTest extends ProtocolFullTest
     public function setUp()
     {
         parent::setUp();
-        $this->paymentStorageMock = $this->getMock('Xsolla\SDK\Protocol\Storage\PaymentsCashInterface', array(), array(), '', false);
+        $this->paymentStorageMock = $this->getMock('Xsolla\SDK\Protocol\Storage\PaymentCashStorageInterface', array(), array(), '', false);
         $this->addCancelHandler($this->paymentStorageMock);
         $this->addPayHandler($this->paymentStorageMock);
         $this->protocol = $this->protocolBuilder->getCashProtocol($this->paymentStorageMock);
@@ -107,7 +107,7 @@ class CashProtocolFullTest extends ProtocolFullTest
         );
     }
 
-    public function addPayHandler(PaymentsCashInterface $paymentStorageMock)
+    public function addPayHandler(PaymentCashStorageInterface $paymentStorageMock)
     {
         $paymentStorageMock->expects($this->any())
             ->method('pay')

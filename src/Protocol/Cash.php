@@ -5,26 +5,26 @@ namespace Xsolla\SDK\Protocol;
 use Xsolla\SDK\Project;
 use Xsolla\SDK\Protocol\CommandFactory\CashFactory;
 use Xsolla\SDK\Protocol\Command\PayCash;
-use Xsolla\SDK\Protocol\Storage\PaymentsCashInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentCashStorageInterface;
 use Xsolla\SDK\Validator\IpChecker;
 
 class Cash extends Protocol
 {
     /**
-     * @var PaymentsCashInterface
+     * @var PaymentCashStorageInterface
      */
-    protected $paymentsCash;
+    protected $paymentCashStorage;
 
     public function __construct(
         Project $project,
         XmlResponseBuilder $xmlResponseBuilder,
         CashFactory $commandFactory,
-        PaymentsCashInterface $paymentsCash,
+        PaymentCashStorageInterface $paymentCashStorage,
         IpChecker $ipChecker = null
     ) {
         parent::__construct($project, $xmlResponseBuilder, $ipChecker);
         $this->commandFactory = $commandFactory;
-        $this->paymentsCash = $paymentsCash;
+        $this->paymentCashStorage = $paymentCashStorage;
     }
 
     /**
@@ -36,11 +36,11 @@ class Cash extends Protocol
     }
 
     /**
-     * @return PaymentsCashInterface
+     * @return PaymentCashStorageInterface
      */
-    public function getPaymentsCash()
+    public function getPaymentCashStorage()
     {
-        return $this->paymentsCash;
+        return $this->paymentCashStorage;
     }
 
     /**

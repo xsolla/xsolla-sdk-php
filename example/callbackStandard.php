@@ -5,11 +5,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Xsolla\SDK\Project;
 use Xsolla\SDK\Protocol\ProtocolBuilder;
 use Xsolla\SDK\User;
-use Xsolla\SDK\Protocol\Storage\UsersInterface;
-use Xsolla\SDK\Protocol\Storage\PaymentsStandardInterface;
+use Xsolla\SDK\Protocol\Storage\UserStorageInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentStandardStorageInterface;
 use Xsolla\SDK\Exception\UnprocessableRequestException;
 
-class PaymentsStandardDemoStorage implements PaymentsStandardInterface
+class PaymentStandardDemoStorage implements PaymentStandardStorageInterface
 {
     public function cancel($invoiceId)
     {
@@ -25,7 +25,7 @@ class PaymentsStandardDemoStorage implements PaymentsStandardInterface
     }
 }
 
-class UsersDemoStorage implements UsersInterface
+class UsersDemoStorage implements UserStorageInterface
 {
     public function check(User $user)
     {
@@ -39,7 +39,7 @@ class UsersDemoStorage implements UsersInterface
 }
 
 $usersStorage = new UsersDemoStorage;
-$paymentsStorage = new PaymentsStandardDemoStorage;
+$paymentsStorage = new PaymentStandardDemoStorage;
 $demoProject = new Project(
     '4783',//demo project id
     'key'//demo project secret key

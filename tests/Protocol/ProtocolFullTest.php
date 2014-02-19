@@ -4,7 +4,7 @@ namespace Xsolla\SDK\Tests\Protocol;
 
 use Xsolla\SDK\Exception\InvoiceNotFoundException;
 use Xsolla\SDK\Exception\UnprocessableRequestException;
-use Xsolla\SDK\Protocol\Storage\PaymentsInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentStorageInterface;
 
 abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
 {
@@ -162,18 +162,6 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @dataProvider noCommandProvider
-     */
-    /*
-    public function testNoCommand(array $params, $expectedXml)
-    {
-        $requestMock = $this->buildRequestMock($params);
-        $response = $this->protocol->run($requestMock);
-        $this->assertEquals($expectedXml, $response->getContent());
-    }
-    */
-
     public function buildCancelRequestMock()
     {
         return $this->buildRequestMock(array(
@@ -183,7 +171,7 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
             ));
     }
 
-    public function addCancelHandler(PaymentsInterface $paymentsStorageMock)
+    public function addCancelHandler(PaymentStorageInterface $paymentsStorageMock)
     {
         $paymentsStorageMock->expects($this->any())
             ->method('cancel')

@@ -4,26 +4,26 @@ namespace Xsolla\SDK\Protocol\Command;
 
 use Symfony\Component\HttpFoundation\Request;
 use Xsolla\SDK\Protocol\Standard;
-use Xsolla\SDK\Protocol\Storage\PaymentsInterface;
-use Xsolla\SDK\Protocol\Storage\UsersInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentStorageInterface;
+use Xsolla\SDK\Protocol\Storage\UserStorageInterface;
 
 class PayStandard extends StandardCommand
 {
     /**
-     * @var PaymentsInterface
+     * @var PaymentStorageInterface
      */
-    protected $payments;
+    protected $paymentStorage;
 
     /**
-     * @var UsersInterface
+     * @var UserStorageInterface
      */
-    protected $users;
+    protected $userStorage;
 
     public function __construct(Standard $protocol)
     {
-        $this->users = $protocol->getUsers();
+        $this->userStorage = $protocol->getUserStorage();
         $this->project = $protocol->getProject();
-        $this->payments = $protocol->getPaymentsStandard();
+        $this->paymentStorage = $protocol->getPaymentStandardStorage();
     }
 
     public function getRequiredParams()
@@ -34,13 +34,13 @@ class PayStandard extends StandardCommand
     public function process(Request $request)
     {
         $user = $this->createUser($request);
-        if (!$this->users->check($user)) {
+        if (!$this->userStorage->check($user)) {
             return array(
                 'result' => self::CODE_INVALID_ORDER_DETAILS,
                 self::COMMENT_FIELD_NAME => 'User not found'
             );
         }
-        $id = $this->payments->pay(
+        $id = $this->paymentStorage->pay(
             $request->query->get('id'),
             $request->query->get('sum'),
             $user,

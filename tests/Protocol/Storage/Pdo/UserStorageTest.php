@@ -2,7 +2,7 @@
 
 namespace Xsolla\SDK\Tests\Protocol\Storage\Pdo;
 
-class UsersTest extends \PHPUnit_Framework_TestCase
+class UserStorageTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -15,7 +15,7 @@ class UsersTest extends \PHPUnit_Framework_TestCase
     protected $userMock;
 
     /**
-     * @var \Xsolla\SDK\Protocol\Storage\Pdo\Users
+     * @var \Xsolla\SDK\Protocol\Storage\Pdo\UserStorage
      */
     protected $userStorage;
 
@@ -23,7 +23,7 @@ class UsersTest extends \PHPUnit_Framework_TestCase
     {
         $this->dbMock = $this->getMock('Xsolla\SDK\Tests\Protocol\Storage\Pdo\PDOMock');
         $this->userMock = $this->getMock('Xsolla\SDK\User', array(), array(), '', false);
-        $this->userStorage = new \Xsolla\SDK\Protocol\Storage\Pdo\Users($this->dbMock);
+        $this->userStorage = new \Xsolla\SDK\Protocol\Storage\Pdo\UserStorage($this->dbMock);
     }
 
     /**

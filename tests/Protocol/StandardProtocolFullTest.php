@@ -2,9 +2,8 @@
 
 namespace Xsolla\SDK\Tests\Protocol;
 
-
-use Xsolla\SDK\Protocol\Storage\PaymentsStandardInterface;
-use Xsolla\SDK\Protocol\Storage\UsersInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentStandardStorageInterface;
+use Xsolla\SDK\Protocol\Storage\UserStorageInterface;
 use Xsolla\SDK\User;
 
 class StandardProtocolFullTest extends ProtocolFullTest {
@@ -23,8 +22,8 @@ class StandardProtocolFullTest extends ProtocolFullTest {
     public function setUp()
     {
         parent::setUp();
-        $this->userStorageMock = $this->getMock('Xsolla\SDK\Protocol\Storage\UsersInterface', array(), array(), '', false);
-        $this->paymentStorageMock = $this->getMock('Xsolla\SDK\Protocol\Storage\PaymentsStandardInterface', array(), array(), '', false);
+        $this->userStorageMock = $this->getMock('Xsolla\SDK\Protocol\Storage\UserStorageInterface', array(), array(), '', false);
+        $this->paymentStorageMock = $this->getMock('Xsolla\SDK\Protocol\Storage\PaymentStandardStorageInterface', array(), array(), '', false);
         $this->addCancelHandler($this->paymentStorageMock);
         $this->addPayHandler($this->paymentStorageMock);
         $this->addCheckHandler($this->userStorageMock);
@@ -136,7 +135,7 @@ class StandardProtocolFullTest extends ProtocolFullTest {
         );
     }
 
-    public function addCheckHandler(UsersInterface $userStorageMock)
+    public function addCheckHandler(UserStorageInterface $userStorageMock)
     {
         $userStorageMock->expects($this->any())
             ->method('check')
@@ -154,7 +153,7 @@ class StandardProtocolFullTest extends ProtocolFullTest {
                 ));
     }
 
-    public function addPayHandler(PaymentsStandardInterface $paymentStorageMock)
+    public function addPayHandler(PaymentStandardStorageInterface $paymentStorageMock)
     {
         $paymentStorageMock->expects($this->any())
             ->method('pay')

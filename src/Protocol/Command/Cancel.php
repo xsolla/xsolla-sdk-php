@@ -5,22 +5,22 @@ namespace Xsolla\SDK\Protocol\Command;
 use Symfony\Component\HttpFoundation\Request;
 use Xsolla\SDK\Exception\InvoiceNotFoundException;
 use Xsolla\SDK\Protocol\Protocol;
-use Xsolla\SDK\Protocol\Storage\PaymentsInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentStorageInterface;
 
 class Cancel extends StandardCommand
 {
-    protected $payments;
+    protected $paymentStorage;
 
-    public function __construct(Protocol $protocol, PaymentsInterface $payments)
+    public function __construct(Protocol $protocol, PaymentStorageInterface $paymentStorage)
     {
         $this->project = $protocol->getProject();
-        $this->payments = $payments;
+        $this->paymentStorage = $paymentStorage;
     }
 
     public function process(Request $request)
     {
         try {
-            $this->payments->cancel($request->query->get('id'));
+            $this->paymentStorage->cancel($request->query->get('id'));
 
             return array(
                 'result' => self::CODE_SUCCESS,

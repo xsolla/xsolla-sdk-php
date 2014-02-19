@@ -4,9 +4,9 @@ namespace Xsolla\SDK\Protocol;
 
 use Xsolla\SDK\Protocol\CommandFactory\CashFactory;
 use Xsolla\SDK\Protocol\CommandFactory\StandardFactory;
-use Xsolla\SDK\Protocol\Storage\PaymentsCashInterface;
-use Xsolla\SDK\Protocol\Storage\PaymentsStandardInterface;
-use Xsolla\SDK\Protocol\Storage\UsersInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentCashStorageInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentStandardStorageInterface;
+use Xsolla\SDK\Protocol\Storage\UserStorageInterface;
 
 class ProtocolBuilder
 {
@@ -20,7 +20,7 @@ class ProtocolBuilder
         $this->ipChecker = $ipChecker;
     }
 
-    public function getCashProtocol(PaymentsCashInterface $paymentStorage)
+    public function getCashProtocol(PaymentCashStorageInterface $paymentStorage)
     {
         return new Cash(
             $this->project,
@@ -31,7 +31,7 @@ class ProtocolBuilder
         );
     }
 
-    public function getStandardProtocol(UsersInterface $userStorage, PaymentsStandardInterface $paymentStorage)
+    public function getStandardProtocol(UserStorageInterface $userStorage, PaymentStandardStorageInterface $paymentStorage)
     {
         return new Standard(
             $this->project,

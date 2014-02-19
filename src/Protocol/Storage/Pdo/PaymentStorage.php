@@ -3,9 +3,9 @@
 namespace Xsolla\SDK\Protocol\Storage\Pdo;
 
 use Xsolla\SDK\Exception\InvoiceNotFoundException;
-use Xsolla\SDK\Protocol\Storage\PaymentsInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentStorageInterface;
 
-abstract class Payments implements PaymentsInterface
+abstract class PaymentStorage implements PaymentStorageInterface
 {
     /**
      * @var \PDO

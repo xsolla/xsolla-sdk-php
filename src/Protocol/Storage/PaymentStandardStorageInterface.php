@@ -5,7 +5,7 @@ namespace Xsolla\SDK\Protocol\Storage;
 use Xsolla\SDK\Exception\UnprocessableRequestException;
 use Xsolla\SDK\User;
 
-interface PaymentsStandardInterface extends PaymentsInterface
+interface PaymentStandardStorageInterface extends PaymentStorageInterface
 {
     /**
      * @throws UnprocessableRequestException

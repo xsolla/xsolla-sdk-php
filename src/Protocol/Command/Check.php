@@ -4,30 +4,30 @@ namespace Xsolla\SDK\Protocol\Command;
 
 use Symfony\Component\HttpFoundation\Request;
 use Xsolla\SDK\Protocol\Standard;
-use Xsolla\SDK\Protocol\Storage\UsersInterface;
+use Xsolla\SDK\Protocol\Storage\UserStorageInterface;
 
 class Check extends StandardCommand
 {
     const CODE_USER_NOT_FOUND = 7;
 
     /**
-     * @var UsersInterface
+     * @var UserStorageInterface
      */
-    protected $users;
+    protected $userStorage;
 
     public function __construct(Standard $protocol)
     {
-        $this->users = $protocol->getUsers();
+        $this->userStorage = $protocol->getUserStorage();
         $this->project = $protocol->getProject();
     }
 
     public function process(Request $request)
     {
         $user = $this->createUser($request);
-        $hasUser = $this->users->check($user);
+        $hasUser = $this->userStorage->check($user);
         if ($hasUser) {
             $response = array('result' => self::CODE_SUCCESS);
-            $spec = $this->users->getSpec($user);
+            $spec = $this->userStorage->getSpec($user);
             if (count($spec) > 0) {
                 $response['specification'] = $spec;
             }

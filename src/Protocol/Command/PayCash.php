@@ -5,7 +5,7 @@ namespace Xsolla\SDK\Protocol\Command;
 use Symfony\Component\HttpFoundation\Request;
 use Xsolla\SDK\Exception\InvalidRequestException;
 use Xsolla\SDK\Protocol\Cash;
-use Xsolla\SDK\Protocol\Storage\PaymentsCashInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentCashStorageInterface;
 
 class PayCash extends Command
 {
@@ -16,14 +16,14 @@ class PayCash extends Command
     const COMMENT_FIELD_NAME = 'description';
 
     /**
-     * @var PaymentsCashInterface
+     * @var PaymentCashStorageInterface
      */
-    protected $payments;
+    protected $paymentStorage;
 
     public function __construct(Cash $protocol)
     {
         $this->project = $protocol->getProject();
-        $this->payments = $protocol->getPaymentsCash();
+        $this->paymentStorage = $protocol->getPaymentCashStorage();
     }
 
     public function getRequiredParams()
@@ -34,7 +34,7 @@ class PayCash extends Command
     public function process(Request $request)
     {
         $datetime = $this->getDateTimeXsolla($request->query->get('datetime'));
-        $this->payments->pay(
+        $this->paymentStorage->pay(
             $request->query->get('id'),
             $request->query->get('amount'),
             $request->query->get('v1'),
