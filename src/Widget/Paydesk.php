@@ -5,16 +5,7 @@ namespace Xsolla\SDK\Widget;
 /**
  * @link http://xsolla.github.io/en/pswidget.html
  */
-class Paydesk extends Paystation
+class Paydesk extends Widget
 {
-    protected function getMarketplace()
-    {
-        return 'paydesk';
-    }
-
-    protected function getRequiredParams()
-    {
-        return array('project', 'marketplace');
-    }
-
+    protected $marketplace = 'paydesk';
 }
