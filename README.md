@@ -6,7 +6,7 @@
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/xsolla/xsolla-sdk-php/badges/quality-score.png?s=e04a6701a560d126eef80f33f8a1181372588472)](https://scrutinizer-ci.com/g/xsolla/xsolla-sdk-php/)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/44ae8284-c5c3-40f8-b1e3-de4093995db5/mini.png)](https://insight.sensiolabs.com/projects/44ae8284-c5c3-40f8-b1e3-de4093995db5)
 
-A official PHP SDK for interacting with the [Xsolla HTTP API](http://xsolla.github.io/)
+An official PHP SDK for interacting with [Xsolla HTTP API](http://xsolla.github.io/)
 
 ## Installation
 
@@ -55,7 +55,8 @@ $demoProject = new \Xsolla\SDK\Project(
     'key'//demo project secret key
 );
 
-$pdo = new \PDO(sprintf('mysql:dbname=%s;host=%s;', 'YOUR_DB_NAME', 'YOUR_DB_HOST'), 'YOUR_DB_USER', 'YOUR_DB_PASSWORD');
+$dsn = sprintf('mysql:dbname=%s;host=%s;', 'YOUR_DB_NAME', 'YOUR_DB_HOST');
+$pdo = new \PDO($dsn, 'YOUR_DB_USER', 'YOUR_DB_PASSWORD');
 $usersStorage = new \Xsolla\SDK\Protocol\Storage\Pdo\Users($pdo);
 $paymentsStorage = new \Xsolla\SDK\Protocol\Storage\Pdo\PaymentsStandard($pdo);
 $ipChecker = new \Xsolla\SDK\Validator\IpChecker;
@@ -81,7 +82,7 @@ $ curl 'http://localhost:9000?command=check&v1=demo&v2=&v3=&md5=a3561b90df788281
 $ curl 'http://localhost:9000?command=check&v1=not_exist&v2=&v3=&md5=5f67cabd3cf27cac2944e7f9f762a42a'
 $ curl 'http://localhost:9000?command=pay&id=1&v1=demo&v2=&v3=&date=2014-02-19+13%3A03%3A52&sum=1&md5=eae3e95e93ff64f72aeb9fadfd8f0d66'
 $ curl 'http://localhost:9000?command=pay&id=2&v1=demo&v2=&v3=&date=2014-02-19+13%3A04%3A30&sum=5&md5=3067aeb81faa883f36d27acc9d808abb'
-$ curl 'http://localhost:9000? command=cancel&id=3&md5=9ac4f238314b0a0dae5be98151d19f33'
+$ curl 'http://localhost:9000?command=cancel&id=3&md5=9ac4f238314b0a0dae5be98151d19f33'
 ```
 
 More examples you can find in [example](https://github.com/xsolla/xsolla-sdk-php/tree/master/example) folder.
