@@ -18,7 +18,7 @@ class IpChecker
     {
         if (!IpUtils::checkIp($clientIp, $this->ipWhitelist)) {
             throw new SecurityException(sprintf(
-                'IP whitelist(%s) not contains client IP address(%s)',
+                'IP whitelist(%s) doesn\'t contains client IP address(%s). If you use reverse proxy, you should set a list of trusted proxies via Request::setTrustedProxies(). If you in development environment, you can skip pass "IpChecker" parameter to ProtocolBuilder.',
                 implode(', ', $this->ipWhitelist),
                 $clientIp
             ));
