@@ -7,6 +7,8 @@ use Xsolla\SDK\Protocol\Storage\PaymentsCashInterface;
 
 class PaymentsCash extends Payments implements PaymentsCashInterface
 {
+    const table = 'xsolla_shopping_cart_invoice';
+
     /**
      * @var \PDO
      */
@@ -101,23 +103,9 @@ class PaymentsCash extends Payments implements PaymentsCashInterface
         throw new UnprocessableRequestException($exceptionMessage);
     }
 
-    public function getCancelUpdateQuery()
+    public function getTable()
     {
-        return "
-            UPDATE xsolla_shopping_cart_invoice SET
-            is_canceled = 1,
-            timestamp_canceled = NOW()
-            WHERE id_xsolla = :id_xsolla
-        ;";
-    }
-
-    public function getCancelSelectQuery()
-    {
-        return "
-            SELECT is_canceled, timestamp_canceled
-            FROM xsolla_shopping_cart_invoice
-            WHERE id_xsolla = :id_xsolla
-        ;";
+        return self::table;
     }
 
 } 

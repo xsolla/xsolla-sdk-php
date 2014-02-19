@@ -8,6 +8,8 @@ use Xsolla\SDK\User;
 
 class PaymentsStandard extends Payments implements PaymentsStandardInterface
 {
+    const table = 'xsolla_standard_invoice';
+
     /**
      * @var \PDO
      */
@@ -69,23 +71,9 @@ class PaymentsStandard extends Payments implements PaymentsStandardInterface
         return $result['id'];
     }
 
-    public function getCancelUpdateQuery()
+    public function getTable()
     {
-        return "
-            UPDATE xsolla_standard_invoice SET
-            is_canceled = 1,
-            timestamp_canceled = NOW()
-            WHERE id_xsolla = :id_xsolla
-        ;";
-    }
-
-    public function getCancelSelectQuery()
-    {
-        return "
-            SELECT is_canceled, timestamp_canceled
-            FROM xsolla_standard_invoice
-            WHERE id_xsolla = :id_xsolla
-        ;";
+        return self::table;
     }
 
 } 
