@@ -5,10 +5,8 @@ use Guzzle\Http\Client;
 use Xsolla\SDK\Api\ApiFactory;
 use Xsolla\SDK\Invoice;
 use Xsolla\SDK\Project;
-use Xsolla\SDK\Api\Subscriptions;
+use Xsolla\SDK\Api\SubscriptionsApi;
 use Xsolla\SDK\User;
-
-$user = new User('v1', 'v2');
 
 $demoProject = new Project(
     '4783',//demo project id
@@ -16,11 +14,15 @@ $demoProject = new Project(
 );
 
 $apiFactory = new ApiFactory($demoProject);
-
 $subscriptionApi = $apiFactory->getSubscriptionsApi();
 
-$userSubscriptions = $subscriptionApi->search($user, Subscriptions::TYPE_CARD);
+$user = new User('v1', 'v2');
+$userSubscriptions = $subscriptionApi->search($user, SubscriptionsApi::TYPE_CARD);
 
+if (!isset($userSubscriptions[0])) {
+    echo 'Subscriptions not found'.PHP_EOL;
+    exit;
+}
 $invoice = new Invoice(100);
 $subscriptionApi->pay($userSubscriptions[0], $invoice);
 
