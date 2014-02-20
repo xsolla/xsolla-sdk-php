@@ -8,7 +8,7 @@ use Xsolla\SDK\Protocol\Storage\PaymentCashStorageInterface;
 use Xsolla\SDK\Protocol\Storage\PaymentStandardStorageInterface;
 use Xsolla\SDK\Protocol\Storage\UserStorageInterface;
 
-class ProtocolBuilder
+class ProtocolFactory
 {
     protected $project;
     protected $ipChecker = null;

@@ -29,7 +29,7 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
     protected $paymentStorageMock;
 
     /**
-     * @var \Xsolla\SDK\Protocol\ProtocolBuilder
+     * @var \Xsolla\SDK\Protocol\ProtocolFactory
      */
     protected $protocolBuilder;
 
@@ -58,7 +58,7 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
             ->method('getSecretKey')
             ->will($this->returnValue(self::PROJECT_KEY));
 
-        $this->protocolBuilder = new \Xsolla\SDK\Protocol\ProtocolBuilder($this->projectMock);
+        $this->protocolBuilder = new \Xsolla\SDK\Protocol\ProtocolFactory($this->projectMock);
 
         $this->requestMock = $this->getMock('Symfony\Component\HttpFoundation\Request', array(), array(), '', false);
 

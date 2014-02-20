@@ -75,7 +75,7 @@ $pdo = new \PDO($dsn, 'YOUR_DB_USER', 'YOUR_DB_PASSWORD');
 $usersStorage = new \Xsolla\SDK\Protocol\Storage\Pdo\UserStorage($pdo);
 $paymentsStorage = new \Xsolla\SDK\Protocol\Storage\Pdo\PaymentStandardStorage($pdo);
 $ipChecker = new \Xsolla\SDK\Validator\IpChecker;
-$protocolBuilder = new \Xsolla\SDK\Protocol\ProtocolBuilder($demoProject, $ipChecker);
+$protocolBuilder = new \Xsolla\SDK\Protocol\ProtocolFactory($demoProject, $ipChecker);
 $protocol = $protocolBuilder->getStandardProtocol($usersStorage, $paymentsStorage);
 
 $request = \Symfony\Component\HttpFoundation\Request::createFromGlobals();
@@ -83,7 +83,7 @@ $response = $protocol->run($request);
 $response->send();
 ```
 [IpChecker](https://github.com/xsolla/xsolla-sdk-php/blob/master/src/Validator/IpChecker.php) - additional security level for situations when your secret key is compromised.
-It's a optional parameter for ProtocolBuilder and you can skip it for development and testing environment.
+It's a optional parameter for ProtocolFactory and you can skip it for development and testing environment.
 If you use reverse proxy, you should set a list of trusted proxies via [Request::setTrustedProxies()](http://symfony.com/doc/current/components/http_foundation/trusting_proxies.html)
 
 You can run IPN demo with the following commands(required php 5.4+ with built-in server):

@@ -3,7 +3,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 use Symfony\Component\HttpFoundation\Request;
 use Xsolla\SDK\Project;
-use Xsolla\SDK\Protocol\ProtocolBuilder;
+use Xsolla\SDK\Protocol\ProtocolFactory;
 use Xsolla\SDK\User;
 use Xsolla\SDK\Protocol\Storage\UserStorageInterface;
 use Xsolla\SDK\Protocol\Storage\PaymentStandardStorageInterface;
@@ -45,7 +45,7 @@ $demoProject = new Project(
     '4783',//demo project id
     'key'//demo project secret key
 );
-$protocolBuilder = new ProtocolBuilder($demoProject);
+$protocolBuilder = new ProtocolFactory($demoProject);
 $protocol = $protocolBuilder->getStandardProtocol($userStorage, $paymentStorage);
 
 $request = Request::createFromGlobals();
