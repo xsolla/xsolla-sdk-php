@@ -92,19 +92,19 @@ You can run IPN demo with the following commands(required php 5.4+ with built-in
 ``` bash
 $ cd /path/to/xsolla/xsolla-sdk-php
 $ composer install
-$ php -S localhost:9000 -t example example/callbackStandard.php > /dev/null 2>&1 &
+$ php -S localhost:9000 -t example example/ipn_standard.php > /dev/null 2>&1 &
 $ # no command
 $ curl 'localhost:9000'
 $ # user found
-$ curl 'http://localhost:9000?command=check&v1=demo&v2=&v3=&md5=a3561b90df78828133eb285e36965419'
+$ curl 'http://localhost:9000/?command=check&v1=demo&v2=&v3=&md5=a3561b90df78828133eb285e36965419'
 $ # user not found or disabled
-$ curl 'http://localhost:9000?command=check&v1=not_exist&v2=&v3=&md5=5f67cabd3cf27cac2944e7f9f762a42a'
+$ curl 'http://localhost:9000/?command=check&v1=not_exist&v2=&v3=&md5=5f67cabd3cf27cac2944e7f9f762a42a'
 $ # success IPN handling. Response contain payment ID
-$ curl 'http://localhost:9000?command=pay&id=1&v1=demo&v2=&v3=&date=2014-02-19+13%3A03%3A52&sum=1&md5=eae3e95e93ff64f72aeb9fadfd8f0d66'
+$ curl 'http://localhost:9000/?command=pay&id=1&v1=demo&v2=&v3=&date=2014-02-19+13%3A03%3A52&sum=1&md5=eae3e95e93ff64f72aeb9fadfd8f0d66'
 $ # failed IPN handling. Unprocessable request error
-$ curl 'http://localhost:9000?command=pay&id=2&v1=demo&v2=&v3=&date=2014-02-19+13%3A04%3A30&sum=5&md5=3067aeb81faa883f36d27acc9d808abb'
+$ curl 'http://localhost:9000/?command=pay&id=2&v1=demo&v2=&v3=&date=2014-02-19+13%3A04%3A30&sum=5&md5=3067aeb81faa883f36d27acc9d808abb'
 $ # success payment cancel
-$ curl 'http://localhost:9000?command=cancel&id=3&md5=9ac4f238314b0a0dae5be98151d19f33'
+$ curl 'http://localhost:9000/?command=cancel&id=3&md5=9ac4f238314b0a0dae5be98151d19f33'
 ```
 ### Examples
 More examples you can find in [example](https://github.com/xsolla/xsolla-sdk-php/tree/master/example) folder.
