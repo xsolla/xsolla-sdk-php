@@ -12,6 +12,7 @@ CREATE TABLE `xsolla_standard_invoice` (
   `v1` VARCHAR(255) NOT NULL,
   `id_xsolla` INT UNSIGNED NOT NULL,
   `timestamp_ipn` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `timestamp_xsolla_ipn` TIMESTAMP NOT NULL,
   `amount_virtual_currency` DECIMAL(12,2) UNSIGNED NOT NULL,
   `is_dry_run` TINYINT(1) NOT NULL,
   `is_canceled` TINYINT(1) NOT NULL DEFAULT 0,
