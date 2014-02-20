@@ -23,13 +23,13 @@ $mobile = new MobilePayment(new Client('https://api.xsolla.com'), $demoProject);
  *  Calculate the cost of 1000 units of virtual currency
  */
 $invoice = $mobile->calculate($user, new Invoice(1000, null));
-echo "Cost of 1000 units : {$invoice->getSum()}".PHP_EOL;
+echo "Cost of 1000 units : {$invoice->getAmount()}".PHP_EOL;
 
 /**
  *  Calculate the amount of virtual currency that can be bought for 10 rubles
  */
 $invoice = $mobile->calculate($user, new Invoice(null, 100));
-echo "Amount of virtual currency for 100 rubles : {$invoice->getOut()}".PHP_EOL;
+echo "Amount of virtual currency for 100 rubles : {$invoice->getVirtualCurrencyAmount()}".PHP_EOL;
 
 /**
  *  Issue an invoice for a virtual currency for 100 rubles

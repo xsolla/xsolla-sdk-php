@@ -49,7 +49,7 @@ class UrlBuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->invoice = new Invoice;
         $this->invoice->setCurrency('EUR');
-        $this->invoice->setOut(1.11);
+        $this->invoice->setVirtualCurrencyAmount(1.11);
 
         $this->project = new Project(7096, 'KEY');
 

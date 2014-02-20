@@ -39,7 +39,7 @@ $user = new User('username');
 $user->setEmail('example@example.com');
 
 $invoice = new Invoice;
-$invoice->setOut(5);
+$invoice->setVirtualCurrencyAmount(5);
 
 echo $paystation->getLink($user, $invoice).PHP_EOL;
 ```
@@ -78,7 +78,7 @@ $ cd /path/to/xsolla/xsolla-sdk-php
 $ composer install
 $ php -S localhost:9000 -t example example/callbackStandard.php > /dev/null 2>&1 &
 $ # wrong command without parameters
-$ curl localhost:9000
+$ curl 'localhost:9000'
 $ # user found
 $ curl 'http://localhost:9000?command=check&v1=demo&v2=&v3=&md5=a3561b90df78828133eb285e36965419'
 $ # user not found or disabled

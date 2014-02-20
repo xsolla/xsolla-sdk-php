@@ -146,8 +146,8 @@ class QiwiWalletTest extends MobilePaymentTest
 
     public function testCreateInvoiceWithoutEmail()
     {
-        $this->invoiceMock->expects($this->any())->method('getSum')->will($this->returnValue('10'));
-        $this->invoiceMock->expects($this->any())->method('getOut')->will($this->returnValue('100'));
+        $this->invoiceMock->expects($this->any())->method('getAmount')->will($this->returnValue('10'));
+        $this->invoiceMock->expects($this->any())->method('getVirtualCurrencyAmount')->will($this->returnValue('100'));
         $this->userMock->expects($this->any())->method('getEmail')->will($this->returnValue(''));
 
         $this->responseMock->expects($this->once())->method('getBody')->will(

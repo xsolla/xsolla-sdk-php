@@ -65,7 +65,7 @@ class UrlBuilder
 
     public function setInvoice(Invoice $invoice, $lockForUser = true, $hideFromUser = false)
     {
-        $this->setParameter('out', $invoice->getOut(), $lockForUser, $hideFromUser);
+        $this->setParameter('out', $invoice->getVirtualCurrencyAmount(), $lockForUser, $hideFromUser);
         $this->setParameter('currency', $invoice->getCurrency(), $lockForUser, $hideFromUser);
 
         return $this;
