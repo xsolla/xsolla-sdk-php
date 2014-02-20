@@ -1,12 +1,12 @@
 <?php
 
-namespace Xsolla\SDK\Widget;
+namespace Xsolla\SDK\PaymentPage;
 
 use Xsolla\SDK\Project;
 use Xsolla\SDK\User;
 use Xsolla\SDK\Invoice;
 
-abstract class Widget
+class UrlBuilder
 {
     const BASE_URL = 'https://secure.xsolla.com/paystation2/?';
 
@@ -14,11 +14,18 @@ abstract class Widget
 
     protected $parameters = array();
 
+    protected $immutableParameters = array();
+
     protected $hiddenParameters = array();
 
-    protected $signedParameters = array();
+    protected $lockedParameters = array();
 
-    protected $defaultSignedParameters = array(
+    protected $immutableLockedParameters = array(
+        'project' => 'project',
+        'signparams' => 'signparams',
+    );
+
+    protected $defaultLockedParameters = array(
         'theme' => 'theme',
         'project' => 'project',
         'signparams' => 'signparams',
@@ -35,66 +42,61 @@ abstract class Widget
         'id_package' => 'id_package',
     );
 
-    protected $marketplace = 'paystation';
-
     protected $defaultParameters = array();
 
-    public function __construct(Project $project)
+    public function __construct(Project $project, array $immutableParameters = array())
     {
         $this->project = $project;
+        $this->immutableParameters = $immutableParameters;
         $this->clear();
     }
 
-    public function setUser(User $user, $hideFromUser = false, $signed = true)
+    public function setUser(User $user, $lockForUser = true, $hideFromUser = false)
     {
-        $this->setParameter('v1', $user->getV1(), $hideFromUser, $signed);
-        $this->setParameter('v2', $user->getV2(), $hideFromUser, $signed);
-        $this->setParameter('v3', $user->getV3(), $hideFromUser, $signed);
-        $this->setParameter('email', $user->getEmail(), $hideFromUser, $signed);
-        $this->setParameter('userip', $user->getUserIP(), $hideFromUser, $signed);
-        $this->setParameter('phone', $user->getPhone(), $hideFromUser, $signed);
+        $this->setParameter('v1', $user->getV1(), $lockForUser, $hideFromUser);
+        $this->setParameter('v2', $user->getV2(), $lockForUser, $hideFromUser);
+        $this->setParameter('v3', $user->getV3(), $lockForUser, $hideFromUser);
+        $this->setParameter('email', $user->getEmail(), $lockForUser, $hideFromUser);
+        $this->setParameter('userip', $user->getUserIP(), $lockForUser, $hideFromUser);
+        $this->setParameter('phone', $user->getPhone(), $lockForUser, $hideFromUser);
 
         return $this;
     }
 
-    public function setInvoice(Invoice $invoice, $hideFromUser = false, $signed = true)
+    public function setInvoice(Invoice $invoice, $lockForUser = true, $hideFromUser = false)
     {
-        $this->setParameter('out', $invoice->getOut(), $hideFromUser, $signed);
-        $this->setParameter('currency', $invoice->getCurrency(), $hideFromUser, $signed);
+        $this->setParameter('out', $invoice->getOut(), $lockForUser, $hideFromUser);
+        $this->setParameter('currency', $invoice->getCurrency(), $lockForUser, $hideFromUser);
 
         return $this;
     }
 
     /**
      * @param string $locale 2-letter definition is used according to ISO 639-1 standard
-     * @param bool $hideFromUser
-     * @param bool $signed
      * @return $this
      */
-    public function setLocale($locale, $hideFromUser = false, $signed = false)
+    public function setLocale($locale)
     {
-        return $this->setParameter('local', $locale, $hideFromUser, $signed);
+        return $this->setParameter('local', $locale, false, false);
     }
 
     /**
      * @param string $country 2-letter definition of the country is used according to ISO 3166-1 alpha-2 standard
-     * @param bool $hideFromUser
-     * @param bool $signed
      * @return $this
      */
-    public function setCountry($country, $hideFromUser = false, $signed = false)
+    public function setCountry($country)
     {
-        return $this->setParameter('country', $country, $hideFromUser, $signed);
+        return $this->setParameter('country', $country, false, false);
     }
 
     /**
      * @param string $name Additional parameters described in documentation http://xsolla.github.io/en/pswidget.html#title4
      * @param string $value
+     * @param bool $lockForUser Deny user change parameter value on payment page. Also parameter will be hidden on payment page
      * @param bool $hideFromUser Hide parameter value on payment page
-     * @param bool $signed Deny user change parameter value on payment page
      * @return $this
      */
-    public function setParameter($name, $value, $hideFromUser = false, $signed = false)
+    public function setParameter($name, $value, $lockForUser = false, $hideFromUser = false)
     {
         if (!$value) {
             return $this;
@@ -103,10 +105,10 @@ abstract class Widget
         if ($hideFromUser) {
             $this->hiddenParameters[] = $name;
         }
-        if ($signed) {
-            $this->addToSignedParameters($name);
+        if ($lockForUser) {
+            $this->lockParameterForUser($name);
         } else {
-            $this->removeFromSignedParameters($name);
+            $this->unlockParameterForUser($name);
         }
 
         return $this;
@@ -116,9 +118,9 @@ abstract class Widget
      * @param string $name Allow user change parameter value on payment page
      * @return $this
      */
-    public function addToSignedParameters($name)
+    public function lockParameterForUser($name)
     {
-        $this->signedParameters[$name] = $name;
+        $this->lockedParameters[$name] = $name;
         return $this;
     }
 
@@ -126,9 +128,9 @@ abstract class Widget
      * @param string $name Deny user change parameter value on payment page
      * @return $this
      */
-    public function removeFromSignedParameters($name)
+    public function unlockParameterForUser($name)
     {
-        unset($this->signedParameters[$name]);
+        unset($this->lockedParameters[$name]);
         return $this;
     }
 
@@ -136,25 +138,14 @@ abstract class Widget
     {
         $this->parameters = array();
         $this->hiddenParameters = array();
-        $this->signedParameters = $this->defaultSignedParameters;
-
-        return $this;
-    }
-
-    /**
-     * Allow user change ALL parameters values on payment page
-     */
-    public function clearSignedParameters()
-    {
-        $this->signedParameters = array();
+        $this->lockedParameters = $this->defaultLockedParameters;
 
         return $this;
     }
 
     public function getLink()
     {
-        $parameters = array_merge($this->parameters, $this->defaultParameters);
-        $parameters['marketplace'] = $this->marketplace;
+        $parameters = array_merge($this->parameters, $this->immutableParameters);
         $parameters['project'] = $this->project->getProjectId();
 
         $hiddenParametersList = $this->getHiddenParametersList();
@@ -162,24 +153,24 @@ abstract class Widget
             $parameters['hidden'] = $hiddenParametersList;
         }
 
-        $signedParametersList = $this->getSignedParametersList();
-        if ($signedParametersList) {
-            $parameters['signparams'] = $signedParametersList;
+        $lockedParametersList = $this->getLockedParametersList();
+        if ($lockedParametersList) {
+            $parameters['signparams'] = $lockedParametersList;
         }
         $parameters['sign'] = $this->generateSign($parameters);
 
         return self::BASE_URL.http_build_query($parameters);
     }
 
-    protected function getSignedParametersList()
+    protected function getLockedParametersList()
     {
-        $signedParameters = $this->getSignParametersSortedKeys();
-        if (!array_diff($signedParameters, $this->defaultSignedParameters) and
-            !array_diff($this->defaultSignedParameters, $signedParameters)
+        $lockedParameters = $this->getSignParametersSortedKeys();
+        if (!array_diff($lockedParameters, $this->defaultLockedParameters) and
+            !array_diff($this->defaultLockedParameters, $lockedParameters)
         ) {
             return;
         }
-        return $this->implodeParameters($signedParameters);
+        return $this->implodeParameters($lockedParameters);
     }
 
     protected function getHiddenParametersList()
@@ -212,9 +203,7 @@ abstract class Widget
 
     protected function getSignParametersSortedKeys()
     {
-        $parameters = $this->signedParameters;
-        $parameters['project'] = 'project';
-        $parameters['signparams'] = 'signparams';
+        $parameters = array_merge($this->lockedParameters, $this->immutableLockedParameters);
         $keys = array_unique($parameters);
         sort($keys);
 
