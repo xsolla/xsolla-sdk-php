@@ -58,7 +58,7 @@ class UrlBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testGetLink()
     {
-        $this->assertSame($this->defaultUrl, $this->urlBuilder->getLink());
+        $this->assertSame($this->defaultUrl, $this->urlBuilder->getUrl());
     }
 
     public function testIgnoreBlankParameters()
@@ -77,13 +77,13 @@ class UrlBuilderTest extends \PHPUnit_Framework_TestCase
     public function testHiddenParameters()
     {
         $this->urlBuilder->setInvoice($this->invoice);
-        $this->assertSame($this->urlWithHiddenParameters, $this->urlBuilder->getLink());
+        $this->assertSame($this->urlWithHiddenParameters, $this->urlBuilder->getUrl());
     }
 
     public function testClearSignedParameters()
     {
         $this->urlBuilder->setUser($this->user, false);
-        $this->assertSame($this->urlWithUserDetailsAndClearedSignedParameters, $this->urlBuilder->getLink());
+        $this->assertSame($this->urlWithUserDetailsAndClearedSignedParameters, $this->urlBuilder->getUrl());
     }
 
     public function testDefaultSignedParameters()
@@ -92,7 +92,7 @@ class UrlBuilderTest extends \PHPUnit_Framework_TestCase
             ->unlockParameterForUser('currency')
             ->unlockParameterForUser('currency')
             ->lockParameterForUser('currency');
-        $this->assertSame($this->urlWithInvoiceAndWithoutSignparams, $this->urlBuilder->getLink());
+        $this->assertSame($this->urlWithInvoiceAndWithoutSignparams, $this->urlBuilder->getUrl());
     }
 
     public function testFluentInterface()
@@ -105,7 +105,7 @@ class UrlBuilderTest extends \PHPUnit_Framework_TestCase
             ->setInvoice($this->invoice, true, false)
             ->unlockParameterForUser('v1')
             ->lockParameterForUser('limit')
-            ->getLink();
+            ->getUrl();
         $this->assertSame($this->fullUrl, $url);
     }
 }

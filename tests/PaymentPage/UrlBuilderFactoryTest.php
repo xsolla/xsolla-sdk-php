@@ -24,7 +24,7 @@ class UrlBuilderFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testGetPayStation()
     {
-        $url = $this->urlBuilderFactory->getPayStation()->getLink();
+        $url = $this->urlBuilderFactory->getPayStation()->getUrl();
         $this->assertSame(
             'https://secure.xsolla.com/paystation2/?marketplace=paystation&project=7096&sign=094eb3c634f2612dead38608dc20eaec',
             $url
@@ -33,7 +33,7 @@ class UrlBuilderFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testGetCreditCards()
     {
-        $url = $this->urlBuilderFactory->getCreditCards()->getLink();
+        $url = $this->urlBuilderFactory->getCreditCards()->getUrl();
         $this->assertSame(
             'https://secure.xsolla.com/paystation2/?marketplace=landing&pid=1380&theme=201&project=7096&sign=457a3f06ea55593b6204b992963cf762',
             $url
@@ -42,7 +42,7 @@ class UrlBuilderFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testGetPayDesk()
     {
-        $url = $this->urlBuilderFactory->getPayDesk()->getLink();
+        $url = $this->urlBuilderFactory->getPayDesk()->getUrl();
         $this->assertSame(
             'https://secure.xsolla.com/paystation2/?marketplace=paydesk&project=7096&sign=094eb3c634f2612dead38608dc20eaec',
             $url
@@ -51,7 +51,7 @@ class UrlBuilderFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testGetMobilePayment()
     {
-        $url = $this->urlBuilderFactory->getMobilePayment()->getLink();
+        $url = $this->urlBuilderFactory->getMobilePayment()->getUrl();
         $this->assertSame(
             'https://secure.xsolla.com/paystation2/?marketplace=landing&theme=201&pid=1738&project=7096&sign=457a3f06ea55593b6204b992963cf762',
             $url
@@ -60,7 +60,7 @@ class UrlBuilderFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testGetDirectPayment()
     {
-        $url = $this->urlBuilderFactory->getDirectPayment(6)->getLink();
+        $url = $this->urlBuilderFactory->getDirectPayment(6)->getUrl();
         $this->assertSame(
             'https://secure.xsolla.com/paystation2/?marketplace=landing&pid=6&project=7096&sign=094eb3c634f2612dead38608dc20eaec',
             $url
@@ -69,7 +69,7 @@ class UrlBuilderFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testGetMobileVersion()
     {
-        $url = $this->urlBuilderFactory->getMobileVersion()->getLink();
+        $url = $this->urlBuilderFactory->getMobileVersion()->getUrl();
         $this->assertSame(
             'https://secure.xsolla.com/paystation2/?marketplace=mobile&project=7096&sign=094eb3c634f2612dead38608dc20eaec',
             $url

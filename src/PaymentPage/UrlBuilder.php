@@ -143,7 +143,7 @@ class UrlBuilder
         return $this;
     }
 
-    public function getLink()
+    public function getUrl()
     {
         $parameters = array_merge($this->parameters, $this->immutableParameters);
         $parameters['project'] = $this->project->getProjectId();

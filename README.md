@@ -54,7 +54,7 @@ $url = $urlBuilderFactory->getCreditCards()
     ->setCountry('US')
     ->setLocale('fr')
     ->setParameter('description', 'Purchase description')
-    ->getLink();
+    ->getUrl();
 
 echo $url.PHP_EOL;
 ```
