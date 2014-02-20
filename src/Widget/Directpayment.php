@@ -2,19 +2,30 @@
 
 namespace Xsolla\SDK\Widget;
 
+use Xsolla\SDK\Project;
+
 /**
  * @link http://xsolla.github.io/en/directpayment.html
  */
-class Directpayment extends Paystation
+class Directpayment extends Widget
 {
-    protected function getMarketplace()
+    protected $marketplace = 'landing';
+
+    protected $pid;
+
+    /**
+     * @param Project $project
+     * @param int $pid payment system ID
+     */
+    public function __construct(Project $project, $pid)
     {
-        return 'landing';
+        parent::__construct($project);
+        $this->pid = $pid;
     }
 
-    protected function getRequiredParams()
+    public function getLink()
     {
-        return array('project', 'pid', 'marketplace');
+        $this->setParameter('pid', $this->pid);
+        return parent::getLink();
     }
-
 }

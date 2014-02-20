@@ -7,18 +7,7 @@ namespace Xsolla\SDK\Widget;
  */
 class CreditCards extends Paystation
 {
-    protected function getMarketplace()
-    {
-        return 'landing';
-    }
+    protected $marketplace = 'landing';
 
-    protected function getRequiredParams()
-    {
-        return array('project', 'pid', 'marketplace');
-    }
-
-    protected function getDefaultParams()
-    {
-        return array('pid'=> 1380, 'theme' => 201);
-    }
+    protected $defaultParameters = array('pid'=> 1380, 'theme' => 201);
 }
