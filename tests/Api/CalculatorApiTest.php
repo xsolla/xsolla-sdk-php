@@ -31,7 +31,7 @@ class CalculatorApiTest extends \PHPUnit_Framework_TestCase
      */
     protected $projectMock;
 
-    protected $calculator;
+    protected $calculatorApi;
 
     public function setUp()
     {
@@ -49,19 +49,19 @@ class CalculatorApiTest extends \PHPUnit_Framework_TestCase
             ->method('getProjectId')
             ->will($this->returnValue(self::PROJECT_ID));
 
-        $this->calculator = new CalculatorApi($this->clientMock, $this->projectMock);
+        $this->calculatorApi = new CalculatorApi($this->clientMock, $this->projectMock);
     }
 
     public function testCalculateOut()
     {
         $this->generateAsserts(self::SUM_AMOUNT, self::SUM_VIRTUAL_AMOUNT, '/calc/inn.php');
-        $this->assertEquals(self::SUM_VIRTUAL_AMOUNT, $this->calculator->calculateIn(self::GEOTYPE_ID, self::SUM_AMOUNT));
+        $this->assertEquals(self::SUM_VIRTUAL_AMOUNT, $this->calculatorApi->calculateIn(self::GEOTYPE_ID, self::SUM_AMOUNT));
     }
 
     public function testCalculateIn()
     {
         $this->generateAsserts(self::SUM_VIRTUAL_AMOUNT, self::SUM_AMOUNT, '/calc/out.php');
-        $this->assertEquals(self::SUM_AMOUNT, $this->calculator->calculateOut(self::GEOTYPE_ID, self::SUM_VIRTUAL_AMOUNT));
+        $this->assertEquals(self::SUM_AMOUNT, $this->calculatorApi->calculateOut(self::GEOTYPE_ID, self::SUM_VIRTUAL_AMOUNT));
     }
 
     protected function generateAsserts($sum_input, $sum_return, $url)

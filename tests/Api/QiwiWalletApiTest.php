@@ -141,7 +141,7 @@ class QiwiWalletApiTest extends MobilePaymentApiTest
     {
         $this->SetUpMocks();
         $this->queryParamsForCreateInvoice['ps'] = 'qiwi';
-        $this->mobilePayment = new QiwiWalletApi($this->clientMock, $this->projectMock);
+        $this->mobilePaymentApi = new QiwiWalletApi($this->clientMock, $this->projectMock);
     }
 
     public function testCreateInvoiceWithoutEmail()
@@ -174,7 +174,7 @@ class QiwiWalletApiTest extends MobilePaymentApiTest
 
         $this->assertInstanceOf(
             '\Xsolla\SDK\Invoice',
-            $this->mobilePayment->createInvoice($this->userMock, $this->invoiceMock)
+            $this->mobilePaymentApi->createInvoice($this->userMock, $this->invoiceMock)
         );
     }
 
@@ -188,7 +188,7 @@ class QiwiWalletApiTest extends MobilePaymentApiTest
             ->method('get')
             ->will($this->returnValue($this->requestMock));
 
-        $this->mobilePayment->createInvoice($this->userMock, $this->invoiceMock);
+        $this->mobilePaymentApi->createInvoice($this->userMock, $this->invoiceMock);
     }
 
     public function testCreateInvoiceWithoutPS()
@@ -205,7 +205,7 @@ class QiwiWalletApiTest extends MobilePaymentApiTest
             ->method('get')
             ->will($this->returnValue($this->requestMock));
 
-        $this->mobilePayment->createInvoice($this->userMock, $this->invoiceMock);
+        $this->mobilePaymentApi->createInvoice($this->userMock, $this->invoiceMock);
     }
 
 }

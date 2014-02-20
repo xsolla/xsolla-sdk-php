@@ -15,4 +15,5 @@ $demoProject = new Project(
 );
 
 $numberApi = new NumberApi(new Client(), $demoProject);
+
 echo $numberApi->getNumber($user);
