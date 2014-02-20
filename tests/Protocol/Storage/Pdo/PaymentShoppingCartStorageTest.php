@@ -44,7 +44,7 @@ class PaymentsShoppingCartTest extends PaymentStorageTest
 
         $this->setUpPayPdoMock();
 
-        $v1 = $this->paymentStorage->pay(100, 100.20, $expectedV1, null, null, 'RUR', $this->datetimeObj, 0);
+        $v1 = $this->paymentStorage->pay(100, 100.20, $expectedV1, null, null, 'RUR', $this->datetimeObj, false);
         $this->assertEquals($expectedV1, $v1);
     }
 
@@ -79,7 +79,7 @@ class PaymentsShoppingCartTest extends PaymentStorageTest
             null,
             'RUR',
             $this->datetimeObj,
-            0
+            false
         );
     }
 

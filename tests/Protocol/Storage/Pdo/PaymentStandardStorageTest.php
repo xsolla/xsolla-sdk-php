@@ -99,7 +99,7 @@ class PaymentStandardStorageTest extends PaymentStorageTest
             ->will($this->returnValue($this->selectMock));
 
         $this->setExpectedException($exceptionDesc[0], $exceptionDesc[1]);
-        $this->paymentStorage->pay($result['id'], self::INVOICE_AMOUNT, $this->userMock, $this->datetimeObj, 0);
+        $this->paymentStorage->pay($result['id'], self::INVOICE_AMOUNT, $this->userMock, $this->datetimeObj, false);
     }
 
     public function payErrorProvider()
