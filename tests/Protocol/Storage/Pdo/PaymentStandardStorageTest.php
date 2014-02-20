@@ -6,6 +6,9 @@ use Xsolla\SDK\Protocol\Storage\Pdo\PaymentStandardStorage;
 
 class PaymentStandardStorageTest extends PaymentStorageTest
 {
+    const INVOICE_ID = 101;
+    const INVOICE_AMOUNT = 100.20;
+
     /**
      * @var \Xsolla\SDK\Protocol\Storage\PaymentStandardStorageInterface
      */
@@ -25,9 +28,6 @@ class PaymentStandardStorageTest extends PaymentStorageTest
             ->method('prepare')
             ->with($this->anything())
             ->will($this->returnValue($this->insertMock));
-        $this->dbMock->expects($this->at(1))
-            ->method('lastInsertId')
-            ->will($this->returnValue($expectedId));
     }
 
     protected function setUpPayInsertMock()
@@ -41,8 +41,6 @@ class PaymentStandardStorageTest extends PaymentStorageTest
 
     public function testPaySuccess()
     {
-        $expectedId = 101;
-
         $this->setUpPayInsertMock();
 
         $this->dbMock->expects($this->at(0))
@@ -51,23 +49,23 @@ class PaymentStandardStorageTest extends PaymentStorageTest
             ->will($this->returnValue($this->insertMock));
         $this->dbMock->expects($this->at(1))
             ->method('lastInsertId')
-            ->will($this->returnValue($expectedId));
+            ->will($this->returnValue(555));
 
-        $this->assertEquals($expectedId, $this->paymentStorage->pay(10, 10, $this->userMock, $this->datetimeObj, false));
+        $this->assertEquals(555, $this->paymentStorage->pay(10, 10, $this->userMock, $this->datetimeObj, false));
     }
 
     public function testPayExists()
     {
-        $expectedId = 101;
-        $expectedAmount = 100.20;
-
         $this->setUpSelectMock();
         $this->selectMock->expects($this->once())
             ->method('fetch')
             ->with($this->equalTo(\PDO::FETCH_ASSOC))
-            ->will($this->returnValue(array('id' => $expectedId, 'amount_virtual_currency' => $expectedAmount)));
+            ->will($this->returnValue(array('id' => self::INVOICE_ID, 'v1' => $this->userMock->getV1(), 'amount' => self::INVOICE_AMOUNT)));
 
         $this->setUpPayInsertMock();
+        $this->dbMock->expects($this->at(1))
+            ->method('lastInsertId')
+            ->will($this->returnValue(0));
 
         $this->setUpPayDbMock();
         $this->dbMock->expects($this->at(2))
@@ -75,7 +73,7 @@ class PaymentStandardStorageTest extends PaymentStorageTest
             ->with($this->anything())
             ->will($this->returnValue($this->selectMock));
 
-        $this->assertEquals($expectedId, $this->paymentStorage->pay(10, $expectedAmount, $this->userMock, $this->datetimeObj, false));
+        $this->assertEquals(self::INVOICE_ID, $this->paymentStorage->pay(self::INVOICE_ID, self::INVOICE_AMOUNT, $this->userMock, $this->datetimeObj, false));
     }
 
     /**
@@ -92,21 +90,24 @@ class PaymentStandardStorageTest extends PaymentStorageTest
         $this->setUpPayInsertMock();
 
         $this->setUpPayDbMock();
+        $this->dbMock->expects($this->at(1))
+            ->method('lastInsertId')
+            ->will($this->returnValue(0));
         $this->dbMock->expects($this->at(2))
             ->method('prepare')
             ->with($this->anything())
             ->will($this->returnValue($this->selectMock));
 
         $this->setExpectedException($exceptionDesc[0], $exceptionDesc[1]);
-        $this->paymentStorage->pay($result['id'], 100.20, $this->userMock, $this->datetimeObj, 0);
+        $this->paymentStorage->pay($result['id'], self::INVOICE_AMOUNT, $this->userMock, $this->datetimeObj, 0);
     }
 
     public function payErrorProvider()
     {
         return array(
             array(
-                array('id' => 101, 'amount_virtual_currency' => 0),
-                array('Xsolla\SDK\Exception\UnprocessableRequestException', 'Found payment with same invoiceId=101 and different amount=0.00 (must be 100.20).')
+                array('id' => self::INVOICE_ID, 'v1' => 'demo', 'amount' => 0),
+                array('Xsolla\SDK\Exception\UnprocessableRequestException', 'Found payment with invoiceId=101 and amount=0.00 (must be 100.20).')
             ),
             array(
                 false,

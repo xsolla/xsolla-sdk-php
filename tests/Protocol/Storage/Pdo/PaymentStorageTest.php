@@ -48,6 +48,9 @@ abstract class PaymentStorageTest extends \PHPUnit_Framework_TestCase
     {
         $this->dbMock = $this->getMock('Xsolla\SDK\Tests\Protocol\Storage\Pdo\PDOMock');
         $this->userMock = $this->getMock('Xsolla\SDK\User', array(), array(), '', false);
+        $this->userMock->expects($this->any())
+            ->method('getV1')
+            ->will($this->returnValue('demo'));
         $this->insertMock = $this->getMock('PDOStatement');
         $this->updateMock = $this->getMock('PDOStatement');
         $this->selectMock = $this->getMock('PDOStatement');
