@@ -7,7 +7,7 @@ class UserStorageTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $dbMock;
+    protected $pdoMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -21,9 +21,9 @@ class UserStorageTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->dbMock = $this->getMock('Xsolla\SDK\Tests\Protocol\Storage\Pdo\PDOMock');
+        $this->pdoMock = $this->getMock('Xsolla\SDK\Tests\Protocol\Storage\Pdo\PDOMock');
         $this->userMock = $this->getMock('Xsolla\SDK\User', array(), array(), '', false);
-        $this->userStorage = new \Xsolla\SDK\Protocol\Storage\Pdo\UserStorage($this->dbMock);
+        $this->userStorage = new \Xsolla\SDK\Protocol\Storage\Pdo\UserStorage($this->pdoMock);
     }
 
     /**
@@ -41,7 +41,7 @@ class UserStorageTest extends \PHPUnit_Framework_TestCase
             ->method('fetch')
             ->with($this->equalTo(\PDO::FETCH_NUM))
             ->will($this->returnValue($expectedValue));
-        $this->dbMock->expects($this->once())
+        $this->pdoMock->expects($this->once())
             ->method('prepare')
             ->with($this->equalTo(
                 'SELECT 1 FROM xsolla_standard_user WHERE v1 = :v1 AND v2 <=> :v2 AND v3 <=> :v3;'

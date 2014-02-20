@@ -12,13 +12,13 @@ class PaymentsCashTest extends PaymentStorageTest
     public function setUp()
     {
         parent::setUp();
-        $this->paymentStorage = new \Xsolla\SDK\Protocol\Storage\Pdo\PaymentCashStorage($this->dbMock);
+        $this->paymentStorage = new \Xsolla\SDK\Protocol\Storage\Pdo\PaymentCashStorage($this->pdoMock);
         $this->datetimeObj = \DateTime::createFromFormat('YmdHis', '20130325184822', $this->xsollaTimeZone);
     }
 
-    protected function setUpPayDbMock()
+    protected function setUpPayPdoMock()
     {
-        $this->dbMock->expects($this->at(0))
+        $this->pdoMock->expects($this->at(0))
             ->method('prepare')
             ->with($this->anything())
             ->will($this->returnValue($this->updateMock));
@@ -42,7 +42,7 @@ class PaymentsCashTest extends PaymentStorageTest
             ->method('rowCount')
             ->will($this->returnValue(1));
 
-        $this->setUpPayDbMock();
+        $this->setUpPayPdoMock();
 
         $v1 = $this->paymentStorage->pay(100, 100.20, $expectedV1, null, null, 'RUR', $this->datetimeObj, 0);
         $this->assertEquals($expectedV1, $v1);
@@ -64,8 +64,8 @@ class PaymentsCashTest extends PaymentStorageTest
             ->with($this->equalTo(\PDO::FETCH_ASSOC))
             ->will($this->returnValue($result));
 
-        $this->setUpPayDbMock();
-        $this->dbMock->expects($this->at(1))
+        $this->setUpPayPdoMock();
+        $this->pdoMock->expects($this->at(1))
             ->method('prepare')
             ->with($this->anything())
             ->will($this->returnValue($this->selectMock));

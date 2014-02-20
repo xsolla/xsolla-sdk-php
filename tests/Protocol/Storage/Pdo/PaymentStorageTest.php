@@ -7,7 +7,7 @@ abstract class PaymentStorageTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $dbMock;
+    protected $pdoMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -46,7 +46,7 @@ abstract class PaymentStorageTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->dbMock = $this->getMock('Xsolla\SDK\Tests\Protocol\Storage\Pdo\PDOMock');
+        $this->pdoMock = $this->getMock('Xsolla\SDK\Tests\Protocol\Storage\Pdo\PDOMock');
         $this->userMock = $this->getMock('Xsolla\SDK\User', array(), array(), '', false);
         $this->userMock->expects($this->any())
             ->method('getV1')
@@ -68,7 +68,7 @@ abstract class PaymentStorageTest extends \PHPUnit_Framework_TestCase
 
     protected function setUpCancelDbMock()
     {
-        $this->dbMock->expects($this->at(0))
+        $this->pdoMock->expects($this->at(0))
             ->method('prepare')
             ->with($this->anything())
             ->will($this->returnValue($this->updateMock));
@@ -113,7 +113,7 @@ abstract class PaymentStorageTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(0));
 
         $this->setUpCancelDbMock();
-        $this->dbMock->expects($this->at(1))
+        $this->pdoMock->expects($this->at(1))
             ->method('prepare')
             ->with($this->anything())
             ->will($this->returnValue($this->selectMock));

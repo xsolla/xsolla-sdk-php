@@ -9,17 +9,6 @@ class PaymentCashStorage extends PaymentStorage implements PaymentCashStorageInt
 {
     const table = 'xsolla_shopping_cart_invoice';
 
-    /**
-     * @var \PDO
-     */
-    protected $db;
-
-    public function __construct(\PDO $db)
-    {
-        $this->db = $db;
-
-    }
-
     public function pay(
         $invoiceId,
         $amount,
@@ -36,7 +25,7 @@ class PaymentCashStorage extends PaymentStorage implements PaymentCashStorageInt
         $pid = null,
         $geotype = null
     ) {
-        $update = $this->db->prepare("
+        $update = $this->pdo->prepare("
             UPDATE xsolla_shopping_cart_invoice SET
                 id_xsolla = :id_xsolla,
                 timestamp_ipn = NOW(),
@@ -72,7 +61,7 @@ class PaymentCashStorage extends PaymentStorage implements PaymentCashStorageInt
         if ($update->rowCount() == 1) {
             return $v1;
         }
-        $select = $this->db->prepare("
+        $select = $this->pdo->prepare("
             SELECT v1, v2, v3, invoice_amount, invoice_currency, is_dry_run
             FROM xsolla_shopping_cart_invoice
             WHERE id_xsolla = :id_xsolla

@@ -7,21 +7,17 @@ use Xsolla\SDK\Protocol\Storage\PaymentStorageInterface;
 
 abstract class PaymentStorage implements PaymentStorageInterface
 {
-    /**
-     * @var \PDO
-     */
-    protected $db;
+    protected $pdo;
 
-    public function __construct(\PDO $db)
+    public function __construct(\PDO $pdo)
     {
-        $this->db = $db;
-
+        $this->pdo = $pdo;
     }
 
     public function cancel($invoiceId)
     {
         $table = $this->getTable();
-        $update = $this->db->prepare("
+        $update = $this->pdo->prepare("
             UPDATE $table SET
             is_canceled = 1,
             timestamp_canceled = NOW()
@@ -32,7 +28,7 @@ abstract class PaymentStorage implements PaymentStorageInterface
         if ($update->rowCount() == 1) {
             return;
         }
-        $select = $this->db->prepare("
+        $select = $this->pdo->prepare("
             SELECT is_canceled, timestamp_canceled
             FROM $table
             WHERE id_xsolla = :id_xsolla

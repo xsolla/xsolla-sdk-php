@@ -10,17 +10,6 @@ class PaymentStandardStorage extends PaymentStorage implements PaymentStandardSt
 {
     const table = 'xsolla_standard_invoice';
 
-    /**
-     * @var \PDO
-     */
-    protected $db;
-
-    public function __construct(\PDO $db)
-    {
-        $this->db = $db;
-
-    }
-
     public function pay($invoiceId, $amountVirtual, User $user, \DateTime $date, $dryRun)
     {
         $id = $this->insertPay($invoiceId, $amountVirtual, $user, $date, $dryRun);
@@ -33,7 +22,7 @@ class PaymentStandardStorage extends PaymentStorage implements PaymentStandardSt
 
     protected function insertPay($invoiceId, $amountVirtual, User $user, \DateTime $date, $dryRun)
     {
-        $insert = $this->db->prepare(
+        $insert = $this->pdo->prepare(
             "INSERT INTO `xsolla_standard_invoice`
                 (`v1`, `id_xsolla`, `amount_virtual_currency`, `timestamp_xsolla_ipn`, `is_dry_run`)
                 VALUES (:v1, :id_xsolla, :amount_virtual_currency, :timestamp_xsolla_ipn, :is_dry_run)"
@@ -44,12 +33,12 @@ class PaymentStandardStorage extends PaymentStorage implements PaymentStandardSt
         $insert->bindValue(':timestamp_xsolla_ipn', $date->getTimestamp());
         $insert->bindValue(':is_dry_run', $dryRun, \PDO::PARAM_BOOL);
         $insert->execute();
-        return $this->db->lastInsertId();
+        return $this->pdo->lastInsertId();
     }
 
     protected function selectPayId($invoiceId, $amountVirtual, User $user)
     {
-        $select = $this->db->prepare(
+        $select = $this->pdo->prepare(
             "SELECT id, v1, amount_virtual_currency as amount, timestamp_xsolla_ipn, is_dry_run
                 FROM `xsolla_standard_invoice`
                 WHERE id_xsolla = :id_xsolla

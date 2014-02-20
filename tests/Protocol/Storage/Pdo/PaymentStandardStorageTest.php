@@ -18,13 +18,13 @@ class PaymentStandardStorageTest extends PaymentStorageTest
     public function setUp()
     {
         parent::setUp();
-        $this->paymentStorage = new PaymentStandardStorage($this->dbMock);
+        $this->paymentStorage = new PaymentStandardStorage($this->pdoMock);
         $this->datetimeObj = \DateTime::createFromFormat('Y-m-d H:i:s', '2013-03-25 18:48:22', $this->xsollaTimeZone);
     }
 
-    protected function setUpPayDbMock()
+    protected function setUpPayPdoMock()
     {
-        $this->dbMock->expects($this->at(0))
+        $this->pdoMock->expects($this->at(0))
             ->method('prepare')
             ->with($this->anything())
             ->will($this->returnValue($this->insertMock));
@@ -43,11 +43,11 @@ class PaymentStandardStorageTest extends PaymentStorageTest
     {
         $this->setUpPayInsertMock();
 
-        $this->dbMock->expects($this->at(0))
+        $this->pdoMock->expects($this->at(0))
             ->method('prepare')
             ->with($this->anything())
             ->will($this->returnValue($this->insertMock));
-        $this->dbMock->expects($this->at(1))
+        $this->pdoMock->expects($this->at(1))
             ->method('lastInsertId')
             ->will($this->returnValue(555));
 
@@ -63,12 +63,12 @@ class PaymentStandardStorageTest extends PaymentStorageTest
             ->will($this->returnValue(array('id' => self::INVOICE_ID, 'v1' => $this->userMock->getV1(), 'amount' => self::INVOICE_AMOUNT)));
 
         $this->setUpPayInsertMock();
-        $this->dbMock->expects($this->at(1))
+        $this->pdoMock->expects($this->at(1))
             ->method('lastInsertId')
             ->will($this->returnValue(0));
 
-        $this->setUpPayDbMock();
-        $this->dbMock->expects($this->at(2))
+        $this->setUpPayPdoMock();
+        $this->pdoMock->expects($this->at(2))
             ->method('prepare')
             ->with($this->anything())
             ->will($this->returnValue($this->selectMock));
@@ -89,11 +89,11 @@ class PaymentStandardStorageTest extends PaymentStorageTest
 
         $this->setUpPayInsertMock();
 
-        $this->setUpPayDbMock();
-        $this->dbMock->expects($this->at(1))
+        $this->setUpPayPdoMock();
+        $this->pdoMock->expects($this->at(1))
             ->method('lastInsertId')
             ->will($this->returnValue(0));
-        $this->dbMock->expects($this->at(2))
+        $this->pdoMock->expects($this->at(2))
             ->method('prepare')
             ->with($this->anything())
             ->will($this->returnValue($this->selectMock));
