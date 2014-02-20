@@ -60,7 +60,7 @@ class PaymentStandardStorageTest extends PaymentStorageTest
         $this->selectMock->expects($this->once())
             ->method('fetch')
             ->with($this->equalTo(\PDO::FETCH_ASSOC))
-            ->will($this->returnValue(array('id' => self::INVOICE_ID, 'v1' => $this->userMock->getV1(), 'amount' => self::INVOICE_AMOUNT)));
+            ->will($this->returnValue(array('id' => self::INVOICE_ID, 'v1' => $this->userMock->getV1(), 'amount_virtual_currency' => self::INVOICE_AMOUNT)));
 
         $this->setUpPayInsertMock();
         $this->pdoMock->expects($this->at(1))
@@ -106,16 +106,16 @@ class PaymentStandardStorageTest extends PaymentStorageTest
     {
         return array(
             array(
-                array('id' => self::INVOICE_ID, 'v1' => 'demo', 'amount' => 0),
-                array('Xsolla\SDK\Exception\UnprocessableRequestException', 'Found payment with xsollaPaymentId=101 and amount=0.00 (must be 100.20).')
+                array('id' => self::INVOICE_ID, 'v1' => 'demo', 'amount_virtual_currency' => 0),
+                array('Xsolla\SDK\Exception\UnprocessableRequestException', 'Found payment with xsollaPaymentId=101 and amountVirtual=0.00 (must be 100.20).')
             ),
             array(
-                array('id' => self::INVOICE_ID, 'v1' => 'demo1', 'amount' => 100.20),
+                array('id' => self::INVOICE_ID, 'v1' => 'demo1', 'amount_virtual_currency' => 100.20),
                 array('Xsolla\SDK\Exception\UnprocessableRequestException', 'Found payment with xsollaPaymentId=101 and v1=demo1 (must be "demo").')
             ),
             array(
-                array('id' => self::INVOICE_ID, 'v1' => 'demo1', 'amount' => 0),
-                array('Xsolla\SDK\Exception\UnprocessableRequestException', 'Found payment with xsollaPaymentId=101 and v1=demo1 (must be "demo") and amount=0.00 (must be 100.20).')
+                array('id' => self::INVOICE_ID, 'v1' => 'demo1', 'amount_virtual_currency' => 0),
+                array('Xsolla\SDK\Exception\UnprocessableRequestException', 'Found payment with xsollaPaymentId=101 and v1=demo1 (must be "demo") and amountVirtual=0.00 (must be 100.20).')
             ),
             array(
                 false,

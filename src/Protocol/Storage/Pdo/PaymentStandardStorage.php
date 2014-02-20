@@ -39,7 +39,7 @@ class PaymentStandardStorage extends PaymentStorage implements PaymentStandardSt
     protected function selectPayId($xsollaPaymentId, $amountVirtual, User $user)
     {
         $select = $this->pdo->prepare(
-            "SELECT id, v1, amount_virtual_currency as amount, timestamp_xsolla_ipn, is_dry_run
+            "SELECT id, v1, amount_virtual_currency, timestamp_xsolla_ipn, is_dry_run
                 FROM `xsolla_standard_invoice`
                 WHERE id_xsolla = :id_xsolla
         ");
@@ -53,8 +53,8 @@ class PaymentStandardStorage extends PaymentStorage implements PaymentStandardSt
         if ($result['v1'] != $user->getV1()) {
             $diffMessage .= sprintf(' and v1=%s (must be "%s")', $result['v1'], $user->getV1());
         }
-        if ($result['amount'] != $amountVirtual) {
-            $diffMessage .= sprintf(' and amount=%0.2f (must be %0.2f)', $result['amount'], $amountVirtual);
+        if ($result['amount_virtual_currency'] != $amountVirtual) {
+            $diffMessage .= sprintf(' and amountVirtual=%0.2f (must be %0.2f)', $result['amount_virtual_currency'], $amountVirtual);
         }
         if ($diffMessage !== '') {
             throw new UnprocessableRequestException(sprintf(
