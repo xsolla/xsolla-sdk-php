@@ -4,13 +4,8 @@ namespace Xsolla\SDK\Tests\Api;
 
 use Xsolla\SDK\Api\ApiFactory;
 
-class ApiFactoryApiTest extends \PHPUnit_Framework_TestCase
+class ApiFactoryTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $clientMock;
-
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
@@ -23,9 +18,8 @@ class ApiFactoryApiTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->clientMock = $this->getMock('\Guzzle\Http\Client', array(), array(), '', false);
         $this->projectMock = $this->getMock('\Xsolla\SDK\Project', array(), array(), '', false);
-        $this->apiFactory = new ApiFactory($this->clientMock,  $this->projectMock);
+        $this->apiFactory = new ApiFactory($this->projectMock);
     }
 
     public function testGetCalculatorApi()

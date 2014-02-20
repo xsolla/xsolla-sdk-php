@@ -2,7 +2,7 @@
 require_once __DIR__.'/../vendor/autoload.php';
 
 use Guzzle\Http\Client;
-use Xsolla\SDK\Api\NumberApi;
+use Xsolla\SDK\Api\ApiFactory;
 use Xsolla\SDK\Project;
 use Xsolla\SDK\User;
 
@@ -13,6 +13,7 @@ $demoProject = new Project(
     'key'   //demo project secret key
 );
 
-$numberApi = new NumberApi(new Client(), $demoProject);
+$apiFactory = new ApiFactory($demoProject);
+$numberApi = $apiFactory->getNumberApi();
 
 echo $numberApi->getNumber($user);

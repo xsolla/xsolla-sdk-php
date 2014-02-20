@@ -15,7 +15,7 @@ $demoProject = new Project(
     'key'   //demo project secret key
 );
 
-$apiFactory = new ApiFactory(new Client(), $demoProject);
+$apiFactory = new ApiFactory($demoProject);
 
 $mobilePaymentApi = $apiFactory->getMobilePaymentApi();
 
