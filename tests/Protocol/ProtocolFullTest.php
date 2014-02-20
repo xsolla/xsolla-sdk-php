@@ -82,7 +82,7 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
     {
         $requestMock = $this->buildRequestMock($params);
         $response = $this->protocol->run($requestMock);
-        $this->assertEquals($expectedXml, $response->getContent());
+        $this->assertXmlStringEqualsXmlString($expectedXml, $response->getContent());
     }
 
     /**
