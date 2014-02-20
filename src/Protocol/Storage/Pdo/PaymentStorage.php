@@ -14,7 +14,7 @@ abstract class PaymentStorage implements PaymentStorageInterface
         $this->pdo = $pdo;
     }
 
-    public function cancel($invoiceId)
+    public function cancel($xsollaPaymentId)
     {
         $table = $this->getTable();
         $update = $this->pdo->prepare("
@@ -23,7 +23,7 @@ abstract class PaymentStorage implements PaymentStorageInterface
             timestamp_canceled = NOW()
             WHERE id_xsolla = :id_xsolla
         ");
-        $update->bindValue(':id_xsolla', $invoiceId, \PDO::PARAM_INT);
+        $update->bindValue(':id_xsolla', $xsollaPaymentId, \PDO::PARAM_INT);
         $update->execute();
         if ($update->rowCount() == 1) {
             return;
@@ -33,7 +33,7 @@ abstract class PaymentStorage implements PaymentStorageInterface
             FROM $table
             WHERE id_xsolla = :id_xsolla
         ");
-        $select->bindValue(':id_xsolla', $invoiceId, \PDO::PARAM_INT);
+        $select->bindValue(':id_xsolla', $xsollaPaymentId, \PDO::PARAM_INT);
         $select->execute();
         $result = $select->fetch(\PDO::FETCH_ASSOC);
         if ($result === false) {

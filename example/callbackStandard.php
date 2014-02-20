@@ -11,14 +11,14 @@ use Xsolla\SDK\Exception\UnprocessableRequestException;
 
 class PaymentStandardDemoStorage implements PaymentStandardStorageInterface
 {
-    public function cancel($invoiceId)
+    public function cancel($xsollaPaymentId)
     {
         //do nothing
     }
 
-    public function pay($invoiceId, $amountVirtual, User $user, \DateTime $date, $dryRun)
+    public function pay($xsollaPaymentId, $amountVirtual, User $user, \DateTime $date, $dryRun)
     {
-        if (1 == $invoiceId) {
+        if (1 == $xsollaPaymentId) {
             return time();//"unique" id
         }
         throw new UnprocessableRequestException('Demo unprocessable error response');

@@ -10,7 +10,7 @@ class PaymentCashStorage extends PaymentStorage implements PaymentCashStorageInt
     const table = 'xsolla_shopping_cart_invoice';
 
     public function pay(
-        $invoiceId,
+        $xsollaPaymentId,
         $amount,
         $v1,
         $v2,
@@ -43,7 +43,7 @@ class PaymentCashStorage extends PaymentStorage implements PaymentCashStorageInt
                 AND invoice_currency = :invoice_currency
                 AND is_dry_run = :is_dry_run
         ;");
-        $update->bindValue(':id_xsolla', $invoiceId, \PDO::PARAM_INT);
+        $update->bindValue(':id_xsolla', $xsollaPaymentId, \PDO::PARAM_INT);
         $update->bindValue(':timestamp_xsolla_ipn', $datetime->getTimestamp(), \PDO::PARAM_INT);
         $update->bindValue(':user_amount', $userAmount);
         $update->bindValue(':user_currency', $userCurrency);
@@ -66,11 +66,11 @@ class PaymentCashStorage extends PaymentStorage implements PaymentCashStorageInt
             FROM xsolla_shopping_cart_invoice
             WHERE id_xsolla = :id_xsolla
         ;");
-        $select->bindValue(':id_xsolla', $invoiceId, \PDO::PARAM_INT);
+        $select->bindValue(':id_xsolla', $xsollaPaymentId, \PDO::PARAM_INT);
         $select->execute();
         $result = $select->fetch(\PDO::FETCH_ASSOC);
         if ($result === false) {
-            $exceptionMessage = 'Invoice with xsolla_id = ' . $invoiceId . ' not found';
+            $exceptionMessage = 'Invoice with xsolla_id = ' . $xsollaPaymentId . ' not found';
         } else {
             $exceptionMessage = sprintf(
                 'Found invoice with values: v1=%s, v2=%s, v3=%s, amount=%0.2f, currency=%s, dryRun=%d. ' .
