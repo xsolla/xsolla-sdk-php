@@ -24,7 +24,7 @@ $ composer require xsolla/xsolla-sdk-php:~1.0
 
 ## Usage
 
-### Generate URL to [Paystation Widget](http://xsolla.github.io/en/plugindemonstration.html)
+### Generate URL to [Payment Page](http://xsolla.github.io/en/plugindemonstration.html)
 
 ``` php
 <?php
