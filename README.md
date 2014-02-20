@@ -61,7 +61,7 @@ echo $url.PHP_EOL;
 ### Receive [Instant Payment Notification](http://xsolla.github.io/en/currency.html)
 
 For receiving IPN requests you should implement [\Xsolla\SDK\Protocol\Storage](https://github.com/xsolla/xsolla-sdk-php/tree/master/src/Protocol/Storage) interfaces.
-Also you can setup sql tables for your [protocol](http://xsolla.github.io/en/currency.html) from [resources/sql](https://github.com/xsolla/xsolla-sdk-php/tree/master/resources/sql) and use [\Xsolla\SDK\Protocol\Storage\Pdo](https://github.com/xsolla/xsolla-sdk-php/tree/master/src/Protocol/Storage/Pdo) classes directly or extend it.
+Also you can setup sql tables for your [protocol](http://xsolla.github.io/en/currency.html) from [resources/mysql](https://github.com/xsolla/xsolla-sdk-php/tree/master/resources/mysql) and use [\Xsolla\SDK\Protocol\Storage\Pdo](https://github.com/xsolla/xsolla-sdk-php/tree/master/src/Protocol/Storage/Pdo) classes directly or extend it.
 
 ``` php
 <?php
