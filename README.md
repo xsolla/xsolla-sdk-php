@@ -27,21 +27,31 @@ $ composer require xsolla/xsolla-sdk-php:~1.0
 use Xsolla\SDK\Project;
 use Xsolla\SDK\User;
 use Xsolla\SDK\Invoice;
-use Xsolla\SDK\Widget\Paydesk;
+use Xsolla\SDK\PaymentPage\UrlBuilderFactory;
 
 $project = new Project(
     '4783',//demo project id
     'key'//demo project secret key
  );
-$paystation = new Paydesk($project);
+$urlBuilderFactory = new UrlBuilderFactory($project);
 
 $user = new User('username');
-$user->setEmail('example@example.com');
+$user->setEmail('example@example.com')
+    ->setPhone('79090000000');
 
 $invoice = new Invoice;
 $invoice->setVirtualCurrencyAmount(5);
 
-echo $paystation->getLink($user, $invoice).PHP_EOL;
+$url = $urlBuilderFactory->getCreditCards()
+    ->setInvoice($invoice)
+    ->setUser($user)
+    ->unlockParameterForUser('email')
+    ->setCountry('US')
+    ->setLocale('fr')
+    ->setParameter('description', 'Purchase description')
+    ->getLink();
+
+echo $url.PHP_EOL;
 ```
 ### Receive [Instant Payment Notification](http://xsolla.github.io/en/currency.html)
 
