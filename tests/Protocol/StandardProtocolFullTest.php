@@ -172,18 +172,7 @@ class StandardProtocolFullTest extends ProtocolFullTest {
         $userStorageMock->expects($this->any())
             ->method('isUserExists')
             ->with($this->isInstanceOf('Xsolla\SDK\User'))
-            ->will($this->returnCallback(
-                   function(User $user) {
-                       switch ($user->getV1()) {
-                           case self::CHECK_V1_ANY_EXCEPTION:
-                               throw new \Exception('Any exception');
-                           case self::CHECK_V1_NOT_EXISTS:
-                               return false;
-                           default:
-                               return true;
-                       }
-                   }
-                ));
+            ->will($this->returnCallback(array($this, 'isUserExistsCallback')));
         $userStorageMock->expects($this->any())
             ->method('getAdditionalUserFields')
             ->with($this->isInstanceOf('Xsolla\SDK\User'))
@@ -193,24 +182,31 @@ class StandardProtocolFullTest extends ProtocolFullTest {
             )));
     }
 
+    public function isUserExistsCallback(User $user)
+    {
+        switch ($user->getV1()) {
+            case self::CHECK_V1_ANY_EXCEPTION:
+                throw new \Exception('Any exception');
+            case self::CHECK_V1_NOT_EXISTS:
+                return false;
+            default:
+                return true;
+        }
+    }
+
     public function addPayHandler(PaymentStandardStorageInterface $paymentStorageMock)
     {
         $paymentStorageMock->expects($this->any())
             ->method('pay')
-            ->will($this->returnCallback(
-                    function(
-                        $invoiceId,
-                        $amount,
-                        User $user,
-                        $dryRun
-                    ) {
-                        if ($invoiceId == self::PAY_ID_ANY_EXCEPTION) {
-                            throw new \Exception('Any exception');
-                        } else {
-                            return self::PAY_SHOP_ID;
-                        }
-                    }
-                ));
+            ->will($this->returnCallback(array($this, 'payCallback')));
     }
 
+    public function payCallback($invoiceId)
+    {
+        if ($invoiceId == self::PAY_ID_ANY_EXCEPTION) {
+            throw new \Exception('Any exception');
+        } else {
+            return self::PAY_SHOP_ID;
+        }
+    }
 } 

@@ -141,26 +141,18 @@ class ShoppingCartProtocolFullTest extends ProtocolFullTest
     {
         $paymentStorageMock->expects($this->any())
             ->method('pay')
-            ->will($this->returnCallback(
-                    function(
-                        $invoiceId,
-                        $amount,
-                        $v1,
-                        $v2,
-                        $v3,
-                        $currency,
-                        \DateTime $datetime,
-                        $dryRun
-                    ) {
-                        if ($v1 == self::PAY_V1_ANY_EXCEPTION) {
-                            throw new \Exception('Any exception');
-                        } elseif ($v1 == self::PAY_ID_UNPROCESSABLE) {
-                            throw new UnprocessableRequestException('unprocessable request');
-                        } else {
-                            return self::PAY_SHOP_ID;
-                        }
-                }
-            ));
+            ->will($this->returnCallback(array($this, 'payCallback')));
+    }
+
+    public function payCallback($invoiceId, $amount, $v1)
+    {
+        if ($v1 == self::PAY_V1_ANY_EXCEPTION) {
+            throw new \Exception('Any exception');
+        } elseif ($v1 == self::PAY_ID_UNPROCESSABLE) {
+            throw new UnprocessableRequestException('unprocessable request');
+        } else {
+            return self::PAY_SHOP_ID;
+        }
     }
 
 } 

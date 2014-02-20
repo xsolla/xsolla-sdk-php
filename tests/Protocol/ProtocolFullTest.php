@@ -200,18 +200,19 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
     {
         $paymentsStorageMock->expects($this->any())
             ->method('cancel')
-            ->will($this->returnCallback(
-                   function($id) {
-                       switch ($id) {
-                           case self::CANCEL_ID_NOT_FOUND:
-                               throw new InvoiceNotFoundException();
-                           case self::CANCEL_ID_UNPROCESSABLE:
-                               throw new UnprocessableRequestException();
-                           case self::CANCEL_ID_ANY_EXCEPTION;
-                               throw new \Exception('Any exception');
-                       }
-                   }
-                ));
+            ->will($this->returnCallback(array($this, 'cancelCallback')));
+    }
+
+    public function cancelCallback($id)
+    {
+        switch ($id) {
+            case self::CANCEL_ID_NOT_FOUND:
+                throw new InvoiceNotFoundException();
+            case self::CANCEL_ID_UNPROCESSABLE:
+                throw new UnprocessableRequestException();
+            case self::CANCEL_ID_ANY_EXCEPTION;
+                throw new \Exception('Any exception');
+        }
     }
 
     public function buildRequestMock(Array $params)
