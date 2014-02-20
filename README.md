@@ -67,8 +67,8 @@ $demoProject = new \Xsolla\SDK\Project(
 
 $dsn = sprintf('mysql:dbname=%s;host=%s;', 'YOUR_DB_NAME', 'YOUR_DB_HOST');
 $pdo = new \PDO($dsn, 'YOUR_DB_USER', 'YOUR_DB_PASSWORD');
-$usersStorage = new \Xsolla\SDK\Protocol\Storage\Pdo\Users($pdo);
-$paymentsStorage = new \Xsolla\SDK\Protocol\Storage\Pdo\PaymentsStandard($pdo);
+$usersStorage = new \Xsolla\SDK\Protocol\Storage\Pdo\UserStorage($pdo);
+$paymentsStorage = new \Xsolla\SDK\Protocol\Storage\Pdo\PaymentStandardStorage($pdo);
 $ipChecker = new \Xsolla\SDK\Validator\IpChecker;
 $protocolBuilder = new \Xsolla\SDK\Protocol\ProtocolBuilder($demoProject, $ipChecker);
 $protocol = $protocolBuilder->getStandardProtocol($usersStorage, $paymentsStorage);
