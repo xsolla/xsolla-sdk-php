@@ -10,28 +10,24 @@ class UserStorage implements UserStorageInterface
     /**
      * @var \PDO
      */
-    protected $db;
+    protected $pdo;
 
-    public function __construct(\PDO $db)
+    public function __construct(\PDO $pdo)
     {
-        $this->db = $db;
-
+        $this->pdo = $pdo;
     }
 
     public function check(User $user)
     {
-        $statement = $this->db->prepare(
+        $statement = $this->pdo->prepare(
             "SELECT 1 FROM xsolla_standard_user WHERE v1 = :v1 AND v2 <=> :v2 AND v3 <=> :v3;"
         );
         $statement->bindValue(':v1', $user->getV1());
         $statement->bindValue(':v2', $user->getV2());
         $statement->bindValue(':v3', $user->getV3());
         $statement->execute();
-        if ($statement->fetch(\PDO::FETCH_NUM)) {
-            return true;
-        } else {
-            return false;
-        }
+
+        return (bool) $statement->fetch(\PDO::FETCH_NUM);
     }
 
     public function getSpec(User $user)
