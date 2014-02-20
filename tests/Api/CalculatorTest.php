@@ -6,6 +6,11 @@ use Xsolla\SDK\Api\Calculator;
 
 class CalculatorTest extends \PHPUnit_Framework_TestCase
 {
+    const PROJECT_ID = 4783;
+    const GEOTYPE_ID = 1;
+    const SUM_VIRTUAL_AMOUNT = 11;
+    const SUM_AMOUNT = 111;
+
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
@@ -30,34 +35,43 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->requestMock = $this->getMock('\Guzzle\Http\Message\RequestInterface', array(), array(), '', false);
         $this->responseMock = $this->getMock('\Guzzle\Http\Message\Response', array(), array(), '', false);
-        $this->clientMock = $this->getMock('\Guzzle\Http\Client', array('get'), array(), '', false);
-        $this->requestMock->expects($this->once())->method('send')->will($this->returnValue($this->responseMock));
+
+        $this->requestMock = $this->getMock('\Guzzle\Http\Message\RequestInterface', array(), array(), '', false);
+        $this->requestMock->expects($this->once())
+            ->method('send')
+            ->will($this->returnValue($this->responseMock));
+
+        $this->clientMock = $this->getMock('\Guzzle\Http\Client', array(), array(), '', false);
+        $this->clientMock->expects($this->at(0))
+            ->method('setBaseUrl')
+            ->with($this->equalTo('https://api.xsolla.com'));
 
         $this->projectMock = $this->getMock('\Xsolla\SDK\Project', array(), array(), '', false);
-        $this->projectMock->expects($this->once())->method('getProjectId')->will($this->returnValue('projectId'));
+        $this->projectMock->expects($this->once())
+            ->method('getProjectId')
+            ->will($this->returnValue(self::PROJECT_ID));
+
         $this->calculator = new Calculator($this->clientMock, $this->projectMock);
     }
 
     public function testCalculateOut()
     {
-        $this->generateAsserts('in', '/calc/inn.php');
-
-        $this->assertEquals('in', $this->calculator->calculateIn('geotypeId', 'sum'));
+        $this->generateAsserts(self::SUM_AMOUNT, self::SUM_VIRTUAL_AMOUNT, '/calc/inn.php');
+        $this->assertEquals(self::SUM_VIRTUAL_AMOUNT, $this->calculator->calculateIn(self::GEOTYPE_ID, self::SUM_AMOUNT));
     }
 
     public function testCalculateIn()
     {
-        $this->generateAsserts('sum',  '/calc/out.php');
-
-        $this->assertEquals('sum', $this->calculator->calculateOut('geotypeId', 'sum'));
+        $this->generateAsserts(self::SUM_VIRTUAL_AMOUNT, self::SUM_AMOUNT, '/calc/out.php');
+        $this->assertEquals(self::SUM_AMOUNT, $this->calculator->calculateOut(self::GEOTYPE_ID, self::SUM_VIRTUAL_AMOUNT));
     }
 
-    protected function generateAsserts($return, $url)
+    protected function generateAsserts($sum_input, $sum_return, $url)
     {
-        $this->responseMock->expects($this->once())->method('getBody')->will($this->returnValue($return));
-
+        $this->responseMock->expects($this->once())
+            ->method('getBody')
+            ->will($this->returnValue($sum_return));
         $this->clientMock->expects($this->once())
             ->method('get')
             ->with(
@@ -65,9 +79,9 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
                 array(),
                 array(
                     'query' => array(
-                        'project_id' => 'projectId',
-                        'geotype_id' => 'geotypeId',
-                        'sum' => 'sum'
+                        'project_id' => self::PROJECT_ID,
+                        'geotype_id' => self::GEOTYPE_ID,
+                        'sum' => $sum_input
                     )
                 ))->will($this->returnValue($this->requestMock));
     }

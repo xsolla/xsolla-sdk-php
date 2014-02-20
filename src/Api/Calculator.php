@@ -10,12 +10,15 @@ use Xsolla\SDK\Project;
  */
 class Calculator
 {
+    const BASE_URL = 'https://api.xsolla.com';
+
     protected $client;
     protected $project;
 
     public function __construct(Client $client, Project $project)
     {
         $this->client = $client;
+        $this->client->setBaseUrl(self::BASE_URL);
         $this->project = $project;
     }
 
