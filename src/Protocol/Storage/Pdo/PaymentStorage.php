@@ -48,4 +48,4 @@ abstract class PaymentStorage implements PaymentStorageInterface
     // @codeCoverageIgnoreStart
     abstract protected function getTable();
     // @codeCoverageIgnoreEnd
-} 
+}

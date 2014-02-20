@@ -21,8 +21,8 @@ class CalculatorApi
     }
 
     /**
-     * @param int $geotypeId payment system ID
-     * @param float $amount
+     * @param  int    $geotypeId payment system ID
+     * @param  float  $amount
      * @return string
      */
     public function calculateVirtualCurrencyAmount($geotypeId, $amount)
@@ -33,8 +33,8 @@ class CalculatorApi
     }
 
     /**
-     * @param int $geotypeId payment system ID
-     * @param float $virtualCurrencyAmount
+     * @param  int    $geotypeId             payment system ID
+     * @param  float  $virtualCurrencyAmount
      * @return string
      */
     public function calculateAmount($geotypeId, $virtualCurrencyAmount)

@@ -52,4 +52,3 @@ class ApiFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Xsolla\SDK\Api\SubscriptionsApi', $this->apiFactory->getSubscriptionsApi(true));
     }
 }
- 

@@ -97,4 +97,4 @@ class PaymentShoppingCartStorage extends PaymentStorage implements PaymentShoppi
         return self::TABLE;
     }
 
-} 
+}

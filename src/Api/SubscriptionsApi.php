@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Guzzle\Http\Client;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use Xsolla\SDK\Exception\InvalidArgumentException;
-use Xsolla\SDK\Exception\InvalidRequestException;
 use Xsolla\SDK\Exception\SecurityException;
 use Xsolla\SDK\Invoice;
 use Xsolla\SDK\Project;

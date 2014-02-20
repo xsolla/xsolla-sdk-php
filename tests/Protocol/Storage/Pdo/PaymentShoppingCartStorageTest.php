@@ -2,7 +2,7 @@
 
 namespace Xsolla\SDK\Tests\Protocol\Storage\Pdo;
 
-class PaymentsShoppingCartTest extends PaymentStorageTest
+class PaymentShoppingCartStorageTest extends PaymentStorageTest
 {
     /**
      * @var \Xsolla\SDK\Protocol\Storage\PaymentShoppingCartStorageInterface
@@ -102,4 +102,4 @@ class PaymentsShoppingCartTest extends PaymentStorageTest
         );
     }
 
-} 
+}

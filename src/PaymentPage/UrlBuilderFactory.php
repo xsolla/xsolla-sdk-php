@@ -56,7 +56,7 @@ class UrlBuilderFactory
 
     /**
      * @link http://xsolla.github.io/en/directpayment.html
-     * @param int $pid payment system ID
+     * @param  int        $pid payment system ID
      * @return UrlBuilder
      */
     public function getDirectPayment($pid)

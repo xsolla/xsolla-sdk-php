@@ -154,5 +154,4 @@ class ShoppingCartProtocolFullTest extends ProtocolFullTest
             return self::PAY_SHOP_ID;
         }
     }
-
-} 
+}

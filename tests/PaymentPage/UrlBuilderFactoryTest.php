@@ -15,7 +15,7 @@ class UrlBuilderFactoryTest extends \PHPUnit_Framework_TestCase
      * @var UrlBuilderFactory
      */
     private $urlBuilderFactory;
-    
+
     public function setUp()
     {
         $this->project = new Project(7096, 'KEY');

@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__.'/../vendor/autoload.php';
 
-use Guzzle\Http\Client;
 use Xsolla\SDK\Api\ApiFactory;
 use Xsolla\SDK\Project;
 

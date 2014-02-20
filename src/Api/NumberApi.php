@@ -24,7 +24,7 @@ class NumberApi
     }
 
     /**
-     * @param  User $user
+     * @param  User              $user
      * @return int
      * @throws \RuntimeException
      */

@@ -34,4 +34,4 @@ class UserStorage implements UserStorageInterface
     {
         return array();
     }
-} 
+}

@@ -3,10 +3,8 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 use Xsolla\SDK\Api\ApiFactory;
 use Xsolla\SDK\Invoice;
-use Xsolla\SDK\Api\QiwiWallet;
 use Xsolla\SDK\Project;
 use Xsolla\SDK\User;
-use \Guzzle\Http\Client;
 
 $user = new User('username');
 $user->setPhone('79120000000');

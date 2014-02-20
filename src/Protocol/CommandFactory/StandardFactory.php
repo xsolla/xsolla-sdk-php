@@ -13,7 +13,7 @@ use Xsolla\SDK\Protocol\Standard;
 class StandardFactory
 {
     /**
-     * @param  Protocol                 $protocol
+     * @param  Protocol              $protocol
      * @param $commandName
      * @return Command
      * @throws WrongCommandException

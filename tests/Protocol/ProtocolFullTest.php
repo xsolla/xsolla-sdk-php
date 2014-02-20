@@ -221,8 +221,7 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
         $queryMock->expects($this->any())
             ->method('get')
             ->will($this->returnCallback(
-                    function($key) use (&$params)
-                    {
+                    function ($key) use (&$params) {
                         if (array_key_exists($key, $params)) {
                             return $params[$key];
                         } else {
@@ -234,7 +233,7 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
             ->method('keys')
             ->will($this->returnValue(array_keys($params)));
         $this->requestMock->query = $queryMock;
+
         return $this->requestMock;
     }
-
-} 
+}

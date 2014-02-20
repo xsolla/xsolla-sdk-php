@@ -14,7 +14,6 @@ class PaymentStandardStorageTest extends PaymentStorageTest
      */
     protected $paymentStorage;
 
-
     public function setUp()
     {
         parent::setUp();
