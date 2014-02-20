@@ -7,7 +7,7 @@ use Xsolla\SDK\Protocol\Storage\PaymentShoppingCartStorageInterface;
 
 class PaymentShoppingCartStorage extends PaymentStorage implements PaymentShoppingCartStorageInterface
 {
-    const table = 'xsolla_shopping_cart_invoice';
+    const TABLE = 'xsolla_shopping_cart_invoice';
 
     public function pay(
         $xsollaPaymentId,
@@ -94,7 +94,7 @@ class PaymentShoppingCartStorage extends PaymentStorage implements PaymentShoppi
 
     protected function getTable()
     {
-        return self::table;
+        return self::TABLE;
     }
 
 } 

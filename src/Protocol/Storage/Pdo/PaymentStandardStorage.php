@@ -8,7 +8,7 @@ use Xsolla\SDK\User;
 
 class PaymentStandardStorage extends PaymentStorage implements PaymentStandardStorageInterface
 {
-    const table = 'xsolla_standard_invoice';
+    const TABLE = 'xsolla_standard_invoice';
 
     public function pay($xsollaPaymentId, $virtualCurrencyAmount, User $user, \DateTime $date, $dryRun)
     {
@@ -68,7 +68,7 @@ class PaymentStandardStorage extends PaymentStorage implements PaymentStandardSt
 
     protected function getTable()
     {
-        return self::table;
+        return self::TABLE;
     }
 
 } 
