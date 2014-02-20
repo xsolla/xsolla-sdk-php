@@ -3,29 +3,29 @@
 namespace Xsolla\SDK\Protocol\CommandFactory;
 
 use Xsolla\SDK\Exception\WrongCommandException;
-use Xsolla\SDK\Protocol\Cash;
+use Xsolla\SDK\Protocol\ShoppingCart;
 use Xsolla\SDK\Protocol\Command\Cancel;
-use Xsolla\SDK\Protocol\Command\PayCash;
+use Xsolla\SDK\Protocol\Command\PayShoppingCart;
 use Xsolla\SDK\Protocol\Protocol;
 
-class CashFactory
+class ShoppingCartFactory
 {
     /**
      * @param  Protocol              $protocol
      * @param $commandName
-     * @return Cancel|PayCash
+     * @return Cancel|PayShoppingCart
      * @throws WrongCommandException
      */
-    public function getCommand(Cash $protocol, $commandName)
+    public function getCommand(ShoppingCart $protocol, $commandName)
     {
         switch ($commandName) {
             case 'pay':
-                return new PayCash($protocol);
+                return new PayShoppingCart($protocol);
             case 'cancel':
-                return new Cancel($protocol, $protocol->getPaymentCashStorage());
+                return new Cancel($protocol, $protocol->getPaymentShoppingCartStorage());
             default:
                 throw new WrongCommandException(sprintf(
-                    'Wrong command: "%s". Available commands for protocol Cash 2.0 are: "%s".',
+                    'Wrong command: "%s". Available commands for protocol ShoppingCart 2.0 are: "%s".',
                     $commandName,
                     join('", "', $protocol->getProtocolCommands())
                 ));

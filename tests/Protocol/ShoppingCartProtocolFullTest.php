@@ -2,9 +2,9 @@
 
 namespace Xsolla\SDK\Tests\Protocol;
 
-use Xsolla\SDK\Protocol\Storage\PaymentCashStorageInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentShoppingCartStorageInterface;
 
-class CashProtocolFullTest extends ProtocolFullTest
+class ShoppingCartProtocolFullTest extends ProtocolFullTest
 {
     const PAY_V1_SUCCESS = 100;
     const PAY_V1_ANY_EXCEPTION = 103;
@@ -13,10 +13,10 @@ class CashProtocolFullTest extends ProtocolFullTest
     public function setUp()
     {
         parent::setUp();
-        $this->paymentStorageMock = $this->getMock('Xsolla\SDK\Protocol\Storage\PaymentCashStorageInterface', array(), array(), '', false);
+        $this->paymentStorageMock = $this->getMock('Xsolla\SDK\Protocol\Storage\PaymentShoppingCartStorageInterface', array(), array(), '', false);
         $this->addCancelHandler($this->paymentStorageMock);
         $this->addPayHandler($this->paymentStorageMock);
-        $this->protocol = $this->protocolBuilder->getCashProtocol($this->paymentStorageMock);
+        $this->protocol = $this->protocolBuilder->getShoppingCartProtocol($this->paymentStorageMock);
     }
 
     public function payProvider()
@@ -107,7 +107,7 @@ class CashProtocolFullTest extends ProtocolFullTest
         );
     }
 
-    public function addPayHandler(PaymentCashStorageInterface $paymentStorageMock)
+    public function addPayHandler(PaymentShoppingCartStorageInterface $paymentStorageMock)
     {
         $paymentStorageMock->expects($this->any())
             ->method('pay')

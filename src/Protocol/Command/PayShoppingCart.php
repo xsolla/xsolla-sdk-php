@@ -4,10 +4,10 @@ namespace Xsolla\SDK\Protocol\Command;
 
 use Symfony\Component\HttpFoundation\Request;
 use Xsolla\SDK\Exception\InvalidRequestException;
-use Xsolla\SDK\Protocol\Cash;
-use Xsolla\SDK\Protocol\Storage\PaymentCashStorageInterface;
+use Xsolla\SDK\Protocol\ShoppingCart;
+use Xsolla\SDK\Protocol\Storage\PaymentShoppingCartStorageInterface;
 
-class PayCash extends Command
+class PayShoppingCart extends Command
 {
     const CODE_FATAL_ERROR = 40;
     const CODE_TEMPORARY_ERROR = 30;
@@ -16,14 +16,14 @@ class PayCash extends Command
     const COMMENT_FIELD_NAME = 'description';
 
     /**
-     * @var PaymentCashStorageInterface
+     * @var PaymentShoppingCartStorageInterface
      */
     protected $paymentStorage;
 
-    public function __construct(Cash $protocol)
+    public function __construct(ShoppingCart $protocol)
     {
         $this->project = $protocol->getProject();
-        $this->paymentStorage = $protocol->getPaymentCashStorage();
+        $this->paymentStorage = $protocol->getPaymentShoppingCartStorage();
     }
 
     public function getRequiredParams()

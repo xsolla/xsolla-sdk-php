@@ -2,9 +2,9 @@
 
 namespace Xsolla\SDK\Protocol;
 
-use Xsolla\SDK\Protocol\CommandFactory\CashFactory;
+use Xsolla\SDK\Protocol\CommandFactory\ShoppingCartFactory;
 use Xsolla\SDK\Protocol\CommandFactory\StandardFactory;
-use Xsolla\SDK\Protocol\Storage\PaymentCashStorageInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentShoppingCartStorageInterface;
 use Xsolla\SDK\Protocol\Storage\PaymentStandardStorageInterface;
 use Xsolla\SDK\Protocol\Storage\UserStorageInterface;
 
@@ -20,12 +20,12 @@ class ProtocolFactory
         $this->ipChecker = $ipChecker;
     }
 
-    public function getCashProtocol(PaymentCashStorageInterface $paymentStorage)
+    public function getShoppingCartProtocol(PaymentShoppingCartStorageInterface $paymentStorage)
     {
-        return new Cash(
+        return new ShoppingCart(
             $this->project,
             new XmlResponseBuilder($this->enableVersionHeader),
-            new CashFactory(),
+            new ShoppingCartFactory(),
             $paymentStorage,
             $this->ipChecker
         );

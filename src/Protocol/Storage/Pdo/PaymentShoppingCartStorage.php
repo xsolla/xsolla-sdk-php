@@ -3,9 +3,9 @@
 namespace Xsolla\SDK\Protocol\Storage\Pdo;
 
 use Xsolla\SDK\Exception\UnprocessableRequestException;
-use Xsolla\SDK\Protocol\Storage\PaymentCashStorageInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentShoppingCartStorageInterface;
 
-class PaymentCashStorage extends PaymentStorage implements PaymentCashStorageInterface
+class PaymentShoppingCartStorage extends PaymentStorage implements PaymentShoppingCartStorageInterface
 {
     const table = 'xsolla_shopping_cart_invoice';
 

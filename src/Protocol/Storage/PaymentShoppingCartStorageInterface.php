@@ -4,7 +4,7 @@ namespace Xsolla\SDK\Protocol\Storage;
 
 use Xsolla\SDK\Exception\UnprocessableRequestException;
 
-interface PaymentCashStorageInterface extends PaymentStorageInterface
+interface PaymentShoppingCartStorageInterface extends PaymentStorageInterface
 {
     /**
      * @param int $xsollaPaymentId If this xsollaPaymentId already exists and v1, v2, v3, amount, currency dry_run is equals, you MUST return your existent payment ID
