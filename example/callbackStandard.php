@@ -16,7 +16,7 @@ class PaymentStandardDemoStorage implements PaymentStandardStorageInterface
         //do nothing
     }
 
-    public function pay($xsollaPaymentId, $amountVirtual, User $user, \DateTime $date, $dryRun)
+    public function pay($xsollaPaymentId, $virtualCurrencyAmount, User $user, \DateTime $date, $dryRun)
     {
         if (1 == $xsollaPaymentId) {
             return time();//"unique" id

@@ -10,17 +10,17 @@ class PaymentStandardStorage extends PaymentStorage implements PaymentStandardSt
 {
     const table = 'xsolla_standard_invoice';
 
-    public function pay($xsollaPaymentId, $amountVirtual, User $user, \DateTime $date, $dryRun)
+    public function pay($xsollaPaymentId, $virtualCurrencyAmount, User $user, \DateTime $date, $dryRun)
     {
-        $id = $this->insertPay($xsollaPaymentId, $amountVirtual, $user, $date, $dryRun);
+        $id = $this->insertPay($xsollaPaymentId, $virtualCurrencyAmount, $user, $date, $dryRun);
         if ($id > 0) {
             return $id;
         }
-        return $this->selectPayId($xsollaPaymentId, $amountVirtual, $user);
+        return $this->selectPayId($xsollaPaymentId, $virtualCurrencyAmount, $user);
 
     }
 
-    protected function insertPay($xsollaPaymentId, $amountVirtual, User $user, \DateTime $date, $dryRun)
+    protected function insertPay($xsollaPaymentId, $virtualCurrencyAmount, User $user, \DateTime $date, $dryRun)
     {
         $insert = $this->pdo->prepare(
             "INSERT INTO `xsolla_standard_invoice`
@@ -29,14 +29,14 @@ class PaymentStandardStorage extends PaymentStorage implements PaymentStandardSt
         );
         $insert->bindValue(':v1', $user->getV1());
         $insert->bindValue(':id_xsolla', $xsollaPaymentId, \PDO::PARAM_INT);
-        $insert->bindValue(':amount_virtual_currency', $amountVirtual, \PDO::PARAM_INT);
+        $insert->bindValue(':amount_virtual_currency', $virtualCurrencyAmount, \PDO::PARAM_INT);
         $insert->bindValue(':timestamp_xsolla_ipn', $date->getTimestamp());
         $insert->bindValue(':is_dry_run', $dryRun, \PDO::PARAM_BOOL);
         $insert->execute();
         return $this->pdo->lastInsertId();
     }
 
-    protected function selectPayId($xsollaPaymentId, $amountVirtual, User $user)
+    protected function selectPayId($xsollaPaymentId, $virtualCurrencyAmount, User $user)
     {
         $select = $this->pdo->prepare(
             "SELECT id, v1, amount_virtual_currency, timestamp_xsolla_ipn, is_dry_run
@@ -53,8 +53,8 @@ class PaymentStandardStorage extends PaymentStorage implements PaymentStandardSt
         if ($result['v1'] != $user->getV1()) {
             $diffMessage .= sprintf(' and v1=%s (must be "%s")', $result['v1'], $user->getV1());
         }
-        if ($result['amount_virtual_currency'] != $amountVirtual) {
-            $diffMessage .= sprintf(' and amountVirtual=%0.2f (must be %0.2f)', $result['amount_virtual_currency'], $amountVirtual);
+        if ($result['amount_virtual_currency'] != $virtualCurrencyAmount) {
+            $diffMessage .= sprintf(' and amount_virtual_currency=%0.2f (must be %0.2f)', $result['amount_virtual_currency'], $virtualCurrencyAmount);
         }
         if ($diffMessage !== '') {
             throw new UnprocessableRequestException(sprintf(
