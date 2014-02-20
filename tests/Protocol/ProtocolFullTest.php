@@ -86,6 +86,14 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider wrongCommandProvider
+     */
+    public function testWrongCommand(array $params, $expectedXml)
+    {
+        $this->protocolTest($params, $expectedXml);
+    }
+
+    /**
      * @dataProvider noCommandProvider
      */
     public function testNoCommand(array $params, $expectedXml)

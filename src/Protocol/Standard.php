@@ -76,16 +76,4 @@ class Standard extends Protocol
             StandardCommand::COMMENT_FIELD_NAME => $message
         );
     }
-
-    /**
-     * @param $message
-     * @return array
-     */
-    public function getResponseForInternalServerError($message)
-    {
-        return array(
-            'result' => StandardCommand::CODE_TEMPORARY_ERROR,
-            StandardCommand::COMMENT_FIELD_NAME => $message
-        );
-    }
 }

@@ -65,7 +65,7 @@ class StandardProtocolFullTest extends ProtocolFullTest {
                     'md5' => 'a3561b90df78828133eb285e36965419'
                 ),
                 '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
-                '<response><result>0</result><comment/></response>' . PHP_EOL
+                '<response><result>0</result><specification><parameter1>value1</parameter1><parameter2>value2</parameter2></specification><comment/></response>' . PHP_EOL
             ),
         );
     }
@@ -81,6 +81,21 @@ class StandardProtocolFullTest extends ProtocolFullTest {
                 '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
                 '<response><result>4</result>' .
                 '<comment>No command in request. Available commands are: "check", "pay", "cancel".</comment>' .
+                '</response>' . PHP_EOL
+            )
+        );
+    }
+
+    public function wrongCommandProvider()
+    {
+        return array(
+            array(
+                array(
+                    'command' => 'not_exist',
+                ),
+                '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
+                '<response><result>4</result>' .
+                '<comment>Wrong command: "not_exist". Available commands for Standard protocol are: "check", "pay", "cancel".</comment>' .
                 '</response>' . PHP_EOL
             )
         );
@@ -156,6 +171,7 @@ class StandardProtocolFullTest extends ProtocolFullTest {
     {
         $userStorageMock->expects($this->any())
             ->method('isUserExists')
+            ->with($this->isInstanceOf('Xsolla\SDK\User'))
             ->will($this->returnCallback(
                    function(User $user) {
                        switch ($user->getV1()) {
@@ -168,6 +184,13 @@ class StandardProtocolFullTest extends ProtocolFullTest {
                        }
                    }
                 ));
+        $userStorageMock->expects($this->any())
+            ->method('getAdditionalUserFields')
+            ->with($this->isInstanceOf('Xsolla\SDK\User'))
+            ->will($this->returnValue(array(
+                'parameter1' => 'value1',
+                'parameter2' => 'value2',
+            )));
     }
 
     public function addPayHandler(PaymentStandardStorageInterface $paymentStorageMock)

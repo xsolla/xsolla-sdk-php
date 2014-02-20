@@ -54,16 +54,4 @@ class ShoppingCart extends Protocol
             PayShoppingCart::COMMENT_FIELD_NAME => $message
         );
     }
-
-    /**
-     * @param $message
-     * @return array
-     */
-    public function getResponseForInternalServerError($message)
-    {
-        return array(
-            'result' => PayShoppingCart::CODE_TEMPORARY_ERROR,
-            PayShoppingCart::COMMENT_FIELD_NAME => $message
-        );
-    }
 }

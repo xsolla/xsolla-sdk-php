@@ -77,6 +77,7 @@ abstract class Command
         return $datetimeObj;
     }
 
+    // @codeCoverageIgnoreStart
     abstract public function checkSign(Request $request);
 
     abstract public function process(Request $request);
@@ -92,4 +93,5 @@ abstract class Command
     abstract public function getUnprocessableRequestResponseCode();
 
     abstract public function getTemporaryServerErrorResponseCode();
+    // @codeCoverageIgnoreEnd
 }

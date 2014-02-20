@@ -25,7 +25,7 @@ class ShoppingCartFactory
                 return new Cancel($protocol, $protocol->getPaymentShoppingCartStorage());
             default:
                 throw new WrongCommandException(sprintf(
-                    'Wrong command: "%s". Available commands for protocol ShoppingCart 2.0 are: "%s".',
+                    'Wrong command: "%s". Available commands for protocol ShoppingCart are: "%s".',
                     $commandName,
                     join('", "', $protocol->getProtocolCommands())
                 ));

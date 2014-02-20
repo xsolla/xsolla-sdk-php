@@ -2,12 +2,14 @@
 
 namespace Xsolla\SDK\Tests\Protocol;
 
+use Xsolla\SDK\Exception\UnprocessableRequestException;
 use Xsolla\SDK\Protocol\Storage\PaymentShoppingCartStorageInterface;
 
 class ShoppingCartProtocolFullTest extends ProtocolFullTest
 {
     const PAY_V1_SUCCESS = 100;
     const PAY_V1_ANY_EXCEPTION = 103;
+    const PAY_ID_UNPROCESSABLE = 104;
     const PAY_SHOP_ID = 555;
 
     public function setUp()
@@ -78,6 +80,19 @@ class ShoppingCartProtocolFullTest extends ProtocolFullTest
             array(
                 array(
                     'command' => 'pay',
+                    'v1' => self::PAY_ID_UNPROCESSABLE,
+                    'amount' => '100.20',
+                    'currency' => 'RUR',
+                    'id' => '555',
+                    'datetime' => '20130325184822',
+                    'sign' => '42f0ecd5a69e967fff56ae9f5a9ff021'
+                ),
+                '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
+                '<response><result>40</result><description>Unprocessable request. unprocessable request</description></response>' . PHP_EOL
+            ),
+            array(
+                array(
+                    'command' => 'pay',
                     'v1' => self::PAY_V1_SUCCESS,
                     'amount' => '100.20',
                     'currency' => 'RUR',
@@ -107,6 +122,21 @@ class ShoppingCartProtocolFullTest extends ProtocolFullTest
         );
     }
 
+    public function wrongCommandProvider()
+    {
+        return array(
+            array(
+                array(
+                    'command' => 'not_exist',
+                ),
+                '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
+                '<response><result>20</result>' .
+                '<description>Wrong command: "not_exist". Available commands for protocol ShoppingCart are: "pay", "cancel".</description>' .
+                '</response>' . PHP_EOL
+            )
+        );
+    }
+
     public function addPayHandler(PaymentShoppingCartStorageInterface $paymentStorageMock)
     {
         $paymentStorageMock->expects($this->any())
@@ -124,6 +154,8 @@ class ShoppingCartProtocolFullTest extends ProtocolFullTest
                     ) {
                         if ($v1 == self::PAY_V1_ANY_EXCEPTION) {
                             throw new \Exception('Any exception');
+                        } elseif ($v1 == self::PAY_ID_UNPROCESSABLE) {
+                            throw new UnprocessableRequestException('unprocessable request');
                         } else {
                             return self::PAY_SHOP_ID;
                         }

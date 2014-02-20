@@ -79,14 +79,10 @@ abstract class Protocol
             $commandResponse = $this->getResponseForWrongCommand($e->getMessage());
 
         } catch (\Exception $e) {
-            if ($this->currentCommand) {
-                $commandResponse = array(
-                    'result' => $this->currentCommand->getTemporaryServerErrorResponseCode(),
-                    $this->currentCommand->getCommentFieldName() => $e->getMessage()
-                );
-            } else {
-                $commandResponse = $this->getResponseForInternalServerError($e->getMessage());
-            }
+            $commandResponse = array(
+                'result' => $this->currentCommand->getTemporaryServerErrorResponseCode(),
+                $this->currentCommand->getCommentFieldName() => $e->getMessage()
+            );
         }
 
         return $this->xmlResponseBuilder->get($commandResponse);
@@ -103,9 +99,9 @@ abstract class Protocol
         return $this->currentCommand->getResponse($request);
     }
 
+    // @codeCoverageIgnoreStart
     abstract public function getProtocolCommands();
 
     abstract public function getResponseForWrongCommand($message);
-
-    abstract public function getResponseForInternalServerError($message);
+    // @codeCoverageIgnoreEnd
 }
