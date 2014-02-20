@@ -8,7 +8,7 @@ use Xsolla\SDK\User;
 interface PaymentStandardStorageInterface extends PaymentStorageInterface
 {
     /**
-     * @param int $xsollaPaymentId If this xsollaPaymentId already exists and v1, virtualCurrencyAmount, dryRun is equals, you MUST return your existent payment ID
+     * @param int $xsollaPaymentId If this xsollaPaymentId already exists and v1, virtualCurrencyAmount, dryRun are the same, you MUST return your existent payment ID
      * @param float $virtualCurrencyAmount
      * @param User $user
      * @param \DateTime $date
