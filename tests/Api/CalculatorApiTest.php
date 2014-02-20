@@ -2,9 +2,9 @@
 
 namespace Xsolla\SDK\Tests\Api;
 
-use Xsolla\SDK\Api\Calculator;
+use Xsolla\SDK\Api\CalculatorApi;
 
-class CalculatorTest extends \PHPUnit_Framework_TestCase
+class CalculatorApiTest extends \PHPUnit_Framework_TestCase
 {
     const PROJECT_ID = 4783;
     const GEOTYPE_ID = 1;
@@ -43,16 +43,13 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($this->responseMock));
 
         $this->clientMock = $this->getMock('\Guzzle\Http\Client', array(), array(), '', false);
-        $this->clientMock->expects($this->at(0))
-            ->method('setBaseUrl')
-            ->with($this->equalTo('https://api.xsolla.com'));
 
         $this->projectMock = $this->getMock('\Xsolla\SDK\Project', array(), array(), '', false);
         $this->projectMock->expects($this->once())
             ->method('getProjectId')
             ->will($this->returnValue(self::PROJECT_ID));
 
-        $this->calculator = new Calculator($this->clientMock, $this->projectMock);
+        $this->calculator = new CalculatorApi($this->clientMock, $this->projectMock);
     }
 
     public function testCalculateOut()

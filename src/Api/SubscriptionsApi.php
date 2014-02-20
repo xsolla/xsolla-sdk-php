@@ -13,7 +13,7 @@ use Xsolla\SDK\Project;
 use Xsolla\SDK\Subscription;
 use Xsolla\SDK\User;
 
-class Subscriptions
+class SubscriptionsApi
 {
     const TYPE_CARD = 'card';
     const TYPE_PAYPAL = 'paypal';
@@ -28,7 +28,7 @@ class Subscriptions
     protected $client;
     protected $isTest;
 
-    public function __construct(Client $client, Project $project, $isTest = false)
+    public function __construct(Client $client, Project $project, $isTest)
     {
         $this->client = $client;
         $this->project = $project;

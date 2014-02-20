@@ -15,7 +15,7 @@ use Xsolla\SDK\Validator\Xsd;
 /**
  * @link http://xsolla.github.io/en/APImobile.html
  */
-class MobilePayment
+class MobilePaymentApi
 {
     const CODE_SUCCESS = 0;
     const CODE_ERROR_WRONG_SIGN = 3;
@@ -57,7 +57,9 @@ class MobilePayment
 
         $this->checkCodeResult($result);
 
-        return new Invoice(null, null, null, (string) $result->invoice);
+        $resultInvoice = new Invoice();
+        $resultInvoice->setId($result->invoice);
+        return $resultInvoice;
 
     }
 
@@ -80,7 +82,7 @@ class MobilePayment
 
         $this->checkCodeResult($result);
 
-        return new Invoice((string) $result->out, (string) $result->sum);
+        return new Invoice($result->out, $result->sum);
     }
 
     protected function createSignString(array $params)

@@ -2,9 +2,9 @@
 
 namespace Xsolla\SDK\Tests\Api;
 
-use Xsolla\SDK\Api\QiwiWallet;
+use Xsolla\SDK\Api\QiwiWalletApi;
 
-class QiwiWalletTest extends MobilePaymentTest
+class QiwiWalletApiTest extends MobilePaymentApiTest
 {
     protected $url = 'invoicing/index.php';
 
@@ -141,18 +141,24 @@ class QiwiWalletTest extends MobilePaymentTest
     {
         $this->SetUpMocks();
         $this->queryParamsForCreateInvoice['ps'] = 'qiwi';
-        $this->mobilePayment = new QiwiWallet($this->clientMock, $this->projectMock);
+        $this->mobilePayment = new QiwiWalletApi($this->clientMock, $this->projectMock);
     }
 
     public function testCreateInvoiceWithoutEmail()
     {
-        $this->invoiceMock->expects($this->any())->method('getAmount')->will($this->returnValue('10'));
-        $this->invoiceMock->expects($this->any())->method('getVirtualCurrencyAmount')->will($this->returnValue('100'));
-        $this->userMock->expects($this->any())->method('getEmail')->will($this->returnValue(''));
+        $this->invoiceMock->expects($this->any())
+            ->method('getAmount')
+            ->will($this->returnValue('10'));
+        $this->invoiceMock->expects($this->any())
+            ->method('getVirtualCurrencyAmount')
+            ->will($this->returnValue('100'));
+        $this->userMock->expects($this->any())
+            ->method('getEmail')
+            ->will($this->returnValue(''));
 
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue($this->responseCreateInvoiceWithoutEmail)
-        );
+        $this->responseMock->expects($this->once())
+            ->method('getBody')
+            ->will($this->returnValue($this->responseCreateInvoiceWithoutEmail));
 
         $signString = $this->createSignString($this->queryParamsWithoutEmail);
         $this->queryParamsWithoutEmail['md5'] = md5($signString . self::PROJECT_SECRET_KEY);
@@ -174,8 +180,9 @@ class QiwiWalletTest extends MobilePaymentTest
 
     public function testCreateInvoiceWithPS()
     {
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue($this->responseCreateInvoiceWithPS)
+        $this->responseMock->expects($this->once())
+            ->method('getBody')
+            ->will($this->returnValue($this->responseCreateInvoiceWithPS)
         );
         $this->clientMock->expects($this->once())
             ->method('get')
@@ -187,8 +194,9 @@ class QiwiWalletTest extends MobilePaymentTest
     public function testCreateInvoiceWithoutPS()
     {
         $this->setExpectedException('\Xsolla\SDK\Exception\InvalidArgumentException');
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue($this->responseCreateInvoiceWithoutPS)
+        $this->responseMock->expects($this->once())
+            ->method('getBody')
+            ->will($this->returnValue($this->responseCreateInvoiceWithoutPS)
         );
         $signString = $this->createSignString($this->queryParamsWithoutPs);
         $this->queryParamsWithoutPs['md5'] = md5($signString . self::PROJECT_SECRET_KEY);

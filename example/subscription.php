@@ -1,6 +1,7 @@
 <?php
 
 use Guzzle\Http\Client;
+use Xsolla\SDK\Api\ApiFactory;
 use Xsolla\SDK\Invoice;
 use Xsolla\SDK\Project;
 use Xsolla\SDK\Api\Subscriptions;
@@ -15,11 +16,13 @@ $demoProject = new Project(
     'key'//demo project secret key
 );
 
-$subscription = new Subscriptions(new Client('https://api.xsolla.com'), $demoProject);
+$apiFactory = new ApiFactory(new Client(), $demoProject);
 
-$userSubscriptions = $subscription->search($user, Subscriptions::TYPE_CARD);
+$subscriptionApi = $apiFactory->getSubscriptionsApi();
+
+$userSubscriptions = $subscriptionApi->search($user, Subscriptions::TYPE_CARD);
 
 $invoice = new Invoice(100);
-$subscription->pay($userSubscriptions[0], $invoice);
+$subscriptionApi->pay($userSubscriptions[0], $invoice);
 
-$subscription->delete($userSubscriptions[0]);
+$subscriptionApi->delete($userSubscriptions[0]);

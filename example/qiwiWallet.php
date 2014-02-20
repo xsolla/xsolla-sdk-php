@@ -1,5 +1,6 @@
 <?php
 
+use Xsolla\SDK\Api\ApiFactory;
 use Xsolla\SDK\Invoice;
 use Xsolla\SDK\Api\QiwiWallet;
 use Xsolla\SDK\Project;
@@ -17,22 +18,18 @@ $demoProject = new Project(
     'key'//demo project secret key
 );
 
-$mobile = new QiwiWallet(new Client('https://api.xsolla.com'), $demoProject);
+$apiFactory = new ApiFactory(new Client(), $demoProject);
 
-/**
- *  Calculate the cost of 1000 units of virtual currency
- */
-$invoice = $mobile->calculate($user, new Invoice(1000, null));
-echo "Cost of 1000 units : {$invoice->getAmount()}".PHP_EOL;
+$mobileApi = $apiFactory->getQiwiWalletApi();
 
-/**
- *  Calculate the amount of virtual currency that can be bought for 10 rubles
- */
-$invoice = $mobile->calculate($user, new Invoice(null, 100));
-echo "Amount of virtual currency for 100 rubles : {$invoice->getVirtualCurrencyAmount()}".PHP_EOL;
+// Calculate the cost of 1000 units of virtual currency
+$invoice = $mobileApi->calculate($user, new Invoice(1000, null));
+echo 'Cost of 1000 units: ' . $invoice->getAmount() . PHP_EOL;
 
-/**
- *  Issue an invoice for a virtual currency for 100 rubles
- */
-$invoice = $mobile->createInvoice($user, new Invoice(null, 100));
-echo "Your invoice number : {$invoice->getId()}".PHP_EOL;
+// Calculate the amount of virtual currency that can be bought for 10 rubles
+$invoice = $mobileApi->calculate($user, new Invoice(null, 100));
+echo 'Amount of virtual currency for 100 rubles: ' . $invoice->getVirtualCurrencyAmount() . PHP_EOL;
+
+// Issue an invoice for a virtual currency for 100 rubles
+$invoice = $mobileApi->createInvoice($user, new Invoice(null, 100));
+echo 'Your invoice number: ' . $invoice->getId() . PHP_EOL;

@@ -8,7 +8,7 @@ use Xsolla\SDK\Project;
 /**
  * @link http://xsolla.github.io/en/APIcalc.html
  */
-class Calculator
+class CalculatorApi
 {
     const BASE_URL = 'https://api.xsolla.com';
 
@@ -22,6 +22,11 @@ class Calculator
         $this->project = $project;
     }
 
+    /**
+     * @param $geotypeId
+     * @param $sum
+     * @return \Guzzle\Http\EntityBodyInterface|string
+     */
     public function calculateOut($geotypeId, $sum)
     {
         $request = $this->createRequest('/calc/out.php', $geotypeId, $sum);
@@ -29,6 +34,11 @@ class Calculator
         return $request->send()->getBody();
     }
 
+    /**
+     * @param $geotypeId
+     * @param $sum
+     * @return \Guzzle\Http\EntityBodyInterface|string
+     */
     public function calculateIn($geotypeId, $sum)
     {
         $request = $this->createRequest('/calc/inn.php', $geotypeId, $sum);

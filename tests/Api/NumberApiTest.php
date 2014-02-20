@@ -2,9 +2,9 @@
 
 namespace Xsolla\SDK\Tests\Api;
 
-use Xsolla\SDK\Api\Number;
+use Xsolla\SDK\Api\NumberApi;
 
-class NumberTest extends \PHPUnit_Framework_TestCase
+class NumberApiTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -42,16 +42,26 @@ class NumberTest extends \PHPUnit_Framework_TestCase
         $this->projectMock->expects($this->once())->method('getProjectId')->will($this->returnValue('projectId'));
 
         $this->userMock = $this->getMock('\Xsolla\SDK\User', array(), array(), '', false);
-        $this->userMock->expects($this->once())->method('getV1')->will($this->returnValue('v1'));
-        $this->userMock->expects($this->once())->method('getV2')->will($this->returnValue('v2'));
-        $this->userMock->expects($this->once())->method('getV3')->will($this->returnValue('v3'));
-        $this->userMock->expects($this->once())->method('getEmail')->will($this->returnValue('email'));
+        $this->userMock->expects($this->once())
+            ->method('getV1')
+            ->will($this->returnValue('v1'));
+        $this->userMock->expects($this->once())
+            ->method('getV2')
+            ->will($this->returnValue('v2'));
+        $this->userMock->expects($this->once())
+            ->method('getV3')
+            ->will($this->returnValue('v3'));
+        $this->userMock->expects($this->once())
+            ->method('getEmail')
+            ->will($this->returnValue('email'));
 
         $this->clientMock = $this->getMock('\Guzzle\Http\Client', array(), array(), '', false);
         $this->requestMock = $this->getMock('\Guzzle\Http\Message\RequestInterface', array(), array(), '', false);
         $this->responseMock = $this->getMock('\Guzzle\Http\Message\Response', array(), array(), '', false);
 
-        $this->requestMock->expects($this->once())->method('send')->will($this->returnValue($this->responseMock));
+        $this->requestMock->expects($this->once())
+            ->method('send')
+            ->will($this->returnValue($this->responseMock));
         $this->clientMock->expects($this->once())->method('get')->with(
             '/xsolla_number.php',
             array(),
@@ -67,7 +77,7 @@ class NumberTest extends \PHPUnit_Framework_TestCase
             )
         )->will($this->returnValue($this->requestMock));
 
-        $this->number = new Number($this->clientMock, $this->projectMock);
+        $this->number = new NumberApi($this->clientMock, $this->projectMock);
     }
 
     public function testGetNumber()

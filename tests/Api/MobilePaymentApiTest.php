@@ -2,10 +2,10 @@
 
 namespace Xsolla\SDK\Tests\Api;
 
-use Xsolla\SDK\Api\MobilePayment;
+use Xsolla\SDK\Api\MobilePaymentApi;
 use Xsolla\SDK\Validator\Xsd;
 
-class MobilePaymentTest extends \PHPUnit_Framework_TestCase
+class MobilePaymentApiTest extends \PHPUnit_Framework_TestCase
 {
     const PROJECT_SECRET_KEY = 'key';
 
@@ -30,7 +30,7 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
     protected $projectMock;
 
     /**
-     * @var MobilePayment
+     * @var MobilePaymentApi
      */
     protected $mobilePayment;
 
@@ -70,7 +70,6 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
         'out' => '100',
         'phone' => 'phone',
         'userip' => 'userIP',
-        //'email' => 'email',
     );
 
     protected $responseWithInvalidRequest =
@@ -133,8 +132,10 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
     {
         $this->setUpMocks();
         $this->queryParamsForCreateInvoice['email'] = 'email';
-        $this->userMock->expects($this->any())->method('getEmail')->will($this->returnValue('email'));
-        $this->mobilePayment = new MobilePayment($this->clientMock, $this->projectMock);
+        $this->userMock->expects($this->any())
+            ->method('getEmail')
+            ->will($this->returnValue('email'));
+        $this->mobilePayment = new MobilePaymentApi($this->clientMock, $this->projectMock);
     }
 
     protected function setUpMocks()
@@ -142,7 +143,9 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
         $this->requestMock = $this->getMock('\Guzzle\Http\Message\RequestInterface', array(), array(), '', false);
         $this->responseMock = $this->getMock('\Guzzle\Http\Message\Response', array(), array(), '', false);
         $this->clientMock = $this->getMock('\Guzzle\Http\Client', array(), array(), '', false);
-        $this->requestMock->expects($this->any())->method('send')->will($this->returnValue($this->responseMock));
+        $this->requestMock->expects($this->any())
+            ->method('send')
+            ->will($this->returnValue($this->responseMock));
 
         $this->projectMock = $this->getMock(
             '\Xsolla\SDK\Project',
@@ -151,27 +154,45 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
             '',
             false
         );
-        $this->projectMock->expects($this->any())->method('getProjectId')->will($this->returnValue('projectId'));
-        $this->projectMock->expects($this->any())->method('getSecretKey')->will($this->returnValue(self::PROJECT_SECRET_KEY));
+        $this->projectMock->expects($this->any())
+            ->method('getProjectId')
+            ->will($this->returnValue('projectId'));
+        $this->projectMock->expects($this->any())
+            ->method('getSecretKey')
+            ->will($this->returnValue(self::PROJECT_SECRET_KEY));
 
         $this->userMock = $this->getMock('\Xsolla\SDK\User', array(), array(), '', false);
-        $this->userMock->expects($this->any())->method('getUserIP')->will($this->returnValue('userIP'));
-        $this->userMock->expects($this->any())->method('getV1')->will($this->returnValue('v1'));
-        $this->userMock->expects($this->any())->method('getV2')->will($this->returnValue('v2'));
-        $this->userMock->expects($this->any())->method('getV3')->will($this->returnValue('v3'));
-        $this->userMock->expects($this->any())->method('getPhone')->will($this->returnValue('phone'));
+        $this->userMock->expects($this->any())
+            ->method('getUserIP')
+            ->will($this->returnValue('userIP'));
+        $this->userMock->expects($this->any())
+            ->method('getV1')
+            ->will($this->returnValue('v1'));
+        $this->userMock->expects($this->any())
+            ->method('getV2')
+            ->will($this->returnValue('v2'));
+        $this->userMock->expects($this->any())
+            ->method('getV3')
+            ->will($this->returnValue('v3'));
+        $this->userMock->expects($this->any())
+            ->method('getPhone')
+            ->will($this->returnValue('phone'));
 
         $this->invoiceMock = $this->getMock('\Xsolla\SDK\Invoice', array(), array(), '', false);
     }
 
     public function testCalculateWithSum()
     {
-        $this->invoiceMock->expects($this->any())->method('getAmount')->will($this->returnValue('10'));
-        $this->invoiceMock->expects($this->any())->method('getVirtualCurrencyAmount')->will($this->returnValue(''));
+        $this->invoiceMock->expects($this->any())
+            ->method('getAmount')
+            ->will($this->returnValue('10'));
+        $this->invoiceMock->expects($this->any())
+            ->method('getVirtualCurrencyAmount')
+            ->will($this->returnValue(''));
 
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue($this->responseCalculate)
-        );
+        $this->responseMock->expects($this->once())
+            ->method('getBody')
+            ->will($this->returnValue($this->responseCalculate));
 
         $signString = $this->createSignString($this->queryParamsCalculateWithSum);
         $this->queryParamsCalculateWithSum['md5'] = md5($signString . self::PROJECT_SECRET_KEY);
@@ -193,11 +214,15 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
 
     public function testCalculateWithOut()
     {
-        $this->invoiceMock->expects($this->any())->method('getAmount')->will($this->returnValue(''));
-        $this->invoiceMock->expects($this->any())->method('getVirtualCurrencyAmount')->will($this->returnValue('100'));
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue($this->responseCalculate)
-        );
+        $this->invoiceMock->expects($this->any())
+            ->method('getAmount')
+            ->will($this->returnValue(''));
+        $this->invoiceMock->expects($this->any())
+            ->method('getVirtualCurrencyAmount')
+            ->will($this->returnValue('100'));
+        $this->responseMock->expects($this->once())
+            ->method('getBody')
+            ->will($this->returnValue($this->responseCalculate));
 
         $signString = $this->createSignString($this->queryParamsCalculateWithOut);
         $this->queryParamsCalculateWithOut['md5'] = md5($signString . self::PROJECT_SECRET_KEY);
@@ -220,9 +245,9 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
     public function testCalculateWithWrongMd5()
     {
         $this->setExpectedException('\Xsolla\SDK\Exception\SecurityException');
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue($this->responseCalculateWithWrongMd5)
-        );
+        $this->responseMock->expects($this->once())->
+            method('getBody')
+            ->will($this->returnValue($this->responseCalculateWithWrongMd5));
 
         $this->clientMock->expects($this->once())
             ->method('get')
@@ -234,9 +259,9 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
     public function testCalculateWithTemporaryError()
     {
         $this->setExpectedException('\Xsolla\SDK\Exception\InternalServerException');
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue($this->responseWithTechnicalError)
-        );
+        $this->responseMock->expects($this->once())
+            ->method('getBody')
+            ->will($this->returnValue($this->responseWithTechnicalError));
 
         $this->clientMock->expects($this->once())
             ->method('get')
@@ -248,9 +273,9 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
     public function testCalculateWithWrongNumber()
     {
         $this->setExpectedException('\Xsolla\SDK\Exception\InvalidArgumentException');
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue($this->responseWithWrongNumber)
-        );
+        $this->responseMock->expects($this->once())
+            ->method('getBody')
+            ->will($this->returnValue($this->responseWithWrongNumber));
 
         $this->clientMock->expects($this->once())
             ->method('get')
@@ -262,9 +287,9 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
     public function testCalculateWithInvalidRequest()
     {
         $this->setExpectedException('\Xsolla\SDK\Exception\InvalidArgumentException');
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue($this->responseCalculateWithInvalidRequest)
-        );
+        $this->responseMock->expects($this->once())
+            ->method('getBody')
+            ->will($this->returnValue($this->responseCalculateWithInvalidRequest));
 
         $this->clientMock->expects($this->once())
             ->method('get')
@@ -276,13 +301,13 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
     public function testCalculateWithExceeded()
     {
         $this->setExpectedException('\Xsolla\SDK\Exception\InvalidArgumentException');
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue(
-                '
-                                        <response>
-                                            <result>7</result>
-                                            <comment>OK</comment>
-                                        </response>'
+        $this->responseMock->expects($this->once())
+            ->method('getBody')
+            ->will($this->returnValue(
+                '<response>
+                    <result>7</result>
+                    <comment>OK</comment>
+                </response>'
             )
         );
 
@@ -295,12 +320,16 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateInvoice()
     {
-        $this->invoiceMock->expects($this->any())->method('getAmount')->will($this->returnValue('10'));
-        $this->invoiceMock->expects($this->any())->method('getVirtualCurrencyAmount')->will($this->returnValue('100'));
+        $this->invoiceMock->expects($this->any())
+            ->method('getAmount')
+            ->will($this->returnValue('10'));
+        $this->invoiceMock->expects($this->any())
+            ->method('getVirtualCurrencyAmount')
+            ->will($this->returnValue('100'));
 
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue($this->responseCreateInvoice)
-        );
+        $this->responseMock->expects($this->once())
+            ->method('getBody')
+            ->will($this->returnValue($this->responseCreateInvoice));
 
         $signString = $this->createSignString($this->queryParamsForCreateInvoice);
         $this->queryParamsForCreateInvoice['md5'] = md5($signString . self::PROJECT_SECRET_KEY);
@@ -333,9 +362,9 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
     public function testCreateInvoiceWithWrongMd5()
     {
         $this->setExpectedException('\Xsolla\SDK\Exception\SecurityException');
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue($this->responseWithWrongMd5)
-        );
+        $this->responseMock->expects($this->once())
+            ->method('getBody')
+            ->will($this->returnValue($this->responseWithWrongMd5));
 
         $this->clientMock->expects($this->once())
             ->method('get')
@@ -347,9 +376,9 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
     public function testCreateInvoiceWithInvalidRequest()
     {
         $this->setExpectedException('\Xsolla\SDK\Exception\InvalidArgumentException');
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue($this->responseWithInvalidRequest)
-        );
+        $this->responseMock->expects($this->once())
+            ->method('getBody')
+            ->will($this->returnValue($this->responseWithInvalidRequest));
 
         $this->clientMock->expects($this->once())
             ->method('get')
@@ -361,9 +390,9 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
     public function testCreateInvoiceWithTechnicalError()
     {
         $this->setExpectedException('\Xsolla\SDK\Exception\InternalServerException');
-        $this->responseMock->expects($this->once())->method('getBody')->will(
-            $this->returnValue($this->responseCreateInvoiceWithTechnicalError)
-        );
+        $this->responseMock->expects($this->once())
+            ->method('getBody')
+            ->will($this->returnValue($this->responseCreateInvoiceWithTechnicalError));
 
         $this->clientMock->expects($this->once())
             ->method('get')
@@ -377,7 +406,6 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('\Xsolla\SDK\Exception\InvalidResponseException');
         $xsd = new Xsd();
         $xsd->check('',__DIR__ . $this->xsd_path_invoice.'1');
-
     }
 
     public function testCheckXSDWithWrongXML()
@@ -385,7 +413,6 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('\Xsolla\SDK\Exception\InvalidResponseException');
         $xsd = new Xsd();
         $xsd->check('1',__DIR__ . $this->xsd_path_invoice);
-
     }
 
     public function testCheckXSDWithWrongXMLSchemaValidate()
@@ -393,7 +420,6 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('\Xsolla\SDK\Exception\InvalidResponseException');
         $xsd = new Xsd();
         $xsd->check('<response><result>test</result></response>',__DIR__ . $this->xsd_path_invoice);
-
     }
 
 }
