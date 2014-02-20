@@ -3,49 +3,45 @@
 namespace Xsolla\SDK\Protocol\Command;
 
 use Symfony\Component\HttpFoundation\Request;
-use Xsolla\SDK\Exception\InvoiceNotBeRollbackException;
 use Xsolla\SDK\Exception\InvoiceNotFoundException;
-use Xsolla\SDK\Storage\PaymentsInterface;
-use Xsolla\SDK\Project;
+use Xsolla\SDK\Protocol\Protocol;
+use Xsolla\SDK\Protocol\Storage\PaymentStorageInterface;
 
-class Cancel extends Command
+class Cancel extends StandardCommand
 {
-    protected $payments;
+    protected $paymentStorage;
 
-    public function __construct(Project $project, PaymentsInterface $payments)
+    public function __construct(Protocol $protocol, PaymentStorageInterface $paymentStorage)
     {
-        $this->project = $project;
-        $this->payments = $payments;
+        $this->project = $protocol->getProject();
+        $this->paymentStorage = $paymentStorage;
     }
 
     public function process(Request $request)
     {
         try {
-            $this->payments->cancel($request->get('id'));
+            $this->paymentStorage->cancel($request->query->get('id'));
 
             return array(
-                'result' => '0'
+                'result' => self::CODE_SUCCESS,
+                self::COMMENT_FIELD_NAME => '',
             );
         } catch (InvoiceNotFoundException $e) {
             return array(
-                'result' => '2',
-                'comment' => 'The payment specified in the request is not found in the system'
-            );
-        } catch (InvoiceNotBeRollbackException $e) {
-            return array(
-                'result' => '7',
-                'comment' => 'The payment cannot be canceled'
+                'result' => self::CODE_INVALID_ORDER_DETAILS,
+                self::COMMENT_FIELD_NAME => trim('Invoice not found. ' . $e->getMessage()),
             );
         }
     }
 
     public function checkSign(Request $request)
     {
-        return ($this->generateSign($request, array('command', 'id')) == $request->get('md5'));
+        return $this->generateSign($request, array('command', 'id')) == $request->query->get('md5');
     }
 
     public function getRequiredParams()
     {
         return array('command', 'md5', 'id');
     }
+
 }

@@ -51,44 +51,40 @@ class User
         return $this->userIP;
     }
 
-    /**
-     * @param string $email
-     */
     public function setEmail($email)
     {
         $this->email = $email;
+        return $this;
     }
 
-    /**
-     * @param string $phone
-     */
     public function setPhone($phone)
     {
         $this->phone = $phone;
+        return $this;
     }
 
-    /**
-     * @param string $v2
-     */
+    public function setV1($v1)
+    {
+        $this->v1 = $v1;
+        return $this;
+    }
+
     public function setV2($v2)
     {
         $this->v2 = $v2;
+        return $this;
     }
 
-    /**
-     * @param string $v3
-     */
     public function setV3($v3)
     {
         $this->v3 = $v3;
+        return $this;
     }
 
-    /**
-     * @param string $userIP
-     */
     public function setUserIp($userIP)
     {
         $this->userIP = $userIP;
+        return $this;
     }
 
 }

@@ -1,25 +1,22 @@
 <?php
-
-use Symfony\Component\HttpFoundation\Request;
-use Xsolla\SDK\Protocol\Cash;
-use Xsolla\SDK\Protocol\Command\Factory as CommandFactory;
-use Xsolla\SDK\Response\Xml;
-use Xsolla\SDK\Validator\IpChecker;
-use Xsolla\SDK\Storage\PaymentsCash;
-use Xsolla\SDK\Project;
-use Xsolla\SDK\Storage\Users;
-
 require_once __DIR__.'/../vendor/autoload.php';
 
-$request = Request::createFromGlobals();
+use Symfony\Component\HttpFoundation\Request;
+use Xsolla\SDK\Validator\IpChecker;
+use Xsolla\SDK\Protocol\Storage\Pdo\PaymentShoppingCartStorage;
+use Xsolla\SDK\Project;
+use Xsolla\SDK\Protocol\ProtocolFactory;
 
 $demoProject = new Project(
     '4783',//demo project id
     'key'//demo project secret key
 );
+$pdo = new \PDO(sprintf('mysql:dbname=%s;host=%s;', 'YOUR_DB_NAME', 'YOUR_DB_HOST'), 'YOUR_DB_USER', 'YOUR_DB_PASSWORD');
+$paymentStorage = new PaymentShoppingCartStorage($pdo);
+$ipChecker = new IpChecker;
+$protocolBuilder = new ProtocolFactory($demoProject, $ipChecker);
+$protocol = $protocolBuilder->getShoppingCartProtocol($paymentStorage);
 
-$protocol = new Cash(new IpChecker(), new CommandFactory(), $demoProject, new Users(), new PaymentsCash());
-
-$xmlResponse = new Xml();
-$response = $xmlResponse->get($protocol->getResponse($request));
+$request = Request::createFromGlobals();
+$response = $protocol->run($request);
 $response->send();

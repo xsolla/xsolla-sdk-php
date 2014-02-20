@@ -3,57 +3,61 @@
 namespace Xsolla\SDK\Protocol\Command;
 
 use Symfony\Component\HttpFoundation\Request;
-use Xsolla\SDK\Storage\PaymentsInterface;
-use Xsolla\SDK\Storage\PaymentsStandardInterface;
-use Xsolla\SDK\Project;
-use Xsolla\SDK\Storage\UsersInterface;
+use Xsolla\SDK\Protocol\Standard;
+use Xsolla\SDK\Protocol\Storage\PaymentStorageInterface;
+use Xsolla\SDK\Protocol\Storage\UserStorageInterface;
 
-class PayStandard extends Command
+class PayStandard extends StandardCommand
 {
     /**
-     * @var PaymentsInterface
+     * @var PaymentStorageInterface
      */
-    protected $payments;
+    protected $paymentStorage;
 
     /**
-     * @var UsersInterface
+     * @var UserStorageInterface
      */
-    protected $users;
+    protected $userStorage;
 
-    public function __construct(Project $project, UsersInterface $users, PaymentsStandardInterface $payments)
+    public function __construct(Standard $protocol)
     {
-        $this->users = $users;
-        $this->project = $project;
-        $this->payments = $payments;
+        $this->userStorage = $protocol->getUserStorage();
+        $this->project = $protocol->getProject();
+        $this->paymentStorage = $protocol->getPaymentStandardStorage();
     }
 
     public function getRequiredParams()
     {
-        return array('command', 'md5', 'id', 'sum', 'v1');
+        return array('command', 'md5', 'id', 'sum', 'v1', 'date');
     }
 
     public function process(Request $request)
     {
-        if (!$this->users->check($request->get('v1'), $request->get('v2'), $request->get('v3'))) {
+        $user = $this->createUser($request);
+        if (!$this->userStorage->isUserExists($user)) {
             return array(
-                'result' => '2',
-                'comment' => 'Invalid user’s ID'
+                'result' => self::CODE_INVALID_ORDER_DETAILS,
+                self::COMMENT_FIELD_NAME => 'User not found'
             );
         }
-
-        $id = $this->payments->pay(
-            $request->get('id'),
-            $request->get('sum'),
-            $request->get('v1'),
-            $request->get('v2'),
-            $request->get('v3')
+        $datetime = $this->getDateTimeXsolla('Y-m-d H:i:s', $request->query->get('date'));
+        $id = $this->paymentStorage->pay(
+            $request->query->get('id'),
+            $request->query->get('sum'),
+            $user,
+            $datetime,
+            (bool) $request->query->get('dry_run')
         );
 
-        return array('result' => 0, 'comment' => '', 'id' => $request->get('id'), 'id_shop' => $id);
+        return array(
+            'result' => self::CODE_SUCCESS,
+            self::COMMENT_FIELD_NAME => '',
+            'id_shop' => $id
+        );
     }
 
     public function checkSign(Request $request)
     {
-        return ($this->generateSign($request, array('command', 'v1', 'id')) == $request->get('md5'));
+        return $this->generateSign($request, array('command', 'v1', 'id')) == $request->query->get('md5');
     }
 }

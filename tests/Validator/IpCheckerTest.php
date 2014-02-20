@@ -14,7 +14,7 @@ class IpCheckerTest extends \PHPUnit_Framework_TestCase
     {
         $this->ipChecker = new IpChecker;
     }
-    
+
     public function testCheckIp()
     {
         $this->assertNull($this->ipChecker->checkIp('185.30.20.16'));
@@ -24,7 +24,10 @@ class IpCheckerTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(
             'Xsolla\SDK\Exception\SecurityException',
-            'IP whitelist(94.103.26.176/29, 159.255.220.240/28, 185.30.20.16/29, 185.30.21.16/29) not contains client IP address(185.30.20.45)'
+            $this->logicalAnd(
+                $this->stringContains('94.103.26.176/29, 159.255.220.240/28, 185.30.20.16/29, 185.30.21.16/29'),
+                $this->stringContains('185.30.20.45')
+            )
         );
         $this->ipChecker->checkIp('185.30.20.45');
     }

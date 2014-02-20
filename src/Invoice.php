@@ -4,27 +4,27 @@ namespace Xsolla\SDK;
 
 class Invoice
 {
-    protected $out;
-    protected $sum;
+    protected $virtualCurrencyAmount;
+    protected $amount;
     protected $currency;
     protected $id;
 
-    public function __construct($out = null, $sum = null, $currency = null, $id = null)
+    public function __construct($virtualCurrencyAmount = null, $amount = null, $currency = null, $id = null)
     {
-        $this->sum = $sum;
-        $this->out = $out;
+        $this->amount = $amount;
+        $this->virtualCurrencyAmount = $virtualCurrencyAmount;
         $this->currency = $currency;
         $this->id = $id;
     }
 
-    public function getOut()
+    public function getVirtualCurrencyAmount()
     {
-        return $this->out;
+        return $this->virtualCurrencyAmount;
     }
 
-    public function getSum()
+    public function getAmount()
     {
-        return $this->sum;
+        return $this->amount;
     }
 
     public function getCurrency()
@@ -37,35 +37,27 @@ class Invoice
         return $this->id;
     }
 
-    /**
-     * @param string $currency
-     */
     public function setCurrency($currency)
     {
         $this->currency = $currency;
+        return $this;
     }
 
-    /**
-     * @param int $id
-     */
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
     }
 
-    /**
-     * @param float $out
-     */
-    public function setOut($out)
+    public function setVirtualCurrencyAmount($out)
     {
-        $this->out = $out;
+        $this->virtualCurrencyAmount = $out;
+        return $this;
     }
 
-    /**
-     * @param float $sum
-     */
-    public function setSum($sum)
+    public function setAmount($sum)
     {
-        $this->sum = $sum;
+        $this->amount = $sum;
+        return $this;
     }
 }

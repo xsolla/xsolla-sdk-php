@@ -3,44 +3,33 @@
 namespace Xsolla\SDK\Protocol;
 
 use Symfony\Component\HttpFoundation\Request;
-use Xsolla\SDK\Protocol\Command\Factory;
+use Xsolla\SDK\Exception\InvalidRequestException;
+use Xsolla\SDK\Exception\InvalidSignException;
+use Xsolla\SDK\Exception\UnprocessableRequestException;
+use Xsolla\SDK\Exception\WrongCommandException;
+use Xsolla\SDK\Protocol\Command\Command;
 use Xsolla\SDK\Validator\IpChecker;
-use Xsolla\SDK\Storage\PaymentsInterface;
 use Xsolla\SDK\Project;
-use Xsolla\SDK\Storage\UsersInterface;
 
 abstract class Protocol
 {
-    const PROTOCOL = '';
     protected $response;
-    /**
-     * @var \Xsolla\SDK\Project
-     */
+
     protected $project;
-    /**
-     * @var UsersInterface
-     */
-    protected $users;
-    /**
-     * @var PaymentsInterface
-     */
-    protected $payments;
-    /**
-     * @var IpChecker
-     */
+
     protected $ipChecker;
-    /**
-     * @var Factory
-     */
+
     protected $commandFactory;
 
-    public function __construct(IpChecker $ipChecker, Factory $factory, Project $project, UsersInterface $users, PaymentsInterface $payments)
+    protected $xmlResponseBuilder;
+
+    protected $currentCommand;
+
+    public function __construct(Project $project, XmlResponseBuilder $xmlResponseBuilder, IpChecker $ipChecker = null)
     {
-        $this->ipChecker = $ipChecker;
-        $this->commandFactory = $factory;
         $this->project = $project;
-        $this->users = $users;
-        $this->payments = $payments;
+        $this->xmlResponseBuilder = $xmlResponseBuilder;
+        $this->ipChecker = $ipChecker;
     }
 
     /**
@@ -51,49 +40,72 @@ abstract class Protocol
         return $this->project;
     }
 
-    /**
-     * @return PaymentsInterface
-     */
-    public function getPayments()
+    public function doCheck(Request $request)
     {
-        return $this->payments;
+        if ($this->ipChecker) {
+            $this->ipChecker->checkIp($request->getClientIp());
+        }
+        if (!$request->query->get('command')) {
+            throw new WrongCommandException(sprintf(
+                'No command in request. Available commands are: "%s".',
+                join('", "', $this->getProtocolCommands())
+            ));
+        }
     }
 
-    /**
-     * @return UsersInterface
-     */
-    public function getUsers()
+    public function run(Request $request)
     {
-        return $this->users;
-    }
+        try {
+            $this->doCheck($request);
+            $commandResponse = $this->doRun($request);
 
-    /**
-     * @return mixed
-     */
-    public function getProtocol()
-    {
-        return static::PROTOCOL;
+        } catch (UnprocessableRequestException $e) {
+            $commandResponse = array(
+                'result' => $this->currentCommand->getUnprocessableRequestResponseCode(),
+                $this->currentCommand->getCommentFieldName() => trim('Unprocessable request. ' . $e->getMessage())
+            );
+        } catch (InvalidSignException $e) {
+            $commandResponse = array(
+                'result' => $this->currentCommand->getInvalidSignResponseCode(),
+                $this->currentCommand->getCommentFieldName() => $e->getMessage()
+            );
+        } catch (InvalidRequestException $e) {
+            $commandResponse = array(
+                'result' => $this->currentCommand->getInvalidRequestResponseCode(),
+                $this->currentCommand->getCommentFieldName() => $e->getMessage()
+            );
+
+        } catch (WrongCommandException $e) {
+            $commandResponse = $this->getResponseForWrongCommand($e->getMessage());
+
+        } catch (\Exception $e) {
+            if ($this->currentCommand) {
+                $commandResponse = array(
+                    'result' => $this->currentCommand->getTemporaryServerErrorResponseCode(),
+                    $this->currentCommand->getCommentFieldName() => $e->getMessage()
+                );
+            } else {
+                $commandResponse = $this->getResponseForInternalServerError($e->getMessage());
+            }
+        }
+
+        return $this->xmlResponseBuilder->get($commandResponse);
     }
 
     /**
      * @param  Request $request
      * @return array
      */
-    public function getResponse(Request $request)
+    public function doRun(Request $request)
     {
-        $this->ipChecker->checkIp($request->getClientIp());
+        $this->currentCommand = $this->commandFactory->getCommand($this, $request->query->get('command'));
 
-        return $this->process($request);
+        return $this->currentCommand->getResponse($request);
     }
 
-    /**
-     * @param  Request $request
-     * @return array
-     */
-    protected function process(Request $request)
-    {
-        $command = $this->commandFactory->getCommand($this, $request->get('command'));
+    abstract public function getProtocolCommands();
 
-        return $command->getResponse($request);
-    }
+    abstract public function getResponseForWrongCommand($message);
+
+    abstract public function getResponseForInternalServerError($message);
 }

@@ -3,40 +3,45 @@
 namespace Xsolla\SDK\Protocol\Command;
 
 use Symfony\Component\HttpFoundation\Request;
-use Xsolla\SDK\Project;
-use Xsolla\SDK\Storage\UsersInterface;
+use Xsolla\SDK\Protocol\Standard;
+use Xsolla\SDK\Protocol\Storage\UserStorageInterface;
 
-class Check extends Command
+class Check extends StandardCommand
 {
+    const CODE_USER_NOT_FOUND = 7;
 
     /**
-     * @var UsersInterface
+     * @var UserStorageInterface
      */
-    protected $users;
+    protected $userStorage;
 
-    public function __construct(Project $project, UsersInterface $users)
+    public function __construct(Standard $protocol)
     {
-        $this->users = $users;
-        $this->project = $project;
+        $this->userStorage = $protocol->getUserStorage();
+        $this->project = $protocol->getProject();
     }
 
     public function process(Request $request)
     {
-        if ($this->users->check($request->get('v1'), $request->get('v2'), $request->get('v3'))) {
-            return array(
-                'result' => '0'
-            );
+        $user = $this->createUser($request);
+        $hasUser = $this->userStorage->isUserExists($user);
+        if ($hasUser) {
+            $response = array('result' => self::CODE_SUCCESS);
+            $spec = $this->userStorage->getAdditionalUserFields($user);
+            if (count($spec) > 0) {
+                $response['specification'] = $spec;
+            }
         } else {
-            return array(
-                'result' => '7',
-                'comment' => 'Account is disabled or not present'
-            );
+            $response = array('result' => self::CODE_USER_NOT_FOUND);
         }
+        $response['comment'] = '';
+
+        return $response;
     }
 
     public function checkSign(Request $request)
     {
-        return ($this->generateSign($request, array('command', 'v1')) == $request->get('md5'));
+        return $this->generateSign($request, array('command', 'v1')) == $request->query->get('md5');
     }
 
     public function getRequiredParams()

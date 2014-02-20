@@ -2,6 +2,7 @@
 
 namespace Xsolla\SDK\Exception;
 
-class InvalidArgumentException extends Exception
-{
-}
+
+class InvalidArgumentException extends Exception {
+
+} 

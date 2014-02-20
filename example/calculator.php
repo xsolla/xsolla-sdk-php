@@ -1,19 +1,22 @@
 <?php
-use \Xsolla\SDK\Calculator;
-use \Guzzle\Http\Client;
+
+use Guzzle\Http\Client;
+use Xsolla\SDK\Api\ApiFactory;
 use Xsolla\SDK\Project;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
 $demoProject = new Project(
-    '4783',//demo project id
-    'key'//demo project secret key
+    '4783', //demo project id
+    'key'   //demo project secret key
 );
 
-$calculator = new Calculator(new Client('https://api.xsolla.com'), $demoProject);
+$apiFactory = new ApiFactory(new Client(), $demoProject);
+
+$calculatorApi = $apiFactory->getCalculatorApi();
 
 // Calculation of the amount of the game currency on the basis of the sum of payment 100 via payment system "1"
-echo $calculator->calculateOut(1, 100).PHP_EOL;
+echo $calculatorApi->calculateOut(1, 100) . PHP_EOL;
 
 // Calculation of the amount of payment via payment system "1" on the basis of the amount of game currency 100
-echo $calculator->calculateIn(1, 100).PHP_EOL;
+echo $calculatorApi->calculateIn(1, 100) . PHP_EOL;
