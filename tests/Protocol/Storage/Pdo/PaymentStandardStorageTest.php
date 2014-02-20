@@ -110,6 +110,14 @@ class PaymentStandardStorageTest extends PaymentStorageTest
                 array('Xsolla\SDK\Exception\UnprocessableRequestException', 'Found payment with invoiceId=101 and amount=0.00 (must be 100.20).')
             ),
             array(
+                array('id' => self::INVOICE_ID, 'v1' => 'demo1', 'amount' => 100.20),
+                array('Xsolla\SDK\Exception\UnprocessableRequestException', 'Found payment with invoiceId=101 and v1=demo1 (must be "demo").')
+            ),
+            array(
+                array('id' => self::INVOICE_ID, 'v1' => 'demo1', 'amount' => 0),
+                array('Xsolla\SDK\Exception\UnprocessableRequestException', 'Found payment with invoiceId=101 and v1=demo1 (must be "demo") and amount=0.00 (must be 100.20).')
+            ),
+            array(
                 false,
                 array('Exception', 'Temporary error.')
             )

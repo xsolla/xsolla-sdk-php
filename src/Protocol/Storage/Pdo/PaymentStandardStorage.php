@@ -62,7 +62,7 @@ class PaymentStandardStorage extends PaymentStorage implements PaymentStandardSt
         }
         $diffMessage = '';
         if ($result['v1'] != $user->getV1()) {
-            $diffMessage .= sprintf(' and v1=%s (must be %s)', $result['v1'], $user->getV1());
+            $diffMessage .= sprintf(' and v1=%s (must be "%s")', $result['v1'], $user->getV1());
         }
         if ($result['amount'] != $amountVirtual) {
             $diffMessage .= sprintf(' and amount=%0.2f (must be %0.2f)', $result['amount'], $amountVirtual);

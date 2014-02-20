@@ -114,6 +114,20 @@ class StandardProtocolFullTest extends ProtocolFullTest {
             array(
                 array(
                     'command' => 'pay',
+                    'md5' => '151783427f854e7c61e54fae5361cacb',
+                    'id' => self::PAY_ID_SUCCESS,
+                    'v1' => 'demo',
+                    'sum' => '100.20',
+                    'date' => 'DATE'
+                ),
+                '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
+                '<response><result>4</result>' .
+                '<comment>Datetime string DATE could not be converted to DateTime object from format \'Y-m-d H:i:s\'</comment>' .
+                '</response>' . PHP_EOL
+            ),
+            array(
+                array(
+                    'command' => 'pay',
                     'md5' => 'b03894e48c0dfa6a9adda90739ca986c',
                     'id' => self::PAY_ID_ANY_EXCEPTION,
                     'v1' => 'demo',
