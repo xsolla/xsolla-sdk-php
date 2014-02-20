@@ -10,43 +10,41 @@ use Xsolla\SDK\Project;
  */
 class CalculatorApi
 {
-    const BASE_URL = 'https://api.xsolla.com';
-
     protected $client;
+
     protected $project;
 
     public function __construct(Client $client, Project $project)
     {
         $this->client = $client;
-        $this->client->setBaseUrl(self::BASE_URL);
         $this->project = $project;
     }
 
     /**
-     * @param $geotypeId
-     * @param $sum
-     * @return \Guzzle\Http\EntityBodyInterface|string
+     * @param int $geotypeId payment system ID
+     * @param float $amount
+     * @return string
      */
-    public function calculateOut($geotypeId, $sum)
+    public function calculateVirtualCurrencyAmount($geotypeId, $amount)
     {
-        $request = $this->createRequest('/calc/out.php', $geotypeId, $sum);
+        $request = $this->createRequest('/calc/out.php', $geotypeId, $amount);
 
-        return $request->send()->getBody();
+        return $request->send()->getBody(true);
     }
 
     /**
-     * @param $geotypeId
-     * @param $sum
-     * @return \Guzzle\Http\EntityBodyInterface|string
+     * @param int $geotypeId payment system ID
+     * @param float $virtualCurrencyAmount
+     * @return string
      */
-    public function calculateIn($geotypeId, $sum)
+    public function calculateAmount($geotypeId, $virtualCurrencyAmount)
     {
-        $request = $this->createRequest('/calc/inn.php', $geotypeId, $sum);
+        $request = $this->createRequest('/calc/inn.php', $geotypeId, $virtualCurrencyAmount);
 
-        return $request->send()->getBody();
+        return $request->send()->getBody(true);
     }
 
-    protected function createRequest($url, $geotypeId, $sum)
+    protected function createRequest($url, $geotypeId, $amount)
     {
         return $this->client->get(
             $url,
@@ -55,7 +53,7 @@ class CalculatorApi
                 'query' => array(
                     'project_id' => $this->project->getProjectId(),
                     'geotype_id' => $geotypeId,
-                    'sum' => $sum
+                    'sum' => $amount
                 )
             )
         );

@@ -15,7 +15,7 @@ $apiFactory = new ApiFactory(new Client(), $demoProject);
 $calculatorApi = $apiFactory->getCalculatorApi();
 
 // Calculation of the amount of the game currency on the basis of the sum of payment 100 via payment system "1"
-echo $calculatorApi->calculateOut(1, 100) . PHP_EOL;
+echo $calculatorApi->calculateVirtualCurrencyAmount(1, 100) . PHP_EOL;
 
 // Calculation of the amount of payment via payment system "1" on the basis of the amount of game currency 100
-echo $calculatorApi->calculateIn(1, 100) . PHP_EOL;
+echo $calculatorApi->calculateAmount(1, 100) . PHP_EOL;
