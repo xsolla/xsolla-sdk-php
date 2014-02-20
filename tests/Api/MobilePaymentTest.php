@@ -166,8 +166,8 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
 
     public function testCalculateWithSum()
     {
-        $this->invoiceMock->expects($this->any())->method('getSum')->will($this->returnValue('10'));
-        $this->invoiceMock->expects($this->any())->method('getOut')->will($this->returnValue(''));
+        $this->invoiceMock->expects($this->any())->method('getAmount')->will($this->returnValue('10'));
+        $this->invoiceMock->expects($this->any())->method('getVirtualCurrencyAmount')->will($this->returnValue(''));
 
         $this->responseMock->expects($this->once())->method('getBody')->will(
             $this->returnValue($this->responseCalculate)
@@ -193,8 +193,8 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
 
     public function testCalculateWithOut()
     {
-        $this->invoiceMock->expects($this->any())->method('getSum')->will($this->returnValue(''));
-        $this->invoiceMock->expects($this->any())->method('getOut')->will($this->returnValue('100'));
+        $this->invoiceMock->expects($this->any())->method('getAmount')->will($this->returnValue(''));
+        $this->invoiceMock->expects($this->any())->method('getVirtualCurrencyAmount')->will($this->returnValue('100'));
         $this->responseMock->expects($this->once())->method('getBody')->will(
             $this->returnValue($this->responseCalculate)
         );
@@ -295,8 +295,8 @@ class MobilePaymentTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateInvoice()
     {
-        $this->invoiceMock->expects($this->any())->method('getSum')->will($this->returnValue('10'));
-        $this->invoiceMock->expects($this->any())->method('getOut')->will($this->returnValue('100'));
+        $this->invoiceMock->expects($this->any())->method('getAmount')->will($this->returnValue('10'));
+        $this->invoiceMock->expects($this->any())->method('getVirtualCurrencyAmount')->will($this->returnValue('100'));
 
         $this->responseMock->expects($this->once())->method('getBody')->will(
             $this->returnValue($this->responseCreateInvoice)

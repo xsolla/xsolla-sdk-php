@@ -23,24 +23,24 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
         $invoice = new Invoice(self::OUT, self::SUM, self::CURRENCY, self::ID);
-        $this->assertSame(self::OUT, $invoice->getOut());
-        $this->assertSame(self::SUM, $invoice->getSum());
+        $this->assertSame(self::OUT, $invoice->getVirtualCurrencyAmount());
+        $this->assertSame(self::SUM, $invoice->getAmount());
         $this->assertSame(self::CURRENCY, $invoice->getCurrency());
         $this->assertSame(self::ID, $invoice->getId());
     }
 
     public function testSum()
     {
-        $this->assertNull($this->invoice->getSum());
-        $this->invoice->setSum(self::SUM);
-        $this->assertSame(self::SUM, $this->invoice->getSum());
+        $this->assertNull($this->invoice->getAmount());
+        $this->invoice->setAmount(self::SUM);
+        $this->assertSame(self::SUM, $this->invoice->getAmount());
     }
 
     public function testOut()
     {
-        $this->assertNull($this->invoice->getOut());
-        $this->invoice->setOut(self::OUT);
-        $this->assertSame(self::OUT, $this->invoice->getOut());
+        $this->assertNull($this->invoice->getVirtualCurrencyAmount());
+        $this->invoice->setVirtualCurrencyAmount(self::OUT);
+        $this->assertSame(self::OUT, $this->invoice->getVirtualCurrencyAmount());
     }
 
     public function testCurrency()
@@ -55,5 +55,14 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->invoice->getId());
         $this->invoice->setId(self::ID);
         $this->assertSame(self::ID, $this->invoice->getId());
+    }
+
+    public function testFluentInterface()
+    {
+        $this->invoice->setAmount(2.22)
+            ->setCurrency('RUB')
+            ->setId(543)
+            ->setVirtualCurrencyAmount(1.11)
+            ->getId();
     }
 }

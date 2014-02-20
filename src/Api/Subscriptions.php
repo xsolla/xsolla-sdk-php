@@ -76,7 +76,7 @@ class Subscriptions
         $parameters = array(
             'subscription_id' => $subscription->getId(),
             'merchant_id' => $this->project->getProjectId(),
-            'amount_virtual' => $invoice->getOut(),
+            'amount_virtual' => $invoice->getVirtualCurrencyAmount(),
             'card_cvv' => $cardCvv
         );
 

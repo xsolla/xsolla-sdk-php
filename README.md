@@ -27,21 +27,31 @@ $ composer require xsolla/xsolla-sdk-php:~1.0
 use Xsolla\SDK\Project;
 use Xsolla\SDK\User;
 use Xsolla\SDK\Invoice;
-use Xsolla\SDK\Widget\Paydesk;
+use Xsolla\SDK\PaymentPage\UrlBuilderFactory;
 
 $project = new Project(
     '4783',//demo project id
     'key'//demo project secret key
  );
-$paystation = new Paydesk($project);
+$urlBuilderFactory = new UrlBuilderFactory($project);
 
 $user = new User('username');
-$user->setEmail('example@example.com');
+$user->setEmail('example@example.com')
+    ->setPhone('79090000000');
 
 $invoice = new Invoice;
-$invoice->setOut(5);
+$invoice->setVirtualCurrencyAmount(5);
 
-echo $paystation->getLink($user, $invoice).PHP_EOL;
+$url = $urlBuilderFactory->getCreditCards()
+    ->setInvoice($invoice)
+    ->setUser($user)
+    ->unlockParameterForUser('email')
+    ->setCountry('US')
+    ->setLocale('fr')
+    ->setParameter('description', 'Purchase description')
+    ->getLink();
+
+echo $url.PHP_EOL;
 ```
 ### Receive [Instant Payment Notification](http://xsolla.github.io/en/currency.html)
 
@@ -78,7 +88,7 @@ $ cd /path/to/xsolla/xsolla-sdk-php
 $ composer install
 $ php -S localhost:9000 -t example example/callbackStandard.php > /dev/null 2>&1 &
 $ # wrong command without parameters
-$ curl localhost:9000
+$ curl 'localhost:9000'
 $ # user found
 $ curl 'http://localhost:9000?command=check&v1=demo&v2=&v3=&md5=a3561b90df78828133eb285e36965419'
 $ # user not found or disabled

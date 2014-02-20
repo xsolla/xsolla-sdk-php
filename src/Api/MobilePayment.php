@@ -43,8 +43,8 @@ class MobilePayment
             'v1' => $user->getV1(),
             'v2' => $user->getV2(),
             'v3' => $user->getV3(),
-            'sum' => $invoice->getSum(),
-            'out' => $invoice->getOut(),
+            'sum' => $invoice->getAmount(),
+            'out' => $invoice->getVirtualCurrencyAmount(),
             'phone' => $user->getPhone(),
             'userip' => $user->getUserIP()
         );
@@ -69,11 +69,11 @@ class MobilePayment
             'phone' => $user->getPhone()
         );
 
-        $userSum = $invoice->getSum();
+        $userSum = $invoice->getAmount();
         if (!empty($userSum)) {
             $queryParams['sum'] = $userSum;
         } else {
-            $queryParams['out'] = $invoice->getOut();
+            $queryParams['out'] = $invoice->getVirtualCurrencyAmount();
         }
 
         $result = $this->send($queryParams, __DIR__ . $this->xsd_path_calculate);
