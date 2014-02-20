@@ -24,10 +24,10 @@ class Check extends StandardCommand
     public function process(Request $request)
     {
         $user = $this->createUser($request);
-        $hasUser = $this->userStorage->check($user);
+        $hasUser = $this->userStorage->isUserExists($user);
         if ($hasUser) {
             $response = array('result' => self::CODE_SUCCESS);
-            $spec = $this->userStorage->getSpec($user);
+            $spec = $this->userStorage->getAdditionalUserFields($user);
             if (count($spec) > 0) {
                 $response['specification'] = $spec;
             }

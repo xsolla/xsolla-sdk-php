@@ -7,7 +7,7 @@ use Xsolla\SDK\Exception\UnprocessableRequestException;
 interface PaymentCashStorageInterface extends PaymentStorageInterface
 {
     /**
-     * @param int $xsollaPaymentId
+     * @param int $xsollaPaymentId If this xsollaPaymentId already exists and v1, v2, v3, amount, currency dry_run is equals, you MUST return your existent payment ID
      * @param float $amount
      * @param string $v1
      * @param string $v2
@@ -23,7 +23,7 @@ interface PaymentCashStorageInterface extends PaymentStorageInterface
      * @param int $geotype
      * @return int
      * @throws UnprocessableRequestException
-     * @return int Payment unique ID in your system
+     * @return int unique payment ID in your system
      */
     public function pay(
         $xsollaPaymentId,

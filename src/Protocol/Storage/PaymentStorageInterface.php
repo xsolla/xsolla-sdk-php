@@ -8,7 +8,7 @@ use Xsolla\SDK\Exception\UnprocessableRequestException;
 interface PaymentStorageInterface
 {
     /**
-     * @param int $xsollaPaymentId
+     * @param int $xsollaPaymentId If this xsollaPaymentId already canceled you MUST NOT thrown error or exception
      * @throws InvoiceNotFoundException
      * @throws UnprocessableRequestException
      */

@@ -155,7 +155,7 @@ class StandardProtocolFullTest extends ProtocolFullTest {
     public function addCheckHandler(UserStorageInterface $userStorageMock)
     {
         $userStorageMock->expects($this->any())
-            ->method('check')
+            ->method('isUserExists')
             ->will($this->returnCallback(
                    function(User $user) {
                        switch ($user->getV1()) {

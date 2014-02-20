@@ -8,13 +8,13 @@ use Xsolla\SDK\User;
 interface PaymentStandardStorageInterface extends PaymentStorageInterface
 {
     /**
-     * @param int $xsollaPaymentId
-     * @param float $amountVirtual
+     * @param int $xsollaPaymentId If this xsollaPaymentId already exists and v1, virtualCurrencyAmount, dryRun is equals, you MUST return your existent payment ID
+     * @param float $virtualCurrencyAmount
      * @param User $user
      * @param \DateTime $date
      * @param bool $dryRun
-     * @return int Payment unique ID in your system
+     * @return int unique payment ID in your system
      * @throws UnprocessableRequestException
      */
-    public function pay($xsollaPaymentId, $amountVirtual, User $user, \DateTime $date, $dryRun);
+    public function pay($xsollaPaymentId, $virtualCurrencyAmount, User $user, \DateTime $date, $dryRun);
 }
