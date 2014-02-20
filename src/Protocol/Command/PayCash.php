@@ -34,7 +34,7 @@ class PayCash extends Command
     public function process(Request $request)
     {
         $datetime = $this->getDateTimeXsolla('YmdHis', $request->query->get('datetime'));
-        $this->paymentStorage->pay(
+        $idShop = $this->paymentStorage->pay(
             $request->query->get('id'),
             $request->query->get('amount'),
             $request->query->get('v1'),
@@ -51,7 +51,7 @@ class PayCash extends Command
             $request->query->get('geotype')
         );
 
-        return array('result' => self::CODE_SUCCESS, self::COMMENT_FIELD_NAME => '');
+        return array('result' => self::CODE_SUCCESS, self::COMMENT_FIELD_NAME => '', 'id_shop' => $idShop);
     }
 
     public function emptyStringToNull($string)

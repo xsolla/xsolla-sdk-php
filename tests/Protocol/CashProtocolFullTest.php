@@ -8,6 +8,7 @@ class CashProtocolFullTest extends ProtocolFullTest
 {
     const PAY_V1_SUCCESS = 100;
     const PAY_V1_ANY_EXCEPTION = 103;
+    const PAY_SHOP_ID = 555;
 
     public function setUp()
     {
@@ -85,7 +86,7 @@ class CashProtocolFullTest extends ProtocolFullTest
                     'sign' => 'e15b464029164a011ed8b0eaf14e2fe8'
                 ),
                 '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
-                '<response><result>0</result><description/></response>' . PHP_EOL
+                '<response><result>0</result><description/><id_shop>' . self::PAY_SHOP_ID . '</id_shop></response>' . PHP_EOL
             ),
         );
     }
