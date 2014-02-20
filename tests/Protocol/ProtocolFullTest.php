@@ -10,6 +10,7 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
 {
     const PROJECT_ID = 12345;
     const PROJECT_KEY = 'key';
+    const CLIENT_IP = '127.0.0.1';
 
     const CANCEL_ID_VALID = 100;
     const CANCEL_ID_NOT_FOUND = 101;
@@ -29,12 +30,17 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
     protected $paymentStorageMock;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $ipCheckerMock;
+
+    /**
      * @var \Xsolla\SDK\Protocol\ProtocolFactory
      */
     protected $protocolBuilder;
 
     /**
-     * @var \Symfony\Component\HttpFoundation\Request
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $requestMock;
 
@@ -58,12 +64,18 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
             ->method('getSecretKey')
             ->will($this->returnValue(self::PROJECT_KEY));
 
-        $this->protocolBuilder = new \Xsolla\SDK\Protocol\ProtocolFactory($this->projectMock);
-
         $this->requestMock = $this->getMock('Symfony\Component\HttpFoundation\Request', array(), array(), '', false);
+        $this->ipCheckerMock = $this->getMock('Xsolla\SDK\Validator\IpChecker', array(), array(), '', false);
+        $this->requestMock->expects($this->once())
+            ->method('getClientIp')
+            ->will($this->returnValue(self::CLIENT_IP));
+        $this->ipCheckerMock->expects($this->once())
+            ->method('checkIp')
+            ->with(self::CLIENT_IP);
+
+        $this->protocolBuilder = new \Xsolla\SDK\Protocol\ProtocolFactory($this->projectMock, $this->ipCheckerMock);
 
         date_default_timezone_set('Europe/Moscow');
-
     }
 
     public function protocolTest(array $params, $expectedXml)
@@ -76,21 +88,24 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider noCommandProvider
      */
-    public function testNoCommand(array $params, $expectedXml) {
+    public function testNoCommand(array $params, $expectedXml)
+    {
         $this->protocolTest($params, $expectedXml);
     }
 
     /**
      * @dataProvider cancelProvider
      */
-    public function testCancel(array $params, $expectedXml) {
+    public function testCancel(array $params, $expectedXml)
+    {
         $this->protocolTest($params, $expectedXml);
     }
 
     /**
      * @dataProvider payProvider
      */
-    public function testPay(array $params, $expectedXml) {
+    public function testPay(array $params, $expectedXml)
+    {
         $this->protocolTest($params, $expectedXml);
     }
 
@@ -209,9 +224,8 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
         $queryMock->expects($this->any())
             ->method('keys')
             ->will($this->returnValue(array_keys($params)));
-        $requestMock = $this->getMock('Symfony\Component\HttpFoundation\Request');
-        $requestMock->query = $queryMock;
-        return $requestMock;
+        $this->requestMock->query = $queryMock;
+        return $this->requestMock;
     }
 
 } 
