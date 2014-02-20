@@ -90,10 +90,10 @@ class UrlBuilder
     }
 
     /**
-     * @param string $name Additional parameters described in documentation http://xsolla.github.io/en/pswidget.html#title4
+     * @param string $name Additional parameters are described in documentation http://xsolla.github.io/en/pswidget.html#title4
      * @param string $value
-     * @param bool $lockForUser Deny user change parameter value on payment page. Also parameter will be hidden on payment page
-     * @param bool $hideFromUser Hide parameter value on payment page
+     * @param bool $lockForUser Denies user to change parameter value on payment page. Also parameter will be hidden on payment page
+     * @param bool $hideFromUser Hides parameter value on payment page
      * @return $this
      */
     public function setParameter($name, $value, $lockForUser = false, $hideFromUser = false)
@@ -115,7 +115,7 @@ class UrlBuilder
     }
 
     /**
-     * @param string $name Allow user change parameter value on payment page
+     * @param string $name Allows user to change parameter value on payment page
      * @return $this
      */
     public function lockParameterForUser($name)
@@ -125,7 +125,7 @@ class UrlBuilder
     }
 
     /**
-     * @param string $name Deny user change parameter value on payment page
+     * @param string $name Denies user change parameter value on payment page
      * @return $this
      */
     public function unlockParameterForUser($name)
