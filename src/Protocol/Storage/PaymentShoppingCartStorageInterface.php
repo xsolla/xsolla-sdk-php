@@ -7,7 +7,7 @@ use Xsolla\SDK\Exception\UnprocessableRequestException;
 interface PaymentShoppingCartStorageInterface extends PaymentStorageInterface
 {
     /**
-     * @param int $xsollaPaymentId If this xsollaPaymentId already exists and v1, v2, v3, amount, currency dry_run is equals, you MUST return your existent payment ID
+     * @param int $xsollaPaymentId If this xsollaPaymentId already exists and v1, v2, v3, amount, currency dry_run are the same, you MUST return your existent payment ID
      * @param float $amount
      * @param string $v1
      * @param string $v2
