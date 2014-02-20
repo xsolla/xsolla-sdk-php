@@ -22,6 +22,7 @@ abstract class PaymentStorage implements PaymentStorageInterface
             is_canceled = 1,
             timestamp_canceled = NOW()
             WHERE id_xsolla = :id_xsolla
+            AND is_canceled = 0
         ");
         $update->bindValue(':id_xsolla', $xsollaPaymentId, \PDO::PARAM_INT);
         $update->execute();
