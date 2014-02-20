@@ -46,7 +46,7 @@ class UserStorageTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo(
                 'SELECT 1 FROM xsolla_standard_user WHERE v1 = :v1 AND v2 <=> :v2 AND v3 <=> :v3;'
             ))->will($this->returnValue($selectMock));
-        $this->assertEquals($expectedValue, $this->userStorage->check($this->userMock));
+        $this->assertEquals($expectedValue, $this->userStorage->isUserExists($this->userMock));
     }
 
     public function checkProvider()
@@ -59,7 +59,7 @@ class UserStorageTest extends \PHPUnit_Framework_TestCase
 
     public function testGetSpec()
     {
-        $spec = $this->userStorage->getSpec($this->userMock);
+        $spec = $this->userStorage->getAdditionalUserFields($this->userMock);
         $this->assertEquals(array(), $spec);
     }
 }

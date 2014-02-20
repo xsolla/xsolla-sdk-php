@@ -34,7 +34,7 @@ class PayStandard extends StandardCommand
     public function process(Request $request)
     {
         $user = $this->createUser($request);
-        if (!$this->userStorage->check($user)) {
+        if (!$this->userStorage->isUserExists($user)) {
             return array(
                 'result' => self::CODE_INVALID_ORDER_DETAILS,
                 self::COMMENT_FIELD_NAME => 'User not found'

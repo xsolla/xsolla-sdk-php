@@ -10,11 +10,11 @@ interface UserStorageInterface
      * @param User $user
      * @return bool
      */
-    public function check(User $user);
+    public function isUserExists(User $user);
 
     /**
      * @param User $user
      * @return array
      */
-    public function getSpec(User $user);
+    public function getAdditionalUserFields(User $user);
 }

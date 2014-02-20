@@ -17,7 +17,7 @@ class UserStorage implements UserStorageInterface
         $this->pdo = $pdo;
     }
 
-    public function check(User $user)
+    public function isUserExists(User $user)
     {
         $statement = $this->pdo->prepare(
             "SELECT 1 FROM xsolla_standard_user WHERE v1 = :v1 AND v2 <=> :v2 AND v3 <=> :v3;"
@@ -30,7 +30,7 @@ class UserStorage implements UserStorageInterface
         return (bool) $statement->fetch(\PDO::FETCH_NUM);
     }
 
-    public function getSpec(User $user)
+    public function getAdditionalUserFields(User $user)
     {
         return array();
     }

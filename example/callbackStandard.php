@@ -27,12 +27,12 @@ class PaymentStandardDemoStorage implements PaymentStandardStorageInterface
 
 class UsersDemoStorage implements UserStorageInterface
 {
-    public function check(User $user)
+    public function isUserExists(User $user)
     {
         return 'demo' === $user->getV1();
     }
 
-    public function getSpec(User $user)
+    public function getAdditionalUserFields(User $user)
     {
         return array();
     }
