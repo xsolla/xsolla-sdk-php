@@ -37,35 +37,27 @@ class Invoice
         return $this->id;
     }
 
-    /**
-     * @param string $currency
-     */
     public function setCurrency($currency)
     {
         $this->currency = $currency;
+        return $this;
     }
 
-    /**
-     * @param int $id
-     */
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
     }
 
-    /**
-     * @param float $out
-     */
     public function setVirtualCurrencyAmount($out)
     {
         $this->virtualCurrencyAmount = $out;
+        return $this;
     }
 
-    /**
-     * @param float $sum
-     */
     public function setAmount($sum)
     {
         $this->amount = $sum;
+        return $this;
     }
 }

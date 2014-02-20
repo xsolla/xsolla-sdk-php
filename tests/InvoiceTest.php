@@ -56,4 +56,13 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
         $this->invoice->setId(self::ID);
         $this->assertSame(self::ID, $this->invoice->getId());
     }
+
+    public function testFluentInterface()
+    {
+        $this->invoice->setAmount(2.22)
+            ->setCurrency('RUB')
+            ->setId(543)
+            ->setVirtualCurrencyAmount(1.11)
+            ->getId();
+    }
 }
