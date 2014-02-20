@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__.'/../vendor/autoload.php';
 
 use Guzzle\Http\Client;
 use Xsolla\SDK\Api\ApiFactory;
@@ -6,8 +7,6 @@ use Xsolla\SDK\Invoice;
 use Xsolla\SDK\Project;
 use Xsolla\SDK\Api\Subscriptions;
 use Xsolla\SDK\User;
-
-require_once __DIR__.'/../vendor/autoload.php';
 
 $user = new User('v1', 'v2');
 

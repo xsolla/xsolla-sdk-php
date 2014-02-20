@@ -1,11 +1,10 @@
 <?php
+require_once __DIR__.'/../vendor/autoload.php';
 
 use Guzzle\Http\Client;
 use Xsolla\SDK\Api\NumberApi;
 use Xsolla\SDK\Project;
 use Xsolla\SDK\User;
-
-require_once __DIR__.'/../vendor/autoload.php';
 
 $user = new User('v1', 'v2', 'v3', 'example@example.com');
 

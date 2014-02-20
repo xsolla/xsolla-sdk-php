@@ -86,6 +86,7 @@ $response->send();
 It's a optional parameter for ProtocolFactory and you can skip it for development and testing environment.
 If you use reverse proxy, you should set a list of trusted proxies via [Request::setTrustedProxies()](http://symfony.com/doc/current/components/http_foundation/trusting_proxies.html)
 
+#### IPN demo
 You can run IPN demo with the following commands(required php 5.4+ with built-in server):
 
 ``` bash
@@ -105,9 +106,15 @@ $ curl 'http://localhost:9000?command=pay&id=2&v1=demo&v2=&v3=&date=2014-02-19+1
 $ # success payment cancel
 $ curl 'http://localhost:9000?command=cancel&id=3&md5=9ac4f238314b0a0dae5be98151d19f33'
 ```
-
+### Examples
 More examples you can find in [example](https://github.com/xsolla/xsolla-sdk-php/tree/master/example) folder.
+All examples are executable and you can run them with the following commands.
 
+``` bash
+$ cd /path/to/xsolla/xsolla-sdk-php
+$ composer install
+$ php example/calculator.php
+```
 ## Additional resources
 
 * [Website](http://xsolla.com)
