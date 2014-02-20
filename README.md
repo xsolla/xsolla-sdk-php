@@ -8,6 +8,11 @@
 
 An official PHP SDK for interacting with [Xsolla HTTP API](http://xsolla.github.io/)
 
+## Requirements
+
+* PHP 5.3.3+
+* Your php.ini needs to have the date.timezone setting
+
 ## Installation
 
 The recommended way to install Xsolla SDK for PHP is through [Composer](http://getcomposer.org).
