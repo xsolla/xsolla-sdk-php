@@ -23,7 +23,7 @@ class IpCheckerTest extends \PHPUnit_Framework_TestCase
     public function testCheckIpException()
     {
         $this->setExpectedException(
-            'Xsolla\SDK\Exception\SecurityException',
+            'Xsolla\SDK\Exception\UnprocessableRequestException',
             $this->logicalAnd(
                 $this->stringContains('94.103.26.176/29, 159.255.220.240/28, 185.30.20.16/29, 185.30.21.16/29'),
                 $this->stringContains('185.30.20.45')

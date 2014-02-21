@@ -3,7 +3,7 @@
 namespace Xsolla\SDK\Validator;
 
 use Symfony\Component\HttpFoundation\IpUtils;
-use Xsolla\SDK\Exception\SecurityException;
+use Xsolla\SDK\Exception\UnprocessableRequestException;
 
 class IpChecker
 {
@@ -17,7 +17,7 @@ class IpChecker
     public function checkIp($clientIp)
     {
         if (!IpUtils::checkIp($clientIp, $this->ipWhitelist)) {
-            throw new SecurityException(sprintf(
+            throw new UnprocessableRequestException(sprintf(
                 'IP whitelist(%s) doesn\'t contain client IP address(%s). If you use reverse proxy, you should set a list of trusted proxies via Request::setTrustedProxies(). If you are in development environment, you can skip "IpChecker" parameter in ProtocolFactory.',
                 implode(', ', $this->ipWhitelist),
                 $clientIp

@@ -173,7 +173,7 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
                     'md5' => '9e652f044a63f2248633eb9a8afecf8e'
                 ),
                 '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
-                '<response><result>7</result><comment>Unprocessable request.</comment></response>' . PHP_EOL
+                '<response><result>7</result><comment></comment></response>' . PHP_EOL
             ),
             array(
                 array(
