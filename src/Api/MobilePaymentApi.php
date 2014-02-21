@@ -88,9 +88,9 @@ class MobilePaymentApi
         return $this->calculate($user, $operationParams);
     }
 
-    public function calculateAmount(User $user, $virtualAmount)
+    public function calculateAmount(User $user, $virtualCurrencyAmount)
     {
-        $operationParams = array('out' => $virtualAmount);
+        $operationParams = array('out' => $virtualCurrencyAmount);
         return $this->calculate($user, $operationParams);
     }
 
