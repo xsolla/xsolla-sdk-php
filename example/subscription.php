@@ -22,7 +22,9 @@ if (!isset($userSubscriptions[0])) {
     echo 'Subscriptions not found'.PHP_EOL;
     exit;
 }
-$invoice = new Invoice(100);
-$subscriptionApi->pay($userSubscriptions[0], $invoice);
+$invoice = new Invoice;
+$invoice->setVirtualCurrencyAmount(100);
 
+$subscriptionApi->pay($userSubscriptions[0], $invoice);
+$subscriptionApi->pay($userSubscriptions[0], $invoice);
 $subscriptionApi->delete($userSubscriptions[0]);

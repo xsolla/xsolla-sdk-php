@@ -5,7 +5,7 @@ use Xsolla\SDK\Api\ApiFactory;
 use Xsolla\SDK\Project;
 use Xsolla\SDK\User;
 
-$user = new User('v1', 'v2', 'v3', 'example@example.com');
+$user = new User('demo_user');
 
 $demoProject = new Project(
     '4783', //demo project id
@@ -15,4 +15,6 @@ $demoProject = new Project(
 $apiFactory = new ApiFactory($demoProject);
 $numberApi = $apiFactory->getNumberApi();
 
-echo $numberApi->getNumber($user);
+$number = $numberApi->getNumber($user) . PHP_EOL;
+
+echo 'Xsolla number for user "demo_user": '. $number . PHP_EOL;

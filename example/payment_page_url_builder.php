@@ -29,4 +29,4 @@ $url = $urlBuilderFactory->getCreditCards()
     ->setParameter('description', 'Purchase description')
     ->getUrl();
 
-echo $url . PHP_EOL;
+echo 'URL to PayStation payment page: ' . $url . PHP_EOL;
