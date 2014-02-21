@@ -63,26 +63,35 @@ class MobilePaymentApi
 
     }
 
-    public function calculate(User $user, Invoice $invoice)
+    protected  function calculate(User $user, array $operationParams)
     {
         $queryParams = array(
             'command' => 'calculate',
             'project' => $this->project->getProjectId(),
             'phone' => $user->getPhone()
         );
+        $queryParams = array_merge($queryParams, $operationParams);
 
-        $userSum = $invoice->getAmount();
-        if (!empty($userSum)) {
-            $queryParams['sum'] = $userSum;
-        } else {
-            $queryParams['out'] = $invoice->getVirtualCurrencyAmount();
-        }
-
-        $result = $this->send($queryParams, __DIR__ . $this->xsd_path_calculate);
+        $result = $this->send(
+            $queryParams,
+            __DIR__ . $this->xsd_path_calculate
+        );
 
         $this->checkCodeResult($result);
 
         return new Invoice($result->out, $result->sum);
+    }
+
+    public function calculateVirtualCurrencyAmount(User $user, $amount)
+    {
+        $operationParams = array('sum' => $amount);
+        return $this->calculate($user, $operationParams);
+    }
+
+    public function calculateAmount(User $user, $virtualAmount)
+    {
+        $operationParams = array('out' => $virtualAmount);
+        return $this->calculate($user, $operationParams);
     }
 
     protected function createSignString(array $params)

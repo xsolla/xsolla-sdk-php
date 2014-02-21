@@ -20,11 +20,11 @@ $apiFactory = new ApiFactory($demoProject);
 $mobilePaymentApi = $apiFactory->getMobilePaymentApi();
 
 // Calculate the cost of 1000 units of virtual currency
-$invoice = $mobilePaymentApi->calculate($user, new Invoice(1000, null));
+$invoice = $mobilePaymentApi->calculateAmount($user, 1000);
 echo 'Cost of 1000 units: ' . $invoice->getAmount() . PHP_EOL;
 
-// Calculate the amount of virtual currency that can be bought for 10 rubles
-$invoice = $mobilePaymentApi->calculate($user, new Invoice(null, 100));
+// Calculate the amount of virtual currency that can be bought for 100 rubles
+$invoice = $mobilePaymentApi->calculateVirtualCurrencyAmount($user, 100);
 echo 'Amount of virtual currency for 100 rubles: ' . $invoice->getVirtualCurrencyAmount() . PHP_EOL;
 
 // Issue an invoice for a virtual currency for 100 rubles

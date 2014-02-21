@@ -181,15 +181,8 @@ class MobilePaymentApiTest extends \PHPUnit_Framework_TestCase
         $this->invoiceMock = $this->getMock('\Xsolla\SDK\Invoice', array(), array(), '', false);
     }
 
-    public function testCalculateWithSum()
+    public function testCalculateWithAmount()
     {
-        $this->invoiceMock->expects($this->any())
-            ->method('getAmount')
-            ->will($this->returnValue('10'));
-        $this->invoiceMock->expects($this->any())
-            ->method('getVirtualCurrencyAmount')
-            ->will($this->returnValue(''));
-
         $this->responseMock->expects($this->once())
             ->method('getBody')
             ->will($this->returnValue($this->responseCalculate));
@@ -208,18 +201,12 @@ class MobilePaymentApiTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(
             '\Xsolla\SDK\Invoice',
-            $this->mobilePaymentApi->calculate($this->userMock, $this->invoiceMock)
+            $this->mobilePaymentApi->calculateVirtualCurrencyAmount($this->userMock, 10)
         );
     }
 
-    public function testCalculateWithOut()
+    public function testCalculateWithVirtualCurrencyAmount()
     {
-        $this->invoiceMock->expects($this->any())
-            ->method('getAmount')
-            ->will($this->returnValue(''));
-        $this->invoiceMock->expects($this->any())
-            ->method('getVirtualCurrencyAmount')
-            ->will($this->returnValue('100'));
         $this->responseMock->expects($this->once())
             ->method('getBody')
             ->will($this->returnValue($this->responseCalculate));
@@ -238,7 +225,7 @@ class MobilePaymentApiTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(
             '\Xsolla\SDK\Invoice',
-            $this->mobilePaymentApi->calculate($this->userMock, $this->invoiceMock)
+            $this->mobilePaymentApi->calculateAmount($this->userMock, 100)
         );
     }
 
@@ -253,7 +240,7 @@ class MobilePaymentApiTest extends \PHPUnit_Framework_TestCase
             ->method('get')
             ->will($this->returnValue($this->requestMock));
 
-        $this->mobilePaymentApi->calculate($this->userMock, $this->invoiceMock);
+        $this->mobilePaymentApi->calculateAmount($this->userMock, 100);
     }
 
     public function testCalculateWithTemporaryError()
@@ -267,7 +254,7 @@ class MobilePaymentApiTest extends \PHPUnit_Framework_TestCase
             ->method('get')
             ->will($this->returnValue($this->requestMock));
 
-        $this->mobilePaymentApi->calculate($this->userMock, $this->invoiceMock);
+        $this->mobilePaymentApi->calculateAmount($this->userMock, 100);
     }
 
     public function testCalculateWithWrongNumber()
@@ -281,7 +268,7 @@ class MobilePaymentApiTest extends \PHPUnit_Framework_TestCase
             ->method('get')
             ->will($this->returnValue($this->requestMock));
 
-        $this->mobilePaymentApi->calculate($this->userMock, $this->invoiceMock);
+        $this->mobilePaymentApi->calculateAmount($this->userMock, 100);
     }
 
     public function testCalculateWithInvalidRequest()
@@ -295,7 +282,7 @@ class MobilePaymentApiTest extends \PHPUnit_Framework_TestCase
             ->method('get')
             ->will($this->returnValue($this->requestMock));
 
-        $this->mobilePaymentApi->calculate($this->userMock, $this->invoiceMock);
+        $this->mobilePaymentApi->calculateAmount($this->userMock, 100);
     }
 
     public function testCalculateWithExceeded()
@@ -315,7 +302,7 @@ class MobilePaymentApiTest extends \PHPUnit_Framework_TestCase
             ->method('get')
             ->will($this->returnValue($this->requestMock));
 
-        $this->mobilePaymentApi->calculate($this->userMock, $this->invoiceMock);
+        $this->mobilePaymentApi->calculateAmount($this->userMock, 100);
     }
 
     public function testCreateInvoice()
