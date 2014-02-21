@@ -12,7 +12,7 @@ class QiwiWalletApi extends MobilePaymentApi
 
     protected $url = 'invoicing/index.php';
 
-    public function send(array $queryParams, $schemaFilename)
+    protected function send(array $queryParams, $schemaFilename)
     {
         $queryParams['ps'] = 'qiwi';
 
