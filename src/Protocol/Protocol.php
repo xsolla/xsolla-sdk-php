@@ -26,6 +26,8 @@ abstract class Protocol
 
     protected $unprocessableRequestResponseCode;
 
+    protected $commentFieldName;
+
     public function __construct(Project $project, XmlResponseBuilder $xmlResponseBuilder, IpChecker $ipChecker = null)
     {
         $this->project = $project;
@@ -46,10 +48,7 @@ abstract class Protocol
         try {
             $commandResponse = $this->doRun($request);
         } catch (UnprocessableRequestException $e) {
-            $commandResponse = array(
-                'result' => $this->getUnprocessableRequestResponseCode(),
-                $this->currentCommand->getCommentFieldName() => $e->getMessage()
-            );
+            $commandResponse = $this->getUnprocessableRequestResponse($e);
         } catch (WrongCommandException $e) {
             $commandResponse = $this->getResponseForWrongCommand($e->getMessage());
         } catch (InvalidSignException $e) {
@@ -88,13 +87,21 @@ abstract class Protocol
         return $this->currentCommand->getResponse($request);
     }
 
-    protected function getUnprocessableRequestResponseCode()
+    protected function getUnprocessableRequestResponse(\Exception $e)
     {
         if ($this->currentCommand) {
-            return $this->currentCommand->getUnprocessableRequestResponseCode();
+            $code = $this->currentCommand->getUnprocessableRequestResponseCode();
+            $commentFieldName = $this->currentCommand->getCommentFieldName();
         } else {
-            return $this->unprocessableRequestResponseCode;
+            $code = $this->unprocessableRequestResponseCode;
+            $commentFieldName = $this->commentFieldName;
+
         }
+        $commandResponse = array(
+            'result' => $code,
+            $commentFieldName => $e->getMessage()
+        );
+        return $commandResponse;
     }
 
     // @codeCoverageIgnoreStart

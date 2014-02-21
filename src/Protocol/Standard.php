@@ -29,6 +29,8 @@ class Standard extends Protocol
 
     protected $unprocessableRequestResponseCode = PayStandard::CODE_FATAL_ERROR;
 
+    protected $commentFieldName = PayStandard::COMMENT_FIELD_NAME;
+
     public function __construct(
         Project $project,
         XmlResponseBuilder $xmlResponseBuilder,
