@@ -53,13 +53,6 @@ class PayShoppingCart extends Command
         return array('result' => self::CODE_SUCCESS, self::COMMENT_FIELD_NAME => '', 'id_shop' => $idShop);
     }
 
-    public function emptyStringToNull($string)
-    {
-        $trimmedString = trim($string);
-
-        return $trimmedString == '' ? null : $trimmedString;
-    }
-
     public function checkSign(Request $request)
     {
         $actualSign = $this->generateSign($request, array('v1', 'amount', 'currency', 'id'));

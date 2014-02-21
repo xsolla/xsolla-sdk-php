@@ -77,6 +77,13 @@ abstract class Command
         return $datetimeObj;
     }
 
+    protected function emptyStringToNull($string)
+    {
+        $trimmedString = trim($string);
+
+        return $trimmedString == '' ? null : $trimmedString;
+    }
+
     // @codeCoverageIgnoreStart
     abstract public function checkSign(Request $request);
 
