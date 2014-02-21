@@ -36,7 +36,7 @@ class UrlBuilderTest extends \PHPUnit_Framework_TestCase
 
     protected $urlWithInvoiceAndWithoutSignparams = 'https://secure.xsolla.com/paystation2/?out=1.11&currency=EUR&project=7096&sign=5bbc52cd72d7b3491025a7d6cca0cb70';
 
-    protected $fullUrl = 'https://secure.xsolla.com/paystation2/?local=EN&country=US&limit=14&v1=user_v1&v2=user_v2&v3=user_v3&email=email%40example.com&userip=user_userIp&phone=user_phone&out=1.11&currency=EUR&project=7096&hidden=limit&signparams=allowSubscription%2Ccurrency%2Cemail%2Cfastcheckout%2Cid_package%2Climit%2Cout%2Cphone%2Cproject%2Csignparams%2Ctheme%2Cuserip%2Cv0%2Cv2%2Cv3&sign=3a2a71432cf51ae7264f0fbf7d3712d7';
+    protected $fullUrl = 'https://secure.xsolla.com/paystation2/?local=EN&country=US&limit=14&v1=user_v1&v2=user_v2&v3=user_v3&email=email%40example.com&userip=user_userIp&phone=user_phone&out=1.11&currency=EUR&sum=0.1&project=7096&hidden=limit&signparams=allowSubscription%2Ccurrency%2Cemail%2Cfastcheckout%2Cid_package%2Climit%2Cout%2Cphone%2Cproject%2Csignparams%2Csum%2Ctheme%2Cuserip%2Cv0%2Cv2%2Cv3&sign=a56aaed28a810577e075f4d665031d30';
 
     public function setUp()
     {
@@ -97,6 +97,8 @@ class UrlBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testFluentInterface()
     {
+        $this->invoice->setAmount(0.1);
+
         $url = $this->urlBuilder->clear()
             ->setLocale('EN')
             ->setCountry('US')

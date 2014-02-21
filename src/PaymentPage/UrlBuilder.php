@@ -67,6 +67,7 @@ class UrlBuilder
     {
         $this->setParameter('out', $invoice->getVirtualCurrencyAmount(), $lockForUser, $hideFromUser);
         $this->setParameter('currency', $invoice->getCurrency(), $lockForUser, $hideFromUser);
+        $this->setParameter('sum', $invoice->getAmount(), $lockForUser, $hideFromUser);
 
         return $this;
     }
