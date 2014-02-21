@@ -16,6 +16,7 @@ class PaymentStandardStorage extends PaymentStorage implements PaymentStandardSt
         if ($id > 0) {
             return $id;
         }
+
         return $this->selectPayId($xsollaPaymentId, $virtualCurrencyAmount, $user);
 
     }
@@ -33,6 +34,7 @@ class PaymentStandardStorage extends PaymentStorage implements PaymentStandardSt
         $insert->bindValue(':timestamp_xsolla_ipn', $date->getTimestamp());
         $insert->bindValue(':is_dry_run', $dryRun, \PDO::PARAM_BOOL);
         $insert->execute();
+
         return $this->pdo->lastInsertId();
     }
 
@@ -63,6 +65,7 @@ class PaymentStandardStorage extends PaymentStorage implements PaymentStandardSt
                 $diffMessage
             ));
         }
+
         return $result['id'];
     }
 
@@ -71,4 +74,4 @@ class PaymentStandardStorage extends PaymentStorage implements PaymentStandardSt
         return self::TABLE;
     }
 
-} 
+}

@@ -63,4 +63,3 @@ class UserStorageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(), $spec);
     }
 }
- 

@@ -9,7 +9,7 @@ class XmlResponseBuilder
 {
     const VERSION_HEADER = 'X-Xsolla-SDK';
 
-    private $enableVersionHeader;
+    protected $enableVersionHeader;
 
     public function __construct($enableVersionHeader = true)
     {

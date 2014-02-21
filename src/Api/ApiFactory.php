@@ -24,6 +24,7 @@ class ApiFactory
     {
         $client = new Client(self::BASE_URL);
         $client->setUserAgent(Version::getVersion());
+
         return $client;
     }
 
@@ -48,7 +49,7 @@ class ApiFactory
     }
 
     /**
-     * @param bool $isTest
+     * @param  bool             $isTest
      * @return SubscriptionsApi
      */
     public function getSubscriptionsApi($isTest = false)

@@ -67,12 +67,13 @@ class UrlBuilder
     {
         $this->setParameter('out', $invoice->getVirtualCurrencyAmount(), $lockForUser, $hideFromUser);
         $this->setParameter('currency', $invoice->getCurrency(), $lockForUser, $hideFromUser);
+        $this->setParameter('sum', $invoice->getAmount(), $lockForUser, $hideFromUser);
 
         return $this;
     }
 
     /**
-     * @param string $locale 2-letter definition is used according to ISO 639-1 standard
+     * @param  string $locale 2-letter definition is used according to ISO 639-1 standard
      * @return $this
      */
     public function setLocale($locale)
@@ -81,7 +82,7 @@ class UrlBuilder
     }
 
     /**
-     * @param string $country 2-letter definition of the country is used according to ISO 3166-1 alpha-2 standard
+     * @param  string $country 2-letter definition of the country is used according to ISO 3166-1 alpha-2 standard
      * @return $this
      */
     public function setCountry($country)
@@ -90,10 +91,10 @@ class UrlBuilder
     }
 
     /**
-     * @param string $name Additional parameters are described in documentation http://xsolla.github.io/en/pswidget.html#title4
-     * @param string $value
-     * @param bool $lockForUser Denies user to change parameter value on payment page. Also parameter will be hidden on payment page
-     * @param bool $hideFromUser Hides parameter value on payment page
+     * @param  string $name         Additional parameters are described in documentation http://xsolla.github.io/en/pswidget.html#title4
+     * @param  string $value
+     * @param  bool   $lockForUser  Denies user to change parameter value on payment page. Also parameter will be hidden on payment page
+     * @param  bool   $hideFromUser Hides parameter value on payment page
      * @return $this
      */
     public function setParameter($name, $value, $lockForUser = false, $hideFromUser = false)
@@ -115,22 +116,24 @@ class UrlBuilder
     }
 
     /**
-     * @param string $name Allows user to change parameter value on payment page
+     * @param  string $name Allows user to change parameter value on payment page
      * @return $this
      */
     public function lockParameterForUser($name)
     {
         $this->lockedParameters[$name] = $name;
+
         return $this;
     }
 
     /**
-     * @param string $name Denies user change parameter value on payment page
+     * @param  string $name Denies user change parameter value on payment page
      * @return $this
      */
     public function unlockParameterForUser($name)
     {
         unset($this->lockedParameters[$name]);
+
         return $this;
     }
 
@@ -170,6 +173,7 @@ class UrlBuilder
         ) {
             return;
         }
+
         return $this->implodeParameters($lockedParameters);
     }
 
@@ -184,6 +188,7 @@ class UrlBuilder
             return;
         }
         $uniqueParameters = array_unique($parameters);
+
         return implode(',', $uniqueParameters);
     }
 

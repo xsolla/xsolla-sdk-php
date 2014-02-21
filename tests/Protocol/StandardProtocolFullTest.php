@@ -6,8 +6,8 @@ use Xsolla\SDK\Protocol\Storage\PaymentStandardStorageInterface;
 use Xsolla\SDK\Protocol\Storage\UserStorageInterface;
 use Xsolla\SDK\User;
 
-class StandardProtocolFullTest extends ProtocolFullTest {
-
+class StandardProtocolFullTest extends ProtocolFullTest
+{
     const PAY_ID_SUCCESS = 100;
     const PAY_ID_ANY_EXCEPTION = 103;
     const CHECK_V1_SUCCESS = 'demo';
@@ -33,7 +33,8 @@ class StandardProtocolFullTest extends ProtocolFullTest {
     /**
      * @dataProvider checkProvider
      */
-    public function testCheck(array $params, $expectedXml) {
+    public function testCheck(array $params, $expectedXml)
+    {
         $this->protocolTest($params, $expectedXml);
     }
 
@@ -209,4 +210,4 @@ class StandardProtocolFullTest extends ProtocolFullTest {
             return self::PAY_SHOP_ID;
         }
     }
-} 
+}

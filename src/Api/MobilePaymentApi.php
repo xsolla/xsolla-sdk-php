@@ -4,7 +4,6 @@ namespace Xsolla\SDK\Api;
 
 use Xsolla\SDK\Exception\InternalServerException;
 use Xsolla\SDK\Exception\InvalidArgumentException;
-use Xsolla\SDK\Exception\InvalidRequestException;
 use Xsolla\SDK\Exception\SecurityException;
 use Xsolla\SDK\Invoice;
 use Xsolla\SDK\User;
@@ -59,6 +58,7 @@ class MobilePaymentApi
 
         $resultInvoice = new Invoice();
         $resultInvoice->setId($result->invoice);
+
         return $resultInvoice;
 
     }

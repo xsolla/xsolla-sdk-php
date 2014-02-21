@@ -3,7 +3,6 @@
 namespace Xsolla\SDK\Protocol\Command;
 
 use Symfony\Component\HttpFoundation\Request;
-use Xsolla\SDK\Exception\InvalidRequestException;
 use Xsolla\SDK\Protocol\ShoppingCart;
 use Xsolla\SDK\Protocol\Storage\PaymentShoppingCartStorageInterface;
 
@@ -57,6 +56,7 @@ class PayShoppingCart extends Command
     public function emptyStringToNull($string)
     {
         $trimmedString = trim($string);
+
         return $trimmedString == '' ? null : $trimmedString;
     }
 

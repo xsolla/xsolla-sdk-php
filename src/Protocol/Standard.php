@@ -3,6 +3,7 @@
 namespace Xsolla\SDK\Protocol;
 
 use Xsolla\SDK\Project;
+use Xsolla\SDK\Protocol\Command\PayStandard;
 use Xsolla\SDK\Protocol\Command\StandardCommand;
 use Xsolla\SDK\Protocol\CommandFactory\StandardFactory;
 use Xsolla\SDK\Protocol\Storage\PaymentStandardStorageInterface;
@@ -25,6 +26,8 @@ class Standard extends Protocol
      * @var PaymentStandardStorageInterface
      */
     protected $paymentStandardStorage;
+
+    protected $unprocessableRequestResponseCode = PayStandard::CODE_FATAL_ERROR;
 
     public function __construct(
         Project $project,

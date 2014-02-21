@@ -13,6 +13,10 @@ use Xsolla\SDK\User;
  */
 class NumberApi
 {
+    const CODE_SUCCESS = 0;
+
+    protected $temporaryErrorCodes = array(10, 11);
+
     protected $project;
 
     protected $client;
@@ -24,7 +28,7 @@ class NumberApi
     }
 
     /**
-     * @param  User $user
+     * @param  User              $user
      * @return int
      * @throws \RuntimeException
      */
@@ -46,9 +50,9 @@ class NumberApi
         );
 
         $response = $request->send()->json();
-        if ($response['result'] == 0) {
+        if (self::CODE_SUCCESS == $response['result']) {
             return $response['number'];
-        } elseif (in_array($response['result'], array(10, 11))) {
+        } elseif (in_array($response['result'], $this->temporaryErrorCodes)) {
             throw new InternalServerException($response['description'], $response['result']);
         } else {
             throw new InvalidArgumentException($response['description'], $response['result']);

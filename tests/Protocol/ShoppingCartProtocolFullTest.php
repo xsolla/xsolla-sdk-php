@@ -88,7 +88,7 @@ class ShoppingCartProtocolFullTest extends ProtocolFullTest
                     'sign' => '42f0ecd5a69e967fff56ae9f5a9ff021'
                 ),
                 '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
-                '<response><result>40</result><description>Unprocessable request. unprocessable request</description></response>' . PHP_EOL
+                '<response><result>40</result><description>unprocessable request</description></response>' . PHP_EOL
             ),
             array(
                 array(
@@ -154,5 +154,4 @@ class ShoppingCartProtocolFullTest extends ProtocolFullTest
             return self::PAY_SHOP_ID;
         }
     }
-
-} 
+}

@@ -7,7 +7,6 @@ use Xsolla\SDK\Exception\InvalidRequestException;
 use Xsolla\SDK\Exception\InvalidSignException;
 use Xsolla\SDK\Exception\UnprocessableRequestException;
 use Xsolla\SDK\Exception\WrongCommandException;
-use Xsolla\SDK\Protocol\Command\Command;
 use Xsolla\SDK\Validator\IpChecker;
 use Xsolla\SDK\Project;
 
@@ -25,6 +24,8 @@ abstract class Protocol
 
     protected $currentCommand;
 
+    protected $unprocessableRequestResponseCode;
+
     public function __construct(Project $project, XmlResponseBuilder $xmlResponseBuilder, IpChecker $ipChecker = null)
     {
         $this->project = $project;
@@ -40,30 +41,17 @@ abstract class Protocol
         return $this->project;
     }
 
-    public function doCheck(Request $request)
-    {
-        if ($this->ipChecker) {
-            $this->ipChecker->checkIp($request->getClientIp());
-        }
-        if (!$request->query->get('command')) {
-            throw new WrongCommandException(sprintf(
-                'No command in request. Available commands are: "%s".',
-                join('", "', $this->getProtocolCommands())
-            ));
-        }
-    }
-
     public function run(Request $request)
     {
         try {
-            $this->doCheck($request);
             $commandResponse = $this->doRun($request);
-
         } catch (UnprocessableRequestException $e) {
             $commandResponse = array(
-                'result' => $this->currentCommand->getUnprocessableRequestResponseCode(),
-                $this->currentCommand->getCommentFieldName() => trim('Unprocessable request. ' . $e->getMessage())
+                'result' => $this->getUnprocessableRequestResponseCode(),
+                $this->currentCommand->getCommentFieldName() => $e->getMessage()
             );
+        } catch (WrongCommandException $e) {
+            $commandResponse = $this->getResponseForWrongCommand($e->getMessage());
         } catch (InvalidSignException $e) {
             $commandResponse = array(
                 'result' => $this->currentCommand->getInvalidSignResponseCode(),
@@ -74,10 +62,6 @@ abstract class Protocol
                 'result' => $this->currentCommand->getInvalidRequestResponseCode(),
                 $this->currentCommand->getCommentFieldName() => $e->getMessage()
             );
-
-        } catch (WrongCommandException $e) {
-            $commandResponse = $this->getResponseForWrongCommand($e->getMessage());
-
         } catch (\Exception $e) {
             $commandResponse = array(
                 'result' => $this->currentCommand->getTemporaryServerErrorResponseCode(),
@@ -88,15 +72,29 @@ abstract class Protocol
         return $this->xmlResponseBuilder->get($commandResponse);
     }
 
-    /**
-     * @param  Request $request
-     * @return array
-     */
-    public function doRun(Request $request)
+    protected function doRun(Request $request)
     {
+        if ($this->ipChecker) {
+            $this->ipChecker->checkIp($request->getClientIp());
+        }
+        if (!$request->query->get('command')) {
+            throw new WrongCommandException(sprintf(
+                'No command in request. Available commands are: "%s".',
+                join('", "', $this->getProtocolCommands())
+            ));
+        }
         $this->currentCommand = $this->commandFactory->getCommand($this, $request->query->get('command'));
 
         return $this->currentCommand->getResponse($request);
+    }
+
+    protected function getUnprocessableRequestResponseCode()
+    {
+        if ($this->currentCommand) {
+            return $this->currentCommand->getUnprocessableRequestResponseCode();
+        } else {
+            return $this->unprocessableRequestResponseCode;
+        }
     }
 
     // @codeCoverageIgnoreStart

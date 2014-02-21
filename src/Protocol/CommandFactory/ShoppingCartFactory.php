@@ -11,7 +11,7 @@ use Xsolla\SDK\Protocol\Protocol;
 class ShoppingCartFactory
 {
     /**
-     * @param  Protocol              $protocol
+     * @param  Protocol               $protocol
      * @param $commandName
      * @return Cancel|PayShoppingCart
      * @throws WrongCommandException

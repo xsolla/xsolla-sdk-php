@@ -40,24 +40,28 @@ class Invoice
     public function setCurrency($currency)
     {
         $this->currency = $currency;
+
         return $this;
     }
 
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
 
     public function setVirtualCurrencyAmount($out)
     {
         $this->virtualCurrencyAmount = $out;
+
         return $this;
     }
 
     public function setAmount($sum)
     {
         $this->amount = $sum;
+
         return $this;
     }
 }

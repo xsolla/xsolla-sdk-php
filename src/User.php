@@ -54,36 +54,42 @@ class User
     public function setEmail($email)
     {
         $this->email = $email;
+
         return $this;
     }
 
     public function setPhone($phone)
     {
         $this->phone = $phone;
+
         return $this;
     }
 
     public function setV1($v1)
     {
         $this->v1 = $v1;
+
         return $this;
     }
 
     public function setV2($v2)
     {
         $this->v2 = $v2;
+
         return $this;
     }
 
     public function setV3($v3)
     {
         $this->v3 = $v3;
+
         return $this;
     }
 
     public function setUserIp($userIP)
     {
         $this->userIP = $userIP;
+
         return $this;
     }
 

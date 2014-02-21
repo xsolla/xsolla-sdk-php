@@ -9,7 +9,7 @@ class SubscriptionTest extends \PHPUnit_Framework_TestCase
     const NAME = 'test_name';
     const TYPE = 'type';
     const CURRENCY = 'RUB';
-    
+
     public function testGetters()
     {
         $subscription = new Subscription(self::ID, self::NAME, self::TYPE, self::CURRENCY);
