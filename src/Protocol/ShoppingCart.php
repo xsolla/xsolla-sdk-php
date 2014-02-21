@@ -17,6 +17,8 @@ class ShoppingCart extends Protocol
 
     protected $unprocessableRequestResponseCode = PayShoppingCart::CODE_FATAL_ERROR;
 
+    protected $commentFieldName = PayShoppingCart::CODE_FATAL_ERROR;
+
     public function __construct(
         Project $project,
         XmlResponseBuilder $xmlResponseBuilder,
