@@ -9,7 +9,7 @@ interface PaymentShoppingCartStorageInterface extends PaymentStorageInterface
     /**
      * @param  int                           $xsollaPaymentId  If this xsollaPaymentId already exists and v1, v2, v3, amount, currency dry_run are the same, you MUST return your existent payment ID
      * @param  float                         $amount
-     * @param  string                        $v1
+     * @param  string                        $v1 The unique identifier of the order received from the project
      * @param  string                        $v2
      * @param  string                        $v3
      * @param  string                        $currency
