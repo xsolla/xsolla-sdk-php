@@ -44,7 +44,7 @@ class PaymentShoppingCartStorage extends PaymentStorage implements PaymentShoppi
                 AND is_dry_run = :is_dry_run
         ;");
         $update->bindValue(':id_xsolla', $xsollaPaymentId, \PDO::PARAM_INT);
-        $update->bindValue(':timestamp_xsolla_ipn', $datetime->getTimestamp(), \PDO::PARAM_INT);
+        $update->bindValue(':timestamp_xsolla_ipn', $datetime->format('Y-m-d H:i:s'), \PDO::PARAM_STR);
         $update->bindValue(':user_amount', $userAmount);
         $update->bindValue(':user_currency', $userCurrency);
         $update->bindValue(':transfer_amount', $transferAmount);

@@ -31,7 +31,7 @@ class PaymentStandardStorage extends PaymentStorage implements PaymentStandardSt
         $insert->bindValue(':v1', $user->getV1());
         $insert->bindValue(':id_xsolla', $xsollaPaymentId, \PDO::PARAM_INT);
         $insert->bindValue(':amount_virtual_currency', $virtualCurrencyAmount, \PDO::PARAM_INT);
-        $insert->bindValue(':timestamp_xsolla_ipn', $date->getTimestamp());
+        $insert->bindValue(':timestamp_xsolla_ipn', $date->format('Y-m-d H:i:s'), \PDO::PARAM_STR);
         $insert->bindValue(':is_dry_run', $dryRun, \PDO::PARAM_BOOL);
         $insert->execute();
 
