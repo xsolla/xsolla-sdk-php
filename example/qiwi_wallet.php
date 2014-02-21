@@ -18,14 +18,11 @@ $apiFactory = new ApiFactory($demoProject);
 
 $mobilePaymentApi= $apiFactory->getQiwiWalletApi();
 
-// Calculate the cost of 1000 units of virtual currency
 $invoice = $mobilePaymentApi->calculateAmount($user, 1000);
-echo 'Cost of 1000 units: ' . $invoice->getAmount() . PHP_EOL;
+echo 'Cost of 1000 units of virtual currency: ' . $invoice->getAmount() . PHP_EOL;
 
-// Calculate the amount of virtual currency that can be bought for 100 rubles
 $invoice = $mobilePaymentApi->calculateVirtualCurrencyAmount($user, 100);
-echo 'Amount of virtual currency for 100 rubles: ' . $invoice->getVirtualCurrencyAmount() . PHP_EOL;
+echo 'Amount of virtual currency that can be bought for 100 rubles: ' . $invoice->getVirtualCurrencyAmount() . PHP_EOL;
 
-// Issue an invoice for a virtual currency for 100 rubles
 $invoice = $mobilePaymentApi->createInvoice($user, new Invoice(null, 100));
 echo 'Issue an invoice for a virtual currency for 100 rubles. Your invoice number: ' . $invoice->getId() . PHP_EOL;
