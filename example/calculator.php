@@ -15,8 +15,8 @@ $apiFactory = new ApiFactory($demoProject);
 
 $calculatorApi = $apiFactory->getCalculatorApi();
 
-$virtualCurrencyAmount = $calculatorApi->calculateVirtualCurrencyAmount($paypalId, 100) . PHP_EOL;
-echo 'Calculation of the amount of the game currency on the basis of the amount of payment 100 via Paypal: ' . $virtualCurrencyAmount;
+$virtualCurrencyAmount = $calculatorApi->calculateVirtualCurrencyAmount($paypalId, 100);
+echo 'Calculation of the amount of the game currency on the basis of the amount of payment 100 via Paypal: ' . $virtualCurrencyAmount . PHP_EOL;
 
-$amount = $calculatorApi->calculateAmount($paypalId, 100) . PHP_EOL;
-echo 'Calculation of the amount of payment via Paypal on the basis of the amount of game currency 100: ' . $amount;
+$amount = $calculatorApi->calculateAmount($paypalId, 100);
+echo 'Calculation of the amount of payment via Paypal on the basis of the amount of game currency 100: ' . $amount . PHP_EOL;

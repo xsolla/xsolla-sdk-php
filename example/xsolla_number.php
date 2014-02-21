@@ -15,6 +15,6 @@ $demoProject = new Project(
 $apiFactory = new ApiFactory($demoProject);
 $numberApi = $apiFactory->getNumberApi();
 
-$number = $numberApi->getNumber($user) . PHP_EOL;
+$number = $numberApi->getNumber($user);
 
 echo 'Xsolla number for user "demo_user": '. $number . PHP_EOL;
