@@ -70,7 +70,7 @@ $demoProject = new \Xsolla\SDK\Project(
     'key'//demo project secret key
 );
 
-$dsn = sprintf('mysql:dbname=%s;host=%s;', 'YOUR_DB_NAME', 'YOUR_DB_HOST');
+$dsn = sprintf('mysql:dbname=%s;host=%s;charset=utf8', 'YOUR_DB_NAME', 'YOUR_DB_HOST');
 $pdo = new \PDO($dsn, 'YOUR_DB_USER', 'YOUR_DB_PASSWORD');
 $usersStorage = new \Xsolla\SDK\Protocol\Storage\Pdo\UserStorage($pdo);
 $paymentsStorage = new \Xsolla\SDK\Protocol\Storage\Pdo\PaymentStandardStorage($pdo);

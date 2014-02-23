@@ -11,7 +11,7 @@ $demoProject = new Project(
     '4783',//demo project id
     'key'//demo project secret key
 );
-$pdo = new \PDO(sprintf('mysql:dbname=%s;host=%s;', 'YOUR_DB_NAME', 'YOUR_DB_HOST'), 'YOUR_DB_USER', 'YOUR_DB_PASSWORD');
+$pdo = new \PDO(sprintf('mysql:dbname=%s;host=%s;charset=utf8', 'YOUR_DB_NAME', 'YOUR_DB_HOST'), 'YOUR_DB_USER', 'YOUR_DB_PASSWORD');
 $paymentStorage = new PaymentShoppingCartStorage($pdo);
 $ipChecker = new IpChecker;
 $protocolBuilder = new ProtocolFactory($demoProject, $ipChecker);
