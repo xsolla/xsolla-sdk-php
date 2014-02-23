@@ -86,6 +86,18 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider ipCheckerProvider
+     */
+    public function testIpCheckerException(array $params, $expectedXml)
+    {
+        $this->ipCheckerMock->expects($this->once())
+            ->method('checkIp')
+            ->with(self::CLIENT_IP)
+            ->will($this->throwException(new UnprocessableRequestException('IP whitelist doesn\'t contain client IP address')));
+        $this->protocolTest($params, $expectedXml);
+    }
+
+    /**
      * @dataProvider wrongCommandProvider
      */
     public function testWrongCommand(array $params, $expectedXml)

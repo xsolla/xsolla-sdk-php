@@ -102,6 +102,21 @@ class StandardProtocolFullTest extends ProtocolFullTest
         );
     }
 
+    public function ipCheckerProvider()
+    {
+        return array(
+            array(
+                array(
+                    'command' => 'pay',
+                ),
+                '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
+                '<response><result>7</result>' .
+                '<comment>IP whitelist doesn\'t contain client IP address</comment>' .
+                '</response>' . PHP_EOL
+            )
+        );
+    }
+
     public function payProvider()
     {
         return array(

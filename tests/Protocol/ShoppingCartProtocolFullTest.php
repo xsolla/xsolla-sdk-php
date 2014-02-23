@@ -137,6 +137,21 @@ class ShoppingCartProtocolFullTest extends ProtocolFullTest
         );
     }
 
+    public function ipCheckerProvider()
+    {
+        return array(
+            array(
+                array(
+                    'command' => 'pay',
+                ),
+                '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
+                '<response><result>40</result>' .
+                '<description>IP whitelist doesn\'t contain client IP address</description>' .
+                '</response>' . PHP_EOL
+            )
+        );
+    }
+
     public function addPayHandler(PaymentShoppingCartStorageInterface $paymentStorageMock)
     {
         $paymentStorageMock->expects($this->any())
