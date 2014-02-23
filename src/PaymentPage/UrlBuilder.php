@@ -116,7 +116,7 @@ class UrlBuilder
     }
 
     /**
-     * @param  string $name Allows user to change parameter value on payment page
+     * @param  string $name Denies user change parameter value on payment page
      * @return $this
      */
     public function lockParameterForUser($name)
@@ -127,7 +127,7 @@ class UrlBuilder
     }
 
     /**
-     * @param  string $name Denies user change parameter value on payment page
+     * @param  string $name Allows user to change parameter value on payment page
      * @return $this
      */
     public function unlockParameterForUser($name)
