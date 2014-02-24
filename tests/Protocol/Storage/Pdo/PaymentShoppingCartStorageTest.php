@@ -86,18 +86,24 @@ class PaymentShoppingCartStorageTest extends PaymentStorageTest
     public function payUnprocessableProvider()
     {
         return array(
-            array(false, 'Invoice with xsolla_id = 101 not found'),
+            array(false, 'Invoice with v1=\'500\' not found.'),
             array(
                 array(
                     'v1' => 500,
                     'v2' => null,
                     'v3' => null,
-                    'invoice_amount' => 100.20,
-                    'invoice_currency' => 'RUR',
-                    'is_dry_run' => 0,
+                    'xsollaPaymentId' => 100,
+                    'amount' => 100.20,
+                    'currency' => 'RUR',
+                    'userAmount' => null,
+                    'userCurrency' => null,
+                    'transferAmount' => null,
+                    'transferCurrency' => null,
+                    'pid' => null,
+                    'geotype' => null,
+                    'dryRun' => 0,
                 ),
-                'Found invoice with values: v1=500, v2=NULL, v3=NULL, amount=100.20, currency=RUR, dryRun=0. ' .
-                'Must be: v1=500, v2=NULL, v3=NULL, amount=100.50, currency=RUR, dryRun=0.'
+                'Found payment with v1=500 and xsollaPaymentId=100 (current 101), amount=100.20 (current 100.50).'
             ),
         );
     }

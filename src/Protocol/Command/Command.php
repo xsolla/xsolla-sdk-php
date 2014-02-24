@@ -31,7 +31,7 @@ abstract class Command
                 'Invalid request format. Not enough arguments. Required: "%s". But received: "%s".',
                 join('", "', $this->getRequiredParams()),
                 join('", "', $request->query->keys())
-            ));
+            ), -1);
         }
 
         if (!$this->checkSign($request)) {
