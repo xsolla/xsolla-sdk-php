@@ -7,6 +7,8 @@ use Xsolla\SDK\Api\SubscriptionsApi;
 
 class SubscriptionsApiTest extends \PHPUnit_Framework_TestCase
 {
+    const AMOUNT_VIRTUAL_CURRENCY = 1.01;
+
     /**
      * @var SubscriptionsApi
      */
@@ -88,6 +90,9 @@ class SubscriptionsApiTest extends \PHPUnit_Framework_TestCase
         $this->invoiceMock->expects($this->any())
             ->method('getOut')
             ->will($this->returnValue('out'));
+        $this->invoiceMock->expects($this->any())
+            ->method('getVirtualCurrencyAmount')
+            ->will($this->returnValue(self::AMOUNT_VIRTUAL_CURRENCY));
 
         $this->subscriptionsApi = new SubscriptionsApi($this->clientMock, $this->projectMock, false);
     }
@@ -173,7 +178,17 @@ class SubscriptionsApiTest extends \PHPUnit_Framework_TestCase
     {
         $this->clientMock->expects($this->once())
             ->method('post')
-            ->with('/v1/subscriptions/type')
+            ->with(
+                '/v1/subscriptions/type',
+                array('X-Xsolla-Sign' => '8ad385f8cb22b4a82d302361e29df198'),
+                null,
+                array('query' => array(
+                    'subscription_id' => 'id',
+                    'merchant_id' => 'projectId',
+                    'amount_virtual' => self::AMOUNT_VIRTUAL_CURRENCY,
+                    'card_cvv' => '',
+                ))
+            )
             ->will($this->returnValue($this->requestMock));
 
         $this->responseMock->expects($this->once())
