@@ -103,7 +103,7 @@ class PaymentShoppingCartStorageTest extends PaymentStorageTest
                     'geotype' => null,
                     'dryRun' => 0,
                 ),
-                'Found payment with v1=500 and xsollaPaymentId=100 (current 101), amount=100.20 (current 100.50).'
+                'Repeated payment notification is received for invoice v1=500. But new payment notification parameters are not equal with previous: xsollaPaymentId(previous=100,repeated=101), amount(previous=100.20,repeated=100.50).'
             ),
         );
     }

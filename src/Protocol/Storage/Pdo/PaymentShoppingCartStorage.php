@@ -25,10 +25,8 @@ class PaymentShoppingCartStorage extends PaymentStorage implements PaymentShoppi
         $pid = null,
         $geotype = null
     ) {
-        $paramNames = array('xsollaPaymentId', 'amount', 'v1', 'v2', 'v3', 'currency', 'datetime', 'dryRun',
-            'userAmount', 'userCurrency', 'transferAmount', 'transferCurrency', 'pid', 'geotype');
-        $notificationParams = compact($paramNames);
-        if ($this->updatePayment($notificationParams) === 1) {
+        $notificationParams = get_defined_vars();
+        if ($this->updatePayment($notificationParams)) {
             return $v1;
         }
         $existentPayment = $this->selectPayment($v1);
@@ -36,37 +34,48 @@ class PaymentShoppingCartStorage extends PaymentStorage implements PaymentShoppi
             throw new UnprocessableRequestException("Invoice with v1='$v1' not found.");
         }
 
-        $paramsDiff = $this->compareParams($notificationParams, $existentPayment);
+        $paramsDiff = $this->getRepeatedNotificationParametersDiff($notificationParams, $existentPayment);
         if (!$paramsDiff) {
             return $v1;
         }
 
-        throw new UnprocessableRequestException(sprintf('Found payment with v1=%s and %s.', $v1, join(", ", $paramsDiff)));
+        $exceptionMessage = sprintf('Repeated payment notification is received for invoice v1=%s. But new payment notification parameters are not equal with previous: %s.', $v1, join(", ", $paramsDiff));
+        throw new UnprocessableRequestException($exceptionMessage);
     }
 
-    protected function compareParams(array $new, array $existent)
+    protected function getRepeatedNotificationParametersDiff(array $new, array $existent)
     {
         unset($new['datetime']);
         $existent['dryRun'] = (bool) $existent['dryRun'];
 
         $descriptions = array();
         $diffKeys = array_keys(array_diff_assoc($new, $existent));
-        foreach($diffKeys as &$key) {
-            if (gettype($new[$key]) == 'double') {
-                $format = '%s=%0.2f (current %0.2f)';
-            } else {
-                $format = '%s=%s (current %s)';
-            }
+        foreach($diffKeys as $key) {
+            $format = $this->getSprintfFormat($new[$key]);
             $desc = sprintf(
                 $format,
                 $key,
-                is_null($existent[$key]) ? '[null]' : $existent[$key],
-                is_null($new[$key]) ? '[null]' : $new[$key]
+                $this->convertScalarValueToString($existent[$key]),
+                $this->convertScalarValueToString($new[$key])
             );
-            array_push($descriptions, $desc);
+            $descriptions[] = $desc;
         }
 
         return $descriptions;
+    }
+
+    protected function getSprintfFormat($value)
+    {
+        if ('double' === gettype($value)) {
+            return '%s(previous=%0.2f,repeated=%0.2f)';
+        } else {
+            return '%s(previous=%s,repeated=%s)';
+        }
+    }
+
+    protected function convertScalarValueToString($value)
+    {
+        return is_null($value) ? '[null]' : $value;
     }
 
     protected function updatePayment(array $notificationParams)
@@ -106,7 +115,7 @@ class PaymentShoppingCartStorage extends PaymentStorage implements PaymentShoppi
         $update->bindValue(':currency', $notificationParams['currency']);
         $update->bindValue(':dryRun', $notificationParams['dryRun'], \PDO::PARAM_BOOL);
         $update->execute();
-        return $update->rowCount();
+        return (bool) $update->rowCount();
     }
 
     protected function selectPayment($v1)
