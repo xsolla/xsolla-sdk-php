@@ -3,7 +3,7 @@ namespace Xsolla\SDK;
 
 class Version
 {
-    const VERSION = 1.0;
+    const VERSION = '1.0.1';
 
     public static function getVersion()
     {
