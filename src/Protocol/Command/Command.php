@@ -27,11 +27,9 @@ abstract class Command
     public function getResponse(Request $request)
     {
         if (!$this->checkRequiredParams($request)) {
-            throw new InvalidRequestException(sprintf(
-                'Invalid request format. Not enough arguments. Required: "%s". But received: "%s".',
-                join('", "', $this->getRequiredParams()),
-                join('", "', $request->query->keys())
-            ), -1);
+            $missedParameters = array_diff($this->getRequiredParams(), $request->query->keys());
+            $exceptionMessage = 'Invalid request format. Missed parameters: ' . implode(', ', $missedParameters);
+            throw new InvalidRequestException($exceptionMessage);
         }
 
         if (!$this->checkSign($request)) {

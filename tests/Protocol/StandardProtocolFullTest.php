@@ -126,8 +126,7 @@ class StandardProtocolFullTest extends ProtocolFullTest
                 ),
                 '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
                 '<response><result>4</result>' .
-                '<comment>Invalid request format. Not enough arguments. Required: "command", "md5", "id", "sum", "v1", "date". ' .
-                'But received: "command".</comment>' .
+                '<comment>Invalid request format. Missed parameters: md5, id, sum, v1, date</comment>' .
                 '</response>' . PHP_EOL
             ),
             array(

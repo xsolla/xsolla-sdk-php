@@ -138,7 +138,7 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
                 ),
                 '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
                 '<response><result>4</result>' .
-                '<comment>Invalid request format. Not enough arguments. Required: "command", "md5", "id". But received: "command".</comment>' .
+                '<comment>Invalid request format. Missed parameters: md5, id</comment>' .
                 '</response>' . PHP_EOL
             ),
             array(
@@ -148,7 +148,7 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
                 ),
                 '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
                 '<response><result>4</result>' .
-                '<comment>Invalid request format. Not enough arguments. Required: "command", "md5", "id". But received: "command", "id".</comment>' .
+                '<comment>Invalid request format. Missed parameters: md5</comment>' .
                 '</response>' . PHP_EOL
             ),
             array(

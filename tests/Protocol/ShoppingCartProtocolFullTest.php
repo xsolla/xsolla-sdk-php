@@ -32,8 +32,7 @@ class ShoppingCartProtocolFullTest extends ProtocolFullTest
                 ),
                 '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
                 '<response><result>20</result>' .
-                '<description>Invalid request format. Not enough arguments. Required: "command", "sign", "id", ' .
-                    '"v1", "amount", "currency", "datetime". But received: "command", "id", "sign".</description>' .
+                '<description>Invalid request format. Missed parameters: v1, amount, currency, datetime</description>' .
                 '</response>' . PHP_EOL
             ),
             array(
