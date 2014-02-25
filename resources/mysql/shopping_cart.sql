@@ -8,7 +8,7 @@ CREATE TABLE `xsolla_shopping_cart_invoice` (
   `id_xsolla` INT(11) UNSIGNED NULL DEFAULT NULL,
   `timestamp_ipn` TIMESTAMP NULL DEFAULT NULL,
   `timestamp_xsolla_ipn` TIMESTAMP NULL DEFAULT NULL,
-  `is_dry_run` TINYINT(1) NULL,
+  `is_dry_run` TINYINT(1) UNSIGNED NOT NULL,
   `pid` INT NULL DEFAULT NULL,
   `geotype` INT NULL DEFAULT NULL,
   `user_amount` DECIMAL(12,2) UNSIGNED NULL DEFAULT NULL,
