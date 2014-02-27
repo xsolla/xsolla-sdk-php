@@ -9,6 +9,7 @@ use Xsolla\SDK\Invoice;
 class UrlBuilder
 {
     const BASE_URL = 'https://secure.xsolla.com/paystation2/?';
+    const SANDBOX_URL = 'https://sandbox-secure.xsolla.com/paystation2/?';
 
     protected $project;
 
@@ -146,7 +147,7 @@ class UrlBuilder
         return $this;
     }
 
-    public function getUrl()
+    public function getUrl($baseUrl = self::BASE_URL)
     {
         $parameters = array_merge($this->parameters, $this->immutableParameters);
         $parameters['project'] = $this->project->getProjectId();
@@ -162,7 +163,7 @@ class UrlBuilder
         }
         $parameters['sign'] = $this->generateSign($parameters);
 
-        return self::BASE_URL.http_build_query($parameters);
+        return $baseUrl.http_build_query($parameters);
     }
 
     protected function getLockedParametersList()

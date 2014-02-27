@@ -30,6 +30,8 @@ class UrlBuilderTest extends \PHPUnit_Framework_TestCase
 
     protected $defaultUrl = 'https://secure.xsolla.com/paystation2/?project=7096&sign=094eb3c634f2612dead38608dc20eaec';
 
+    protected $sandboxUrl = 'https://sandbox-secure.xsolla.com/paystation2/?project=7096&sign=094eb3c634f2612dead38608dc20eaec';
+
     protected $urlWithHiddenParameters = 'https://secure.xsolla.com/paystation2/?out=1.11&currency=EUR&project=7096&sign=5bbc52cd72d7b3491025a7d6cca0cb70';
 
     protected $urlWithUserDetailsAndClearedSignedParameters = 'https://secure.xsolla.com/paystation2/?v1=user_v1&v2=user_v2&v3=user_v3&email=email%40example.com&userip=user_userIp&phone=user_phone&project=7096&signparams=allowSubscription%2Ccurrency%2Cfastcheckout%2Cid_package%2Cout%2Cproject%2Csignparams%2Ctheme%2Cv0&sign=5b7c4eab43356844ec631771121277f5';
@@ -59,6 +61,11 @@ class UrlBuilderTest extends \PHPUnit_Framework_TestCase
     public function testGetLink()
     {
         $this->assertSame($this->defaultUrl, $this->urlBuilder->getUrl());
+    }
+
+    public function testGetLinkSandbox()
+    {
+        $this->assertSame($this->sandboxUrl, $this->urlBuilder->getUrl(UrlBuilder::SANDBOX_URL));
     }
 
     public function testIgnoreBlankParameters()
