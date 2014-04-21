@@ -179,6 +179,18 @@ class StandardProtocolFullTest extends ProtocolFullTest
                 '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
                 '<response><result>0</result><comment/><id_shop>' . self::PAY_SHOP_ID . '</id_shop></response>' . PHP_EOL
             ),
+            array(
+                array(
+                    'command' => 'pay',
+                    'md5' => '6d2228aaf135ea197aaaecf2d1260f13',
+                    'id' => self::ZERO,
+                    'v1' => 'demo',
+                    'sum' => '100.20',
+                    'date' => '2014-02-19 20:07:08'
+                ),
+                '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
+                '<response><result>0</result><comment/><id_shop>' . self::PAY_SHOP_ID . '</id_shop></response>' . PHP_EOL
+            ),
         );
     }
 
