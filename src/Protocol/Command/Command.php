@@ -45,7 +45,7 @@ abstract class Command
 
         foreach ($requiredParameters as $param) {
             $value = $request->query->get($param);
-            if (empty($value)) {
+            if (empty($value) and $value !== '0') {
                 return false;
             }
         }

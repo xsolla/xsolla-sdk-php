@@ -12,6 +12,7 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
     const PROJECT_KEY = 'key';
     const CLIENT_IP = '127.0.0.1';
 
+    const ZERO = '0';
     const CANCEL_ID_VALID = 100;
     const CANCEL_ID_NOT_FOUND = 101;
     const CANCEL_ID_UNPROCESSABLE = 102;
@@ -82,7 +83,9 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
     {
         $requestMock = $this->buildRequestMock($params);
         $response = $this->protocol->run($requestMock);
-        $this->assertXmlStringEqualsXmlString($expectedXml, $response->getContent());
+        $actualXml = $response->getContent();
+        $message = 'Expected:'.PHP_EOL.$expectedXml.PHP_EOL.'Actual:'.PHP_EOL.$actualXml;
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml, $message);
     }
 
     /**
@@ -195,7 +198,16 @@ abstract class ProtocolFullTest extends \PHPUnit_Framework_TestCase
                 ),
                 '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
                 '<response><result>1</result><comment>Any exception</comment></response>' . PHP_EOL
-            )
+            ),
+            array(
+                array(
+                    'command' => 'cancel',
+                    'id' => self::ZERO,
+                    'md5' => 'ee46550702331221596b8d4dbb68112e'
+                ),
+                '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
+                '<response><result>0</result><comment/></response>' . PHP_EOL
+            ),
         );
     }
 

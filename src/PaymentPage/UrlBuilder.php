@@ -10,6 +10,7 @@ class UrlBuilder
 {
     const BASE_URL = 'https://secure.xsolla.com/paystation2/?';
     const SANDBOX_URL = 'https://sandbox-secure.xsolla.com/paystation2/?';
+    const SANDBOX_KEY = 'A0B@dO4UR_+74pQ!G2rw*Yez9jM5[xbIHC*pX27J(eoctsIqM';
 
     protected $project;
 
@@ -161,7 +162,8 @@ class UrlBuilder
         if ($lockedParametersList) {
             $parameters['signparams'] = $lockedParametersList;
         }
-        $parameters['sign'] = $this->generateSign($parameters);
+        $isSandbox = $baseUrl === self::SANDBOX_URL;
+        $parameters['sign'] = $this->generateSign($parameters, $isSandbox);
 
         return $baseUrl.http_build_query($parameters);
     }
@@ -193,7 +195,7 @@ class UrlBuilder
         return implode(',', $uniqueParameters);
     }
 
-    protected function generateSign(array $params)
+    protected function generateSign(array $params, $isSandbox = false)
     {
         $keys = $this->getSignParametersSortedKeys();
         $sign = '';
@@ -203,6 +205,9 @@ class UrlBuilder
             }
         }
         $key = $this->project->getSecretKey();
+        if ($isSandbox) {
+            $key = self::SANDBOX_KEY.$key;
+        }
 
         return md5($sign . $key);
     }

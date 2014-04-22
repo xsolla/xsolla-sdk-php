@@ -30,7 +30,7 @@ class UrlBuilderTest extends \PHPUnit_Framework_TestCase
 
     protected $defaultUrl = 'https://secure.xsolla.com/paystation2/?project=7096&sign=094eb3c634f2612dead38608dc20eaec';
 
-    protected $sandboxUrl = 'https://sandbox-secure.xsolla.com/paystation2/?project=7096&sign=094eb3c634f2612dead38608dc20eaec';
+    protected $sandboxUrl = 'https://sandbox-secure.xsolla.com/paystation2/?project=7096&sign=ff347ed534cb1e5bebf30caccc2adf63';
 
     protected $urlWithHiddenParameters = 'https://secure.xsolla.com/paystation2/?out=1.11&currency=EUR&project=7096&sign=5bbc52cd72d7b3491025a7d6cca0cb70';
 
