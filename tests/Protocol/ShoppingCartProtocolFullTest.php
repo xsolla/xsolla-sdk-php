@@ -46,7 +46,7 @@ class ShoppingCartProtocolFullTest extends ProtocolFullTest
                     'sign' => '11111ff5a8661171111111d8e1171111'
                 ),
                 '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
-                '<response><result>20</result><description>Invalid md5 signature</description></response>' . PHP_EOL
+                '<response><result>40</result><description>Invalid md5 signature</description></response>' . PHP_EOL
             ),
             array(
                 array(
