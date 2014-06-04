@@ -67,7 +67,7 @@ class PayShoppingCart extends Command
 
     public function getInvalidSignResponseCode()
     {
-        return self::CODE_INVALID_REQUEST;
+        return self::CODE_FATAL_ERROR;
     }
 
     public function getInvalidRequestResponseCode()
