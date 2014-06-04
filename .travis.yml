@@ -15,3 +15,6 @@ script:
   - phpunit --colors --coverage-clover=coverage.clover
   - if [ "`phpenv version-name`" = "5.5" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
   - if [ "`phpenv version-name`" = "5.5" ]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
+
+notifications:
+    slack: xsolla:btcuaeuOi3LBjHaV2Xrrb39U
