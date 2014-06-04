@@ -93,7 +93,7 @@ abstract class PaymentStorageTest extends \PHPUnit_Framework_TestCase
             ->method('rowCount')
             ->will($this->returnValue(1));
 
-        $this->paymentStorage->cancel(100);
+        $this->paymentStorage->cancel(100, 1, 'Refund');
     }
 
     /**
@@ -120,7 +120,7 @@ abstract class PaymentStorageTest extends \PHPUnit_Framework_TestCase
 
         $this->setExpectedException($exceptionDesc[0], $exceptionDesc[1]);
 
-        $this->paymentStorage->cancel(100);
+        $this->paymentStorage->cancel(100, 1, 'Refund');
     }
 
     public function cancelErrorProvider()

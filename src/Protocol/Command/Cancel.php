@@ -20,7 +20,11 @@ class Cancel extends StandardCommand
     public function process(Request $request)
     {
         try {
-            $this->paymentStorage->cancel($request->query->get('id'));
+            $this->paymentStorage->cancel(
+                $request->query->get('id'),
+                $request->query->get('reason_code'),
+                $request->query->get('reason')
+            );
 
             return array(
                 'result' => self::CODE_SUCCESS,

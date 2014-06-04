@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.4 (2014-06-04)
+* fix incorrect sign code for Shopping Cart Protocol 2.0
+* add `$reasonCode` and `$reasonDescription` optional arguments to `PaymentStorageInterface::cancel`
+
 ## 1.0.3 (2014-04-22)
 * added missed sandbox key to UrlBuilder for sandbox-secure.xsolla.com
 * fixed wrong error code for IPN requests with zero valued parameters

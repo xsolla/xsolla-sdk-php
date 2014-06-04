@@ -14,8 +14,9 @@ abstract class PaymentStorage implements PaymentStorageInterface
         $this->pdo = $pdo;
     }
 
-    public function cancel($xsollaPaymentId)
+    public function cancel($xsollaPaymentId, $reasonCode = null, $reasonDescription = null)
     {
+        // TODO: work with reasonCode and reasonData will be added in new major version
         $table = $this->getTable();
         $update = $this->pdo->prepare("
             UPDATE $table SET
