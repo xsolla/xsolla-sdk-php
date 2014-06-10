@@ -29,6 +29,8 @@ $ composer require xsolla/xsolla-sdk-php:~1.0
 ``` php
 <?php
 
+require_once 'vendor/autoload.php';
+
 use Xsolla\SDK\Project;
 use Xsolla\SDK\User;
 use Xsolla\SDK\Invoice;
