@@ -11,7 +11,7 @@ use Xsolla\SDK\Exception\UnprocessableRequestException;
 
 class PaymentStandardDemoStorage implements PaymentStandardStorageInterface
 {
-    public function cancel($xsollaPaymentId)
+    public function cancel($xsollaPaymentId, $reasonCode = NULL, $reasonDescription = NULL)
     {
         //do nothing
     }
