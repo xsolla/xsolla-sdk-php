@@ -74,6 +74,22 @@ class UrlBuilder
         return $this;
     }
 
+    public function setInvoiceShoppingCart3(Invoice $invoice, $lockForUser = true, $hideFromUser = false)
+    {
+        $this->setParameter('payment_amount', $invoice->getAmount(), $lockForUser, $hideFromUser);
+        $this->setParameter('payment_currency', $invoice->getCurrency(), $lockForUser, $hideFromUser);
+        return $this;
+    }
+
+    /**
+     * @param int $paymentInstanceId ID number of payment system
+     * @return $this
+     */
+    public function setPaymentInstanceId($paymentInstanceId)
+    {
+        return $this->setParameter('pid', $paymentInstanceId, false, false);
+    }
+
     /**
      * @param  string $locale 2-letter definition is used according to ISO 639-1 standard
      * @return $this
