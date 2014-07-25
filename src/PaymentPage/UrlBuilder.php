@@ -10,7 +10,7 @@ class UrlBuilder
 {
     const BASE_URL = 'https://secure.xsolla.com/paystation2/?';
     const SANDBOX_URL = 'https://sandbox-secure.xsolla.com/paystation2/?';
-    const SANDBOX_KEY = 'A0B@dO4UR_+74pQ!G2rw*Yez9jM5[xbIHC*pX27J(eoctsIqM';
+    const SANDBOX_KEY = 'vok[*hjs34*p2khf2fi]#dsud:sH}UOHd[FJKhejdhu';
 
     protected $project;
 
