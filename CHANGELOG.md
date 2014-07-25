@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.1.0 (2014-07-24)
+* add Shopping Cart Protocol 3.0 http://xsolla.github.io/en/shopingcart3.html
+
 ## 1.0.4 (2014-06-04)
 * fix incorrect sign code for Shopping Cart Protocol 2.0
 * add `$reasonCode` and `$reasonDescription` optional arguments to `PaymentStorageInterface::cancel`

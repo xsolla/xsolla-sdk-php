@@ -57,7 +57,7 @@ class PayShoppingCart extends Command
     {
         $actualSign = $this->generateSign($request, array('v1', 'amount', 'currency', 'id'));
 
-        return $actualSign == $request->query->get('sign');
+        return $actualSign === $request->query->get('sign');
     }
 
     public function getCommentFieldName()

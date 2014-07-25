@@ -12,7 +12,7 @@ interface PaymentStandardStorageInterface extends PaymentStorageInterface
      * @param  float                         $virtualCurrencyAmount
      * @param  User                          $user
      * @param  \DateTime                     $date
-     * @param  bool                          $dryRun
+     * @param  bool                          $dryRun Indication of test transaction
      * @return int                           unique payment ID in your system
      * @throws UnprocessableRequestException
      */

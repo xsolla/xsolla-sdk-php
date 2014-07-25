@@ -2,11 +2,11 @@
 
 namespace Xsolla\SDK\Tests\Protocol;
 
-use Xsolla\SDK\Protocol\Storage\PaymentStandardStorageInterface;
+use Xsolla\SDK\Protocol\Storage\PaymentShoppingCart3StorageInterface;
 use Xsolla\SDK\Protocol\Storage\UserStorageInterface;
 use Xsolla\SDK\User;
 
-class StandardProtocolFullTest extends ProtocolFullTest
+class ShoppingCart3ProtocolFullTest extends ProtocolFullTest
 {
     const PAY_ID_SUCCESS = 100;
     const PAY_ID_ANY_EXCEPTION = 103;
@@ -23,11 +23,11 @@ class StandardProtocolFullTest extends ProtocolFullTest
     {
         parent::setUp();
         $this->userStorageMock = $this->getMock('Xsolla\SDK\Protocol\Storage\UserStorageInterface', array(), array(), '', false);
-        $this->paymentStorageMock = $this->getMock('Xsolla\SDK\Protocol\Storage\PaymentStandardStorageInterface', array(), array(), '', false);
+        $this->paymentStorageMock = $this->getMock('Xsolla\SDK\Protocol\Storage\PaymentShoppingCart3StorageInterface', array(), array(), '', false);
         $this->addCancelHandler($this->paymentStorageMock);
         $this->addPayHandler($this->paymentStorageMock);
         $this->addCheckHandler($this->userStorageMock);
-        $this->protocol = $this->protocolBuilder->getStandardProtocol($this->userStorageMock, $this->paymentStorageMock);
+        $this->protocol = $this->protocolBuilder->getShoppingCart3Protocol($this->userStorageMock, $this->paymentStorageMock);
     }
 
     /**
@@ -126,7 +126,7 @@ class StandardProtocolFullTest extends ProtocolFullTest
                 ),
                 '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
                 '<response><result>4</result>' .
-                '<comment>Invalid request format. Missed parameters: md5, id, sum, v1, date</comment>' .
+                '<comment>Invalid request format. Missed parameters: md5, id, v1, date, payment_amount, payment_currency</comment>' .
                 '</response>' . PHP_EOL
             ),
             array(
@@ -135,7 +135,8 @@ class StandardProtocolFullTest extends ProtocolFullTest
                     'md5' => '11111ff5a8661171111111d8e1171111',
                     'id' => self::PAY_ID_SUCCESS,
                     'v1' => 'demo',
-                    'sum' => '100.20',
+                    'payment_amount' => '100.20',
+                    'payment_currency' => 'EUR',
                     'date' => '2014-02-19 20:07:08'
                 ),
                 '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
@@ -147,7 +148,8 @@ class StandardProtocolFullTest extends ProtocolFullTest
                     'md5' => '151783427f854e7c61e54fae5361cacb',
                     'id' => self::PAY_ID_SUCCESS,
                     'v1' => 'demo',
-                    'sum' => '100.20',
+                    'payment_amount' => '100.20',
+                    'payment_currency' => 'EUR',
                     'date' => 'DATE'
                 ),
                 '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
@@ -161,7 +163,8 @@ class StandardProtocolFullTest extends ProtocolFullTest
                     'md5' => 'b03894e48c0dfa6a9adda90739ca986c',
                     'id' => self::PAY_ID_ANY_EXCEPTION,
                     'v1' => 'demo',
-                    'sum' => '100.20',
+                    'payment_amount' => '100.20',
+                    'payment_currency' => 'EUR',
                     'date' => '2014-02-19 20:07:08'
                 ),
                 '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
@@ -173,7 +176,8 @@ class StandardProtocolFullTest extends ProtocolFullTest
                     'md5' => '151783427f854e7c61e54fae5361cacb',
                     'id' => self::PAY_ID_SUCCESS,
                     'v1' => 'demo',
-                    'sum' => '100.20',
+                    'payment_amount' => '100.20',
+                    'payment_currency' => 'EUR',
                     'date' => '2014-02-19 20:07:08'
                 ),
                 '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
@@ -185,7 +189,8 @@ class StandardProtocolFullTest extends ProtocolFullTest
                     'md5' => '6d2228aaf135ea197aaaecf2d1260f13',
                     'id' => self::ZERO,
                     'v1' => 'demo',
-                    'sum' => '100.20',
+                    'payment_amount' => '100.20',
+                    'payment_currency' => 'EUR',
                     'date' => '2014-02-19 20:07:08'
                 ),
                 '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
@@ -197,7 +202,8 @@ class StandardProtocolFullTest extends ProtocolFullTest
                     'v1' => self::CHECK_V1_NOT_EXISTS,
                     'md5' => '19d8988edfae51f90a1c78180d099a17',
                     'id' => self::PAY_ID_SUCCESS,
-                    'sum' => '100.20',
+                    'payment_amount' => '100.20',
+                    'payment_currency' => 'EUR',
                     'date' => '2014-02-19 20:07:08'
                 ),
                 '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
@@ -233,7 +239,7 @@ class StandardProtocolFullTest extends ProtocolFullTest
         }
     }
 
-    public function addPayHandler(PaymentStandardStorageInterface $paymentStorageMock)
+    public function addPayHandler(PaymentShoppingCart3StorageInterface $paymentStorageMock)
     {
         $paymentStorageMock->expects($this->any())
             ->method('pay')

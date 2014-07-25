@@ -40,6 +40,8 @@ class UrlBuilderTest extends \PHPUnit_Framework_TestCase
 
     protected $fullUrl = 'https://secure.xsolla.com/paystation2/?local=EN&country=US&limit=14&v1=user_v1&v2=user_v2&v3=user_v3&email=email%40example.com&userip=user_userIp&phone=user_phone&out=1.11&currency=EUR&sum=0.1&project=7096&hidden=limit&signparams=allowSubscription%2Ccurrency%2Cemail%2Cfastcheckout%2Cid_package%2Climit%2Cout%2Cphone%2Cproject%2Csignparams%2Csum%2Ctheme%2Cuserip%2Cv0%2Cv2%2Cv3&sign=a56aaed28a810577e075f4d665031d30';
 
+    protected $fullUrlShoppingCart3 = 'https://secure.xsolla.com/paystation2/?local=EN&country=US&limit=14&v1=user_v1&v2=user_v2&v3=user_v3&email=email%40example.com&userip=user_userIp&phone=user_phone&payment_amount=0.1&payment_currency=EUR&project=7096&hidden=limit&signparams=allowSubscription%2Ccurrency%2Cemail%2Cfastcheckout%2Cid_package%2Climit%2Cout%2Cpayment_amount%2Cpayment_currency%2Cphone%2Cproject%2Csignparams%2Ctheme%2Cuserip%2Cv0%2Cv2%2Cv3&sign=1d2513e200bc7c94cc949304029af0ad';
+
     public function setUp()
     {
         $this->user = new User('user_v1');
@@ -116,5 +118,23 @@ class UrlBuilderTest extends \PHPUnit_Framework_TestCase
             ->lockParameterForUser('limit')
             ->getUrl();
         $this->assertSame($this->fullUrl, $url);
+    }
+
+    public function testShoppingCart3()
+    {
+        $this->invoice->setAmountShoppingCart3(0.1);
+        $this->invoice->setCurrencyShoppingCart3('EUR');
+        $this->invoice->setVirtualCurrencyAmount(null);
+        $this->invoice->setCurrency(null);
+        $url = $this->urlBuilder->clear()
+            ->setLocale('EN')
+            ->setCountry('US')
+            ->setParameter('limit', 14, true, true)
+            ->setUser($this->user, true, false)
+            ->setInvoice($this->invoice, true, false)
+            ->unlockParameterForUser('v1')
+            ->lockParameterForUser('limit')
+            ->getUrl();
+        $this->assertSame($this->fullUrlShoppingCart3, $url);
     }
 }
