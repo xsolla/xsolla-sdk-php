@@ -12,13 +12,13 @@ interface PaymentShoppingCartStorageInterface extends PaymentStorageInterface
      * @param  string                        $v1 The unique identifier of the order received from the project
      * @param  string                        $v2
      * @param  string                        $v3
-     * @param  string                        $currency
+     * @param  string                        $currency Order currency in format ISO 4217
      * @param  \DateTime                     $datetime
-     * @param  bool                          $dryRun
+     * @param  bool                          $dryRun Indication of test transaction
      * @param  float                         $userAmount
      * @param  string                        $userCurrency
      * @param  float                         $transferAmount
-     * @param  string                        $transferCurrency
+     * @param  string                        $transferCurrency Currency in format ISO 4217
      * @param  int                           $pid
      * @param  int                           $geotype
      * @return int

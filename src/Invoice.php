@@ -8,13 +8,23 @@ class Invoice
     protected $amount;
     protected $currency;
     protected $id;
+    protected $amountShoppingCart3;
+    protected $currencyShoppingCart3;
 
-    public function __construct($virtualCurrencyAmount = null, $amount = null, $currency = null, $id = null)
-    {
+    public function __construct(
+        $virtualCurrencyAmount = null,
+        $amount = null,
+        $currency = null,
+        $id = null,
+        $amountShoppingCart3 = null,
+        $currencyShoppingCart3 = null
+    ) {
         $this->amount = $amount;
         $this->virtualCurrencyAmount = $virtualCurrencyAmount;
         $this->currency = $currency;
         $this->id = $id;
+        $this->amountShoppingCart3 = $amountShoppingCart3;
+        $this->currencyShoppingCart3 = $currencyShoppingCart3;
     }
 
     public function getVirtualCurrencyAmount()
@@ -64,4 +74,27 @@ class Invoice
 
         return $this;
     }
+
+    public function setAmountShoppingCart3($amountShoppingCart3)
+    {
+        $this->amountShoppingCart3 = $amountShoppingCart3;
+        return $this;
+    }
+
+    public function getAmountShoppingCart3()
+    {
+        return $this->amountShoppingCart3;
+    }
+
+    public function setCurrencyShoppingCart3($currencyShoppingCart3)
+    {
+        $this->currencyShoppingCart3 = $currencyShoppingCart3;
+        return $this;
+    }
+
+    public function getCurrencyShoppingCart3()
+    {
+        return $this->currencyShoppingCart3;
+    }
+
 }

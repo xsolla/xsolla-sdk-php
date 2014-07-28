@@ -1,16 +1,15 @@
 <?php
-
 namespace Xsolla\SDK\Protocol\Command;
 
 use Symfony\Component\HttpFoundation\Request;
-use Xsolla\SDK\Protocol\Standard;
-use Xsolla\SDK\Protocol\Storage\PaymentStorageInterface;
+use Xsolla\SDK\Protocol\ShoppingCart3;
+use Xsolla\SDK\Protocol\Storage\PaymentShoppingCart3StorageInterface;
 use Xsolla\SDK\Protocol\Storage\UserStorageInterface;
 
-class PayStandard extends StandardCommand
+class PayShoppingCart3 extends StandardCommand
 {
     /**
-     * @var PaymentStorageInterface
+     * @var PaymentShoppingCart3StorageInterface
      */
     protected $paymentStorage;
 
@@ -19,16 +18,16 @@ class PayStandard extends StandardCommand
      */
     protected $userStorage;
 
-    public function __construct(Standard $protocol)
+    public function __construct(ShoppingCart3 $protocol)
     {
         $this->userStorage = $protocol->getUserStorage();
         $this->project = $protocol->getProject();
-        $this->paymentStorage = $protocol->getPaymentStandardStorage();
+        $this->paymentStorage = $protocol->getPaymentShoppingCart3Storage();
     }
 
-    public function getRequiredParams()
+    public function checkSign(Request $request)
     {
-        return array('command', 'md5', 'id', 'sum', 'v1', 'date');
+        return $this->generateSign($request, array('command', 'v1', 'foreignInvoice', 'id')) === $request->query->get('md5');
     }
 
     public function process(Request $request)
@@ -43,12 +42,12 @@ class PayStandard extends StandardCommand
         $datetime = $this->getDateTimeXsolla('Y-m-d H:i:s', $request->query->get('date'));
         $id = $this->paymentStorage->pay(
             $request->query->get('id'),
-            $request->query->get('sum'),
+            $request->query->get('payment_amount'),
+            $request->query->get('payment_currency'),
             $user,
             $datetime,
             (bool) $request->query->get('dry_run')
         );
-
         return array(
             'result' => self::CODE_SUCCESS,
             self::COMMENT_FIELD_NAME => '',
@@ -56,8 +55,8 @@ class PayStandard extends StandardCommand
         );
     }
 
-    public function checkSign(Request $request)
+    public function getRequiredParams()
     {
-        return $this->generateSign($request, array('command', 'v1', 'id')) === $request->query->get('md5');
+        return array('command', 'md5', 'id', 'v1', 'date', 'payment_amount', 'payment_currency');
     }
 }

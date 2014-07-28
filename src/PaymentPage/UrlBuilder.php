@@ -70,7 +70,8 @@ class UrlBuilder
         $this->setParameter('out', $invoice->getVirtualCurrencyAmount(), $lockForUser, $hideFromUser);
         $this->setParameter('currency', $invoice->getCurrency(), $lockForUser, $hideFromUser);
         $this->setParameter('sum', $invoice->getAmount(), $lockForUser, $hideFromUser);
-
+        $this->setParameter('payment_amount', $invoice->getAmountShoppingCart3(), $lockForUser, $hideFromUser);
+        $this->setParameter('payment_currency', $invoice->getCurrencyShoppingCart3(), $lockForUser, $hideFromUser);
         return $this;
     }
 
