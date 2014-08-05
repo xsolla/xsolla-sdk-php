@@ -34,11 +34,11 @@ class UrlBuilderTest extends \PHPUnit_Framework_TestCase
 
     protected $urlWithHiddenParameters = 'https://secure.xsolla.com/paystation2/?out=1.11&currency=EUR&project=7096&sign=5bbc52cd72d7b3491025a7d6cca0cb70';
 
-    protected $urlWithUserDetailsAndClearedSignedParameters = 'https://secure.xsolla.com/paystation2/?v1=user_v1&v2=user_v2&v3=user_v3&email=email%40example.com&userip=user_userIp&phone=user_phone&project=7096&signparams=allowSubscription%2Ccurrency%2Cfastcheckout%2Cid_package%2Cout%2Cproject%2Csignparams%2Ctheme%2Cv0&sign=5b7c4eab43356844ec631771121277f5';
+    protected $urlWithUserDetailsAndClearedSignedParameters = 'https://secure.xsolla.com/paystation2/?v1=user_v1&v2=user_v2&v3=user_v3&email=email%40example.com&userip=user_userIp&phone=user_phone&project=7096&signparams=allowSubscription%2Ccurrency%2Cfastcheckout%2Cid_package%2Cout%2Cpayment_amount%2Cpayment_currency%2Cproject%2Csignparams%2Ctheme%2Cv0&sign=0bc9877e94332b8a5c42a2d77d7a10bb';
 
     protected $urlWithInvoiceAndWithoutSignparams = 'https://secure.xsolla.com/paystation2/?out=1.11&currency=EUR&project=7096&sign=5bbc52cd72d7b3491025a7d6cca0cb70';
 
-    protected $fullUrl = 'https://secure.xsolla.com/paystation2/?local=EN&country=US&limit=14&v1=user_v1&v2=user_v2&v3=user_v3&email=email%40example.com&userip=user_userIp&phone=user_phone&out=1.11&currency=EUR&sum=0.1&project=7096&hidden=limit&signparams=allowSubscription%2Ccurrency%2Cemail%2Cfastcheckout%2Cid_package%2Climit%2Cout%2Cphone%2Cproject%2Csignparams%2Csum%2Ctheme%2Cuserip%2Cv0%2Cv2%2Cv3&sign=a56aaed28a810577e075f4d665031d30';
+    protected $fullUrl = 'https://secure.xsolla.com/paystation2/?local=EN&country=US&limit=14&v1=user_v1&v2=user_v2&v3=user_v3&email=email%40example.com&userip=user_userIp&phone=user_phone&out=1.11&currency=EUR&sum=0.1&project=7096&hidden=limit&signparams=allowSubscription%2Ccurrency%2Cemail%2Cfastcheckout%2Cid_package%2Climit%2Cout%2Cpayment_amount%2Cpayment_currency%2Cphone%2Cproject%2Csignparams%2Csum%2Ctheme%2Cuserip%2Cv0%2Cv2%2Cv3&sign=606e9deef05759e4e9fccfe155dd3dbb';
 
     protected $fullUrlShoppingCart3 = 'https://secure.xsolla.com/paystation2/?local=EN&country=US&limit=14&v1=user_v1&v2=user_v2&v3=user_v3&email=email%40example.com&userip=user_userIp&phone=user_phone&payment_amount=0.1&payment_currency=EUR&project=7096&hidden=limit&signparams=allowSubscription%2Ccurrency%2Cemail%2Cfastcheckout%2Cid_package%2Climit%2Cout%2Cpayment_amount%2Cpayment_currency%2Cphone%2Cproject%2Csignparams%2Ctheme%2Cuserip%2Cv0%2Cv2%2Cv3&sign=1d2513e200bc7c94cc949304029af0ad';
 

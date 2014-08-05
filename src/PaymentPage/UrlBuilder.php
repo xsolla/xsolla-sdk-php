@@ -42,6 +42,8 @@ class UrlBuilder
         'allowSubscription' => 'allowSubscription',
         'fastcheckout' => 'fastcheckout',
         'id_package' => 'id_package',
+        'payment_amount' => 'payment_amount',
+        'payment_currency' => 'payment_currency',
     );
 
     protected $defaultParameters = array();
