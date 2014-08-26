@@ -49,16 +49,19 @@ $user->setEmail('example@example.com')
 $invoice = new Invoice;
 $invoice->setVirtualCurrencyAmount(5);
 
-$url = $urlBuilderFactory->getCreditCards()
+$url = $urlBuilderFactory->getPayStation()
     ->setInvoice($invoice)
     ->setUser($user)
     ->unlockParameterForUser('email')
     ->setCountry('US')
-    ->setLocale('fr')
+    ->setLocale('en')
+    ->setParameter('theme', 115)
     ->setParameter('description', 'Purchase description')
     ->getUrl();
 
 echo $url.PHP_EOL;
+
+?>
 ```
 ### Receive [Instant Payment Notification](http://xsolla.github.io/en/currency.html)
 
