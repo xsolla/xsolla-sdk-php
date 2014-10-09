@@ -13,6 +13,9 @@ class PaymentStandardDemoStorage implements PaymentStandardStorageInterface
 {
     public function cancel($xsollaPaymentId, $reasonCode = NULL, $reasonDescription = NULL)
     {
+        if($xsollaPaymentId < 1){
+            throw new UnprocessableRequestException('incorrect payment ID');
+        }        
         //do nothing
     }
 
