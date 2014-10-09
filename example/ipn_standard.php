@@ -8,12 +8,15 @@ use Xsolla\SDK\User;
 use Xsolla\SDK\Protocol\Storage\UserStorageInterface;
 use Xsolla\SDK\Protocol\Storage\PaymentStandardStorageInterface;
 use Xsolla\SDK\Exception\UnprocessableRequestException;
+use Xsolla\SDK\Exception\InvoiceNotFoundException;
 
 class PaymentStandardDemoStorage implements PaymentStandardStorageInterface
 {
     public function cancel($xsollaPaymentId, $reasonCode = NULL, $reasonDescription = NULL)
     {
-        //do nothing
+        if($xsollaPaymentId < 1){
+            throw new InvoiceNotFoundException();
+        }
     }
 
     public function pay($xsollaPaymentId, $virtualCurrencyAmount, User $user, \DateTime $date, $dryRun)
