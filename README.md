@@ -1,4 +1,4 @@
-# Xsolla SDK for PHP
+# [DEPRECATED] Xsolla SDK for PHP
 
 [![Latest Stable Version](https://poser.pugx.org/xsolla/xsolla-sdk-php/v/stable.png)](https://packagist.org/packages/xsolla/xsolla-sdk-php)
 [![Build Status](https://travis-ci.org/xsolla/xsolla-sdk-php.png?branch=master)](https://travis-ci.org/xsolla/xsolla-sdk-php)
