@@ -6,7 +6,7 @@
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/xsolla/xsolla-sdk-php/badges/quality-score.png?s=e04a6701a560d126eef80f33f8a1181372588472)](https://scrutinizer-ci.com/g/xsolla/xsolla-sdk-php/)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/44ae8284-c5c3-40f8-b1e3-de4093995db5/mini.png)](https://insight.sensiolabs.com/projects/44ae8284-c5c3-40f8-b1e3-de4093995db5)
 
-An official PHP SDK for interacting with [Xsolla HTTP API](http://xsolla.github.io/)
+An official PHP SDK for interacting with [Xsolla API](http://developers.xsolla.com/api.html)
 
 ## Requirements
 
