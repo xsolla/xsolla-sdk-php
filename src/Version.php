@@ -1,12 +1,22 @@
 <?php
+
 namespace Xsolla\SDK;
 
-class Version
+class Version 
 {
-    const VERSION = '1.0.1';
+    const VERSION = '2.0-alpha';
 
+    /**
+     * @return string
+     */
     public static function getVersion()
     {
-        return sprintf('xsolla-sdk-php/%s PHP/%s', self::VERSION, PHP_VERSION);
+        $curlVersion = curl_version();
+        return sprintf(
+            'xsolla-sdk-php/%s curl/%s PHP/%s',
+            self::VERSION,
+            $curlVersion['version'],
+            PHP_VERSION
+        );
     }
 }

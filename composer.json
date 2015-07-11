@@ -3,31 +3,30 @@
     "type": "library",
     "description":"Xsolla SDK for PHP. Xsolla is the authorized reseller and merchant providing e-commerce services for online games.",
     "keywords": ["sdk", "xsolla", "api", "payment", "games"],
-    "homepage": "http://xsolla.github.io",
+    "homepage": "http://xsolla.com",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Xsolla Developers",
-            "email": "api.developers@xsolla.com"
-        }
-    ],
+    "support": {
+      "email": "api.developers@xsolla.com",
+      "issues": "https://github.com/xsolla/xsolla-sdk-php/issues",
+      "docs": "http://developers.xsolla.com",
+      "source": "https://github.com/xsolla/xsolla-sdk-php/releases"
+    },
     "require": {
         "php": ">=5.3.3",
-        "ext-simplexml": "*",
-        "symfony/http-foundation": "~2.4"
-
+        "guzzle/guzzle": "~3.0",
+        "symfony/http-foundation": "^2.0"
     },
     "require-dev": {
-        "guzzle/http": "~3.7"
-    },
-    "suggest": {
-        "guzzle/http": "Required for advanced API commands",
-        "ext-pdo": "Required for Protocol/Storage/Pdo classes usage"
+      "phpunit/phpunit": "4.*"
     },
     "autoload": {
         "psr-4": {
-            "Xsolla\\SDK\\": "src",
-            "Xsolla\\SDK\\Tests\\": "tests"
+            "Xsolla\\SDK\\": "src"
         }
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "Xsolla\\SDK\\Tests\\": "tests"
+      }
     }
 }
