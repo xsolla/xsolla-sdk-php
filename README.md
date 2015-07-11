@@ -1,127 +1,125 @@
-# [DEPRECATED] Xsolla SDK for PHP
+# Xsolla SDK for PHP
 
 [![Latest Stable Version](https://poser.pugx.org/xsolla/xsolla-sdk-php/v/stable.png)](https://packagist.org/packages/xsolla/xsolla-sdk-php)
 [![Build Status](https://travis-ci.org/xsolla/xsolla-sdk-php.png?branch=master)](https://travis-ci.org/xsolla/xsolla-sdk-php)
-[![Code Coverage](https://scrutinizer-ci.com/g/xsolla/xsolla-sdk-php/badges/coverage.png?s=6961fe8e4895fe6292b981f53c2ebc8f89fb1309)](https://scrutinizer-ci.com/g/xsolla/xsolla-sdk-php/)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/xsolla/xsolla-sdk-php/badges/quality-score.png?s=e04a6701a560d126eef80f33f8a1181372588472)](https://scrutinizer-ci.com/g/xsolla/xsolla-sdk-php/)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/44ae8284-c5c3-40f8-b1e3-de4093995db5/mini.png)](https://insight.sensiolabs.com/projects/44ae8284-c5c3-40f8-b1e3-de4093995db5)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/xsolla/xsolla-sdk-php/badges/quality-score.png?b=v2)](https://scrutinizer-ci.com/g/xsolla/xsolla-sdk-php)
+[![Join the chat at https://gitter.im/xsolla/xsolla-sdk-php](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/xsolla/xsolla-sdk-php?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/xsolla/xsolla-sdk-php/master/LICENSE)
 
-An official PHP SDK for interacting with [Xsolla API](http://developers.xsolla.com/api.html)
+An official PHP SDK for interacting with [Xsolla API](http://developers.xsolla.com)
+
+![Payment UI screenshot](http://xsolla.cachefly.net/img/ps3_github_new.png)
+
+## Features
+
+* Full customisation of Payment UI with the help of different methods of getting token.
+* Client for all API methods, making your integration easy and convenient. You can use it for setting up and updating virtual currency, items and subscription plans, for managing the users balance, for checking the finance information with the help of Report API and so on.
+* Convenient webhook server:
+  * To start you need only one callback function.
+  * All security checking already implemented: signature authentication and IP whitelisting.
+  * Full customisation of notification processing logic, if standard server class doesn’t suit you.
+* SDK is built on Guzzle v3, and utilizes many of its features, including persistent connections, parallel requests, events and plugins (via Symfony2 EventDispatcher), service descriptions, over-the-wire logging, caching, flexible batching, and request retrying with truncated exponential back off.
 
 ## Requirements
 
-* PHP 5.3.3+
+* PHP 5.3.9+
 * Your php.ini needs to have the date.timezone setting
+* The following PHP extensions are required:
+  * curl
+  * json
 
 ## Installation
+
+### Installing via Composer
 
 The recommended way to install Xsolla SDK for PHP is through [Composer](http://getcomposer.org).
 
 ``` bash
 $ cd /path/to/your/project
-$ composer require xsolla/xsolla-sdk-php:~1.0
+$ composer require xsolla/xsolla-sdk-php
 ```
 
-## Usage
+### Installing via Phar
 
-### Generate URL to [Payment Page](http://xsolla.github.io/en/plugindemonstration.html)
+You can [download the packaged phar](https://github.com/xsolla/xsolla-sdk-php/releases) and include it in your scripts to get started:
+
+``` php
+require '/path/to/xsolla.phar';
+```
+
+### Installing via Zip
+
+You can [download the zip file](https://github.com/xsolla/xsolla-sdk-php/releases), unzip it into your project to a location of your choosing, and include the autoloader:
+
+``` php
+require '/path/to/xsolla-autoloader.php';
+```
+
+## Quick Examples
+
+### Integrate Payment UI
+
+Generate Payment UI token:
 
 ``` php
 <?php
 
-require_once 'vendor/autoload.php';
+use Xsolla\SDK\API\XsollaClient;
 
-use Xsolla\SDK\Project;
-use Xsolla\SDK\User;
-use Xsolla\SDK\Invoice;
-use Xsolla\SDK\PaymentPage\UrlBuilderFactory;
-
-$project = new Project(
-    '4783',//demo project id
-    'key'//demo project secret key
- );
-$urlBuilderFactory = new UrlBuilderFactory($project);
-
-$user = new User('username');
-$user->setEmail('example@example.com')
-    ->setPhone('79090000000');
-
-$invoice = new Invoice;
-$invoice->setVirtualCurrencyAmount(5);
-
-$url = $urlBuilderFactory->getPayStation()
-    ->setInvoice($invoice)
-    ->setUser($user)
-    ->unlockParameterForUser('email')
-    ->setCountry('US')
-    ->setLocale('en')
-    ->setParameter('theme', 115)
-    ->setParameter('description', 'Purchase description')
-    ->getUrl();
-
-echo $url.PHP_EOL;
-
-?>
+$client = XsollaClient::factory(array(
+    'merchant_id' => MERCHANT_ID,
+    'api_key' => 'API_KEY'
+));
+$paymentUIToken = $client->createCommonPaymentUIToken(PROJECT_ID, USER_ID);
 ```
-### Receive [Instant Payment Notification](http://xsolla.github.io/en/currency.html)
 
-For receiving IPN requests you should implement [\Xsolla\SDK\Protocol\Storage](https://github.com/xsolla/xsolla-sdk-php/tree/master/src/Protocol/Storage) interfaces.
-Also you can setup sql tables for your [protocol](http://xsolla.github.io/en/currency.html) from [resources/mysql](https://github.com/xsolla/xsolla-sdk-php/tree/master/resources/mysql) and use [\Xsolla\SDK\Protocol\Storage\Pdo](https://github.com/xsolla/xsolla-sdk-php/tree/master/src/Protocol/Storage/Pdo) classes directly or extend it.
+Render Payment UI script in your page:
+
+``` php
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+</head>
+<body>
+    <button data-xpaystation-widget-open>Test Button</button>
+    
+    <?php \Xsolla\SDK\API\PaymentUI\PaymentUIScriptRenderer::send($paymentUIToken); ?>
+</body>
+</html>
+```
+
+### Receive webhooks
 
 ``` php
 <?php
-$demoProject = new \Xsolla\SDK\Project(
-    '4783',//demo project id
-    'key'//demo project secret key
-);
 
-$dsn = sprintf('mysql:dbname=%s;host=%s;charset=utf8', 'YOUR_DB_NAME', 'YOUR_DB_HOST');
-$pdo = new \PDO($dsn, 'YOUR_DB_USER', 'YOUR_DB_PASSWORD');
-$usersStorage = new \Xsolla\SDK\Protocol\Storage\Pdo\UserStorage($pdo);
-$paymentsStorage = new \Xsolla\SDK\Protocol\Storage\Pdo\PaymentStandardStorage($pdo);
-$ipChecker = new \Xsolla\SDK\Validator\IpChecker;
-$protocolBuilder = new \Xsolla\SDK\Protocol\ProtocolFactory($demoProject, $ipChecker);
-$protocol = $protocolBuilder->getStandardProtocol($usersStorage, $paymentsStorage);
+use Xsolla\SDK\Webhook\WebhookServer;
+use Xsolla\SDK\Webhook\Message\Message;
+use Xsolla\SDK\Exception\Webhook\XsollaWebhookException;
 
-$request = \Symfony\Component\HttpFoundation\Request::createFromGlobals();
-$response = $protocol->run($request);
-$response->send();
+$callback = function (Message $message) {
+    switch ($message->getNotificationType()) {
+        case Message::USER_VALIDATION:
+            //check user existence
+            break;
+        case Message::PAYMENT:
+            //handle payment
+            break;
+        case Message::REFUND:
+            //handle refund
+            break;
+        default:
+            throw new XsollaWebhookException('Notification type not implemented');
+    }
+};
+
+$webhookServer = WebhookServer::create($callback, PROJECT_KEY); // https://merchant.xsolla.com/MERCHANT_ID/projects/PROJECT_ID/settings/connection
+$webhookServer->start();
 ```
-[IpChecker](https://github.com/xsolla/xsolla-sdk-php/blob/master/src/Validator/IpChecker.php) - additional security level for situations when your secret key is compromised.
-It's a optional parameter for ProtocolFactory and you can skip it for development and testing environment.
-If you use reverse proxy, you should set a list of trusted proxies via [Request::setTrustedProxies()](http://symfony.com/doc/current/components/http_foundation/trusting_proxies.html)
 
-#### IPN demo
-You can run IPN demo with the following commands(required php 5.4+ with built-in server):
-
-``` bash
-$ cd /path/to/xsolla/xsolla-sdk-php
-$ composer install
-$ php -S localhost:9000 -t example example/ipn_standard.php > /dev/null 2>&1 &
-$ # no command
-$ curl 'localhost:9000'
-$ # user found
-$ curl 'http://localhost:9000/?command=check&v1=demo&v2=&v3=&md5=a3561b90df78828133eb285e36965419'
-$ # user not found or disabled
-$ curl 'http://localhost:9000/?command=check&v1=not_exist&v2=&v3=&md5=5f67cabd3cf27cac2944e7f9f762a42a'
-$ # success IPN handling. Response contain payment ID
-$ curl 'http://localhost:9000/?command=pay&id=1&v1=demo&v2=&v3=&date=2014-02-19+13%3A03%3A52&sum=1&md5=eae3e95e93ff64f72aeb9fadfd8f0d66'
-$ # failed IPN handling. Unprocessable request error
-$ curl 'http://localhost:9000/?command=pay&id=2&v1=demo&v2=&v3=&date=2014-02-19+13%3A04%3A30&sum=5&md5=3067aeb81faa883f36d27acc9d808abb'
-$ # success payment cancel
-$ curl 'http://localhost:9000/?command=cancel&id=3&md5=9ac4f238314b0a0dae5be98151d19f33'
-```
-### Examples
-More examples you can find in [example](https://github.com/xsolla/xsolla-sdk-php/tree/master/example) folder.
-All examples are executable and you can run them with the following commands.
-
-``` bash
-$ cd /path/to/xsolla/xsolla-sdk-php
-$ composer install
-$ php example/calculator.php
-```
 ## Additional resources
 
 * [Website](http://xsolla.com)
-* [Documentation](http://xsolla.github.io)
+* [Documentation](http://developers.xsolla.com)
 * [Status](http://status.xsolla.com)
+* [Support and Feedback](mailto:api.developers@xsolla.com)
