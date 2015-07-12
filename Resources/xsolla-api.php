@@ -931,4 +931,207 @@ return array(
             ),
         ),
     ),
+    // Wallet
+    'CreateWalletUser' => array(
+        'httpMethod' => 'POST',
+        'uri' => '/merchant/projects/{project_id}/users',
+        'summary' => 'Create a new user.',
+        'parameters' => array(
+            'project_id' => array(
+                'location' => 'uri',
+                'type' => 'integer',
+                'required' => true,
+            ),
+            'request' => array(
+                'location' => 'body',
+                'type' => 'array',
+                'required' => true,
+                'filters' => array(
+                    'json_encode'
+                ),
+            ),
+        ),
+    ),
+    'GetWalletUser' => array(
+        'httpMethod' => 'GET',
+        'uri' => '/merchant/projects/{project_id}/users/{user_id}',
+        'summary' => 'Retrieve a user data',
+        'parameters' => array(
+            'project_id' => array(
+                'location' => 'uri',
+                'type' => 'integer',
+                'required' => true,
+            ),
+            'user_id' => array(
+                'location' => 'uri',
+                'type' => 'integer',
+                'required' => true,
+            ),
+        ),
+    ),
+    'UpdateWalletUser' => array(
+        'httpMethod' => 'PATCH',
+        'uri' => '/merchant/projects/{project_id}/users/{user_id}',
+        'summary' => 'Update user\'s information',
+        'parameters' => array(
+            'project_id' => array(
+                'location' => 'uri',
+                'type' => 'integer',
+                'required' => true,
+            ),
+            'user_id' => array(
+                'location' => 'uri',
+                'type' => 'integer',
+                'required' => true,
+            ),
+            'request' => array(
+                'location' => 'body',
+                'type' => 'array',
+                'required' => true,
+                'filters' => array(
+                    'json_encode'
+                ),
+            ),
+        ),
+    ),
+    'ListWalletUsers' => array(
+        'httpMethod' => 'GET',
+        'uri' => '/merchant/projects/{project_id}/users',
+        'summary' => 'List all users',
+        'parameters' => array(
+            'project_id' => array(
+                'location' => 'uri',
+                'type' => 'integer',
+                'required' => true,
+            ),
+            'email' => array(
+                'location' => 'query',
+                'type' => 'string',
+                'required' => false,
+            ),
+            'phone' => array(
+                'location' => 'query',
+                'type' => 'string',
+                'required' => false,
+            ),
+            'limit' => array(
+                'location' => 'query',
+                'type' => 'integer',
+                'required' => true,
+            ),
+            'offset' => array(
+                'location' => 'query',
+                'type' => 'integer',
+                'required' => true,
+            ),
+        ),
+    ),
+    'ListWalletUserOperations' => array(
+        'httpMethod' => 'GET',
+        'uri' => '/merchant/projects/{project_id}/users/{user_id}/transactions',
+        'summary' => 'List all operations',
+        'parameters' => array(
+            'project_id' => array(
+                'location' => 'uri',
+                'type' => 'integer',
+                'required' => true,
+            ),
+            'user_id' => array(
+                'location' => 'uri',
+                'type' => 'integer',
+                'required' => true,
+            ),
+            'datetime_from' => array(//TODO DATETIME
+                'location' => 'query',
+                'type' => 'string',
+                'required' => false,
+            ),
+            'datetime_to' => array(
+                'location' => 'query',
+                'type' => 'string',
+                'required' => false,
+            ),
+        ),
+    ),
+    'RechargeWalletUserBalance' => array(
+        'httpMethod' => 'POST',
+        'uri' => '/merchant/projects/{project_id}/users/{user_id}/recharge',
+        'summary' => 'Recharge a balance',
+        'parameters' => array(
+            'project_id' => array(
+                'location' => 'uri',
+                'type' => 'integer',
+                'required' => true,
+            ),
+            'user_id' => array(
+                'location' => 'uri',
+                'type' => 'integer',
+                'required' => true,
+            ),
+            'amount' => array(
+                'location' => 'json',
+                'type' => 'numeric',
+                'required' => true,
+            ),
+            'comment' => array(
+                'location' => 'json',
+                'type' => 'string',
+                'required' => true,
+            ),
+        ),
+    ),
+    'WithdrawWalletUserBalance' => array(
+        'httpMethod' => 'POST',
+        'uri' => '/merchant/projects/{project_id}/users/{user_id}/withdraw',
+        'summary' => 'Withdraw user\'s balance',
+        'parameters' => array(
+            'project_id' => array(
+                'location' => 'uri',
+                'type' => 'integer',
+                'required' => true,
+            ),
+            'user_id' => array(
+                'location' => 'uri',
+                'type' => 'integer',
+                'required' => true,
+            ),
+            'amount' => array(
+                'location' => 'json',
+                'type' => 'numeric',
+                'required' => true,
+            ),
+            'comment' => array(
+                'location' => 'json',
+                'type' => 'string',
+                'required' => true,
+            ),
+        ),
+    ),
+    'ListWalletUserVirtualItems' => array(
+        'httpMethod' => 'GET',
+        'uri' => '/merchant/projects/{project_id}/users/{user_id}/virtual_items',
+        'summary' => 'Get user\'s virtual items',
+        'parameters' => array(
+            'project_id' => array(
+                'location' => 'uri',
+                'type' => 'integer',
+                'required' => true,
+            ),
+            'user_id' => array(
+                'location' => 'uri',
+                'type' => 'integer',
+                'required' => true,
+            ),
+            'limit' => array(
+                'location' => 'query',
+                'type' => 'integer',
+                'required' => true,
+            ),
+            'offset' => array(
+                'location' => 'query',
+                'type' => 'integer',
+                'required' => true,
+            ),
+        ),
+    ),
 );
