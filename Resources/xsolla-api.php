@@ -41,7 +41,7 @@ return array(
                 ),
                 'user_id' => array(
                     'location' => 'uri',
-                    'type' => 'integer',
+                    'type' => 'string',
                     'required' => true,
                 ),
                 'request' => array(
@@ -66,7 +66,7 @@ return array(
                 ),
                 'user_id' => array(
                     'location' => 'uri',
-                    'type' => 'integer',
+                    'type' => 'string',
                     'required' => true,
                 ),
                 'type' => array(
@@ -93,7 +93,7 @@ return array(
                 ),
                 'user_id' => array(
                     'location' => 'uri',
-                    'type' => 'integer',
+                    'type' => 'string',
                     'required' => true,
                 ),
             ),
@@ -110,7 +110,7 @@ return array(
                 ),
                 'user_id' => array(
                     'location' => 'uri',
-                    'type' => 'integer',
+                    'type' => 'string',
                     'required' => true,
                 ),
                 'type' => array(
@@ -145,7 +145,7 @@ return array(
                 ),
                 'user_id' => array(
                     'location' => 'uri',
-                    'type' => 'integer',
+                    'type' => 'string',
                     'required' => true,
                 ),
                 'request' => array(
@@ -159,7 +159,418 @@ return array(
             ),
         ),
         // Subscriptions
-
+        'CreateSubscriptionPlan' => array(
+            'httpMethod' => 'POST',
+            'uri' => '/merchant/projects/{project_id}/subscriptions/plans',
+            'summary' => 'Create a recurrent plan',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'request' => array(
+                    'location' => 'body',
+                    'type' => 'array',
+                    'required' => true,
+                    'filters' => array(
+                        'json_encode'
+                    ),
+                ),
+            ),
+        ),
+        'UpdateSubscriptionPlan' => array(
+            'httpMethod' => 'PUT',
+            'uri' => '/merchant/projects/{project_id}/subscriptions/plans/{plan_id}',
+            'summary' => 'Update a recurrent plan',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'plan_id' => array(
+                    'location' => 'uri',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'request' => array(
+                    'location' => 'body',
+                    'type' => 'array',
+                    'required' => true,
+                    'filters' => array(
+                        'json_encode'
+                    ),
+                ),
+            ),
+        ),
+        'DeleteSubscriptionPlan' => array(
+            'httpMethod' => 'DELETE',
+            'uri' => '/merchant/projects/{project_id}/subscriptions/plans/{plan_id}/delete',
+            'summary' => 'Delete a recurrent plan',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'plan_id' => array(
+                    'location' => 'uri',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+            ),
+        ),
+        'DisableSubscriptionPlan' => array(
+            'httpMethod' => 'DELETE',
+            'uri' => '/merchant/projects/{project_id}/subscriptions/plans/{plan_id}',
+            'summary' => 'Disable a recurrent plan',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'plan_id' => array(
+                    'location' => 'uri',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+            ),
+        ),
+        'EnableSubscriptionPlan' => array(
+            'httpMethod' => 'PATCH',
+            'uri' => '/merchant/projects/{project_id}/subscriptions/plans/{plan_id}',
+            'summary' => 'Enable a recurrent plan',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'plan_id' => array(
+                    'location' => 'uri',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+            ),
+        ),
+        'ListSubscriptionPlans' => array(
+            'httpMethod' => 'GET',
+            'uri' => '/merchant/projects/{project_id}/subscriptions/plans',
+            'summary' => 'List all recurrent plans',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+            ),
+        ),
+        'CreateSubscriptionProduct' => array(
+            'httpMethod' => 'POST',
+            'uri' => '/merchant/projects/{project_id}/subscriptions/products',
+            'summary' => 'Create a product',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'name' => array(
+                    'location' => 'json',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'group_id' => array(
+                    'location' => 'json',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+            ),
+        ),
+        'UpdateSubscriptionProduct' => array(
+            'httpMethod' => 'PUT',
+            'uri' => '/merchant/projects/{project_id}/subscriptions/products/{product_id}',
+            'summary' => 'Update a product',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'item_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'product_id' => array(
+                    'location' => 'uri',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'name' => array(
+                    'location' => 'json',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'group_id' => array(
+                    'location' => 'json',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+            ),
+        ),
+        'DeleteSubscriptionProduct' => array(
+            'httpMethod' => 'DELETE',
+            'uri' => '/merchant/projects/{project_id}/subscriptions/products/{product_id}/delete',
+            'summary' => 'Delete a product',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'product_id' => array(
+                    'location' => 'uri',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+            ),
+        ),
+        'ListSubscriptionProducts' => array(
+            'httpMethod' => 'GET',
+            'uri' => '/merchant/projects/{project_id}/subscriptions/products',
+            'summary' => 'List all recurrent products',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'group_id' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'limit' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => false,
+                ),
+                'offset' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => false,
+                ),
+            ),
+        ),
+        'UpdateSubscription' => array(
+            'httpMethod' => 'PUT',
+            'uri' => '/merchant/projects/{project_id}/users/{user_id}/subscriptions/{subscription_id}',
+            'summary' => 'Update a recurrent subscription. It\'s available to update the status of subscription (active or canceled) and to postpone the date of the next charge for current subscription.',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'user_id' => array(
+                    'location' => 'uri',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'subscription_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'request' => array(
+                    'location' => 'body',
+                    'type' => 'array',
+                    'required' => true,
+                    'filters' => array(
+                        'json_encode'
+                    ),
+                ),
+            ),
+        ),
+        'ListSubscriptions' => array(
+            'httpMethod' => 'GET',
+            'uri' => '/merchant/projects/{project_id}/users/{user_id}/subscriptions',
+            'summary' => 'List all recurrent subscriptions',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'user_id' => array(
+                    'location' => 'uri',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'status' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'limit' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => false,
+                ),
+                'offset' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => false,
+                ),
+                'datetime_from' => array(//TODO DATETIME
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'datetime_to' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+            ),
+        ),
+        'ListSubscriptionPayments' => array(
+            'httpMethod' => 'GET',
+            'uri' => '/merchant/projects/{project_id}/users/{user_id}/subscriptions/payments',
+            'summary' => 'List all recurrent payments',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'user_id' => array(
+                    'location' => 'uri',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'status' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'limit' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => false,
+                ),
+                'offset' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => false,
+                ),
+                'datetime_from' => array(//TODO DATETIME
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'datetime_to' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+            ),
+        ),
+        'ListSubscriptionCurrencies' => array(
+            'httpMethod' => 'GET',
+            'uri' => '/merchant/projects/{project_id}/subscriptions/currencies',
+            'summary' => 'List all recurrent currencies',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+            ),
+        ),
+        //User attributes
+        'GetUserAttribute' => array(
+            'httpMethod' => 'GET',
+            'uri' => '/merchant/projects/{project_id}/user_attributes/{user_attribute_id}',
+            'summary' => 'Show a user attribute',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'user_attribute_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+            ),
+        ),
+        'CreateUserAttribute' => array(
+            'httpMethod' => 'POST',
+            'uri' => '/merchant/projects/{project_id}/user_attributes',
+            'summary' => 'Create user attribute',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'request' => array(
+                    'location' => 'body',
+                    'type' => 'array',
+                    'required' => true,
+                    'filters' => array(
+                        'json_encode'
+                    ),
+                ),
+            ),
+        ),
+        'UpdateUserAttribute' => array(
+            'httpMethod' => 'PUT',
+            'uri' => '/merchant/projects/{project_id}/user_attributes/{user_attribute_id}',
+            'summary' => 'Update user attribute',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'user_attribute_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'request' => array(
+                    'location' => 'body',
+                    'type' => 'array',
+                    'required' => true,
+                    'filters' => array(
+                        'json_encode'
+                    ),
+                ),
+            ),
+        ),
+        'DeleteUserAttribute' => array(
+            'httpMethod' => 'DELETE',
+            'uri' => '/merchant/projects/{project_id}/user_attributes/{user_attribute_id}',
+            'summary' => 'Delete a user attribute',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'user_attribute_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+            ),
+        ),
         // Virtual Items
         'CreateVirtualItem' => array(
             'httpMethod' => 'POST',
