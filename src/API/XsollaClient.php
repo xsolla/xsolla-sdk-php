@@ -7,7 +7,69 @@ use Guzzle\Service\Client;
 use Guzzle\Service\Description\ServiceDescription;
 use Xsolla\SDK\API\PaymentUI\TokenRequest;
 use Xsolla\SDK\Version;
+use Guzzle\Service\Resource\Model;
 
+/**
+ * @method Model CreatePaymentUIToken(array $args = array())
+ *
+ * @method Model CreatePaymentAccount(array $args = array())
+ * @method Model DeletePaymentAccount(array $args = array())
+ * @method Model ListPaymentAccounts(array $args = array())
+ * @method Model MakePayment(array $args = array())
+ * @method Model MakeCreditCardPayment(array $args = array())
+ *
+ * @method Model CreateSubscriptionPlan(array $args = array())
+ * @method Model UpdateSubscriptionPlan(array $args = array())
+ * @method Model DeleteSubscriptionPlan(array $args = array())
+ * @method Model DisableSubscriptionPlan(array $args = array())
+ * @method Model EnableSubscriptionPlan(array $args = array())
+ * @method Model ListSubscriptionPlans(array $args = array())
+ * @method Model CreateSubscriptionProduct(array $args = array())
+ * @method Model UpdateSubscriptionProduct(array $args = array())
+ * @method Model DeleteSubscriptionProduct(array $args = array())
+ * @method Model ListSubscriptionProducts(array $args = array())
+ * @method Model UpdateSubscription(array $args = array())
+ * @method Model ListSubscriptions(array $args = array())
+ * @method Model ListSubscriptionPayments(array $args = array())
+ * @method Model ListSubscriptionCurrencies(array $args = array())
+ *
+ * @method Model GetUserAttribute(array $args = array())
+ * @method Model CreateUserAttribute(array $args = array())
+ * @method Model UpdateUserAttribute(array $args = array())
+ * @method Model DeleteUserAttribute(array $args = array())
+ *
+ * @method Model CreateVirtualItem(array $args = array())
+ * @method Model GetVirtualItem(array $args = array())
+ * @method Model UpdateVirtualItem(array $args = array())
+ * @method Model DeleteVirtualItem(array $args = array())
+ * @method Model ListVirtualItems(array $args = array())
+ * @method Model UpdateVirtualItemImage(array $args = array())
+ * @method Model DeleteVirtualItemImage(array $args = array())
+ * @method Model CreateVirtualItemsGroup(array $args = array())
+ * @method Model GetVirtualItemsGroup(array $args = array())
+ * @method Model UpdateVirtualItemsGroup(array $args = array())
+ * @method Model DeleteVirtualItemsGroup(array $args = array())
+ * @method Model ListVirtualItemsGroups(array $args = array())
+ * @method Model AddVirtualItemToGroup(array $args = array())
+ * @method Model DeleteVirtualItemFromGroup(array $args = array())
+ * @method Model UpdateVirtualItemsInGroup(array $args = array())
+ * @method Model UpdateVirtualItemOrderInGroup(array $args = array())
+ *
+ * @method Model GetProjectVirtualCurrencySettings(array $args = array())
+ * @method Model UpdateProjectVirtualCurrencySettings(array $args = array())
+ *
+ * @method Model CreateWalletUser(array $args = array())
+ * @method Model GetWalletUser(array $args = array())
+ * @method Model UpdateWalletUser(array $args = array())
+ * @method Model ListWalletUsers(array $args = array())
+ * @method Model ListWalletUserOperations(array $args = array())
+ * @method Model RechargeWalletUserBalance(array $args = array())
+ * @method Model WithdrawWalletUserBalance(array $args = array())
+ * @method Model ListWalletUserVirtualItems(array $args = array())
+ *
+ * @method Model GetCoupon(array $args = array())
+ * @method Model RedeemCoupon(array $args = array())
+ */
 class XsollaClient extends Client
 {
     /**
