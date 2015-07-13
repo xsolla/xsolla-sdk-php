@@ -40,26 +40,6 @@ class TokenRequest
     }
 
     /**
-     * @param string $countryIsoCode
-     * @return self
-     */
-    public function setUserCountry($countryIsoCode)
-    {
-        $this->data['user']['country']['value'] = $countryIsoCode;
-        return $this;
-    }
-
-    /**
-     * @param string $languageIsoCode
-     * @return self
-     */
-    public function setLanguage($languageIsoCode)
-    {
-        $this->data['settings']['language'] = $languageIsoCode;
-        return $this;
-    }
-
-    /**
      * @param string $currencyIsoCode
      * @return self
      */
