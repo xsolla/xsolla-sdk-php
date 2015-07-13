@@ -1134,4 +1134,44 @@ return array(
             ),
         ),
     ),
+    // Coupons
+    'GetCoupon' => array(
+        'httpMethod' => 'GET',
+        'uri' => '/merchant/projects/{project_id}/coupons/{code}',
+        'summary' => 'Get information about coupon by code',
+        'parameters' => array(
+            'project_id' => array(
+                'location' => 'uri',
+                'type' => 'integer',
+                'required' => true,
+            ),
+            'code' => array(
+                'location' => 'uri',
+                'type' => 'string',
+                'required' => true,
+            ),
+        ),
+    ),
+    'RedeemCoupon' => array(
+        'httpMethod' => 'POST ',
+        'uri' => '/merchant/projects/{project_id}/coupons/{code}/redeem',
+        'summary' => 'Redeem coupon by code',
+        'parameters' => array(
+            'project_id' => array(
+                'location' => 'uri',
+                'type' => 'integer',
+                'required' => true,
+            ),
+            'code' => array(
+                'location' => 'uri',
+                'type' => 'string',
+                'required' => true,
+            ),
+            'user_id' => array(
+                'location' => 'json',
+                'type' => 'string',
+                'required' => true,
+            ),
+        ),
+    ),
 );
