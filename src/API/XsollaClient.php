@@ -3,6 +3,7 @@
 namespace Xsolla\SDK\API;
 
 use Guzzle\Common\Collection;
+use Guzzle\Plugin\ErrorResponse\ErrorResponsePlugin;
 use Guzzle\Service\Client;
 use Guzzle\Service\Description\ServiceDescription;
 use Xsolla\SDK\API\PaymentUI\TokenRequest;
@@ -69,6 +70,32 @@ use Guzzle\Service\Resource\Model;
  *
  * @method Model GetCoupon(array $args = array())
  * @method Model RedeemCoupon(array $args = array())
+ *
+ * @method Model CreatePromotion(array $args = array())
+ * @method Model GetPromotion(array $args = array())
+ * @method Model UpdatePromotion(array $args = array())
+ * @method Model ReviewPromotion(array $args = array())
+ * @method Model TogglePromotion(array $args = array())
+ * @method Model DeletePromotion(array $args = array())
+ * @method Model ListPromotions(array $args = array())
+ * @method Model GetPromotionSubject(array $args = array())
+ * @method Model SetPromotionSubject(array $args = array())
+ * @method Model GetPromotionPaymentSystems(array $args = array())
+ * @method Model SetPromotionPaymentSystems(array $args = array())
+ * @method Model GetPromotionPeriods(array $args = array())
+ * @method Model SetPromotionPeriods(array $args = array())
+ * @method Model GetPromotionRewards(array $args = array())
+ * @method Model SetPromotionRewards(array $args = array())
+ *
+ * @method Model ListEvents(array $args = array())
+ *
+ * @method Model ListPayments(array $args = array())
+ * @method Model ListTransfers(array $args = array())
+ * @method Model ListReports(array $args = array())
+ * @method Model CreateRefundRequest(array $args = array())
+ *
+ * @method Model ListSupportTickets(array $args = array())
+ * @method Model ListSupportTicketComments(array $args = array())
  */
 class XsollaClient extends Client
 {
@@ -87,15 +114,16 @@ class XsollaClient extends Client
         $default = array('base_url' => 'https://api.xsolla.com');
         $required = array(
             'merchant_id',
-            'api_token'
+            'api_key'
         );
         $config = Collection::fromConfig($config, $default, $required);
         $client = new static(isset($config['base_url']) ? $config['base_url'] : null, $config);
         $client->setDescription(ServiceDescription::factory(__DIR__.'/../../resources/xsolla-api.php'));
-        $client->setDefaultOption('auth', array($config['merchant_id'], $config['api_token'], 'Basic'));
+        $client->setDefaultOption('auth', array($config['merchant_id'], $config['api_key'], 'Basic'));
         $client->setDefaultOption('headers', array('Accept' => 'application/json', 'Content-Type' => 'application/json'));
         $client->setDefaultOption('command.params', array('merchant_id' => $config['merchant_id']));
         $client->setUserAgent(Version::getVersion());
+        $client->addSubscriber(new ErrorResponsePlugin());
         return $client;
     }
 
@@ -107,7 +135,7 @@ class XsollaClient extends Client
     public function createCommonPaymentUIToken($projectId, $userId)
     {
         $tokenRequest = new TokenRequest($projectId, $userId);
-        return $this->getPaymentUITokenFromRequest($tokenRequest);
+        return $this->createPaymentUITokenFromRequest($tokenRequest);
     }
 
     /**

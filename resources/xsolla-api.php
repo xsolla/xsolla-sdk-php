@@ -23,8 +23,21 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        array(
+                            'method' => 'json_encode',
+                            'args' => array('@value', JSON_PRETTY_PRINT),
+                        ),
                     ),
+                ),
+            ),
+            'errorResponses' => array(
+                array(
+                    'code' => 422,
+                    'class' => '\Xsolla\SDK\Exception\API\UnprocessableEntityException',
+                ),
+                array(
+                    'code' => 403,
+                    'class' => '\Xsolla\SDK\Exception\API\AccessDeniedException',
                 ),
             ),
         ),
