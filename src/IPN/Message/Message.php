@@ -23,8 +23,16 @@ class Message
         self::IPN_USER_BALANCE => '\Xsolla\SDK\IPN\Message\UserBalanceMessage',
     );
 
+    /**
+     * @var ParameterBag
+     */
     protected $parameterBag;
 
+    /**
+     * @param ParameterBag $parameterBag
+     * @return Message
+     * @throws InvalidParameterException
+     */
     public static function fromRequest(ParameterBag $parameterBag)
     {
         $notificationType = $parameterBag->get('notification_type');
@@ -35,46 +43,73 @@ class Message
         return new $className($parameterBag);
     }
 
+    /**
+     * @param ParameterBag $parameterBag
+     */
     public function __construct(ParameterBag $parameterBag)
     {
         $this->parameterBag = $parameterBag;
     }
 
+    /**
+     * @return ParameterBag
+     */
     public function toParameterBag()
     {
         return $this->parameterBag;
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
         return $this->parameterBag->all();
     }
 
+    /**
+     * @return string
+     */
     public function getNotificationType()
     {
         return $this->parameterBag->get('notification_type');
     }
 
+    /**
+     * @return bool
+     */
     public function isUserValidation()
     {
         return self::IPN_USER_VALIDATION === $this->getNotificationType();
     }
 
+    /**
+     * @return bool
+     */
     public function isPayment()
     {
         return self::IPN_PAYMENT === $this->getNotificationType();
     }
 
+    /**
+     * @return bool
+     */
     public function isRefund()
     {
         return self::IPN_REFUND === $this->getNotificationType();
     }
 
+    /**
+     * @return array
+     */
     public function getUser()
     {
         return $this->parameterBag->get('user', array());
     }
 
+    /**
+     * @return string
+     */
     public function getUserId()
     {
         return $this->parameterBag->get('user[id]');

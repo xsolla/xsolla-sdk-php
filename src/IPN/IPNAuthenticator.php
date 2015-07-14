@@ -8,7 +8,7 @@ use Xsolla\SDK\Exception\IPN\InvalidSignatureException;
 
 class IPNAuthenticator
 {
-    protected $xsollaSubnets = array(
+    protected static $xsollaSubnets = array(
         '159.255.220.240/28',
         '185.30.20.16/29',
         '185.30.21.0/24',
@@ -31,6 +31,8 @@ class IPNAuthenticator
     /**
      * @param IPNRequest $IPNRequest
      * @param bool $checkClientIp
+     * @throws InvalidClientIpException
+     * @throws InvalidSignatureException
      */
     public function authenticate(IPNRequest $IPNRequest, $checkClientIp = true)
     {
@@ -42,10 +44,11 @@ class IPNAuthenticator
 
     /**
      * @param string $clientIp
+     * @throws InvalidClientIpException
      */
     public function authenticateClientIp($clientIp)
     {
-        if (false === IpUtils::checkIp($clientIp, $this->xsollaSubnets)) {
+        if (false === IpUtils::checkIp($clientIp, self::$xsollaSubnets)) {
             throw new InvalidClientIpException();
         }
     }
@@ -57,12 +60,12 @@ class IPNAuthenticator
     public function authenticateSignature(IPNRequest $IPNRequest)
     {
         $headers = $IPNRequest->getHeaders();
-        if (!isset($headers['Authorization'])) {
+        if (!array_key_exists('Authorization', $headers)) {
             throw new InvalidSignatureException();
         }
         $matches = array();
         preg_match('~^Signature: ([0-9a-f]{40})$~', $headers['Authorization'], $matches);
-        if (isset($matches[1])) {
+        if (array_key_exists(1, $matches)) {
             $clientSignature = $matches[1];
         } else {
             throw new InvalidSignatureException();

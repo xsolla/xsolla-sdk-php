@@ -8,21 +8,40 @@ use Xsolla\SDK\Version;
 
 class IPNResponse
 {
+    /**
+     * @var int
+     */
     protected $httpStatusCode;
 
+    /**
+     * @var string
+     */
     protected $body;
 
+    /**
+     * @var Response
+     */
     protected $symfonyResponse;
 
+    /**
+     * @param \Exception $e
+     * @return IPNResponse
+     */
     public static function fromException(\Exception $e)
     {
         if ($e instanceof XsollaIPNException) {
-            return self::fromErrorCode($e->getXsollaErrorCode(), $e->getMessage(), $e->getHttpStatusCode());
+            return static::fromErrorCode($e->getXsollaErrorCode(), $e->getMessage(), $e->getHttpStatusCode());
         } else {
-            return self::fromErrorCode('FATAL_ERROR', $e->getMessage());
+            return static::fromErrorCode('FATAL_ERROR', $e->getMessage());
         }
     }
 
+    /**
+     * @param string $xsollaErrorCode
+     * @param string $message
+     * @param int $httpStatus
+     * @return IPNResponse
+     */
     public static function fromErrorCode($xsollaErrorCode, $message = '', $httpStatus = 500)
     {
         $body = [
@@ -33,6 +52,10 @@ class IPNResponse
         return new static($httpStatus, $encodedBody);
     }
 
+    /**
+     * @param int $httpStatusCode
+     * @param string $body
+     */
     public function __construct($httpStatusCode = 204, $body = '')
     {
         $this->symfonyResponse = new Response($body, $httpStatusCode, array('X-Xsolla-SDK' => Version::getVersion()));

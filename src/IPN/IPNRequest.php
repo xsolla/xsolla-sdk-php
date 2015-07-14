@@ -46,7 +46,7 @@ class IPNRequest
     }
 
     /**
-     * @return ParameterBag
+     * @return string
      */
     public function getBody()
     {
