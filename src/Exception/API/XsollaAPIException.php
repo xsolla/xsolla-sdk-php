@@ -11,7 +11,7 @@ class XsollaAPIException extends XsollaException implements ErrorResponseExcepti
 {
     protected $messageTemplate =
 <<<EOF
-Xsolla API Error Response:
+Xsolla API Error Response: %s
 
 Response:
 ================
@@ -30,7 +30,8 @@ EOF;
     {
         $this->command = $command;
         $this->response = $response;
-        $message = sprintf($this->messageTemplate, $response->__toString(), $command->getRequest()->__toString());
+        $errorResponse = $response->json();
+        $message = sprintf($this->messageTemplate, $errorResponse['message'], $response->__toString(), $command->getRequest()->__toString());
         parent::__construct($message);
     }
 
