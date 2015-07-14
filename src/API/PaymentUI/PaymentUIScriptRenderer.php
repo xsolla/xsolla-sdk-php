@@ -2,6 +2,9 @@
 
 namespace Xsolla\SDK\API\PaymentUI;
 
+/**
+ * @link https://github.com/xsolla/paystation-embed
+ */
 class PaymentUIScriptRenderer 
 {
     public static function send($token, $isSandbox = false)
