@@ -2,6 +2,7 @@
 
 namespace Xsolla\SDK\IPN;
 
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Xsolla\SDK\Exception\IPN\XsollaIPNException;
 
@@ -11,11 +12,6 @@ class IPNRequest
      * @var string
      */
     protected $body;
-
-    /**
-     * @var array
-     */
-    protected $parsedBody;
 
     /**
      * @var array
@@ -50,7 +46,7 @@ class IPNRequest
     }
 
     /**
-     * @return string
+     * @return ParameterBag
      */
     public function getBody()
     {
@@ -58,19 +54,16 @@ class IPNRequest
     }
 
     /**
-     * @return array
+     * @return ParameterBag
      * @throws XsollaIPNException
      */
-    public function getParsedBody()
+    public function getParameterBag()
     {
-        if (!$this->parsedBody) {
-            $data = json_decode($this->body, true);
-            if (JSON_ERROR_NONE !== json_last_error()) {
-                throw new XsollaIPNException('Unable to parse request body into JSON: ' . json_last_error());
-            }
-            $this->parsedBody = $data === null ? array() : $data;
+        $data = json_decode($this->body, true);
+        if (JSON_ERROR_NONE !== json_last_error()) {
+            throw new XsollaIPNException('Unable to parse request body into JSON: ' . json_last_error());
         }
-        return $this->parsedBody;
+        return new ParameterBag($data === null ? array() : $data);
     }
 
     /**

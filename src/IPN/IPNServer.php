@@ -2,6 +2,8 @@
 
 namespace Xsolla\SDK\IPN;
 
+use Xsolla\SDK\IPN\Message\Message;
+
 class IPNServer
 {
     /**
@@ -39,7 +41,8 @@ class IPNServer
         try {
             $IPNRequest = IPNRequest::fromGlobals();
             $this->IPNAuthenticator->authenticate($IPNRequest);
-            call_user_func($this->IPNCallback, $IPNRequest->getParsedBody());
+            $message = Message::fromRequest($IPNRequest->getParameterBag());
+            call_user_func($this->IPNCallback, $message);
             $IPNResponse = new IPNResponse();
             $IPNResponse->sendResponse();
         } catch (\Exception $e) {
