@@ -18,14 +18,14 @@ class IPNAuthenticator
     /**
      * @var string
      */
-    protected $xsollaApiToken;
+    protected $projectSecretKey;
 
     /**
-     * @param string $xsollaApiToken
+     * @param string $projectSecretKey
      */
-    public function __construct($xsollaApiToken)
+    public function __construct($projectSecretKey)
     {
-        $this->xsollaApiToken = $xsollaApiToken;
+        $this->projectSecretKey = $projectSecretKey;
     }
 
     /**
@@ -70,7 +70,7 @@ class IPNAuthenticator
         } else {
             throw new InvalidSignatureException();
         }
-        $serverSignature = sha1($IPNRequest->getBody().$this->xsollaApiToken);
+        $serverSignature = sha1($IPNRequest->getBody().$this->projectSecretKey);
         if ($clientSignature !== $serverSignature) {
             throw new InvalidSignatureException();
         }

@@ -33,7 +33,7 @@ class Message
      * @return Message
      * @throws InvalidParameterException
      */
-    public static function fromRequest(ParameterBag $parameterBag)
+    public static function fromParameterBag(ParameterBag $parameterBag)
     {
         $notificationType = $parameterBag->get('notification_type');
         if (!array_key_exists($notificationType, self::$classMap)) {

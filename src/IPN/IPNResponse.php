@@ -61,15 +61,10 @@ class IPNResponse
         $this->symfonyResponse = new Response($body, $httpStatusCode, array('X-Xsolla-SDK' => Version::getVersion()));
     }
 
-    public function sendResponse()
-    {
-        $this->symfonyResponse->send();
-    }
-
     /**
      * @return Response
      */
-    public function getResponse()
+    public function getSymfonyResponse()
     {
         return $this->symfonyResponse;
     }
