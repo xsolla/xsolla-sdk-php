@@ -2,6 +2,7 @@
 
 namespace Xsolla\SDK\Tests\Integration\API;
 
+use Guzzle\Common\Event;
 use Xsolla\SDK\API\XsollaClient;
 
 abstract class AbstractAPITest extends \PHPUnit_Framework_TestCase
@@ -20,5 +21,13 @@ abstract class AbstractAPITest extends \PHPUnit_Framework_TestCase
             'merchant_id' => $_SERVER['MERCHANT_ID'],
             'api_key' => $_SERVER['API_KEY']
         ));
+        global $argv;
+        if (in_array('--verbose', $argv, true)) {
+            $echoCb = function (Event $event) {
+                echo (string) $event['request'].PHP_EOL;
+                echo (string) $event['response'].PHP_EOL;
+            };
+            $this->xsollaClient->getEventDispatcher()->addListener('request.complete', $echoCb);
+        }
     }
 }

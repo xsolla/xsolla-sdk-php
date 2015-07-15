@@ -35,6 +35,7 @@ use Guzzle\Common\Event;
  * @method Model ListSubscriptionPayments(array $args = array())
  * @method Model ListSubscriptionCurrencies(array $args = array())
  *
+ * @method Model ListUserAttributes(array $args = array())
  * @method Model GetUserAttribute(array $args = array())
  * @method Model CreateUserAttribute(array $args = array())
  * @method Model UpdateUserAttribute(array $args = array())
