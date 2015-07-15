@@ -11,12 +11,14 @@ class ReportsTest extends AbstractAPITest
 
     public function testListTransfers()
     {
-        static::markTestSkipped();
+        $response = $this->xsollaClient->ListTransfers();
+        static::assertInternalType('array', $response);
     }
 
     public function testListReports()
     {
-        static::markTestSkipped();
+        $response = $this->xsollaClient->ListReports();
+        static::assertInternalType('array', $response);
     }
 
     public function testCreateRefundRequest()

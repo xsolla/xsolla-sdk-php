@@ -21,12 +21,23 @@ class WalletTest extends AbstractAPITest
 
     public function testListWalletUsers()
     {
-        static::markTestSkipped();
+        $response = $this->xsollaClient->ListWalletUsers(array(
+            'project_id' => $this->projectId,
+            'limit' => 1,
+            'offset' => 0,
+        ));
+        static::assertInternalType('array', $response);
     }
 
     public function testListWalletUserOperations()
     {
-        static::markTestSkipped();
+        $response = $this->xsollaClient->ListWalletUserOperations(array(
+            'project_id' => $this->projectId,
+            'user_id' => 1,
+            'datetime_from' => '2015-01-01T00:00:00 UTC',
+            'datetime_to' => '2016-01-01T00:00:00 UTC',
+        ));
+        static::assertInternalType('array', $response);
     }
 
     public function testRechargeWalletUserBalance()
@@ -41,6 +52,12 @@ class WalletTest extends AbstractAPITest
 
     public function testListWalletUserVirtualItems()
     {
-        static::markTestSkipped();
+        $response = $this->xsollaClient->ListWalletUserVirtualItems(array(
+            'project_id' => $this->projectId,
+            'user_id' => 1,
+            'limit' => 1,
+            'offset' => 0,
+        ));
+        static::assertInternalType('array', $response);
     }
 }

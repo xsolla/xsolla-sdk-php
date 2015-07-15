@@ -1058,12 +1058,12 @@ return array(
                 'datetime_from' => array(//TODO DATETIME
                     'location' => 'query',
                     'type' => 'string',
-                    'required' => false,
+                    'required' => true,
                 ),
                 'datetime_to' => array(
                     'location' => 'query',
                     'type' => 'string',
-                    'required' => false,
+                    'required' => true,
                 ),
             ),
         ),

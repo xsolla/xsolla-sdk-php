@@ -31,7 +31,10 @@ class SubscriptionsTest extends AbstractAPITest
 
     public function testListSubscriptionPlans()
     {
-        static::markTestSkipped();
+        $response = $this->xsollaClient->ListSubscriptionPlans(array(
+            'project_id' => $this->projectId,
+        ));
+        static::assertInternalType('array', $response);
     }
 
     public function testCreateSubscriptionProduct()
@@ -51,7 +54,10 @@ class SubscriptionsTest extends AbstractAPITest
 
     public function testListSubscriptionProducts()
     {
-        static::markTestSkipped();
+        $response = $this->xsollaClient->ListSubscriptionProducts(array(
+            'project_id' => $this->projectId,
+        ));
+        static::assertInternalType('array', $response);
     }
 
     public function testUpdateSubscription()
@@ -61,16 +67,28 @@ class SubscriptionsTest extends AbstractAPITest
 
     public function testListSubscriptions()
     {
-        static::markTestSkipped();
+        $response = $this->xsollaClient->ListSubscriptions(array(
+            'project_id' => $this->projectId,
+            'user_id' => 1,
+        ));
+        static::assertInternalType('array', $response);
     }
 
     public function testListSubscriptionPayments()
     {
-        static::markTestSkipped();
+        $response = $this->xsollaClient->ListSubscriptionPayments(array(
+            'project_id' => $this->projectId,
+            'user_id' => 1,
+        ));
+        static::assertInternalType('array', $response);
     }
 
     public function testListSubscriptionCurrencies()
     {
-        static::markTestSkipped();
+        $response = $this->xsollaClient->ListSubscriptionCurrencies(array(
+            'project_id' => $this->projectId,
+            'user_id' => 1,
+        ));
+        static::assertInternalType('array', $response);
     }
 }

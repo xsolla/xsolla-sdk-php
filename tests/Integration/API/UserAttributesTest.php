@@ -21,7 +21,10 @@ class UserAttributesTest extends AbstractAPITest
 
     public function testListUserAttributes()
     {
-        static::markTestSkipped();
+        $response = $this->xsollaClient->ListUserAttributes(array(
+            'project_id' => $this->projectId,
+        ));
+        static::assertInternalType('array', $response);
     }
 
     public function testDeleteUserAttribute()

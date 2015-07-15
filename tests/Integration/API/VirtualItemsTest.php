@@ -26,7 +26,10 @@ class VirtualItemsTest extends AbstractAPITest
 
     public function testListVirtualItems()
     {
-        static::markTestSkipped();
+        $response = $this->xsollaClient->ListVirtualItems(array(
+            'project_id' => $this->projectId,
+        ));
+        static::assertInternalType('array', $response);
     }
 
     public function testUpdateVirtualItemImage()
@@ -61,7 +64,10 @@ class VirtualItemsTest extends AbstractAPITest
 
     public function testListVirtualItemsGroups()
     {
-        static::markTestSkipped();
+        $response = $this->xsollaClient->ListVirtualItemsGroups(array(
+            'project_id' => $this->projectId,
+        ));
+        static::assertInternalType('array', $response);
     }
 
     public function testAddVirtualItemToGroup()

@@ -36,7 +36,8 @@ class PromotionsTest extends AbstractAPITest
 
     public function testListPromotions()
     {
-        static::markTestSkipped();
+        $response = $this->xsollaClient->ListPromotions();
+        static::assertInternalType('array', $response);
     }
 
     public function testGetPromotionSubject()

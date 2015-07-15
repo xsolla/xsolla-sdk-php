@@ -16,7 +16,11 @@ class DirectPaymentsTest extends AbstractAPITest
 
     public function testListPaymentAccounts()
     {
-        static::markTestSkipped();
+        $response = $this->xsollaClient->ListPaymentAccounts(array(
+            'project_id' => $this->projectId,
+            'user_id' => 1,
+        ));
+        static::assertInternalType('array', $response);
     }
 
     public function testMakePayment()
