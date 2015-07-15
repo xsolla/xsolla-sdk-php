@@ -1,36 +1,16 @@
 <?php
 
-namespace Xsolla\SDK\Tests\Integration\API\PaymentUI;
+namespace Xsolla\SDK\Tests\Integration\API;
 
 use Herrera\Json\Json;
 use Xsolla\SDK\API\PaymentUI\TokenRequest;
-use Xsolla\SDK\API\XsollaClient;
 
-class CreatePaymentUITokenTest extends \PHPUnit_Framework_TestCase
+class CreatePaymentUITokenTest extends AbstractAPITest
 {
-    /**
-     * @var XsollaClient
-     */
-    protected $xsollaClient;
-
-    public function setUp()
-    {
-        $this->xsollaClient = XsollaClient::factory([
-            'merchant_id' => $_SERVER['MERCHANT_ID'],
-            'api_key' => $_SERVER['API_KEY']
-        ]);
-    }
-
-    protected function checkPaymentUI($token)
-    {
-        static::assertInternalType('string', $token);
-        echo $token.PHP_EOL;
-    }
-
     public function testCreateCommonPaymentUIToken()
     {
         $token = $this->xsollaClient->createCommonPaymentUIToken($_SERVER['PROJECT_ID'], 'USER_ID');
-        $this->checkPaymentUI($token);
+        static::assertInternalType('string', $token);
     }
 
     public function testCreatePaymentUITokenFromRequest()
@@ -43,12 +23,12 @@ class CreatePaymentUITokenTest extends \PHPUnit_Framework_TestCase
             ->setSandboxMode(true)
             ->setUserName('USER_NAME');
         $token = $this->xsollaClient->createPaymentUITokenFromRequest($tokenRequest);
-        $this->checkPaymentUI($token);
+        static::assertInternalType('string', $token);
     }
 
     public function testCreatePaymentUIToken()
     {
-        $requestJsonFileName = __DIR__.'/../../../resources/token.json';
+        $requestJsonFileName = __DIR__.'/../../resources/token.json';
         $tokenPayload = file_get_contents($requestJsonFileName);
         if (false === $tokenPayload) {
             static::fail('Could not read token request from tests/resources/token.json');
@@ -57,6 +37,6 @@ class CreatePaymentUITokenTest extends \PHPUnit_Framework_TestCase
         $request = $json->decode($tokenPayload, true);
         $tokenResponse = $this->xsollaClient->CreatePaymentUIToken(['request' => $request]);
         static::assertArrayHasKey('token', $tokenResponse);
-        $this->checkPaymentUI($tokenResponse['token']);
+        static::assertInternalType('string', $tokenResponse['token']);
     }
 }

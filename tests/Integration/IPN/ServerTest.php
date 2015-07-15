@@ -5,7 +5,6 @@ namespace Xsolla\SDK\Tests\Integration\IPN;
 use Guzzle\Http\Client;
 use Guzzle\Http\Exception\BadResponseException;
 use Symfony\Component\Process\Process;
-use Xsolla\SDK\Tests\Integration\IPN\Mocks\ServerMock;
 use Xsolla\SDK\Version;
 
 class ServerTest extends \PHPUnit_Framework_TestCase
@@ -18,7 +17,6 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->guzzleClient = new Client('http://localhost:8000');
-        $this->guzzleClient->setDefaultOption('debug', true);
     }
 
     /**
@@ -31,7 +29,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $testCase,
         $testHeaders
     ) {
-        $process = new Process('php -S localhost:8000', __DIR__.'/Mocks');
+        $process = new Process('php -S localhost:8000', __DIR__ . '/../../resources');
         $process->start();
         $signature = sha1($request.ServerMock::PROJECT_SECRET_KEY);
         $headers = null;
@@ -40,7 +38,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         } else {
             $headers = array('Authorization' => 'Signature '.$signature);
         }
-        $request = $this->guzzleClient->post('/server.php?test_case='.$testCase, $headers, $request);
+        $request = $this->guzzleClient->post('/ipn_server.php?test_case='.$testCase, $headers, $request);
         try {
             $response = $request->send();
         } catch (BadResponseException $e) {

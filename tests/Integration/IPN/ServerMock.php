@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\Tests\Integration\IPN\Mocks;
+namespace Xsolla\SDK\Tests\Integration\IPN;
 
 use Xsolla\SDK\Exception\IPN\ClientErrorException;
 use Xsolla\SDK\Exception\IPN\ServerErrorException;

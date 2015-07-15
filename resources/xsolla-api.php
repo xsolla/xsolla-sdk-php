@@ -516,6 +516,11 @@ return array(
                     'required' => true,
                 ),
             ),
+            'errorResponses' => array(
+                array(
+                    'class' => '\Xsolla\SDK\Exception\API\XsollaAPIException',
+                ),
+            ),
         ),
         'GetUserAttribute' => array(
             'httpMethod' => 'GET',
@@ -531,6 +536,11 @@ return array(
                     'location' => 'uri',
                     'type' => 'integer',
                     'required' => true,
+                ),
+            ),
+            'errorResponses' => array(
+                array(
+                    'class' => '\Xsolla\SDK\Exception\API\XsollaAPIException',
                 ),
             ),
         ),
@@ -551,6 +561,11 @@ return array(
                     'filters' => array(
                         'json_encode'
                     ),
+                ),
+            ),
+            'errorResponses' => array(
+                array(
+                    'class' => '\Xsolla\SDK\Exception\API\XsollaAPIException',
                 ),
             ),
         ),
@@ -578,6 +593,11 @@ return array(
                     ),
                 ),
             ),
+            'errorResponses' => array(
+                array(
+                    'class' => '\Xsolla\SDK\Exception\API\XsollaAPIException',
+                ),
+            ),
         ),
         'DeleteUserAttribute' => array(
             'httpMethod' => 'DELETE',
@@ -593,6 +613,11 @@ return array(
                     'location' => 'uri',
                     'type' => 'integer',
                     'required' => true,
+                ),
+            ),
+            'errorResponses' => array(
+                array(
+                    'class' => '\Xsolla\SDK\Exception\API\XsollaAPIException',
                 ),
             ),
         ),
