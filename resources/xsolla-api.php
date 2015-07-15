@@ -30,16 +30,6 @@ return array(
                     ),
                 ),
             ),
-            'errorResponses' => array(
-                array(
-                    'code' => 422,
-                    'class' => '\Xsolla\SDK\Exception\API\UnprocessableEntityException',
-                ),
-                array(
-                    'code' => 403,
-                    'class' => '\Xsolla\SDK\Exception\API\AccessDeniedException',
-                ),
-            ),
         ),
         // Direct Payments
         'CreatePaymentAccount' => array(
@@ -516,11 +506,6 @@ return array(
                     'required' => true,
                 ),
             ),
-            'errorResponses' => array(
-                array(
-                    'class' => '\Xsolla\SDK\Exception\API\XsollaAPIException',
-                ),
-            ),
         ),
         'GetUserAttribute' => array(
             'httpMethod' => 'GET',
@@ -536,11 +521,6 @@ return array(
                     'location' => 'uri',
                     'type' => 'integer',
                     'required' => true,
-                ),
-            ),
-            'errorResponses' => array(
-                array(
-                    'class' => '\Xsolla\SDK\Exception\API\XsollaAPIException',
                 ),
             ),
         ),
@@ -561,11 +541,6 @@ return array(
                     'filters' => array(
                         'json_encode'
                     ),
-                ),
-            ),
-            'errorResponses' => array(
-                array(
-                    'class' => '\Xsolla\SDK\Exception\API\XsollaAPIException',
                 ),
             ),
         ),
@@ -593,11 +568,6 @@ return array(
                     ),
                 ),
             ),
-            'errorResponses' => array(
-                array(
-                    'class' => '\Xsolla\SDK\Exception\API\XsollaAPIException',
-                ),
-            ),
         ),
         'DeleteUserAttribute' => array(
             'httpMethod' => 'DELETE',
@@ -613,11 +583,6 @@ return array(
                     'location' => 'uri',
                     'type' => 'integer',
                     'required' => true,
-                ),
-            ),
-            'errorResponses' => array(
-                array(
-                    'class' => '\Xsolla\SDK\Exception\API\XsollaAPIException',
                 ),
             ),
         ),
@@ -1072,12 +1037,6 @@ return array(
                     'location' => 'query',
                     'type' => 'integer',
                     'required' => true,
-                ),
-            ),
-            'errorResponses' => array(
-                array(
-                    'code' => 400,// TODO
-                    'class' => '\Xsolla\SDK\Exception\API\XsollaAPIException',
                 ),
             ),
         ),
@@ -1618,11 +1577,6 @@ return array(
                     'location' => 'query',
                     'type' => 'boolean',
                     'required' => false,
-                ),
-            ),
-            'errorResponses' => array(
-                array(
-                    'class' => '\Xsolla\SDK\Exception\API\XsollaAPIException',
                 ),
             ),
         ),

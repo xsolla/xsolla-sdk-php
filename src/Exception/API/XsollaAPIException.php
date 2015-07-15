@@ -2,48 +2,52 @@
 
 namespace Xsolla\SDK\Exception\API;
 
-use Guzzle\Http\Message\Response;
-use Guzzle\Plugin\ErrorResponse\ErrorResponseExceptionInterface;
-use Guzzle\Service\Command\CommandInterface;
+use Guzzle\Http\Exception\BadResponseException;
 use Xsolla\SDK\Exception\XsollaException;
 
-class XsollaAPIException extends XsollaException implements ErrorResponseExceptionInterface
+class XsollaAPIException extends XsollaException
 {
+    protected static $exceptions = array(
+        422 => '\Xsolla\SDK\Exception\API\UnprocessableEntityException',
+        403 => '\Xsolla\SDK\Exception\API\AccessDeniedException',
+    );
+
     protected $messageTemplate =
 <<<EOF
-Xsolla API Error Response: %s
+Xsolla API Error Response:
 
-Response:
-================
+Previous Exception:
+===================
 %s
 
 Request:
-================
+===================
+%s
+
+Response:
+===================
 %s
 EOF;
 
-    protected $command;
-
     protected $response;
 
-    public function __construct(CommandInterface $command, Response $response)
+    public static function factory(BadResponseException $previous)
     {
-        $this->command = $command;
-        $this->response = $response;
-        $errorDetails = json_decode($response->getBody('true'), true);
-        if ($errorDetails and isset($errorDetails['message'])) {
-            $errorMessage = $errorDetails['message'];
-        } else {
-            $errorMessage = '';
+        $statusCode = $previous->getResponse()->getStatusCode();
+        if (array_key_exists($statusCode, static::$exceptions)) {
+            return new static::$exceptions[$statusCode]($previous);
         }
-        $message = sprintf($this->messageTemplate, $errorMessage, $response->__toString(), $command->getRequest()->__toString());
+        return new self($previous);
+    }
+
+    public function __construct(BadResponseException $previous)
+    {
+        $message = sprintf(
+            $this->messageTemplate,
+            $previous->getMessage(),
+            $previous->getRequest(),
+            $previous->getResponse()
+        );
         parent::__construct($message);
     }
-
-    public static function fromCommand(CommandInterface $command, Response $response)
-    {
-        return new static($command, $response);
-    }
-
-
 }

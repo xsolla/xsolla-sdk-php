@@ -3,12 +3,13 @@
 namespace Xsolla\SDK\API;
 
 use Guzzle\Common\Collection;
-use Guzzle\Plugin\ErrorResponse\ErrorResponsePlugin;
 use Guzzle\Service\Client;
 use Guzzle\Service\Description\ServiceDescription;
 use Xsolla\SDK\API\PaymentUI\TokenRequest;
+use Xsolla\SDK\Exception\API\XsollaAPIException;
 use Xsolla\SDK\Version;
 use Guzzle\Service\Resource\Model;
+use Guzzle\Common\Event;
 
 /**
  * @method Model CreatePaymentUIToken(array $args = array())
@@ -123,7 +124,10 @@ class XsollaClient extends Client
         $client->setDefaultOption('headers', array('Accept' => 'application/json', 'Content-Type' => 'application/json'));
         $client->setDefaultOption('command.params', array('merchant_id' => $config['merchant_id']));
         $client->setUserAgent(Version::getVersion());
-        $client->addSubscriber(new ErrorResponsePlugin());
+        $exceptionCb = function (Event $event) {
+            throw XsollaAPIException::factory($event['exception']);
+        };
+        $client->getEventDispatcher()->addListener('request.exception', $exceptionCb);
         return $client;
     }
 

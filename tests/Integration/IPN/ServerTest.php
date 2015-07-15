@@ -31,6 +31,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     ) {
         $process = new Process('php -S localhost:8000', __DIR__ . '/../../resources');
         $process->start();
+        sleep(1);
         $signature = sha1($request.ServerMock::PROJECT_SECRET_KEY);
         $headers = null;
         if ($testHeaders) {
