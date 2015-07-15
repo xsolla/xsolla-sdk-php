@@ -2,7 +2,7 @@
 
 namespace Xsolla\SDK\Exception\IPN;
 
-class InvalidAmountException extends XsollaIPNException
+class InvalidAmountException extends ClientErrorException
 {
     public function getXsollaErrorCode()
     {

@@ -2,7 +2,7 @@
 
 namespace Xsolla\SDK\Exception\IPN;
 
-class InvalidUserException extends XsollaIPNException
+class InvalidUserException extends ClientErrorException
 {
     public function getXsollaErrorCode()
     {

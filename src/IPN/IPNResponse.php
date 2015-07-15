@@ -58,7 +58,7 @@ class IPNResponse
      */
     public function __construct($httpStatusCode = 204, $body = '')
     {
-        $this->symfonyResponse = new Response($body, $httpStatusCode, array('X-Xsolla-SDK' => Version::getVersion()));
+        $this->symfonyResponse = new Response($body, $httpStatusCode, array('x-xsolla-sdk' => Version::getVersion()));
     }
 
     /**

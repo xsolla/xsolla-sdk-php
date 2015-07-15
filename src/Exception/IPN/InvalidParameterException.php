@@ -2,7 +2,7 @@
 
 namespace Xsolla\SDK\Exception\IPN;
 
-class InvalidParameterException extends XsollaIPNException
+class InvalidParameterException extends ClientErrorException
 {
     public function getXsollaErrorCode()
     {

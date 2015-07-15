@@ -4,6 +4,7 @@ namespace Xsolla\SDK\IPN;
 
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
+use Xsolla\SDK\Exception\IPN\InvalidParameterException;
 use Xsolla\SDK\Exception\IPN\XsollaIPNException;
 
 class IPNRequest
@@ -30,7 +31,11 @@ class IPNRequest
     public static function fromGlobals()
     {
         $request = Request::createFromGlobals();
-        return new static($request->headers->all(), $request->getContent(), $request->getClientIp());
+        $headers = array();
+        foreach ($request->headers->all() as $header => $arrayValue) {
+            $headers[$header] = $arrayValue[0];
+        }
+        return new static($headers, $request->getContent(), $request->getClientIp());
     }
 
     /**
@@ -61,7 +66,7 @@ class IPNRequest
     {
         $data = json_decode($this->body, true);
         if (JSON_ERROR_NONE !== json_last_error()) {
-            throw new XsollaIPNException('Unable to parse request body into JSON: ' . json_last_error());
+            throw new InvalidParameterException('Unable to parse request body into JSON: ' . json_last_error());
         }
         return new ParameterBag($data === null ? array() : $data);
     }

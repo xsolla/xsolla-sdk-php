@@ -37,7 +37,7 @@ class Message
     {
         $notificationType = $parameterBag->get('notification_type');
         if (!array_key_exists($notificationType, self::$classMap)) {
-            throw new InvalidParameterException();
+            throw new InvalidParameterException('notification_type field not found in request');
         }
         $className = self::$classMap[$notificationType];
         return new $className($parameterBag);

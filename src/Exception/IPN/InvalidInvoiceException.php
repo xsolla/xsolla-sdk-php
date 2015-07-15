@@ -2,7 +2,7 @@
 
 namespace Xsolla\SDK\Exception\IPN;
 
-class InvalidInvoiceException extends XsollaIPNException
+class InvalidInvoiceException extends ClientErrorException
 {
     public function getXsollaErrorCode()
     {

@@ -31,7 +31,7 @@ class CreatePaymentUITokenTest extends \PHPUnit_Framework_TestCase
     protected function checkPaymentUI($token)
     {
         static::assertInternalType('string', $token);
-        echo $token;
+        echo $token.PHP_EOL;
     }
 
     public function testCreateCommonPaymentUIToken()

@@ -2,16 +2,14 @@
 
 namespace Xsolla\SDK\Exception\IPN;
 
-use Xsolla\SDK\Exception\XsollaException;
-
-class XsollaIPNException extends XsollaException
+class ClientErrorException extends XsollaIPNException
 {
     /**
      * @return string
      */
     public function getXsollaErrorCode()
     {
-        return 'SERVER_ERROR';
+        return 'CLIENT_ERROR';
     }
 
     /**
@@ -19,6 +17,6 @@ class XsollaIPNException extends XsollaException
      */
     public function getHttpStatusCode()
     {
-        return 500;
+        return 400;
     }
 }

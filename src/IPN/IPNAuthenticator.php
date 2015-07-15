@@ -49,7 +49,7 @@ class IPNAuthenticator
     public function authenticateClientIp($clientIp)
     {
         if (false === IpUtils::checkIp($clientIp, self::$xsollaSubnets)) {
-            throw new InvalidClientIpException();
+            throw new InvalidClientIpException();//TODO
         }
     }
 
@@ -60,19 +60,19 @@ class IPNAuthenticator
     public function authenticateSignature(IPNRequest $IPNRequest)
     {
         $headers = $IPNRequest->getHeaders();
-        if (!array_key_exists('Authorization', $headers)) {
-            throw new InvalidSignatureException();
+        if (!array_key_exists('authorization', $headers)) {
+            throw new InvalidSignatureException('Authorization header not found');
         }
         $matches = array();
-        preg_match('~^Signature: ([0-9a-f]{40})$~', $headers['Authorization'], $matches);
+        preg_match('~^Signature ([0-9a-f]{40})$~', $headers['authorization'], $matches);
         if (array_key_exists(1, $matches)) {
             $clientSignature = $matches[1];
         } else {
-            throw new InvalidSignatureException();
+            throw new InvalidSignatureException('Signature not found in Authorization header');
         }
         $serverSignature = sha1($IPNRequest->getBody().$this->projectSecretKey);
         if ($clientSignature !== $serverSignature) {
-            throw new InvalidSignatureException();
+            throw new InvalidSignatureException('Signature provided, but not matched');
         }
     }
 }

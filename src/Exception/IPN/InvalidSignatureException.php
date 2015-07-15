@@ -2,7 +2,7 @@
 
 namespace Xsolla\SDK\Exception\IPN;
 
-class InvalidSignatureException extends XsollaIPNException
+class InvalidSignatureException extends ClientErrorException
 {
     public function getXsollaErrorCode()
     {
