@@ -30,8 +30,13 @@ EOF;
     {
         $this->command = $command;
         $this->response = $response;
-        $errorResponse = $response->json();
-        $message = sprintf($this->messageTemplate, $errorResponse['message'], $response->__toString(), $command->getRequest()->__toString());
+        $errorDetails = json_decode($response->getBody('true'), true);
+        if ($errorDetails and isset($errorDetails['message'])) {
+            $errorMessage = $errorDetails['message'];
+        } else {
+            $errorMessage = '';
+        }
+        $message = sprintf($this->messageTemplate, $errorMessage, $response->__toString(), $command->getRequest()->__toString());
         parent::__construct($message);
     }
 

@@ -5,7 +5,6 @@ namespace Xsolla\SDK\Tests\Integration\API\PaymentUI;
 use Herrera\Json\Json;
 use Xsolla\SDK\API\PaymentUI\TokenRequest;
 use Xsolla\SDK\API\XsollaClient;
-use Guzzle\Http\Client;
 
 class CreatePaymentUITokenTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,18 +13,12 @@ class CreatePaymentUITokenTest extends \PHPUnit_Framework_TestCase
      */
     protected $xsollaClient;
 
-    /**
-     * @var Client
-     */
-    protected $guzzleClient;
-
     public function setUp()
     {
         $this->xsollaClient = XsollaClient::factory([
             'merchant_id' => $_SERVER['MERCHANT_ID'],
             'api_key' => $_SERVER['API_KEY']
         ]);
-        $this->guzzleClient = new Client('https://secure.xsolla.com/');
     }
 
     protected function checkPaymentUI($token)
