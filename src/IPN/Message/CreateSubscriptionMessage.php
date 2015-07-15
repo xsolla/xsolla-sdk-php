@@ -9,7 +9,7 @@ class CreateSubscriptionMessage extends CancelSubscriptionMessage
      */
     public function getSubscription()
     {
-        return $this->parameterBag->get('subscription', array());
+        return $this->request['subscription'];
     }
 
     /**
@@ -17,6 +17,9 @@ class CreateSubscriptionMessage extends CancelSubscriptionMessage
      */
     public function getCoupon()
     {
-        return $this->parameterBag->get('coupon', array());
+        if (!array_key_exists('coupon', $this->request)) {
+            return array();
+        }
+        return $this->request['coupon'];
     }
 }

@@ -4,18 +4,21 @@ namespace Xsolla\SDK\IPN\Message;
 
 class UserBalanceMessage extends Message
 {
-    const TYPE_PAYMENT = 'payment';
-    const TYPE_INGAME_PURCHASE = 'inGamePurchase';
-    const TYPE_COUPON = 'coupon';
-    const TYPE_INTERNAL = 'internal';
-    const TYPE_CANCELLATION = 'cancellation';
+    const PAYMENT = 'payment';
+    const IN_GAME_PURCHASE = 'inGamePurchase';
+    const COUPON = 'coupon';
+    const INTERNAL = 'internal';
+    const CANCELLATION = 'cancellation';
 
     /**
      * @return array
      */
     public function getVirtualCurrencyBalance()
     {
-        return $this->parameterBag->get('virtual_currency_balance', array());
+        if (!array_key_exists('virtual_currency_balance', $this->request)) {
+            return array();
+        }
+        return $this->request['virtual_currency_balance'];
     }
 
     /**
@@ -23,7 +26,7 @@ class UserBalanceMessage extends Message
      */
     public function getOperationType()
     {
-        return $this->parameterBag->get('operation_type');
+        return $this->request['operation_type'];
     }
 
     /**
@@ -31,7 +34,7 @@ class UserBalanceMessage extends Message
      */
     public function getIdOperation()
     {
-        return $this->parameterBag->getInt('id_operation');
+        return $this->request['id_operation'];
     }
 
     /**
@@ -39,7 +42,10 @@ class UserBalanceMessage extends Message
      */
     public function getCoupon()
     {
-        return $this->parameterBag->get('coupon', array());
+        if (!array_key_exists('coupon', $this->request)) {
+            return array();
+        }
+        return $this->request['coupon'];
     }
 
     /**
@@ -47,6 +53,9 @@ class UserBalanceMessage extends Message
      */
     public function getItemsOperationType()
     {
-        return $this->parameterBag->get('items_operation_type');
+        if (!array_key_exists('items_operation_type', $this->request)) {
+            return array();
+        }
+        return $this->request['items_operation_type'];
     }
 }

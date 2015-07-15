@@ -64,7 +64,7 @@ class IPNServer
                 $IPNRequest = IPNRequest::fromGlobals();
             }
             $this->IPNAuthenticator->authenticate($IPNRequest, $authenticateClientIp);
-            $message = Message::fromParameterBag($IPNRequest->getParameterBag());
+            $message = Message::fromArray($IPNRequest->toArray());
             call_user_func($this->IPNCallback, $message);
             $IPNResponse =  new IPNResponse();
             return $IPNResponse->getSymfonyResponse();

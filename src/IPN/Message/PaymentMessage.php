@@ -9,7 +9,7 @@ class PaymentMessage extends Message
      */
     public function getPurchase()
     {
-        return $this->parameterBag->get('purchase', array());
+        return $this->request['purchase'];
     }
 
     /**
@@ -17,7 +17,7 @@ class PaymentMessage extends Message
      */
     public function getTransaction()
     {
-        return $this->parameterBag->get('transaction', array());
+        return $this->request['transaction'];
     }
 
     /**
@@ -25,7 +25,7 @@ class PaymentMessage extends Message
      */
     public function getPaymentDetails()
     {
-        return $this->parameterBag->get('payment_details', array());
+        return $this->request['payment_details'];
     }
 
     /**
@@ -33,7 +33,10 @@ class PaymentMessage extends Message
      */
     public function getCustomParameters()
     {
-        return $this->parameterBag->get('custom_parameters', array());
+        if (!array_key_exists('custom_parameters', $this->request)) {
+            return array();
+        }
+        return $this->request['custom_parameters'];
     }
 
     /**
@@ -41,6 +44,6 @@ class PaymentMessage extends Message
      */
     public function isDryRun()
     {
-        return $this->parameterBag->getBoolean('transaction[dry_run]');
+        return (bool) $this->request['transaction']['dry_run'];
     }
 }

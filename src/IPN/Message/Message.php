@@ -7,64 +7,59 @@ use Xsolla\SDK\Exception\IPN\InvalidParameterException;
 
 class Message
 {
-    const IPN_USER_VALIDATION = 'user_validation';
-    const IPN_PAYMENT = 'payment';
-    const IPN_REFUND = 'refund';
-    const IPN_CREATE_SUBSCRIPTION = 'create_subscription';
-    const IPN_CANCEL_SUBSCRIPTION = 'cancel_subscription';
-    const IPN_USER_BALANCE = 'user_balance_operation';
+    const USER_VALIDATION = 'user_validation';
+    const PAYMENT = 'payment';
+    const REFUND = 'refund';
+    const CREATE_SUBSCRIPTION = 'create_subscription';
+    const CANCEL_SUBSCRIPTION = 'cancel_subscription';
+    const USER_BALANCE = 'user_balance_operation';
 
     protected static $classMap = array(
-        self::IPN_USER_VALIDATION => '\Xsolla\SDK\IPN\Message\UserValidationMessage',
-        self::IPN_PAYMENT => '\Xsolla\SDK\IPN\Message\PaymentMessage',
-        self::IPN_REFUND => '\Xsolla\SDK\IPN\Message\RefundMessage',
-        self::IPN_CREATE_SUBSCRIPTION => '\Xsolla\SDK\IPN\Message\CreateSubscriptionMessage',
-        self::IPN_CANCEL_SUBSCRIPTION => '\Xsolla\SDK\IPN\Message\CancelSubscriptionMessage',
-        self::IPN_USER_BALANCE => '\Xsolla\SDK\IPN\Message\UserBalanceMessage',
+        self::USER_VALIDATION => '\Xsolla\SDK\IPN\Message\UserValidationMessage',
+        self::PAYMENT => '\Xsolla\SDK\IPN\Message\PaymentMessage',
+        self::REFUND => '\Xsolla\SDK\IPN\Message\RefundMessage',
+        self::CREATE_SUBSCRIPTION => '\Xsolla\SDK\IPN\Message\CreateSubscriptionMessage',
+        self::CANCEL_SUBSCRIPTION => '\Xsolla\SDK\IPN\Message\CancelSubscriptionMessage',
+        self::USER_BALANCE => '\Xsolla\SDK\IPN\Message\UserBalanceMessage',
     );
 
     /**
-     * @var ParameterBag
+     * @var array
      */
-    protected $parameterBag;
+    protected $request;
 
     /**
-     * @param ParameterBag $parameterBag
+     * @param array $request
      * @return Message
      * @throws InvalidParameterException
      */
-    public static function fromParameterBag(ParameterBag $parameterBag)
+    public static function fromArray(array $request)
     {
-        $notificationType = $parameterBag->get('notification_type');
-        if (!array_key_exists($notificationType, self::$classMap)) {
+        if (!array_key_exists('notification_type', $request)) {
             throw new InvalidParameterException('notification_type field not found in request');
         }
+        $notificationType = $request['notification_type'];
+        if (!array_key_exists($notificationType, self::$classMap)) {
+            throw new InvalidParameterException('Unknown notification_type: '. $notificationType);
+        }
         $className = self::$classMap[$notificationType];
-        return new $className($parameterBag);
+        return new $className($request);
     }
 
     /**
-     * @param ParameterBag $parameterBag
+     * @param array $request
      */
-    public function __construct(ParameterBag $parameterBag)
+    public function __construct(array $request)
     {
-        $this->parameterBag = $parameterBag;
+        $this->request = $request;
     }
 
     /**
      * @return ParameterBag
      */
-    public function toParameterBag()
-    {
-        return $this->parameterBag;
-    }
-
-    /**
-     * @return array
-     */
     public function toArray()
     {
-        return $this->parameterBag->all();
+        return $this->request;
     }
 
     /**
@@ -72,7 +67,7 @@ class Message
      */
     public function getNotificationType()
     {
-        return $this->parameterBag->get('notification_type');
+        return $this->request['notification_type'];
     }
 
     /**
@@ -104,7 +99,7 @@ class Message
      */
     public function getUser()
     {
-        return $this->parameterBag->get('user', array());
+        return $this->request['user'];
     }
 
     /**
@@ -112,6 +107,6 @@ class Message
      */
     public function getUserId()
     {
-        return $this->parameterBag->get('user[id]');
+        return $this->request['user']['id'];
     }
 }

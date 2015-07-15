@@ -9,6 +9,6 @@ class RefundMessage extends PaymentMessage
      */
     public function getRefundDetails()
     {
-        return $this->parameterBag->get('refund_details', array());
+        return $this->request['refund_details'];
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Xsolla\SDK\IPN;
 
-use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Xsolla\SDK\Exception\IPN\InvalidParameterException;
 use Xsolla\SDK\Exception\IPN\XsollaIPNException;
@@ -59,16 +58,16 @@ class IPNRequest
     }
 
     /**
-     * @return ParameterBag
+     * @return array
      * @throws XsollaIPNException
      */
-    public function getParameterBag()
+    public function toArray()
     {
         $data = json_decode($this->body, true);
         if (JSON_ERROR_NONE !== json_last_error()) {
             throw new InvalidParameterException('Unable to parse request body into JSON: ' . json_last_error());
         }
-        return new ParameterBag($data === null ? array() : $data);
+        return $data === null ? array() : $data;
     }
 
     /**
