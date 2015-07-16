@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 2.0 (2015-07-16)
+*
+
 ## 1.1.1 (2014-08-05)
 * add payment_amount, payment_currency to default locked parameters list for generation of paystation2 payment page url
 
