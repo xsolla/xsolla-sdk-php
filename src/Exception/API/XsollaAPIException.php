@@ -29,7 +29,7 @@ Response:
 %s
 EOF;
 
-    protected $response;
+    protected $errorDetails;
 
     public static function factory(BadResponseException $previous)
     {
@@ -48,6 +48,16 @@ EOF;
             $previous->getRequest(),
             $previous->getResponse()
         );
+        $parsedResponse = json_decode($previous->getResponse()->getBody(true), true);
+        if (is_array($parsedResponse)) {
+            $this->errorDetails = $parsedResponse;
+        };
         parent::__construct($message);
     }
+
+    public function getApiErrorMessage()
+    {
+        return $this->errorDetails['message'];
+    }
+
 }

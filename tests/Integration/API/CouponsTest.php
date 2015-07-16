@@ -2,6 +2,8 @@
 
 namespace Xsolla\SDK\Tests\Integration\API;
 
+use Xsolla\SDK\Exception\API\UnprocessableEntityException;
+
 /**
  * @group api
  */
@@ -33,11 +35,19 @@ class CouponsTest extends AbstractAPITest
 
     public function testRedeemCoupon()
     {
-        $actualCouponData = $this->xsollaClient->RedeemCoupon(array(
-            'project_id' => $this->projectId,
-            'code' => $this->code,
-            'user_id' => 1,
-        ));
-        static::assertEquals($this->expectedCouponData, $actualCouponData);
+        try {
+            $actualCouponData = $this->xsollaClient->RedeemCoupon(array(
+                'project_id' => $this->projectId,
+                'code' => $this->code,
+                'user_id' => 1,
+            ));
+            static::assertEquals($this->expectedCouponData, $actualCouponData);
+        } catch (UnprocessableEntityException $e) {
+            if ('You have used too much of coupons. Try again later' === $e->getApiErrorMessage()) {
+                static::markTestSkipped($e->getApiErrorMessage());
+            } else {
+                throw $e;
+            }
+        }
     }
 }

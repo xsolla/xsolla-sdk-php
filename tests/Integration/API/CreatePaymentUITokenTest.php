@@ -19,7 +19,7 @@ class CreatePaymentUITokenTest extends AbstractAPITest
     {
         $tokenRequest = new TokenRequest($_SERVER['PROJECT_ID'], 'USER_ID');
         $tokenRequest->setUserEmail('email@example.com')
-            ->setCustomParameters(['a' => 1, 'b' => 2])
+            ->setCustomParameters(array('a' => 1, 'b' => 2))
             ->setCurrency('USD')
             ->setExternalPaymentId(12345)
             ->setSandboxMode(true)
