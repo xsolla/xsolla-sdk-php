@@ -2,6 +2,9 @@
 
 namespace Xsolla\SDK\Tests\Integration\API;
 
+/**
+ * @group api
+ */
 class CouponsTest extends AbstractAPITest
 {
     protected $code = '1wpb1igjBig0g';

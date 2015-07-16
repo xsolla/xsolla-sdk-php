@@ -7,6 +7,9 @@ use Guzzle\Http\Exception\BadResponseException;
 use Symfony\Component\Process\Process;
 use Xsolla\SDK\Version;
 
+/**
+ * @group ipn
+ */
 class ServerTest extends \PHPUnit_Framework_TestCase
 {
     /**

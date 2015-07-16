@@ -5,6 +5,9 @@ namespace Xsolla\SDK\Tests\Integration\API;
 use Herrera\Json\Json;
 use Xsolla\SDK\API\PaymentUI\TokenRequest;
 
+/**
+ * @group api
+ */
 class CreatePaymentUITokenTest extends AbstractAPITest
 {
     public function testCreateCommonPaymentUIToken()

@@ -2,6 +2,9 @@
 
 namespace Xsolla\SDK\Tests\Integration\API;
 
+/**
+ * @group api
+ */
 class VirtualItemsTest extends AbstractAPITest
 {
     public function testCreateVirtualItem()

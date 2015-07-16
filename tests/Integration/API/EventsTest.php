@@ -2,6 +2,9 @@
 
 namespace Xsolla\SDK\Tests\Integration\API;
 
+/**
+ * @group api
+ */
 class EventsTest extends AbstractAPITest
 {
     public function testListEvents()
