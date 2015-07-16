@@ -5,6 +5,7 @@ namespace Xsolla\SDK\Tests\Integration\IPN;
 use Guzzle\Http\Client;
 use Guzzle\Http\Exception\BadResponseException;
 use Symfony\Component\Process\Process;
+use Xsolla\SDK\API\XsollaClient;
 use Xsolla\SDK\Version;
 
 /**
@@ -67,12 +68,11 @@ class ServerTest extends \PHPUnit_Framework_TestCase
             ),
             array(
                 'expectedStatusCode' => 422,
-                'expectedResponseContent' => json_encode(
+                'expectedResponseContent' => XsollaClient::jsonEncode(
                     array(
                         'code' => 'INVALID_PARAMETER',
                         'message' => 'notification_type field not found in request',
-                    ),
-                    JSON_PRETTY_PRINT
+                    )
                 ),
                 'request' => '{"foo": "bar"}',
                 'testCase' => 'empty_request',
@@ -80,12 +80,11 @@ class ServerTest extends \PHPUnit_Framework_TestCase
             ),
             array(
                 'expectedStatusCode' => 422,
-                'expectedResponseContent' => json_encode(
+                'expectedResponseContent' => XsollaClient::jsonEncode(
                     array(
                         'code' => 'INVALID_PARAMETER',
                         'message' => 'Unknown notification_type: unknown',
-                    ),
-                    JSON_PRETTY_PRINT
+                    )
                 ),
                 'request' => '{"notification_type": "unknown"}',
                 'testCase' => 'unknown_notification_type',
@@ -93,12 +92,11 @@ class ServerTest extends \PHPUnit_Framework_TestCase
             ),
             array(
                 'expectedStatusCode' => 401,
-                'expectedResponseContent' => json_encode(
+                'expectedResponseContent' => XsollaClient::jsonEncode(
                     array(
                         'code' => 'INVALID_SIGNATURE',
                         'message' => 'Signature provided, but not matched',
-                    ),
-                    JSON_PRETTY_PRINT
+                    )
                 ),
                 'request' => null,
                 'testCase' => 'invalid_signature',
@@ -106,12 +104,11 @@ class ServerTest extends \PHPUnit_Framework_TestCase
             ),
             array(
                 'expectedStatusCode' => 401,
-                'expectedResponseContent' => json_encode(
+                'expectedResponseContent' => XsollaClient::jsonEncode(
                     array(
                         'code' => 'INVALID_SIGNATURE',
                         'message' => 'Authorization header not found',
-                    ),
-                    JSON_PRETTY_PRINT
+                    )
                 ),
                 'request' => null,
                 'testCase' => 'authorization_header_not_found',
@@ -119,12 +116,11 @@ class ServerTest extends \PHPUnit_Framework_TestCase
             ),
             array(
                 'expectedStatusCode' => 401,
-                'expectedResponseContent' => json_encode(
+                'expectedResponseContent' => XsollaClient::jsonEncode(
                     array(
                         'code' => 'INVALID_SIGNATURE',
                         'message' => 'Signature not found in Authorization header',
-                    ),
-                    JSON_PRETTY_PRINT
+                    )
                 ),
                 'request' => null,
                 'testCase' => 'invalid_signature_format',
@@ -132,12 +128,11 @@ class ServerTest extends \PHPUnit_Framework_TestCase
             ),
             array(
                 'expectedStatusCode' => 422,
-                'expectedResponseContent' => json_encode(
+                'expectedResponseContent' => XsollaClient::jsonEncode(
                     array(
                         'code' => 'INVALID_PARAMETER',
                         'message' => 'Unable to parse request body into JSON: 4',
-                    ),
-                    JSON_PRETTY_PRINT
+                    )
                 ),
                 'request' => 'INVALID_REQUEST_CONTENT',
                 'testCase' => 'invalid_request_content',
@@ -145,12 +140,11 @@ class ServerTest extends \PHPUnit_Framework_TestCase
             ),
             array(
                 'expectedStatusCode' => 401,
-                'expectedResponseContent' => json_encode(
+                'expectedResponseContent' => XsollaClient::jsonEncode(
                     array(
                         'code' => 'INVALID_CLIENT_IP',
                         'message' => '',
-                    ),
-                    JSON_PRETTY_PRINT
+                    )
                 ),
                 'request' => null,
                 'testCase' => 'invalid_ip',
@@ -158,12 +152,11 @@ class ServerTest extends \PHPUnit_Framework_TestCase
             ),
             array(
                 'expectedStatusCode' => 500,
-                'expectedResponseContent' => json_encode(
+                'expectedResponseContent' => XsollaClient::jsonEncode(
                     array(
                         'code' => 'SERVER_ERROR',
                         'message' => '',
-                    ),
-                    JSON_PRETTY_PRINT
+                    )
                 ),
                 'request' => '{"notification_type": "payment"}',
                 'testCase' => 'callback_server_error',
@@ -171,12 +164,11 @@ class ServerTest extends \PHPUnit_Framework_TestCase
             ),
             array(
                 'expectedStatusCode' => 400,
-                'expectedResponseContent' => json_encode(
+                'expectedResponseContent' => XsollaClient::jsonEncode(
                     array(
                         'code' => 'CLIENT_ERROR',
                         'message' => '',
-                    ),
-                    JSON_PRETTY_PRINT
+                    )
                 ),
                 'request' => '{"notification_type": "payment"}',
                 'testCase' => 'callback_client_error',

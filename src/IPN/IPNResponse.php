@@ -3,6 +3,7 @@
 namespace Xsolla\SDK\IPN;
 
 use Symfony\Component\HttpFoundation\Response;
+use Xsolla\SDK\API\XsollaClient;
 use Xsolla\SDK\Exception\IPN\XsollaIPNException;
 use Xsolla\SDK\Version;
 
@@ -48,7 +49,7 @@ class IPNResponse
             'code' => $xsollaErrorCode,
             'message' => $message
         ];
-        $encodedBody = json_encode($body, JSON_PRETTY_PRINT);
+        $encodedBody = XsollaClient::jsonEncode($body);
         return new static($httpStatus, $encodedBody);
     }
 

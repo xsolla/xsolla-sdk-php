@@ -23,10 +23,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        array(
-                            'method' => 'json_encode',
-                            'args' => array('@value', JSON_PRETTY_PRINT),
-                        ),
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -52,7 +49,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -131,7 +128,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -156,7 +153,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -177,7 +174,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -202,7 +199,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -393,7 +390,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -539,7 +536,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -564,7 +561,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -602,7 +599,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -644,7 +641,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -698,7 +695,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -735,7 +732,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -777,7 +774,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -880,7 +877,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -940,7 +937,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -961,7 +958,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -1003,7 +1000,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -1205,7 +1202,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -1249,7 +1246,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -1360,7 +1357,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -1404,7 +1401,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -1448,7 +1445,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -1492,7 +1489,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),
@@ -1647,7 +1644,7 @@ return array(
                     'type' => 'array',
                     'required' => true,
                     'filters' => array(
-                        'json_encode'
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
                     ),
                 ),
             ),

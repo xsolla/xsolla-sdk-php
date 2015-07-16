@@ -111,6 +111,15 @@ class XsollaClient extends Client
      */
     protected $guzzleClient;
 
+    public static function jsonEncode($value)
+    {
+        $flags = 0;
+        if (defined('JSON_PRETTY_PRINT')) {
+            $flags = JSON_PRETTY_PRINT;
+        }
+        return json_encode($value, $flags);
+    }
+
     public static function factory($config = array())
     {
         $default = array('base_url' => 'https://api.xsolla.com');
