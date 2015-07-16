@@ -13,7 +13,7 @@ class TokenRequestTest extends \PHPUnit_Framework_TestCase
     {
         $tokenRequest = new TokenRequest('PROJECT_ID', 'USER_ID');
         $actualRequest = $tokenRequest->setUserEmail('email@example.com')
-            ->setCustomParameters(['a' => 1, 'b' => 2])
+            ->setCustomParameters(array('a' => 1, 'b' => 2))
             ->setCurrency('USD')
             ->setExternalPaymentId(12345)
             ->setSandboxMode(true)

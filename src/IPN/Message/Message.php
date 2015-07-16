@@ -5,7 +5,7 @@ namespace Xsolla\SDK\IPN\Message;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Xsolla\SDK\Exception\IPN\InvalidParameterException;
 
-class Message
+abstract class Message
 {
     const USER_VALIDATION = 'user_validation';
     const PAYMENT = 'payment';
@@ -75,7 +75,7 @@ class Message
      */
     public function isUserValidation()
     {
-        return self::IPN_USER_VALIDATION === $this->getNotificationType();
+        return self::USER_VALIDATION === $this->getNotificationType();
     }
 
     /**
@@ -83,7 +83,7 @@ class Message
      */
     public function isPayment()
     {
-        return self::IPN_PAYMENT === $this->getNotificationType();
+        return self::PAYMENT === $this->getNotificationType();
     }
 
     /**
@@ -91,7 +91,7 @@ class Message
      */
     public function isRefund()
     {
-        return self::IPN_REFUND === $this->getNotificationType();
+        return self::REFUND === $this->getNotificationType();
     }
 
     /**

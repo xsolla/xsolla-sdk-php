@@ -20,6 +20,21 @@ class PaymentMessage extends Message
         return $this->request['transaction'];
     }
 
+    public function getPaymentId()
+    {
+        return $this->request['transaction']['id'];
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getExternalPaymentId()
+    {
+        if (array_key_exists('external_id', $this->request['transaction'])) {
+            return $this->request['transaction']['external_id'];
+        }
+    }
+
     /**
      * @return array
      */
