@@ -2,7 +2,6 @@
 
 namespace Xsolla\SDK\Tests\Integration\API;
 
-use Herrera\Json\Json;
 use Xsolla\SDK\API\PaymentUI\TokenRequest;
 
 /**
@@ -36,8 +35,7 @@ class CreatePaymentUITokenTest extends AbstractAPITest
         if (false === $tokenPayload) {
             static::fail('Could not read token request from tests/resources/token.json');
         }
-        $json = new Json();
-        $request = $json->decode($tokenPayload, true);
+        $request = json_decode($tokenPayload, true);
         $tokenResponse = $this->xsollaClient->CreatePaymentUIToken(['request' => $request]);
         static::assertArrayHasKey('token', $tokenResponse);
         static::assertInternalType('string', $tokenResponse['token']);
