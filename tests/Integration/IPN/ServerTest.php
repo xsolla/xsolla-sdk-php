@@ -74,8 +74,21 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                     ),
                     JSON_PRETTY_PRINT
                 ),
-                'request' => null,
+                'request' => '{"foo": "bar"}',
                 'testCase' => 'empty_request',
+                'testHeaders' => null,
+            ),
+            array(
+                'expectedStatusCode' => 422,
+                'expectedResponseContent' => json_encode(
+                    array(
+                        'code' => 'INVALID_PARAMETER',
+                        'message' => 'Unknown notification_type: unknown',
+                    ),
+                    JSON_PRETTY_PRINT
+                ),
+                'request' => '{"notification_type": "unknown"}',
+                'testCase' => 'unknown_notification_type',
                 'testHeaders' => null,
             ),
             array(
