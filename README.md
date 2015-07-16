@@ -8,6 +8,8 @@
 
 An official PHP SDK for interacting with [Xsolla API](http://developers.xsolla.com)
 
+![Payment UI screenshot](http://developers.xsolla.com/images/gallery/vc__credit_card.a78b56420b.png)
+
 ## Requirements
 
 * PHP 5.3.9+
