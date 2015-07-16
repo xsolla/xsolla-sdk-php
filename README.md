@@ -2,7 +2,7 @@
 
 ## Requirements
 
-* PHP 5.3.3+
+* PHP 5.3.9+
 * Your php.ini needs to have the date.timezone setting
 
 ## Installation

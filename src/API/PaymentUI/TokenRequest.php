@@ -7,7 +7,7 @@ class TokenRequest
     /**
      * @var array
      */
-    protected $data = [];
+    protected $data = array();
 
     /**
      * @param int $projectId

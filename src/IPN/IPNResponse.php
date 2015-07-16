@@ -45,10 +45,10 @@ class IPNResponse
      */
     public static function fromErrorCode($xsollaErrorCode, $message = '', $httpStatus = 500)
     {
-        $body = [
+        $body = array(
             'code' => $xsollaErrorCode,
             'message' => $message
-        ];
+        );
         $encodedBody = XsollaClient::jsonEncode($body);
         return new static($httpStatus, $encodedBody);
     }

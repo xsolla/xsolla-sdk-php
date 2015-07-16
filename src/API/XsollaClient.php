@@ -158,7 +158,7 @@ class XsollaClient extends Client
      */
     public function createPaymentUITokenFromRequest(TokenRequest $tokenRequest)
     {
-        $parsedResponse = $this->CreatePaymentUIToken(['request' => $tokenRequest->toArray()]);
+        $parsedResponse = $this->CreatePaymentUIToken(array('request' => $tokenRequest->toArray()));
         return $parsedResponse['token'];
     }
 }
