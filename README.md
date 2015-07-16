@@ -10,6 +10,10 @@ An official PHP SDK for interacting with [Xsolla API](http://developers.xsolla.c
 
 ![Payment UI screenshot](http://developers.xsolla.com/images/gallery/vc__credit_card.a78b56420b.png)
 
+## Features
+
+## Getting started
+
 ## Requirements
 
 * PHP 5.3.9+
@@ -24,7 +28,7 @@ $ cd /path/to/your/project
 $ composer require xsolla/xsolla-sdk-php:~2.0
 ```
 
-## Usage
+## Quick Examples
 
 ### Generate Payment UI Token
 
