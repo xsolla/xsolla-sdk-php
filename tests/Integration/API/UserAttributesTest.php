@@ -4,21 +4,59 @@ namespace Xsolla\SDK\Tests\Integration\API;
 
 class UserAttributesTest extends AbstractAPITest
 {
+    protected static $attributeId;
+
+    protected $userAttribute;
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->userAttribute = array(
+            'key' => uniqid('user_attribute_', true),
+            'localized_name' => array(
+                'en' => 'name'
+            ),
+            'type' => 'string',
+        );
+    }
+
     public function testCreateUserAttribute()
     {
-        static::markTestSkipped();
+        $response = $this->xsollaClient->CreateUserAttribute(array(
+            'project_id' => $this->projectId,
+            'request' => $this->userAttribute,
+        ));
+        static::assertArrayHasKey('id', $response);
+        static::$attributeId = (int) $response['id'];
     }
 
+    /**
+     * @depends testCreateUserAttribute
+     */
     public function testGetUserAttribute()
     {
-        static::markTestSkipped();
+        $response = $this->xsollaClient->GetUserAttribute(array(
+            'project_id' => $this->projectId,
+            'user_attribute_id' => static::$attributeId,
+        ));
+        static::assertInternalType('array', $response);
     }
 
+    /**
+     * @depends testGetUserAttribute
+     */
     public function testUpdateUserAttribute()
     {
-        static::markTestSkipped();
+        $this->xsollaClient->UpdateUserAttribute(array(
+            'project_id' => $this->projectId,
+            'user_attribute_id' => static::$attributeId,
+            'request' => $this->userAttribute,
+        ));
     }
 
+    /**
+     * @depends testUpdateUserAttribute
+     */
     public function testListUserAttributes()
     {
         $response = $this->xsollaClient->ListUserAttributes(array(
@@ -27,8 +65,14 @@ class UserAttributesTest extends AbstractAPITest
         static::assertInternalType('array', $response);
     }
 
+    /**
+     * @depends testListUserAttributes
+     */
     public function testDeleteUserAttribute()
     {
-        static::markTestSkipped();
+        $this->xsollaClient->DeleteUserAttribute(array(
+            'project_id' => $this->projectId,
+            'user_attribute_id' => static::$attributeId,
+        ));
     }
 }
