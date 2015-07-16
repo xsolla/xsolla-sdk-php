@@ -75,37 +75,4 @@ class MessageTest extends \PHPUnit_Framework_TestCase
             ),
         );
     }
-
-    public function testPayment(array $customParameters, $dryRun)
-    {
-        $request = array(
-            'purchase' => '',
-            'transaction' => array(
-                'dry_run' => $dryRun,
-            ),
-            'payment_details' => '',
-            'custom_parameters' => $customParameters,
-        );
-
-    }
-
-    public function testRefund()
-    {
-
-    }
-
-    public function testCreateSubscription()
-    {
-
-    }
-
-    public function testCancelSubscription()
-    {
-
-    }
-
-    public function testUserBalance()
-    {
-
-    }
 }

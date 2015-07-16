@@ -59,6 +59,9 @@ class PaymentMessage extends Message
      */
     public function isDryRun()
     {
+        if (!array_key_exists('dry_run', $this->request['transaction'])) {
+            return false;
+        }
         return (bool) $this->request['transaction']['dry_run'];
     }
 }
