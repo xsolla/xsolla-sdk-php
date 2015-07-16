@@ -36,7 +36,7 @@ class CreatePaymentUITokenTest extends AbstractAPITest
             static::fail('Could not read token request from tests/resources/token.json');
         }
         $request = json_decode($tokenPayload, true);
-        $tokenResponse = $this->xsollaClient->CreatePaymentUIToken(['request' => $request]);
+        $tokenResponse = $this->xsollaClient->CreatePaymentUIToken(array('request' => $request));
         static::assertArrayHasKey('token', $tokenResponse);
         static::assertInternalType('string', $tokenResponse['token']);
     }
