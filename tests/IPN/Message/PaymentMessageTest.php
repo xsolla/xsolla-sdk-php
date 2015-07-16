@@ -113,7 +113,11 @@ class PaymentMessageTest extends \PHPUnit_Framework_TestCase
     public function testEmptyFields()
     {
         $requestCopy = $this->request;
-        unset($requestCopy['custom_parameters'], $requestCopy['transaction']['dry_run'], $requestCopy['transaction']['external_id']);
+        unset(
+            $requestCopy['custom_parameters'],
+            $requestCopy['transaction']['dry_run'],
+            $requestCopy['transaction']['external_id']
+        );
         $message = new PaymentMessage($requestCopy);
 
         static::assertNull($message->getExternalPaymentId());

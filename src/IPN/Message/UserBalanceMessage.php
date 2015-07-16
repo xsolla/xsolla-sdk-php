@@ -32,7 +32,7 @@ class UserBalanceMessage extends Message
     /**
      * @return int
      */
-    public function getIdOperation()
+    public function getOperationId()
     {
         return $this->request['id_operation'];
     }
@@ -49,13 +49,12 @@ class UserBalanceMessage extends Message
     }
 
     /**
-     * @return array
+     * @return string|null
      */
     public function getItemsOperationType()
     {
-        if (!array_key_exists('items_operation_type', $this->request)) {
-            return array();
+        if (array_key_exists('items_operation_type', $this->request)) {
+            return $this->request['items_operation_type'];
         }
-        return $this->request['items_operation_type'];
     }
 }
