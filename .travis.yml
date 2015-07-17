@@ -14,3 +14,6 @@ before_script:
 script:
   - phpunit --colors --exclude-group ipn
   - if [[ "`phpenv version-name`" != "5.3" && "`phpenv version-name`" != "hhvm" ]]; then phpunit --colors --group ipn; fi
+
+notifications:
+  slack: xsolla:V74WgCQlV6kas6X9SNQKl5R1
