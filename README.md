@@ -8,7 +8,7 @@
 
 An official PHP SDK for interacting with [Xsolla API](http://developers.xsolla.com)
 
-![Payment UI screenshot](https://xsolla.cachefly.net/img/ps3_github.png)
+![Payment UI screenshot](http://xsolla.cachefly.net/img/ps3_github_new.png)
 
 ## Features
 
