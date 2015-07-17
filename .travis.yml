@@ -5,11 +5,21 @@ php:
   - 5.4
   - 5.5
   - 5.6
-  - 7
+  - 7.0
   - hhvm
 
-before_script:
-    - composer install
+sudo: false
+
+env:
+  - COMPOSER_OPTS=""
+  - COMPOSER_OPTS="--prefer-lowest"
+
+matrix:
+  allow_failures:
+    - php: 7
+
+install:
+    - travis_retry composer update $COMPOSER_OPTS --no-interaction --prefer-source
 
 script:
   - phpunit --colors --exclude-group ipn
