@@ -1505,7 +1505,7 @@ return array(
             ),
         ),
         // Reports
-        'ListPayments' => array(
+        'ListPaymentsRegistry' => array(
             'httpMethod' => 'GET',
             'uri' => '/merchant/merchants/{merchant_id}/reports/transactions/registry.{format}',
             'summary' => 'Get information about all transactions for specified data range/transfer/report in different data formats. JSON, CSV or XML will be returned in response from the API.',
@@ -1573,7 +1573,7 @@ return array(
                 ),
             ),
         ),
-        'ListTransfers' => array(
+        'ListTransfersRegistry' => array(
             'httpMethod' => 'GET',
             'uri' => '/merchant/merchants/{merchant_id}/reports/transfers',
             'summary' => 'List all transfers',
@@ -1596,7 +1596,7 @@ return array(
                 ),
             ),
         ),
-        'ListReports' => array(
+        'ListReportsRegistry' => array(
             'httpMethod' => 'GET',
             'uri' => '/merchant/merchants/{merchant_id}/reports',
             'summary' => 'Get a list of finance reports for specified data range',

@@ -7,20 +7,20 @@ namespace Xsolla\SDK\Tests\Integration\API;
  */
 class ReportsTest extends AbstractAPITest
 {
-    public function testListPayments()
+    public function testListPaymentsRegistry()
     {
         static::markTestSkipped();
     }
 
-    public function testListTransfers()
+    public function testListTransfersRegistry()
     {
-        $response = $this->xsollaClient->ListTransfers();
+        $response = $this->xsollaClient->ListTransfersRegistry();
         static::assertInternalType('array', $response);
     }
 
-    public function testListReports()
+    public function testListReportsRegistry()
     {
-        $response = $this->xsollaClient->ListReports();
+        $response = $this->xsollaClient->ListReportsRegistry();
         static::assertInternalType('array', $response);
     }
 
