@@ -27,5 +27,12 @@ class ReportsTest extends AbstractAPITest
     public function testCreateRefundRequest()
     {
         static::markTestSkipped();
+        return;//TODO
+        $this->xsollaClient->CreateRefundRequest(array(
+            'transaction_id' => 1,
+            'request' => array(
+                'description' => 'description',
+            ),
+        ));
     }
 }
