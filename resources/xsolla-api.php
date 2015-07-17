@@ -975,13 +975,13 @@ return array(
                 ),
                 'user_id' => array(
                     'location' => 'uri',
-                    'type' => 'integer',
+                    'type' => 'string',
                     'required' => true,
                 ),
             ),
         ),
         'UpdateWalletUser' => array(
-            'httpMethod' => 'PATCH',
+            'httpMethod' => 'PUT',
             'uri' => '/merchant/projects/{project_id}/users/{user_id}',
             'summary' => 'Update user\'s information',
             'parameters' => array(
@@ -992,7 +992,7 @@ return array(
                 ),
                 'user_id' => array(
                     'location' => 'uri',
-                    'type' => 'integer',
+                    'type' => 'string',
                     'required' => true,
                 ),
                 'request' => array(
@@ -1049,7 +1049,7 @@ return array(
                 ),
                 'user_id' => array(
                     'location' => 'uri',
-                    'type' => 'integer',
+                    'type' => 'string',
                     'required' => true,
                 ),
                 'datetime_from' => array(//TODO DATETIME
@@ -1076,18 +1076,16 @@ return array(
                 ),
                 'user_id' => array(
                     'location' => 'uri',
-                    'type' => 'integer',
-                    'required' => true,
-                ),
-                'amount' => array(
-                    'location' => 'json',
-                    'type' => 'numeric',
-                    'required' => true,
-                ),
-                'comment' => array(
-                    'location' => 'json',
                     'type' => 'string',
                     'required' => true,
+                ),
+                'request' => array(
+                    'location' => 'body',
+                    'type' => 'array',
+                    'required' => true,
+                    'filters' => array(
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
+                    ),
                 ),
             ),
         ),
@@ -1103,18 +1101,16 @@ return array(
                 ),
                 'user_id' => array(
                     'location' => 'uri',
-                    'type' => 'integer',
-                    'required' => true,
-                ),
-                'amount' => array(
-                    'location' => 'json',
-                    'type' => 'numeric',
-                    'required' => true,
-                ),
-                'comment' => array(
-                    'location' => 'json',
                     'type' => 'string',
                     'required' => true,
+                ),
+                'request' => array(
+                    'location' => 'body',
+                    'type' => 'array',
+                    'required' => true,
+                    'filters' => array(
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
+                    ),
                 ),
             ),
         ),
@@ -1130,7 +1126,7 @@ return array(
                 ),
                 'user_id' => array(
                     'location' => 'uri',
-                    'type' => 'integer',
+                    'type' => 'string',
                     'required' => true,
                 ),
                 'limit' => array(
