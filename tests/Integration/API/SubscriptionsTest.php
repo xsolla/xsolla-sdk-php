@@ -9,68 +9,53 @@ class SubscriptionsTest extends AbstractAPITest
 {
     protected static $planId;
 
-    public function testCreateSubscriptionPlan()
+    protected static $productId;
+
+    protected $plan;
+
+    protected $product;
+
+    public function setUp()
     {
-        static::markTestSkipped();
-        /*
-        $response = $this->xsollaClient->CreateSubscriptionPlan(array(
-            'project_id' => $this->projectId,
-            'request' => array(
-                'name' => array(
-                    'en' => 'subscription_plan'
-                ),
-                'group_id' => 'test',
-                'charge' => array(
-                    'amount' => 1,
-                    'currency' => 'USD',
-                    'period' => array(
-                        'value' => 1,
-                        'type' => 'month',
-                    ),
-                ),
-                'expiration' => array(
-                    'value' => 3,
+        parent::setUp();
+        $this->plan = array(
+            'name' => array(
+                'en' => 'Subscription Plan Name'
+            ),
+            'group_id' => 'group_id',
+            'charge' => array(
+                'amount' => 1,
+                'currency' => 'USD',
+                'period' => array(
+                    'value' => 1,
                     'type' => 'month',
                 ),
             ),
+            'expiration' => array(
+                'value' => 3,
+                'type' => 'month',
+            ),
+        );
+        $this->product = array(
+            'name' => 'Product Name',
+            'group_id' => 'group_id',
+        );
+    }
+
+    public function testCreateSubscriptionPlan()
+    {
+        static::markTestSkipped();//TODO
+        $response = $this->xsollaClient->CreateSubscriptionPlan(array(
+            'project_id' => $this->projectId,
+            'request' => $this->plan,
         ));
         static::assertArrayHasKey('plan_id', $response);
         static::$planId = $response['plan_id'];
-        */
     }
 
     /**
      * @depends testCreateSubscriptionPlan
      */
-    public function testUpdateSubscriptionPlan()
-    {
-        static::markTestSkipped();
-    }
-
-    /**
-     * @depends testUpdateSubscriptionPlan
-     */
-    public function testDisableSubscriptionPlan()
-    {
-        static::markTestSkipped();
-    }
-
-    /**
-     * @depends testDisableSubscriptionPlan
-     */
-    public function testEnableSubscriptionPlan()
-    {
-        static::markTestSkipped();
-    }
-
-    /**
-     * @depends testEnableSubscriptionPlan
-     */
-    public function testDeleteSubscriptionPlan()
-    {
-        static::markTestSkipped();
-    }
-
     public function testListSubscriptionPlans()
     {
         $response = $this->xsollaClient->ListSubscriptionPlans(array(
@@ -79,19 +64,86 @@ class SubscriptionsTest extends AbstractAPITest
         static::assertInternalType('array', $response);
     }
 
+    /**
+     * @depends testListSubscriptionPlans
+     */
+    public function testUpdateSubscriptionPlan()
+    {
+        $response = $this->xsollaClient->UpdateSubscriptionPlan(array(
+            'project_id' => $this->projectId,
+            'plan_id' => static::$planId,
+        ));
+        static::assertInternalType('array', $response);
+    }
+
+    /**
+     * @depends testUpdateSubscriptionPlan
+     */
+    public function testDisableSubscriptionPlan()
+    {
+        $this->xsollaClient->DisableSubscriptionPlan(array(
+            'project_id' => $this->projectId,
+            'plan_id' => static::$planId,
+        ));
+    }
+
+    /**
+     * @depends testDisableSubscriptionPlan
+     */
+    public function testEnableSubscriptionPlan()
+    {
+        $this->xsollaClient->EnableSubscriptionPlan(array(
+            'project_id' => $this->projectId,
+            'plan_id' => static::$planId,
+        ));
+    }
+
+    /**
+     * @depends testEnableSubscriptionPlan
+     */
+    public function testDeleteSubscriptionPlan()
+    {
+        $this->xsollaClient->DeleteSubscriptionPlan(array(
+            'project_id' => $this->projectId,
+            'plan_id' => static::$planId,
+        ));
+    }
+
+    /**
+     * @depends testDeleteSubscriptionPlan
+     */
     public function testCreateSubscriptionProduct()
     {
-        static::markTestSkipped();
+        $response = $this->xsollaClient->CreateSubscriptionPlan(array(
+            'project_id' => $this->projectId,
+            'request' => $this->product,
+        ));
+        static::assertArrayHasKey('product_id', $response);
+        static::$planId = $response['product_id'];
     }
 
+    /**
+     * @depends testCreateSubscriptionProduct
+     */
     public function testUpdateSubscriptionProduct()
     {
-        static::markTestSkipped();
+        $response = $this->xsollaClient->UpdateSubscriptionProduct(array(
+            'project_id' => $this->projectId,
+            'product_id' => static::$productId,
+            'request' => $this->product,
+        ));
+        static::assertInternalType('array', $response);
     }
 
+    /**
+     * @depends testUpdateSubscriptionProduct
+     */
     public function testDeleteSubscriptionProduct()
     {
-        static::markTestSkipped();
+        $this->xsollaClient->DeleteSubscriptionProduct(array(
+            'project_id' => $this->projectId,
+            'product_id' => static::$productId,
+        ));
     }
 
     public function testListSubscriptionProducts()
