@@ -114,6 +114,27 @@ class WalletTest extends AbstractAPITest
     /**
      * @depends testCreateWalletUser
      */
+    public function testAddVirtualItemToWalletUser()
+    {
+        $this->xsollaClient->AddVirtualItemToWalletUser(array(
+            'project_id' => $this->projectId,
+            'user_id' => static::$userId,
+            'request' => array(
+                'virtual_items' => array(
+                    array(
+                        'virtual_item' => array(
+                            'sku' => '1468',// https://merchant.xsolla.com/22174/projects/15861/items/15435
+                        ),
+                        'amount' => 2
+                    )
+                ),
+            ),
+        ));
+    }
+
+    /**
+     * @depends testAddVirtualItemToWalletUser
+     */
     public function testListWalletUserVirtualItems()
     {
         $response = $this->xsollaClient->ListWalletUserVirtualItems(array(
@@ -123,5 +144,26 @@ class WalletTest extends AbstractAPITest
             'offset' => 0,
         ));
         static::assertInternalType('array', $response);
+    }
+
+    /**
+     * @depends testListWalletUserVirtualItems
+     */
+    public function testDeleteVirtualItemFromWalletUser()
+    {
+        $this->xsollaClient->DeleteVirtualItemFromWalletUser(array(
+            'project_id' => $this->projectId,
+            'user_id' => static::$userId,
+            'request' => array(
+                'virtual_items' => array(
+                    array(
+                        'virtual_item' => array(
+                            'sku' => '1468',
+                        ),
+                        'amount' => 2
+                    )
+                ),
+            ),
+        ));
     }
 }

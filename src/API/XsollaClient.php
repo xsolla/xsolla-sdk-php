@@ -69,6 +69,8 @@ use Guzzle\Common\Event;
  * @method Model RechargeWalletUserBalance(array $args = array())
  * @method Model WithdrawWalletUserBalance(array $args = array())
  * @method Model ListWalletUserVirtualItems(array $args = array())
+ * @method Model AddVirtualItemToWalletUser(array $args = array())
+ * @method Model DeleteVirtualItemFromWalletUser(array $args = array())
  *
  * @method Model GetCoupon(array $args = array())
  * @method Model RedeemCoupon(array $args = array())

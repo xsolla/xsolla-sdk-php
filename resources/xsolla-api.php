@@ -1141,6 +1141,56 @@ return array(
                 ),
             ),
         ),
+        'AddVirtualItemToWalletUser' => array(
+            'httpMethod' => 'POST ',
+            'uri' => 'https://api.xsolla.com/merchant/projects/{project_id}/users/{user_id}/virtual_items/add',
+            'summary' => 'Add the virtual items to the user\'s account',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'user_id' => array(
+                    'location' => 'uri',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'request' => array(
+                    'location' => 'body',
+                    'type' => 'array',
+                    'required' => true,
+                    'filters' => array(
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
+                    ),
+                ),
+            ),
+        ),
+        'DeleteVirtualItemFromWalletUser' => array(
+            'httpMethod' => 'POST ',
+            'uri' => 'https://api.xsolla.com/merchant/projects/{project_id}/users/{user_id}/virtual_items/remove',
+            'summary' => 'Delete the virtual items from the user\'s account',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'user_id' => array(
+                    'location' => 'uri',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'request' => array(
+                    'location' => 'body',
+                    'type' => 'array',
+                    'required' => true,
+                    'filters' => array(
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
+                    ),
+                ),
+            ),
+        ),
         // Coupons
         'GetCoupon' => array(
             'httpMethod' => 'GET',
