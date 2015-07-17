@@ -18,9 +18,9 @@ An official PHP SDK for interacting with [Xsolla API](http://developers.xsolla.c
 
 * PHP 5.3.9+
 * Your php.ini needs to have the date.timezone setting
-* The following PHP extensions are required:
-** curl
-** json
+* The following PHP extensions are required: curl,
+  * curl
+  * json
 
 ## Installation
 
