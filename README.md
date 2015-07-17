@@ -37,7 +37,6 @@ $ composer require xsolla/xsolla-sdk-php:~2.0
 
 ``` php
 <?php
-require_once 'vendor/autoload.php';
 
 use Xsolla\SDK\API\XsollaClient;
 
@@ -61,11 +60,10 @@ $paymentUIToken = $client->createCommonPaymentUIToken(PROJECT_ID, USER_ID);
 </html>
 ```
 
-### Receive IPN (Instant Payment Notification)
+### Receive webhooks
 
 ``` php
 <?php
-require_once 'vendor/autoload.php';
 
 use Xsolla\SDK\IPN\IPNServer;
 use Xsolla\SDK\IPN\Message\Message;

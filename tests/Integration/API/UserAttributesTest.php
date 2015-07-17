@@ -15,7 +15,7 @@ class UserAttributesTest extends AbstractAPITest
     {
         parent::setUp();
         $this->userAttribute = array(
-            'key' => uniqid('user_attribute_', true),
+            'key' => uniqid('user_attribute_'),
             'localized_name' => array(
                 'en' => 'name'
             ),
