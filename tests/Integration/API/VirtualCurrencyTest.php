@@ -15,10 +15,10 @@ class VirtualCurrencyTest extends AbstractAPITest
                     'en' => 'name',
                 ),
                 'base' => array(
-                    'USD' => 1,
+                    'USD' => 0.9,
                 ),
-                'min' => 0,
-                'max' => 0,
+                'min' => 0.01,
+                'max' => 100.2,
                 'default_currency' => 'USD',
             ),
             'project_id' => $this->projectId,
