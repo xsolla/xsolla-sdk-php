@@ -169,7 +169,9 @@ class VirtualItemsTest extends AbstractAPITest
             'project_id' => $this->projectId,
             'group_id' => static::$virtualItemsGroupId,
             'item_id' => static::$virtualItemId,
-            'order' => 1,
+            'request' => array(
+                'order' => 1,
+            ),
         ));
         static::assertEquals(array(), $response);
     }
@@ -198,7 +200,9 @@ class VirtualItemsTest extends AbstractAPITest
             'project_id' => $this->projectId,
             'group_id' => static::$virtualItemsGroupId,
             'item_id' => static::$virtualItemId,
-            'order' => 1,
+            'request' => array(
+                'order' => 1,
+            ),
         ));
         static::assertEquals(array(), $response);
     }

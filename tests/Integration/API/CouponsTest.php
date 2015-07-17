@@ -39,7 +39,9 @@ class CouponsTest extends AbstractAPITest
             $actualCouponData = $this->xsollaClient->RedeemCoupon(array(
                 'project_id' => $this->projectId,
                 'code' => $this->code,
-                'user_id' => 1,
+                'request' => array(
+                    'user_id' => 1,
+                ),
             ));
             static::assertEquals($this->expectedCouponData, $actualCouponData);
         } catch (UnprocessableEntityException $e) {

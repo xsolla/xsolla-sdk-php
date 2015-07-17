@@ -277,15 +277,13 @@ return array(
                     'type' => 'integer',
                     'required' => true,
                 ),
-                'name' => array(
-                    'location' => 'json',
-                    'type' => 'string',
+                'request' => array(
+                    'location' => 'body',
+                    'type' => 'array',
                     'required' => true,
-                ),
-                'group_id' => array(
-                    'location' => 'json',
-                    'type' => 'string',
-                    'required' => true,
+                    'filters' => array(
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
+                    ),
                 ),
             ),
         ),
@@ -309,15 +307,13 @@ return array(
                     'type' => 'string',
                     'required' => true,
                 ),
-                'name' => array(
-                    'location' => 'json',
-                    'type' => 'string',
+                'request' => array(
+                    'location' => 'body',
+                    'type' => 'array',
                     'required' => true,
-                ),
-                'group_id' => array(
-                    'location' => 'json',
-                    'type' => 'string',
-                    'required' => true,
+                    'filters' => array(
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
+                    ),
                 ),
             ),
         ),
@@ -828,10 +824,13 @@ return array(
                     'type' => 'integer',
                     'required' => true,
                 ),
-                'order' => array(
-                    'location' => 'json',
-                    'type' => 'string',
+                'request' => array(
+                    'location' => 'body',
+                    'type' => 'array',
                     'required' => true,
+                    'filters' => array(
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
+                    ),
                 ),
             ),
         ),
@@ -902,10 +901,13 @@ return array(
                     'type' => 'integer',
                     'required' => true,
                 ),
-                'order' => array(
-                    'location' => 'json',
-                    'type' => 'string',
+                'request' => array(
+                    'location' => 'body',
+                    'type' => 'array',
                     'required' => true,
+                    'filters' => array(
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
+                    ),
                 ),
             ),
         ),
@@ -1224,10 +1226,13 @@ return array(
                     'type' => 'string',
                     'required' => true,
                 ),
-                'user_id' => array(
-                    'location' => 'json',
-                    'type' => 'string',
+                'request' => array(
+                    'location' => 'body',
+                    'type' => 'array',
                     'required' => true,
+                    'filters' => array(
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
+                    ),
                 ),
             ),
         ),
