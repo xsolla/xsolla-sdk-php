@@ -14,12 +14,6 @@ use Guzzle\Common\Event;
 /**
  * @method Model CreatePaymentUIToken(array $args = array())
  *
- * @method Model CreatePaymentAccount(array $args = array())
- * @method Model DeletePaymentAccount(array $args = array())
- * @method Model ListPaymentAccounts(array $args = array())
- * @method Model MakePayment(array $args = array())
- * @method Model MakeCreditCardPayment(array $args = array())
- *
  * @method Model CreateSubscriptionPlan(array $args = array())
  * @method Model UpdateSubscriptionPlan(array $args = array())
  * @method Model DeleteSubscriptionPlan(array $args = array())
