@@ -1069,32 +1069,7 @@ return array(
         'RechargeWalletUserBalance' => array(
             'httpMethod' => 'POST',
             'uri' => '/merchant/projects/{project_id}/users/{user_id}/recharge',
-            'summary' => 'Recharge a balance',
-            'parameters' => array(
-                'project_id' => array(
-                    'location' => 'uri',
-                    'type' => 'integer',
-                    'required' => true,
-                ),
-                'user_id' => array(
-                    'location' => 'uri',
-                    'type' => 'string',
-                    'required' => true,
-                ),
-                'request' => array(
-                    'location' => 'body',
-                    'type' => 'array',
-                    'required' => true,
-                    'filters' => array(
-                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
-                    ),
-                ),
-            ),
-        ),
-        'WithdrawWalletUserBalance' => array(
-            'httpMethod' => 'POST',
-            'uri' => '/merchant/projects/{project_id}/users/{user_id}/withdraw',
-            'summary' => 'Withdraw user\'s balance',
+            'summary' => 'Change a balance',
             'parameters' => array(
                 'project_id' => array(
                     'location' => 'uri',

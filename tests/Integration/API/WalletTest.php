@@ -92,25 +92,6 @@ class WalletTest extends AbstractAPITest
         static::assertArrayHasKey('amount', $response);
     }
 
-
-    /**
-     * @depends testRechargeWalletUserBalance
-     */
-    public function testWithdrawWalletUserBalance()
-    {
-        static::markTestSkipped();
-        return; // TODO
-        $response = $this->xsollaClient->WithdrawWalletUserBalance(array(
-            'project_id' => $this->projectId,
-            'user_id' => static::$userId,
-            'request' => array(
-                'amount' => 10,
-                'comment' => 'Comment'
-            ),
-        ));
-        static::assertArrayHasKey('amount', $response);
-    }
-
     /**
      * @depends testCreateWalletUser
      */
