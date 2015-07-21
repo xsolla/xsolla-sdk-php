@@ -94,11 +94,12 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testSetPromotionPaymentSystems()
     {
-        return;//TODO
         $this->xsollaClient->SetPromotionPaymentSystems(array(
             'promotion_id' => static::$promotionId,
             'request' => array(
-                array('id' => 1),
+                'payment_systems' => array(
+                    array('id' => 2682),
+                ),
             ),
         ));
     }
