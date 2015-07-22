@@ -167,11 +167,6 @@ return array(
                     'type' => 'integer',
                     'required' => true,
                 ),
-                'item_id' => array(
-                    'location' => 'uri',
-                    'type' => 'integer',
-                    'required' => true,
-                ),
                 'product_id' => array(
                     'location' => 'uri',
                     'type' => 'string',
@@ -189,7 +184,7 @@ return array(
         ),
         'DeleteSubscriptionProduct' => array(
             'httpMethod' => 'DELETE',
-            'uri' => '/merchant/projects/{project_id}/subscriptions/products/{product_id}/delete',
+            'uri' => '/merchant/projects/{project_id}/subscriptions/products/{product_id}',
             'summary' => 'Delete a product',
             'parameters' => array(
                 'project_id' => array(

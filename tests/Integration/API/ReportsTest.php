@@ -27,7 +27,7 @@ class ReportsTest extends AbstractAPITest
     public function testCreateRefundRequest()
     {
         static::markTestSkipped();
-        return;//TODO
+        return;//TODO 404 catch and skip + unit test
         $this->xsollaClient->CreateRefundRequest(array(
             'transaction_id' => 1,
             'request' => array(

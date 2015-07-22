@@ -44,7 +44,6 @@ class SubscriptionsTest extends AbstractAPITest
 
     public function testCreateSubscriptionPlan()
     {
-        static::markTestSkipped();//TODO
         $response = $this->xsollaClient->CreateSubscriptionPlan(array(
             'project_id' => $this->projectId,
             'request' => $this->plan,
@@ -72,6 +71,7 @@ class SubscriptionsTest extends AbstractAPITest
         $response = $this->xsollaClient->UpdateSubscriptionPlan(array(
             'project_id' => $this->projectId,
             'plan_id' => static::$planId,
+            'request' => $this->plan,
         ));
         static::assertInternalType('array', $response);
     }
@@ -114,12 +114,12 @@ class SubscriptionsTest extends AbstractAPITest
      */
     public function testCreateSubscriptionProduct()
     {
-        $response = $this->xsollaClient->CreateSubscriptionPlan(array(
+        $response = $this->xsollaClient->CreateSubscriptionProduct(array(
             'project_id' => $this->projectId,
             'request' => $this->product,
         ));
         static::assertArrayHasKey('product_id', $response);
-        static::$planId = $response['product_id'];
+        static::$productId = $response['product_id'];
     }
 
     /**
@@ -156,7 +156,7 @@ class SubscriptionsTest extends AbstractAPITest
 
     public function testUpdateSubscription()
     {
-        static::markTestSkipped();
+        static::markTestSkipped();//TODO unit test
     }
 
     public function testListSubscriptions()
