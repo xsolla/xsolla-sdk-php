@@ -187,6 +187,7 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testTogglePromotion()
     {
+        sleep(3); //TODO
         $this->xsollaClient->TogglePromotion(array(
             'promotion_id' => static::$promotionId,
         ));
