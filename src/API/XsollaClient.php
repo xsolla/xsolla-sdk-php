@@ -8,91 +8,90 @@ use Guzzle\Service\Description\ServiceDescription;
 use Xsolla\SDK\API\PaymentUI\TokenRequest;
 use Xsolla\SDK\Exception\API\XsollaAPIException;
 use Xsolla\SDK\Version;
-use Guzzle\Service\Resource\Model;
 use Guzzle\Common\Event;
 
 /**
- * @method Model CreatePaymentUIToken(array $args = array())
+ * @method array CreatePaymentUIToken(array $args = array()) Create payment UI token
  *
- * @method Model CreateSubscriptionPlan(array $args = array())
- * @method Model UpdateSubscriptionPlan(array $args = array())
- * @method Model DeleteSubscriptionPlan(array $args = array())
- * @method Model DisableSubscriptionPlan(array $args = array())
- * @method Model EnableSubscriptionPlan(array $args = array())
- * @method Model ListSubscriptionPlans(array $args = array())
- * @method Model CreateSubscriptionProduct(array $args = array())
- * @method Model UpdateSubscriptionProduct(array $args = array())
- * @method Model DeleteSubscriptionProduct(array $args = array())
- * @method Model ListSubscriptionProducts(array $args = array())
- * @method Model UpdateSubscription(array $args = array())
- * @method Model ListSubscriptions(array $args = array())
- * @method Model ListSubscriptionPayments(array $args = array())
- * @method Model ListSubscriptionCurrencies(array $args = array())
+ * @method array CreateSubscriptionPlan(array $args = array()) Create a recurrent plan
+ * @method array UpdateSubscriptionPlan(array $args = array()) Update a recurrent plan
+ * @method void DeleteSubscriptionPlan(array $args = array()) Delete a recurrent plan
+ * @method void DisableSubscriptionPlan(array $args = array()) Disable a recurrent plan
+ * @method void EnableSubscriptionPlan(array $args = array()) Enable a recurrent plan
+ * @method array ListSubscriptionPlans(array $args = array()) List all recurrent plans
+ * @method array CreateSubscriptionProduct(array $args = array()) Create a product
+ * @method array UpdateSubscriptionProduct(array $args = array()) Update a product
+ * @method void DeleteSubscriptionProduct(array $args = array()) Delete a product
+ * @method array ListSubscriptionProducts(array $args = array()) List all recurrent products
+ * @method array UpdateSubscription(array $args = array()) Update a recurrent subscription. It's available to update the status of subscription (active or canceled) and to postpone the date of the next charge for current subscription.
+ * @method array ListSubscriptions(array $args = array()) List all recurrent subscriptions
+ * @method array ListSubscriptionPayments(array $args = array()) List all recurrent payments
+ * @method array ListSubscriptionCurrencies(array $args = array()) List all recurrent currencies
  *
- * @method Model ListUserAttributes(array $args = array())
- * @method Model GetUserAttribute(array $args = array())
- * @method Model CreateUserAttribute(array $args = array())
- * @method Model UpdateUserAttribute(array $args = array())
- * @method Model DeleteUserAttribute(array $args = array())
+ * @method array ListUserAttributes(array $args = array()) Get list of user attributes
+ * @method array GetUserAttribute(array $args = array()) Show a user attribute
+ * @method array CreateUserAttribute(array $args = array()) Create user attribute
+ * @method void UpdateUserAttribute(array $args = array()) Update user attribute
+ * @method void DeleteUserAttribute(array $args = array()) Delete a user attribute
  *
- * @method Model CreateVirtualItem(array $args = array())
- * @method Model GetVirtualItem(array $args = array())
- * @method Model UpdateVirtualItem(array $args = array())
- * @method Model DeleteVirtualItem(array $args = array())
- * @method Model ListVirtualItems(array $args = array())
- * @method Model UpdateVirtualItemImage(array $args = array())
- * @method Model DeleteVirtualItemImage(array $args = array())
- * @method Model CreateVirtualItemsGroup(array $args = array())
- * @method Model GetVirtualItemsGroup(array $args = array())
- * @method Model UpdateVirtualItemsGroup(array $args = array())
- * @method Model DeleteVirtualItemsGroup(array $args = array())
- * @method Model ListVirtualItemsGroups(array $args = array())
- * @method Model AddVirtualItemToGroup(array $args = array())
- * @method Model DeleteVirtualItemFromGroup(array $args = array())
- * @method Model UpdateVirtualItemsInGroup(array $args = array())
- * @method Model UpdateVirtualItemOrderInGroup(array $args = array())
+ * @method array CreateVirtualItem(array $args = array()) Create a virtual item
+ * @method array GetVirtualItem(array $args = array()) Get a virtual item
+ * @method array UpdateVirtualItem(array $args = array()) Update a virtual item
+ * @method void DeleteVirtualItem(array $args = array()) Delete a virtual item
+ * @method array ListVirtualItems(array $args = array()) List a virtual items
+ * @method string UpdateVirtualItemImage(array $args = array()) Upload an image for virtual item
+ * @method void DeleteVirtualItemImage(array $args = array()) Change a virtual item image to default
+ * @method array CreateVirtualItemsGroup(array $args = array()) Create a virtual items group
+ * @method array GetVirtualItemsGroup(array $args = array()) Get a virtual items group
+ * @method void UpdateVirtualItemsGroup(array $args = array()) Update a virtual items group
+ * @method void DeleteVirtualItemsGroup(array $args = array()) Delete a virtual items group
+ * @method array ListVirtualItemsGroups(array $args = array()) List all virtual items groups
+ * @method Model AddVirtualItemToGroup(array $args = array()) Add an item to group
+ * @method Model DeleteVirtualItemFromGroup(array $args = array()) Delete a virtual item from group
+ * @method Model UpdateVirtualItemsInGroup(array $args = array()) Update a virtual items list in group
+ * @method Model UpdateVirtualItemOrderInGroup(array $args = array()) Change items order order in group
  *
- * @method Model GetProjectVirtualCurrencySettings(array $args = array())
- * @method Model UpdateProjectVirtualCurrencySettings(array $args = array())
+ * @method array GetProjectVirtualCurrencySettings(array $args = array()) Get project virtual currency settings
+ * @method void UpdateProjectVirtualCurrencySettings(array $args = array()) Update project virtual currency settings
  *
- * @method Model CreateWalletUser(array $args = array())
- * @method Model GetWalletUser(array $args = array())
- * @method Model UpdateWalletUser(array $args = array())
- * @method Model ListWalletUsers(array $args = array())
- * @method Model ListWalletUserOperations(array $args = array())
- * @method Model RechargeWalletUserBalance(array $args = array())
- * @method Model ListWalletUserVirtualItems(array $args = array())
- * @method Model AddVirtualItemToWalletUser(array $args = array())
- * @method Model DeleteVirtualItemFromWalletUser(array $args = array())
+ * @method void CreateWalletUser(array $args = array()) Create a new user.
+ * @method array GetWalletUser(array $args = array()) Retrieve a user data
+ * @method void UpdateWalletUser(array $args = array()) Update user's information
+ * @method array ListWalletUsers(array $args = array()) List all users
+ * @method array ListWalletUserOperations(array $args = array()) List all operations
+ * @method array RechargeWalletUserBalance(array $args = array()) Change a balance
+ * @method array ListWalletUserVirtualItems(array $args = array()) Get user's virtual items
+ * @method void AddVirtualItemToWalletUser(array $args = array()) Add the virtual items to the user's account
+ * @method void DeleteVirtualItemFromWalletUser(array $args = array()) Delete the virtual items from the user's account
  *
- * @method Model GetCoupon(array $args = array())
- * @method Model RedeemCoupon(array $args = array())
+ * @method array GetCoupon(array $args = array()) Get information about coupon by code
+ * @method array RedeemCoupon(array $args = array()) Redeem coupon by code
  *
- * @method Model CreatePromotion(array $args = array())
- * @method Model GetPromotion(array $args = array())
- * @method Model UpdatePromotion(array $args = array())
- * @method Model ReviewPromotion(array $args = array())
- * @method Model TogglePromotion(array $args = array())
- * @method Model DeletePromotion(array $args = array())
- * @method Model ListPromotions(array $args = array())
- * @method Model GetPromotionSubject(array $args = array())
- * @method Model SetPromotionSubject(array $args = array())
- * @method Model GetPromotionPaymentSystems(array $args = array())
- * @method Model SetPromotionPaymentSystems(array $args = array())
- * @method Model GetPromotionPeriods(array $args = array())
- * @method Model SetPromotionPeriods(array $args = array())
- * @method Model GetPromotionRewards(array $args = array())
- * @method Model SetPromotionRewards(array $args = array())
+ * @method array CreatePromotion(array $args = array()) Create a new promotion
+ * @method array GetPromotion(array $args = array()) Get a promotion
+ * @method void UpdatePromotion(array $args = array()) Update a promotion. If the promotion is read-only (read_only = true), you are not allowed to change "project_id" parameter.
+ * @method array ReviewPromotion(array $args = array()) Check the promotion, if it is ready for activation. This method returns the list of errors (if they exist).
+ * @method void TogglePromotion(array $args = array()) Toggle the promotion. Change the status of promotion from enabled to disabled and vice versa.
+ * @method void DeletePromotion(array $args = array()) Delete a promotion. Only disabled promotion is allowed to delete (enabled = false).
+ * @method array ListPromotions(array $args = array()) List all promotions
+ * @method array GetPromotionSubject(array $args = array()) Get the subject of the promotion
+ * @method void SetPromotionSubject(array $args = array()) Set the subject of the promotion. If the promotion is read-only (read_only = true), you are not allowed to update the subject. The subject can take the following values: "purchase", or "items", or "packages".
+ * @method array GetPromotionPaymentSystems(array $args = array()) Get the payment systems of the promotion. If the payment systems list is empty, the promotion will be valid for all payment systems.
+ * @method void SetPromotionPaymentSystems(array $args = array()) Set the payment systems of the promotion. If the payment systems list is empty, the promotion will be applied for all payment systems. If the promotion is read-only (read_only = true), you are not allowed to call this command.
+ * @method array GetPromotionPeriods(array $args = array()) Get the periods of the promotion
+ * @method void SetPromotionPeriods(array $args = array()) Set the periods of the promotion. If the promotion is read-only (read_only = true), you are not allowed to edit existing periods, add new periods only.
+ * @method array GetPromotionRewards(array $args = array()) Get the rewards of the promotion
+ * @method void SetPromotionRewards(array $args = array()) Set the rewards to the promotion. If the promotion is read-only (read_only = true), you are not allowed to update the rewards.
  *
- * @method Model ListEvents(array $args = array())
+ * @method array ListEvents(array $args = array()) List all events from Xsolla Event System
  *
- * @method Model ListPayments(array $args = array())
- * @method Model ListTransfers(array $args = array())
- * @method Model ListReports(array $args = array())
- * @method Model CreateRefundRequest(array $args = array())
+ * @method array ListPayments(array $args = array()) Get information about all transactions for specified data range/transfer/report in different data formats. JSON, CSV or XML will be returned in response from the API.
+ * @method array ListTransfers(array $args = array()) List all transfers
+ * @method array ListReports(array $args = array()) Get a list of finance reports for specified data range
+ * @method void CreateRefundRequest(array $args = array()) Send a refund request. Money will be returned to user
  *
- * @method Model ListSupportTickets(array $args = array())
- * @method Model ListSupportTicketComments(array $args = array())
+ * @method array ListSupportTickets(array $args = array()) List all tickets
+ * @method array ListSupportTicketComments(array $args = array()) List all comments
  */
 class XsollaClient extends Client
 {
@@ -106,6 +105,10 @@ class XsollaClient extends Client
      */
     protected $guzzleClient;
 
+    /**
+     * @param mixed $value
+     * @return string
+     */
     public static function jsonEncode($value)
     {
         $flags = 0;
@@ -115,6 +118,10 @@ class XsollaClient extends Client
         return json_encode($value, $flags);
     }
 
+    /**
+     * @param array $config
+     * @return static
+     */
     public static function factory($config = array())
     {
         $default = array('base_url' => 'https://api.xsolla.com');

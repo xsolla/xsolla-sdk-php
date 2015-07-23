@@ -813,7 +813,7 @@ return array(
         'CreateWalletUser' => array(
             'httpMethod' => 'POST',
             'uri' => '/merchant/projects/{project_id}/users',
-            'summary' => 'Create a new user.',
+            'summary' => 'Create a new user',
             'parameters' => array(
                 'project_id' => array(
                     'location' => 'uri',
