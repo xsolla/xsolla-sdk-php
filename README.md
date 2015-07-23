@@ -42,7 +42,7 @@ use Xsolla\SDK\API\XsollaClient;
 
 $client = XsollaClient::factory(array(
     'merchant_id' => MERCHANT_ID,
-    'api_token' => 'API_KEY'
+    'api_key' => 'API_KEY'
 ));
 $paymentUIToken = $client->createCommonPaymentUIToken(PROJECT_ID, USER_ID);
 ```

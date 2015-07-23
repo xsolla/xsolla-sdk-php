@@ -2,8 +2,8 @@
 
 return array(
     'name' => 'Xsolla API',
-    'apiVersion' => '2015-07-12',
-    'description' => 'TODO',
+    'apiVersion' => '2015-07-23',
+    'description' => '',
     'baseUrl' => 'https://api.xsolla.com',
     'operations' => array(
         // Payment UI

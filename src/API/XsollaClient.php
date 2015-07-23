@@ -124,7 +124,7 @@ class XsollaClient extends Client
         );
         $config = Collection::fromConfig($config, $default, $required);
         $client = new static(isset($config['base_url']) ? $config['base_url'] : null, $config);
-        $client->setDescription(ServiceDescription::factory(__DIR__.'/../../resources/xsolla-api.php'));
+        $client->setDescription(ServiceDescription::factory(__DIR__.'/Resources/xsolla-2015-07-23.php'));
         $client->setDefaultOption('auth', array($config['merchant_id'], $config['api_key'], 'Basic'));
         $client->setDefaultOption('headers', array('Accept' => 'application/json', 'Content-Type' => 'application/json'));
         $client->setDefaultOption('command.params', array('merchant_id' => $config['merchant_id']));
