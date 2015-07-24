@@ -12,7 +12,7 @@ class XsollaAPIException extends XsollaException
         403 => '\Xsolla\SDK\Exception\API\AccessDeniedException',
     );
 
-    protected $messageTemplate =
+    protected static $messageTemplate =
 <<<EOF
 Xsolla API Error Response:
 
@@ -29,35 +29,18 @@ Response:
 %s
 EOF;
 
-    protected $errorDetails;
-
-    public static function factory(BadResponseException $previous)
+    public static function fromBadResponse(BadResponseException $previous)
     {
         $statusCode = $previous->getResponse()->getStatusCode();
-        if (array_key_exists($statusCode, static::$exceptions)) {
-            return new static::$exceptions[$statusCode]($previous);
-        }
-        return new self($previous);
-    }
-
-    public function __construct(BadResponseException $previous)
-    {
         $message = sprintf(
-            $this->messageTemplate,
+            static::$messageTemplate,
             $previous->getMessage(),
             $previous->getRequest(),
             $previous->getResponse()
         );
-        $parsedResponse = json_decode($previous->getResponse()->getBody(true), true);
-        if (is_array($parsedResponse)) {
-            $this->errorDetails = $parsedResponse;
-        };
-        parent::__construct($message);
+        if (array_key_exists($statusCode, static::$exceptions)) {
+            return new static::$exceptions[$statusCode]($message);
+        }
+        return new self($message);
     }
-
-    public function getApiErrorMessage()
-    {
-        return $this->errorDetails['message'];
-    }
-
 }

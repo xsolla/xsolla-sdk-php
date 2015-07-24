@@ -3,6 +3,7 @@
 namespace Xsolla\SDK\API;
 
 use Guzzle\Common\Collection;
+use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Service\Client;
 use Guzzle\Service\Description\ServiceDescription;
 use Xsolla\SDK\API\PaymentUI\TokenRequest;
@@ -134,7 +135,13 @@ class XsollaClient extends Client
         $client->setDefaultOption('command.params', array('merchant_id' => $config['merchant_id']));
         $client->setUserAgent(Version::getVersion());
         $exceptionCb = function (Event $event) {
-            throw XsollaAPIException::factory($event['exception']);
+            $previous = $event['exception'];
+            if ($previous instanceof BadResponseException) {
+                $e = XsollaAPIException::fromBadResponse($previous);
+            } else {
+                $e = new XsollaAPIException('XsollaClient Exception: '.$previous->getMessage(), 0, $previous);
+            }
+            throw $e;
         };
         $client->getEventDispatcher()->addListener('request.exception', $exceptionCb);
         return $client;
