@@ -183,9 +183,7 @@ class PromotionsTest extends AbstractAPITest
             'promotion_id' => static::$promotionId,
         ));
         static::assertInternalType('array', $response);
-        if (array() !== $response) {
-            echo PHP_EOL.XsollaClient::jsonEncode($response).PHP_EOL;
-        }
+        echo PHP_EOL.'ReviewPromotion'.PHP_EOL.'==================='.PHP_EOL.XsollaClient::jsonEncode($response).PHP_EOL;
     }
 
     /**
