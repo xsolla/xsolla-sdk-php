@@ -2,6 +2,8 @@
 
 namespace Xsolla\SDK\Tests\Integration\API;
 
+use Xsolla\SDK\API\XsollaClient;
+
 /**
  * @group api
  */
@@ -180,6 +182,9 @@ class PromotionsTest extends AbstractAPITest
             'promotion_id' => static::$promotionId,
         ));
         static::assertInternalType('array', $response);
+        if (array() !== $response) {
+            echo PHP_EOL.XsollaClient::jsonEncode($response).PHP_EOL;
+        }
     }
 
     /**
@@ -187,7 +192,6 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testTogglePromotion()
     {
-        sleep(3); //TODO
         $this->xsollaClient->TogglePromotion(array(
             'promotion_id' => static::$promotionId,
         ));
