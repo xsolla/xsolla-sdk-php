@@ -24,8 +24,8 @@ install:
     - travis_retry composer update $COMPOSER_OPTS --no-interaction --prefer-source
 
 script:
-  - phpunit --colors --exclude-group webhook
-  - if [[ "`phpenv version-name`" != "5.3" && "`phpenv version-name`" != "hhvm" ]]; then phpunit --colors --group Webhook; fi
+  - phpunit --colors --verbose --exclude-group webhook
+  - if [[ "`phpenv version-name`" != "5.3" && "`phpenv version-name`" != "hhvm" ]]; then phpunit --colors --verbose --group Webhook; fi
 
 notifications:
   slack: xsolla:V74WgCQlV6kas6X9SNQKl5R1

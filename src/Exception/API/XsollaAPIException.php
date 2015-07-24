@@ -39,8 +39,8 @@ EOF;
             $previous->getResponse()
         );
         if (array_key_exists($statusCode, static::$exceptions)) {
-            return new static::$exceptions[$statusCode]($message);
+            return new static::$exceptions[$statusCode]($message, 0, $previous);
         }
-        return new self($message);
+        return new self($message, 0, $previous);
     }
 }
