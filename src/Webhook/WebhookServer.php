@@ -29,8 +29,8 @@ class WebhookServer
     }
 
     /**
-     * @param callable $WebhookCallback
-     * @param WebhookAuthenticator $WebhookAuthenticator
+     * @param callable $webhookCallback
+     * @param WebhookAuthenticator $webhookAuthenticator
      * @throws XsollaWebhookException
      */
     public function __construct($webhookCallback, WebhookAuthenticator $webhookAuthenticator)
@@ -63,9 +63,9 @@ class WebhookServer
             if (!$webhookRequest) {
                 $webhookRequest = WebhookRequest::fromGlobals();
             }
-            $this->WebhookAuthenticator->authenticate($webhookRequest, $authenticateClientIp);
+            $this->webhookAuthenticator->authenticate($webhookRequest, $authenticateClientIp);
             $message = Message::fromArray($webhookRequest->toArray());
-            call_user_func($this->WebhookCallback, $message);
+            call_user_func($this->webhookCallback, $message);
             $webhookResponse =  new WebhookResponse();
             return $webhookResponse->getSymfonyResponse();
         } catch (\Exception $e) {

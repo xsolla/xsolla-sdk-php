@@ -30,6 +30,6 @@ class ServerMock
                 };
         }
         $server = WebhookServer::create($callback, static::PROJECT_SECRET_KEY);
-        $server->start(null, 'invalid_ip' == $testCase);
+        $server->start(null, 'invalid_ip' === $testCase);
     }
 }
