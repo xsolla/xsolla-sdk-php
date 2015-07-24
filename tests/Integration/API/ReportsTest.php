@@ -9,7 +9,7 @@ class ReportsTest extends AbstractAPITest
 {
     public function testListPaymentsRegistry()
     {
-        static::markTestSkipped();
+        static::markTestSkipped('TODO: 404');
     }
 
     public function testListTransfersRegistry()
@@ -26,13 +26,6 @@ class ReportsTest extends AbstractAPITest
 
     public function testCreateRefundRequest()
     {
-        static::markTestSkipped();
-        return;//TODO 404 catch and skip + unit test
-        $this->xsollaClient->CreateRefundRequest(array(
-            'transaction_id' => 1,
-            'request' => array(
-                'description' => 'description',
-            ),
-        ));
+        static::markTestSkipped('TODO: 404');
     }
 }

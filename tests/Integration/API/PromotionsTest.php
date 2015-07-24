@@ -196,8 +196,11 @@ class PromotionsTest extends AbstractAPITest
                 'promotion_id' => static::$promotionId,
             ));
         } catch (UnprocessableEntityException $e) {
-            $this->testReviewPromotion();
-            throw $e;
+            if (false === strpos($e->getMessage(), 'The promotion is not ready for launch')) {
+                throw $e;
+            } else {
+                static::markTestSkipped('The promotion is not ready for launch');
+            }
         }
     }
 

@@ -2,6 +2,8 @@
 
 namespace Xsolla\SDK\Tests\Integration\API;
 
+use Xsolla\SDK\Exception\API\UnprocessableEntityException;
+
 /**
  * @group api
  */
@@ -44,12 +46,20 @@ class SubscriptionsTest extends AbstractAPITest
 
     public function testCreateSubscriptionPlan()
     {
-        $response = $this->xsollaClient->CreateSubscriptionPlan(array(
-            'project_id' => $this->projectId,
-            'request' => $this->plan,
-        ));
-        static::assertArrayHasKey('plan_id', $response);
-        static::$planId = $response['plan_id'];
+        try {
+            $response = $this->xsollaClient->CreateSubscriptionPlan(array(
+                'project_id' => $this->projectId,
+                'request' => $this->plan,
+            ));
+            static::assertArrayHasKey('plan_id', $response);
+            static::$planId = $response['plan_id'];
+        } catch (UnprocessableEntityException $e) {
+            if (false === strpos($e->getMessage(), 'External id is already exist')) {
+                throw $e;
+            } else {
+                static::markTestSkipped('External id is already exist');
+            }
+        }
     }
 
     /**
@@ -156,7 +166,7 @@ class SubscriptionsTest extends AbstractAPITest
 
     public function testUpdateSubscription()
     {
-        static::markTestSkipped();//TODO unit test
+        static::markTestSkipped('TODO: unit test');
     }
 
     public function testListSubscriptions()

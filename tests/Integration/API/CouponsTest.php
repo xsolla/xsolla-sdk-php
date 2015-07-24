@@ -32,7 +32,11 @@ class CouponsTest extends AbstractAPITest
             ));
             static::assertInternalType('array', $actualCouponData);
         } catch (UnprocessableEntityException $e) {
-            static::markTestSkipped($e->getMessage());
+            if (false === strpos($e->getMessage(), 'You have used too much of coupons. Try again later')) {
+                throw $e;
+            } else {
+                static::markTestSkipped('You have used too much of coupons. Try again later');
+            }
         }
     }
 }
