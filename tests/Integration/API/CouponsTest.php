@@ -32,7 +32,7 @@ class CouponsTest extends AbstractAPITest
             ));
             static::assertInternalType('array', $actualCouponData);
         } catch (UnprocessableEntityException $e) {
-            static::markTestSkipped($e->getApiErrorMessage());
+            static::markTestSkipped($e->getMessage());
         }
     }
 }
