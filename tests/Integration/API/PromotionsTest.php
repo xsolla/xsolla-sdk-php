@@ -3,6 +3,7 @@
 namespace Xsolla\SDK\Tests\Integration\API;
 
 use Xsolla\SDK\API\XsollaClient;
+use Xsolla\SDK\Exception\API\UnprocessableEntityException;
 
 /**
  * @group api
@@ -192,9 +193,14 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testTogglePromotion()
     {
-        $this->xsollaClient->TogglePromotion(array(
-            'promotion_id' => static::$promotionId,
-        ));
+        try {
+            $this->xsollaClient->TogglePromotion(array(
+                'promotion_id' => static::$promotionId,
+            ));
+        } catch (UnprocessableEntityException $e) {
+            $this->testReviewPromotion();
+            throw $e;
+        }
     }
 
     /**
