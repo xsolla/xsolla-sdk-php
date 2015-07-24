@@ -65,27 +65,27 @@ $paymentUIToken = $client->createCommonPaymentUIToken(PROJECT_ID, USER_ID);
 ``` php
 <?php
 
-use Xsolla\SDK\IPN\IPNServer;
-use Xsolla\SDK\IPN\Message\Message;
+use Xsolla\SDK\Webhook\WebhookServer;
+use Xsolla\SDK\Webhook\Message\Message;
 
 $callback = function (Message $message) {
     switch ($message->getNotificationType()) {
-        case Message::IPN_USER_VALIDATION:
+        case Message::Webhook_USER_VALIDATION:
             //check user existence
             break;
-        case Message::IPN_PAYMENT:
+        case Message::Webhook_PAYMENT:
             //handle payment
             break;
-        case Message::IPN_REFUND:
+        case Message::Webhook_REFUND:
             //handle refund
             break;
         default:
-            throw new XsollaIPNException('Notification type not implemented');
+            throw new XsollaWebhookException('Notification type not implemented');
     }
 };
 
-$IPNServer = IPNServer::create($callback, PROJECT_KEY); // https://merchant.xsolla.com/MERCHANT_ID/projects/PROJECT_ID/settings/connection
-$IPNServer->start();
+$webhookServer = WebhookServer::create($callback, PROJECT_KEY); // https://merchant.xsolla.com/MERCHANT_ID/projects/PROJECT_ID/settings/connection
+$webhookServer->start();
 ```
 
 ## Additional resources
