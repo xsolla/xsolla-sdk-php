@@ -669,99 +669,12 @@ return array(
                 ),
             ),
         ),
-        'AddVirtualItemToGroup' => array(
-            'httpMethod' => 'POST',
-            'uri' => '/merchant/projects/{project_id}/virtual_items/groups/{group_id}/items/{item_id}',
-            'summary' => 'Add an item to group',
-            'parameters' => array(
-                'project_id' => array(
-                    'location' => 'uri',
-                    'type' => 'integer',
-                    'required' => true,
-                ),
-                'group_id' => array(
-                    'location' => 'uri',
-                    'type' => 'integer',
-                    'required' => true,
-                ),
-                'item_id' => array(
-                    'location' => 'uri',
-                    'type' => 'integer',
-                    'required' => true,
-                ),
-                'request' => array(
-                    'location' => 'body',
-                    'type' => 'array',
-                    'required' => true,
-                    'filters' => array(
-                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
-                    ),
-                ),
-            ),
-        ),
-        'DeleteVirtualItemFromGroup' => array(
-            'httpMethod' => 'DELETE',
-            'uri' => '/merchant/projects/{project_id}/virtual_items/groups/{group_id}/items/{item_id}',
-            'summary' => 'Delete a virtual item from group',
-            'parameters' => array(
-                'project_id' => array(
-                    'location' => 'uri',
-                    'type' => 'integer',
-                    'required' => true,
-                ),
-                'group_id' => array(
-                    'location' => 'uri',
-                    'type' => 'integer',
-                    'required' => true,
-                ),
-                'item_id' => array(
-                    'location' => 'uri',
-                    'type' => 'integer',
-                    'required' => true,
-                ),
-            ),
-        ),
-        'UpdateVirtualItemsInGroup' => array(
-            'httpMethod' => 'PUT',
-            'uri' => '/merchant/projects/{project_id}/virtual_items/groups/{group_id}/items',
-            'summary' => 'Update a virtual items list in group',
-            'parameters' => array(
-                'project_id' => array(
-                    'location' => 'uri',
-                    'type' => 'integer',
-                    'required' => true,
-                ),
-                'group_id' => array(
-                    'location' => 'uri',
-                    'type' => 'integer',
-                    'required' => true,
-                ),
-                'request' => array(
-                    'location' => 'body',
-                    'type' => 'array',
-                    'required' => true,
-                    'filters' => array(
-                        '\Xsolla\SDK\API\XsollaClient::jsonEncode'
-                    ),
-                ),
-            ),
-        ),
         'UpdateVirtualItemOrderInGroup' => array(
-            'httpMethod' => 'PATCH',
-            'uri' => '/merchant/projects/{project_id}/virtual_items/groups/{group_id}/items/{item_id}',
-            'summary' => 'Change items order order in group',
+            'httpMethod' => 'PUT',
+            'uri' => 'https://api.xsolla.com/merchant/projects/{project_id}/virtual_items/sort',
+            'summary' => 'Update items order in group',
             'parameters' => array(
                 'project_id' => array(
-                    'location' => 'uri',
-                    'type' => 'integer',
-                    'required' => true,
-                ),
-                'group_id' => array(
-                    'location' => 'uri',
-                    'type' => 'integer',
-                    'required' => true,
-                ),
-                'item_id' => array(
                     'location' => 'uri',
                     'type' => 'integer',
                     'required' => true,

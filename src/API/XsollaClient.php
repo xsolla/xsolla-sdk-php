@@ -36,7 +36,7 @@ use Guzzle\Common\Event;
  *
  * @method array CreateVirtualItem(array $args = array()) Create a virtual item
  * @method array GetVirtualItem(array $args = array()) Get a virtual item
- * @method array UpdateVirtualItem(array $args = array()) Update a virtual item
+ * @method void UpdateVirtualItem(array $args = array()) Update a virtual item
  * @method void DeleteVirtualItem(array $args = array()) Delete a virtual item
  * @method array ListVirtualItems(array $args = array()) List a virtual items
  * @method string UpdateVirtualItemImage(array $args = array()) Upload an image for virtual item
@@ -46,10 +46,7 @@ use Guzzle\Common\Event;
  * @method void UpdateVirtualItemsGroup(array $args = array()) Update a virtual items group
  * @method void DeleteVirtualItemsGroup(array $args = array()) Delete a virtual items group
  * @method array ListVirtualItemsGroups(array $args = array()) List all virtual items groups
- * @method Model AddVirtualItemToGroup(array $args = array()) Add an item to group
- * @method Model DeleteVirtualItemFromGroup(array $args = array()) Delete a virtual item from group
- * @method Model UpdateVirtualItemsInGroup(array $args = array()) Update a virtual items list in group
- * @method Model UpdateVirtualItemOrderInGroup(array $args = array()) Change items order order in group
+ * @method void UpdateVirtualItemOrderInGroup(array $args = array()) Update items order in group
  *
  * @method array GetProjectVirtualCurrencySettings(array $args = array()) Get project virtual currency settings
  * @method void UpdateProjectVirtualCurrencySettings(array $args = array()) Update project virtual currency settings
