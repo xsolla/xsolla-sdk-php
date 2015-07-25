@@ -36,7 +36,7 @@ class WebhookServer
     public function __construct($webhookCallback, WebhookAuthenticator $webhookAuthenticator)
     {
         if (!is_callable($webhookCallback)) {
-            throw new XsollaWebhookException();
+            throw new XsollaWebhookException('$webhookCallback parameter passed to WebhookServer should be callable. Learn more about callbacks: http://php.net/manual/en/language.types.callable.php');
         }
         $this->webhookCallback = $webhookCallback;
         $this->webhookAuthenticator = $webhookAuthenticator;

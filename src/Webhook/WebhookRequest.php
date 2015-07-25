@@ -65,7 +65,7 @@ class WebhookRequest
     {
         $data = json_decode($this->body, true);
         if (JSON_ERROR_NONE !== json_last_error()) {
-            throw new InvalidParameterException('Unable to parse request body into JSON: ' . json_last_error());
+            throw new InvalidParameterException('Unable to parse Xsolla webhook request into JSON: ' . json_last_error());
         }
         return $data === null ? array() : $data;
     }

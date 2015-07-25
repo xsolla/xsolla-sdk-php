@@ -36,11 +36,11 @@ abstract class Message
     public static function fromArray(array $request)
     {
         if (!array_key_exists('notification_type', $request)) {
-            throw new InvalidParameterException('notification_type field not found in request');
+            throw new InvalidParameterException('notification_type key not found in Xsolla webhook request');
         }
         $notificationType = $request['notification_type'];
         if (!array_key_exists($notificationType, self::$classMap)) {
-            throw new InvalidParameterException('Unknown notification_type: '. $notificationType);
+            throw new InvalidParameterException('Unknown notification_type in Xsolla webhook request: '. $notificationType);
         }
         $className = self::$classMap[$notificationType];
         return new $className($request);

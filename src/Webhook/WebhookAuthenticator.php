@@ -49,7 +49,11 @@ class WebhookAuthenticator
     public function authenticateClientIp($clientIp)
     {
         if (false === IpUtils::checkIp($clientIp, self::$xsollaSubnets)) {
-            throw new InvalidClientIpException();//TODO
+            throw new InvalidClientIpException(sprintf(
+                'Xsolla trusted subnets (%s) doesn\'t contain client IP address (%s). If you use reverse proxy, you should set correct client IPv4 to WebhookRequest. If you are in development environment, you can set $authenticateClientIp = false in $webhookServer->start();',
+                implode(', ', self::$xsollaSubnets),
+                $clientIp
+            ));
         }
     }
 
@@ -61,18 +65,18 @@ class WebhookAuthenticator
     {
         $headers = $webhookRequest->getHeaders();
         if (!array_key_exists('authorization', $headers)) {
-            throw new InvalidSignatureException('Authorization header not found');
+            throw new InvalidSignatureException('"Authorization" header not found in Xsolla webhook request');
         }
         $matches = array();
         preg_match('~^Signature ([0-9a-f]{40})$~', $headers['authorization'], $matches);
         if (array_key_exists(1, $matches)) {
             $clientSignature = $matches[1];
         } else {
-            throw new InvalidSignatureException('Signature not found in Authorization header');
+            throw new InvalidSignatureException('Signature not found in "Authorization" header from Xsolla webhook request: '.$headers['authorization']);
         }
         $serverSignature = sha1($webhookRequest->getBody().$this->projectSecretKey);
         if ($clientSignature !== $serverSignature) {
-            throw new InvalidSignatureException('Signature provided, but not matched');
+            throw new InvalidSignatureException("Invalid Signature. Signature provided in \"Authorization\" header ($clientSignature) does not match with expected");
         }
     }
 }
