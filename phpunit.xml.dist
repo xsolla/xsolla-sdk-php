@@ -14,6 +14,12 @@
         bootstrap                   = "./vendor/autoload.php"
         >
 
+    <php>
+        <server name="MERCHANT_ID" value="22174" />
+        <server name="PROJECT_ID" value="15861" />
+        <server name="API_KEY" value="a8XxegcLKQMIp3MU" />
+    </php>
+
     <testsuites>
         <testsuite name="default test suite">
             <directory>./tests</directory>
