@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v1.1.1...master)
+### Added
+* Simplified `XsollaClient` and `TokenRequest` methods for obtaining [Payment UI token](http://developers.xsolla.com/api.html#payment-ui)
+* `WebhookServer` for receiving [notifications from Xsolla](http://developers.xsolla.com/api.html#notifications) 
+* [All API methods](http://developers.xsolla.com/api.html) available through `XsollaClient`
+
+### Removed
+* Removed all deprecated functionality from [previous API version](http://xsolla.github.io/en/)
 
 ## [v1.1.1](https://github.com/xsolla/xsolla-sdk-php/compare/v1.1.0...v1.1.1) - 2014-08-05
 * add payment_amount, payment_currency to default locked parameters list for generation of paystation2 payment page url
