@@ -95,16 +95,17 @@ Render Payment UI script in your page:
 
 use Xsolla\SDK\Webhook\WebhookServer;
 use Xsolla\SDK\Webhook\Message\Message;
+use Xsolla\SDK\Exception\Webhook\XsollaWebhookException;
 
 $callback = function (Message $message) {
     switch ($message->getNotificationType()) {
-        case Message::Webhook_USER_VALIDATION:
+        case Message::USER_VALIDATION:
             //check user existence
             break;
-        case Message::Webhook_PAYMENT:
+        case Message::PAYMENT:
             //handle payment
             break;
-        case Message::Webhook_REFUND:
+        case Message::REFUND:
             //handle refund
             break;
         default:

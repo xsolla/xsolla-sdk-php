@@ -2,6 +2,7 @@
 
 namespace Xsolla\SDK\Webhook;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Xsolla\SDK\API\XsollaClient;
 use Xsolla\SDK\Exception\Webhook\XsollaWebhookException;
@@ -60,9 +61,16 @@ class WebhookResponse
      * @param int    $httpStatusCode
      * @param string $body
      */
-    public function __construct($httpStatusCode = 204, $body = '')
+    public function __construct($httpStatusCode = 204, $body = null)
     {
-        $this->symfonyResponse = new Response($body, $httpStatusCode, array('x-xsolla-sdk' => Version::getVersion()));
+        $this->symfonyResponse = new Response($body, $httpStatusCode);
+        $this->symfonyResponse->headers->set('x-xsolla-sdk', Version::getVersion());
+        if ($body) {
+            $contentType = 'application/json';
+        } else {
+            $contentType = 'text/plain';
+        }
+        $this->symfonyResponse->headers->set('content-type', $contentType);
     }
 
     /**
