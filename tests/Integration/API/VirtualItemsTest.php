@@ -68,7 +68,7 @@ class VirtualItemsTest extends AbstractAPITest
             ));
             static::assertInternalType('array', $response);
         } catch (BadResponseException $e) {
-            if (500 === $e->getResponse()->getStatusCode()) {
+            if (500 == $e->getResponse()->getStatusCode()) {
                 static::markTestSkipped('TODO: random 500 responses in test merchant account');
             } else {
                 throw $e;
