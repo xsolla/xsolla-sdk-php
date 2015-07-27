@@ -2,7 +2,7 @@
 
 namespace Xsolla\SDK\Tests\Integration\API;
 
-use Guzzle\Http\Exception\BadResponseException;
+use Xsolla\SDK\Exception\API\XsollaAPIException;
 
 /**
  * @group api
@@ -67,8 +67,8 @@ class VirtualItemsTest extends AbstractAPITest
                 'project_id' => $this->projectId,
             ));
             static::assertInternalType('array', $response);
-        } catch (BadResponseException $e) {
-            if (500 == $e->getResponse()->getStatusCode()) {
+        } catch (XsollaAPIException $e) {
+            if (500 == $e->getPrevious()->getResponse()->getStatusCode()) {
                 static::markTestSkipped('TODO: random 500 responses in test merchant account');
             } else {
                 throw $e;
