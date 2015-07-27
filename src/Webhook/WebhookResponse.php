@@ -49,8 +49,10 @@ class WebhookResponse
     public static function fromErrorCode($xsollaErrorCode, $message = '', $httpStatus = 500)
     {
         $body = array(
-            'code' => $xsollaErrorCode,
-            'message' => $message,
+            'error' => array(
+                'code' => $xsollaErrorCode,
+                'message' => $message,
+            ),
         );
         $encodedBody = XsollaClient::jsonEncode($body);
 
