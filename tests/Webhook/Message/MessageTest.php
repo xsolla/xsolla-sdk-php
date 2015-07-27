@@ -19,13 +19,13 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $request = array('notification_type' => $notificationType, 'user' => $user);
         $message = Message\Message::fromArray($request);
         static::assertInstanceOf($expectedClass, $message);
-        static::assertEquals($userId, $message->getUserId());
-        static::assertEquals($user, $message->getUser());
-        static::assertEquals($request, $message->toArray());
-        static::assertEquals($notificationType, $message->getNotificationType());
-        static::assertEquals($isUserValidation, $message->isUserValidation());
-        static::assertEquals($isPayment, $message->isPayment());
-        static::assertEquals($isRefund, $message->isRefund());
+        static::assertSame($userId, $message->getUserId());
+        static::assertSame($user, $message->getUser());
+        static::assertSame($request, $message->toArray());
+        static::assertSame($notificationType, $message->getNotificationType());
+        static::assertSame($isUserValidation, $message->isUserValidation());
+        static::assertSame($isPayment, $message->isPayment());
+        static::assertSame($isRefund, $message->isRefund());
     }
 
     public function factoryProvider()

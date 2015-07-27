@@ -50,10 +50,10 @@ class ServerTest extends \PHPUnit_Framework_TestCase
             $process->stop();
             $response = $e->getResponse();
         }
-        static::assertEquals($expectedResponseContent, $response->getBody(true));
-        static::assertEquals($expectedStatusCode, $response->getStatusCode());
+        static::assertSame($expectedResponseContent, $response->getBody(true));
+        static::assertSame($expectedStatusCode, $response->getStatusCode());
         static::assertArrayHasKey('x-xsolla-sdk', $response->getHeaders());
-        static::assertEquals(Version::getVersion(), $response->getHeader('x-xsolla-sdk'));
+        static::assertSame(Version::getVersion(), (string) $response->getHeader('x-xsolla-sdk'));
     }
 
     public function cbProvider()

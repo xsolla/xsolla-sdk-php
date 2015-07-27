@@ -39,7 +39,7 @@ class CreateSubscriptionMessageTest extends \PHPUnit_Framework_TestCase
     public function test()
     {
         $message = new CreateSubscriptionMessage($this->request);
-        static::assertEquals($this->request['subscription'], $message->getSubscription());
-        static::assertEquals($this->request['coupon'], $message->getCoupon());
+        static::assertSame($this->request['subscription'], $message->getSubscription());
+        static::assertSame($this->request['coupon'], $message->getCoupon());
     }
 }

@@ -29,7 +29,7 @@ class CancelSubscriptionMessageTest extends \PHPUnit_Framework_TestCase
     public function test()
     {
         $message = new CancelSubscriptionMessage($this->request);
-        static::assertEquals($this->request['subscription'], $message->getSubscription());
+        static::assertSame($this->request['subscription'], $message->getSubscription());
     }
 }
 

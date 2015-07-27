@@ -101,12 +101,12 @@ class PaymentMessageTest extends \PHPUnit_Framework_TestCase
     public function test()
     {
         $message = new PaymentMessage($this->request);
-        static::assertEquals($this->request['purchase'], $message->getPurchase());
-        static::assertEquals($this->request['transaction'], $message->getTransaction());
-        static::assertEquals($this->request['transaction']['id'], $message->getPaymentId());
-        static::assertEquals($this->request['transaction']['external_id'], $message->getExternalPaymentId());
-        static::assertEquals($this->request['payment_details'], $message->getPaymentDetails());
-        static::assertEquals($this->request['custom_parameters'], $message->getCustomParameters());
+        static::assertSame($this->request['purchase'], $message->getPurchase());
+        static::assertSame($this->request['transaction'], $message->getTransaction());
+        static::assertSame($this->request['transaction']['id'], $message->getPaymentId());
+        static::assertSame($this->request['transaction']['external_id'], $message->getExternalPaymentId());
+        static::assertSame($this->request['payment_details'], $message->getPaymentDetails());
+        static::assertSame($this->request['custom_parameters'], $message->getCustomParameters());
         static::assertTrue($message->isDryRun());
     }
 
@@ -121,7 +121,7 @@ class PaymentMessageTest extends \PHPUnit_Framework_TestCase
         $message = new PaymentMessage($requestCopy);
 
         static::assertNull($message->getExternalPaymentId());
-        static::assertEquals(array(), $message->getCustomParameters());
+        static::assertSame(array(), $message->getCustomParameters());
         static::assertFalse($message->isDryRun());
     }
 }

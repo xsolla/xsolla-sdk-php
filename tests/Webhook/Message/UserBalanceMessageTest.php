@@ -40,11 +40,11 @@ class UserBalanceMessageTest extends \PHPUnit_Framework_TestCase
     public function test()
     {
         $message = new UserBalanceMessage($this->request);
-        static::assertEquals($this->request['operation_type'], $message->getOperationType());
-        static::assertEquals($this->request['id_operation'], $message->getOperationId());
-        static::assertEquals($this->request['coupon'], $message->getCoupon());
-        static::assertEquals($this->request['virtual_currency_balance'], $message->getVirtualCurrencyBalance());
-        static::assertEquals($this->request['items_operation_type'], $message->getItemsOperationType());
+        static::assertSame($this->request['operation_type'], $message->getOperationType());
+        static::assertSame($this->request['id_operation'], $message->getOperationId());
+        static::assertSame($this->request['coupon'], $message->getCoupon());
+        static::assertSame($this->request['virtual_currency_balance'], $message->getVirtualCurrencyBalance());
+        static::assertSame($this->request['items_operation_type'], $message->getItemsOperationType());
     }
 
     public function testEmptyFields()
@@ -56,8 +56,8 @@ class UserBalanceMessageTest extends \PHPUnit_Framework_TestCase
             $requestCopy['items_operation_type']
         );
         $message = new UserBalanceMessage($requestCopy);
-        static::assertEquals(array(), $message->getCoupon());
-        static::assertEquals(array(), $message->getVirtualCurrencyBalance());
+        static::assertSame(array(), $message->getCoupon());
+        static::assertSame(array(), $message->getVirtualCurrencyBalance());
         static::assertNull($message->getItemsOperationType());
     }
 }

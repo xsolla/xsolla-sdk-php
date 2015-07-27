@@ -37,6 +37,6 @@ class TokenRequestTest extends \PHPUnit_Framework_TestCase
                 'b' => 2,
             ),
         );
-        static::assertEquals($expectedRequest, $actualRequest);
+        static::assertSame($expectedRequest, $actualRequest);
     }
 }
