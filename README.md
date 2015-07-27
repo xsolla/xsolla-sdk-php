@@ -12,7 +12,13 @@ An official PHP SDK for interacting with [Xsolla API](http://developers.xsolla.c
 
 ## Features
 
-## Getting started
+* Full customisation of Payment UI with the help of different methods of getting token.
+* Client for all API methods, making your integration easy and convenient. You can use it for setting up and updating virtual currency, items and subscription plans, for managing the users balance, for checking the finance information with the help of Report API and so on.
+* Convenient webhook server:
+  * To start you need only one callback function.
+  * All security checking already implemented: signature authentication and IP whitelisting.
+  * Full customisation of notification processing logic, if standard server class doesn’t suit you.
+* SDK is built on Guzzle v3, and utilizes many of its features, including persistent connections, parallel requests, events and plugins (via Symfony2 EventDispatcher), service descriptions, over-the-wire logging, caching, flexible batching, and request retrying with truncated exponential back off.
 
 ## Requirements
 
