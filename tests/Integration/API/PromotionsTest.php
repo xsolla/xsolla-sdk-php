@@ -20,10 +20,10 @@ class PromotionsTest extends AbstractAPITest
         $this->promotion = array(
             'technical_name' => uniqid('promotion_'),
             'name' => array(
-                'en' => 'name'
+                'en' => 'name',
             ),
             'description' => array(
-                'en' => 'description'
+                'en' => 'description',
             ),
             'project_id' => $this->projectId,
         );
@@ -132,7 +132,7 @@ class PromotionsTest extends AbstractAPITest
                         'from' => $dateTime->format(\DateTime::ISO8601),
                         'to' => $dateTime->modify('+ 1 month')->format(\DateTime::ISO8601),
                     ),
-                )
+                ),
             ),
         ));
     }
@@ -158,7 +158,7 @@ class PromotionsTest extends AbstractAPITest
             'request' => array(
                 'purchase' => array(
                     'discount_percent' => 10,
-                )
+                ),
             ),
         ));
     }

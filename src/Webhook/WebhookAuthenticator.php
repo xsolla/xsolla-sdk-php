@@ -12,7 +12,7 @@ class WebhookAuthenticator
         '159.255.220.240/28',
         '185.30.20.16/29',
         '185.30.21.0/24',
-        '185.30.21.16/29'
+        '185.30.21.16/29',
     );
 
     /**
@@ -30,7 +30,8 @@ class WebhookAuthenticator
 
     /**
      * @param WebhookRequest $webhookRequest
-     * @param bool $checkClientIp
+     * @param bool           $checkClientIp
+     *
      * @throws InvalidClientIpException
      * @throws InvalidSignatureException
      */
@@ -44,6 +45,7 @@ class WebhookAuthenticator
 
     /**
      * @param string $clientIp
+     *
      * @throws InvalidClientIpException
      */
     public function authenticateClientIp($clientIp)
@@ -59,6 +61,7 @@ class WebhookAuthenticator
 
     /**
      * @param WebhookRequest $webhookRequest
+     *
      * @throws InvalidSignatureException
      */
     public function authenticateSignature(WebhookRequest $webhookRequest)

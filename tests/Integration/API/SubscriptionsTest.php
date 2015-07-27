@@ -22,7 +22,7 @@ class SubscriptionsTest extends AbstractAPITest
         parent::setUp();
         $this->plan = array(
             'name' => array(
-                'en' => 'Subscription Plan Name'
+                'en' => 'Subscription Plan Name',
             ),
             'group_id' => 'group_id',
             'charge' => array(

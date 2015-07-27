@@ -9,21 +9,18 @@ use Xsolla\SDK\Webhook\Message\UserBalanceMessage;
  */
 class UserBalanceMessageTest extends \PHPUnit_Framework_TestCase
 {
-    protected $request = array (
-        'virtual_currency_balance' =>
-            array (
+    protected $request = array(
+        'virtual_currency_balance' => array(
                 'old_value' => '0',
                 'new_value' => '200',
                 'diff' => '200',
             ),
-        'user' =>
-            array (
+        'user' => array(
                 'name' => 'Xsolla User',
                 'id' => '1234567',
                 'email' => 'support@xsolla.com',
             ),
-        'transaction' =>
-            array (
+        'transaction' => array(
                 'id' => '123456789',
                 'date' => '2015-05-19T15:54:40+03:00',
             ),

@@ -7,7 +7,7 @@ use Xsolla\SDK\Exception\Webhook\ServerErrorException;
 use Xsolla\SDK\Webhook\WebhookServer;
 use Xsolla\SDK\Webhook\Message\Message;
 
-class ServerMock 
+class ServerMock
 {
     const PROJECT_SECRET_KEY = 'PROJECT_SECRET_KEY';
 

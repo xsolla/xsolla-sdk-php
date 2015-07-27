@@ -46,7 +46,7 @@ class WalletTest extends AbstractAPITest
             'project_id' => $this->projectId,
             'user_id' => static::$userId,
             'request' => array(
-                'user_id' => static::$userId,//TODO
+                'user_id' => static::$userId, //TODO
                 'enabled' => true,
             ),
         ));
@@ -86,7 +86,7 @@ class WalletTest extends AbstractAPITest
             'user_id' => static::$userId,
             'request' => array(
                 'amount' => 10,
-                'comment' => 'Comment'
+                'comment' => 'Comment',
             ),
         ));
         static::assertArrayHasKey('amount', $response);
@@ -104,10 +104,10 @@ class WalletTest extends AbstractAPITest
                 'virtual_items' => array(
                     array(
                         'virtual_item' => array(
-                            'sku' => '1468',// https://merchant.xsolla.com/22174/projects/15861/items/15435
+                            'sku' => '1468', // https://merchant.xsolla.com/22174/projects/15861/items/15435
                         ),
-                        'amount' => 2
-                    )
+                        'amount' => 2,
+                    ),
                 ),
             ),
         ));
@@ -141,8 +141,8 @@ class WalletTest extends AbstractAPITest
                         'virtual_item' => array(
                             'sku' => '1468',
                         ),
-                        'amount' => 2
-                    )
+                        'amount' => 2,
+                    ),
                 ),
             ),
         ));

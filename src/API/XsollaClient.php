@@ -104,7 +104,7 @@ class XsollaClient extends Client
     protected $guzzleClient;
 
     /**
-     * @param mixed $value
+     * @param  mixed  $value
      * @return string
      */
     public static function jsonEncode($value)
@@ -113,11 +113,12 @@ class XsollaClient extends Client
         if (defined('JSON_PRETTY_PRINT')) {
             $flags = JSON_PRETTY_PRINT;
         }
+
         return json_encode($value, $flags);
     }
 
     /**
-     * @param array $config
+     * @param  array  $config
      * @return static
      */
     public static function factory($config = array())
@@ -125,7 +126,7 @@ class XsollaClient extends Client
         $default = array('base_url' => 'https://api.xsolla.com');
         $required = array(
             'merchant_id',
-            'api_key'
+            'api_key',
         );
         $config = Collection::fromConfig($config, $default, $required);
         $client = new static(isset($config['base_url']) ? $config['base_url'] : null, $config);
@@ -144,27 +145,30 @@ class XsollaClient extends Client
             throw $e;
         };
         $client->getEventDispatcher()->addListener('request.exception', $exceptionCb);
+
         return $client;
     }
 
     /**
-     * @param int $projectId
-     * @param string $userId
+     * @param  int    $projectId
+     * @param  string $userId
      * @return string
      */
     public function createCommonPaymentUIToken($projectId, $userId)
     {
         $tokenRequest = new TokenRequest($projectId, $userId);
+
         return $this->createPaymentUITokenFromRequest($tokenRequest);
     }
 
     /**
-     * @param TokenRequest $tokenRequest
+     * @param  TokenRequest $tokenRequest
      * @return string
      */
     public function createPaymentUITokenFromRequest(TokenRequest $tokenRequest)
     {
         $parsedResponse = $this->CreatePaymentUIToken(array('request' => $tokenRequest->toArray()));
+
         return $parsedResponse['token'];
     }
 }

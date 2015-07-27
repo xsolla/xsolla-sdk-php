@@ -20,7 +20,8 @@ class WebhookServer
 
     /**
      * @param callable $webhookCallback
-     * @param string $projectSecretKey
+     * @param string   $projectSecretKey
+     *
      * @return WebhookServer
      */
     public static function create($webhookCallback, $projectSecretKey)
@@ -29,8 +30,9 @@ class WebhookServer
     }
 
     /**
-     * @param callable $webhookCallback
+     * @param callable             $webhookCallback
      * @param WebhookAuthenticator $webhookAuthenticator
+     *
      * @throws XsollaWebhookException
      */
     public function __construct($webhookCallback, WebhookAuthenticator $webhookAuthenticator)
@@ -44,7 +46,7 @@ class WebhookServer
 
     /**
      * @param WebhookRequest $webhookRequest
-     * @param bool $authenticateClientIp
+     * @param bool           $authenticateClientIp
      */
     public function start(WebhookRequest $webhookRequest = null, $authenticateClientIp = true)
     {
@@ -54,7 +56,8 @@ class WebhookServer
 
     /**
      * @param WebhookRequest $webhookRequest
-     * @param bool $authenticateClientIp
+     * @param bool           $authenticateClientIp
+     *
      * @return Response
      */
     public function getSymfonyResponse(WebhookRequest $webhookRequest = null, $authenticateClientIp = true)
@@ -66,7 +69,8 @@ class WebhookServer
             $this->webhookAuthenticator->authenticate($webhookRequest, $authenticateClientIp);
             $message = Message::fromArray($webhookRequest->toArray());
             call_user_func($this->webhookCallback, $message);
-            $webhookResponse =  new WebhookResponse();
+            $webhookResponse = new WebhookResponse();
+
             return $webhookResponse->getSymfonyResponse();
         } catch (\Exception $e) {
             return WebhookResponse::fromException($e)->getSymfonyResponse();

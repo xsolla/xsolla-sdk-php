@@ -20,19 +20,19 @@ class TokenRequestTest extends \PHPUnit_Framework_TestCase
             ->setUserName('USER_NAME')
             ->toArray();
 
-        $expectedRequest = array (
-            'user' => array (
-                'id' => array ('value' => 'USER_ID'),
-                'email' => array ('value' => 'email@example.com'),
-                'name' => array ('value' => 'USER_NAME'),
+        $expectedRequest = array(
+            'user' => array(
+                'id' => array('value' => 'USER_ID'),
+                'email' => array('value' => 'email@example.com'),
+                'name' => array('value' => 'USER_NAME'),
             ),
-            'settings' => array (
+            'settings' => array(
                 'project_id' => 'PROJECT_ID',
                 'currency' => 'USD',
                 'external_id' => 12345,
                 'mode' => 'sandbox',
             ),
-            'custom_parameters' => array (
+            'custom_parameters' => array(
                 'a' => 1,
                 'b' => 2,
             ),

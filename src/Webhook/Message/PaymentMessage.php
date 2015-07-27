@@ -51,6 +51,7 @@ class PaymentMessage extends Message
         if (!array_key_exists('custom_parameters', $this->request)) {
             return array();
         }
+
         return $this->request['custom_parameters'];
     }
 
@@ -62,6 +63,7 @@ class PaymentMessage extends Message
         if (!array_key_exists('dry_run', $this->request['transaction'])) {
             return false;
         }
+
         return (bool) $this->request['transaction']['dry_run'];
     }
 }

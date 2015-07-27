@@ -9,28 +9,24 @@ use Xsolla\SDK\Webhook\Message\CreateSubscriptionMessage;
  */
 class CreateSubscriptionMessageTest extends \PHPUnit_Framework_TestCase
 {
-    protected $request = array (
+    protected $request = array(
         'notification_type' => 'create_subscription',
-        'user' =>
-            array (
+        'user' => array(
                 'id' => '1234567',
                 'name' => 'Xsolla User',
             ),
-        'subscription' =>
-            array (
+        'subscription' => array(
                 'plan_id' => 'b5dac9c8',
                 'subscription_id' => '10',
                 'product_id' => 'Demo Product',
                 'date_create' => '2014-09-22T19:25:25+04:00',
                 'date_next_charge' => '2015-01-22T19:25:25+04:00',
-                'trial' =>
-                    array (
+                'trial' => array(
                         'value' => 90,
                         'type' => 'day',
                     ),
             ),
-        'coupon' =>
-            array (
+        'coupon' => array(
                 'coupon_code' => 'ICvj45S4FUOyy',
                 'campaign_code' => '1507',
             ),

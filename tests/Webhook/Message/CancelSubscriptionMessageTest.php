@@ -9,15 +9,13 @@ use Xsolla\SDK\Webhook\Message\CancelSubscriptionMessage;
  */
 class CancelSubscriptionMessageTest extends \PHPUnit_Framework_TestCase
 {
-    protected $request = array (
+    protected $request = array(
         'notification_type' => 'cancel_subscription',
-        'user' =>
-            array (
+        'user' => array(
                 'id' => '1234567',
                 'name' => 'Xsolla User',
             ),
-        'subscription' =>
-            array (
+        'subscription' => array(
                 'plan_id' => 'b5dac9c8',
                 'subscription_id' => '10',
                 'product_id' => 'Demo Product',
@@ -32,4 +30,3 @@ class CancelSubscriptionMessageTest extends \PHPUnit_Framework_TestCase
         static::assertSame($this->request['subscription'], $message->getSubscription());
     }
 }
-

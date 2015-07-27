@@ -25,10 +25,10 @@ class VirtualItemsTest extends AbstractAPITest
             static::$virtualItem = array(
                 'sku' => static::$virtualItemSku,
                 'name' => array(
-                    'en' => 'Virtual Item'
+                    'en' => 'Virtual Item',
                 ),
                 'description' => array(
-                    'en' => 'Virtual Item Description'
+                    'en' => 'Virtual Item Description',
                 ),
                 'prices' => array(
                     'USD' => 1,
@@ -41,10 +41,10 @@ class VirtualItemsTest extends AbstractAPITest
         }
         $this->virtualItemsGroup = array(
             'name' => array(
-                'en' => 'Virtual Item Group'
+                'en' => 'Virtual Item Group',
             ),
             'description' => array(
-                'en' => 'Virtual Item Group Description'
+                'en' => 'Virtual Item Group Description',
             ),
             'enabled' => true,
         );
@@ -70,7 +70,7 @@ class VirtualItemsTest extends AbstractAPITest
     {
         $response = $this->xsollaClient->CreateVirtualItemsGroup(array(
             'project_id' => $this->projectId,
-            'request' => $this->virtualItemsGroup
+            'request' => $this->virtualItemsGroup,
         ));
         static::assertArrayHasKey('group_id', $response);
         static::$virtualItemsGroupId = $response['group_id'];
@@ -97,7 +97,7 @@ class VirtualItemsTest extends AbstractAPITest
         $this->xsollaClient->UpdateVirtualItemsGroup(array(
             'project_id' => $this->projectId,
             'group_id' => static::$virtualItemsGroupId,
-            'request' => $this->virtualItemsGroup
+            'request' => $this->virtualItemsGroup,
         ));
     }
 
@@ -108,7 +108,7 @@ class VirtualItemsTest extends AbstractAPITest
     {
         $response = $this->xsollaClient->CreateVirtualItem(array(
             'project_id' => $this->projectId,
-            'request' => static::$virtualItem
+            'request' => static::$virtualItem,
         ));
         static::assertArrayHasKey('item_id', $response);
         static::$virtualItemId = $response['item_id'];
@@ -147,7 +147,7 @@ class VirtualItemsTest extends AbstractAPITest
             'project_id' => $this->projectId,
             'item_id' => static::$virtualItemId,
             'request' => array(
-                'data' => 'iVBORw0KGgoAAAANSUhEUgAAACoAAAAoCAQAAAAiAqDbAAABl0lEQVR4Ae3VsUtVYRjA4VeUa4pRbVENBUoQlEFF\/0CiSEVbwYVoKLBwaYmChiiQmlqagqChOxeCQ0gX27K2xmpKscEhcrlxb54niAOHkvvdzh2c7vlNh+\/wDC+c94tteQwZEHkjQrphi6ri77Z+VDevIoRRK65Lk3VkJtLoPfjDHraKzJG25Ig6qOlPoxXzYNE6Nl1NkMvgRU4m0IJlU1W0rV8NLNvVGQ0nZOCjYZFknxZsGj1qHUBdmu3zLGeHUuh4PsvLajqzB3wGD0UKvYaWqnxmVh1MkF\/Anc4znXFePjOPjYq2nfQDt0UaLdtpN0V5tHQ9tIcW7bGza2jQGVdMGPwXfeJRl+SUb4A1kwrUMb80jXX1XzUB0HSqOFoCC8qjb\/DdpB2mbOB1fuAigOmSZJ8W7udvc\/iZ34q+4q33+KRSCh2QKdbfXbRCCA\/AWZfALVGqD1gxJvIb+F0IhzQAwIa9pdBzILMmA9MhvAQA8FyU6oYGoGFGhHB8S+OiZPvNmjNrX2+h\/Ce6G1zwCks9tIduO\/obgMsmlpJdCMsAAAAASUVORK5CYII="'
+                'data' => 'iVBORw0KGgoAAAANSUhEUgAAACoAAAAoCAQAAAAiAqDbAAABl0lEQVR4Ae3VsUtVYRjA4VeUa4pRbVENBUoQlEFF\/0CiSEVbwYVoKLBwaYmChiiQmlqagqChOxeCQ0gX27K2xmpKscEhcrlxb54niAOHkvvdzh2c7vlNh+\/wDC+c94tteQwZEHkjQrphi6ri77Z+VDevIoRRK65Lk3VkJtLoPfjDHraKzJG25Ig6qOlPoxXzYNE6Nl1NkMvgRU4m0IJlU1W0rV8NLNvVGQ0nZOCjYZFknxZsGj1qHUBdmu3zLGeHUuh4PsvLajqzB3wGD0UKvYaWqnxmVh1MkF\/Anc4znXFePjOPjYq2nfQDt0UaLdtpN0V5tHQ9tIcW7bGza2jQGVdMGPwXfeJRl+SUb4A1kwrUMb80jXX1XzUB0HSqOFoCC8qjb\/DdpB2mbOB1fuAigOmSZJ8W7udvc\/iZ34q+4q33+KRSCh2QKdbfXbRCCA\/AWZfALVGqD1gxJvIb+F0IhzQAwIa9pdBzILMmA9MhvAQA8FyU6oYGoGFGhHB8S+OiZPvNmjNrX2+h\/Ce6G1zwCks9tIduO\/obgMsmlpJdCMsAAAAASUVORK5CYII="',
             ),
         ));
         static::assertInternalType('string', filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED));
@@ -160,7 +160,7 @@ class VirtualItemsTest extends AbstractAPITest
     {
         $this->xsollaClient->DeleteVirtualItemImage(array(
             'project_id' => $this->projectId,
-            'item_id' => static::$virtualItemId
+            'item_id' => static::$virtualItemId,
         ));
     }
 

@@ -19,7 +19,7 @@ abstract class AbstractAPITest extends \PHPUnit_Framework_TestCase
         $this->projectId = (int) $_SERVER['PROJECT_ID'];
         $this->xsollaClient = XsollaClient::factory(array(
             'merchant_id' => $_SERVER['MERCHANT_ID'],
-            'api_key' => $_SERVER['API_KEY']
+            'api_key' => $_SERVER['API_KEY'],
         ));
         global $argv;
         if (in_array('--dump-http', $argv, true)) {

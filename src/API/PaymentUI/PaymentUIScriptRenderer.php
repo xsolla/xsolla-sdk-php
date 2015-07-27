@@ -5,7 +5,7 @@ namespace Xsolla\SDK\API\PaymentUI;
 /**
  * @link https://github.com/xsolla/paystation-embed
  */
-class PaymentUIScriptRenderer 
+class PaymentUIScriptRenderer
 {
     public static function send($token, $isSandbox = false)
     {
@@ -32,6 +32,7 @@ class PaymentUIScriptRenderer
     head.appendChild(s);
 </script>
 EOF;
+
         return sprintf($template, $token, $isSandbox ? 'true' : 'false');
     }
 }

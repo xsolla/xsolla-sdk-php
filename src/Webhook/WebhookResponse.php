@@ -26,6 +26,7 @@ class WebhookResponse
 
     /**
      * @param \Exception $e
+     *
      * @return WebhookResponse
      */
     public static function fromException(\Exception $e)
@@ -40,21 +41,23 @@ class WebhookResponse
     /**
      * @param string $xsollaErrorCode
      * @param string $message
-     * @param int $httpStatus
+     * @param int    $httpStatus
+     *
      * @return WebhookResponse
      */
     public static function fromErrorCode($xsollaErrorCode, $message = '', $httpStatus = 500)
     {
         $body = array(
             'code' => $xsollaErrorCode,
-            'message' => $message
+            'message' => $message,
         );
         $encodedBody = XsollaClient::jsonEncode($body);
+
         return new static($httpStatus, $encodedBody);
     }
 
     /**
-     * @param int $httpStatusCode
+     * @param int    $httpStatusCode
      * @param string $body
      */
     public function __construct($httpStatusCode = 204, $body = '')

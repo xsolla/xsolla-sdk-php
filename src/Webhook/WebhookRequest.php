@@ -14,7 +14,7 @@ class WebhookRequest
         JSON_ERROR_NONE => 'No error has occurred.',
         JSON_ERROR_STATE_MISMATCH => 'Invalid or malformed JSON.',
         JSON_ERROR_SYNTAX => 'Syntax error.',
-        JSON_ERROR_UTF8 => 'Malformed UTF-8 characters, possibly incorrectly encoded.'
+        JSON_ERROR_UTF8 => 'Malformed UTF-8 characters, possibly incorrectly encoded.',
     );
 
     /**
@@ -34,6 +34,7 @@ class WebhookRequest
 
     /**
      * @return WebhookRequest
+     *
      * @throws XsollaWebhookException
      */
     public static function fromGlobals()
@@ -43,11 +44,12 @@ class WebhookRequest
         foreach ($request->headers->all() as $header => $arrayValue) {
             $headers[$header] = $arrayValue[0];
         }
+
         return new static($headers, $request->getContent(), $request->getClientIp());
     }
 
     /**
-     * @param array $headers
+     * @param array  $headers
      * @param string $body
      * @param string $clientIp
      */
@@ -68,6 +70,7 @@ class WebhookRequest
 
     /**
      * @return array
+     *
      * @throws XsollaWebhookException
      */
     public function toArray()
@@ -79,8 +82,9 @@ class WebhookRequest
             if (array_key_exists($jsonLastError, self::$codes)) {
                 $message = self::$codes[$jsonLastError];
             }
-            throw new InvalidParameterException('Unable to parse Xsolla webhook request into JSON: ' . $message);
+            throw new InvalidParameterException('Unable to parse Xsolla webhook request into JSON: '.$message);
         }
+
         return $data === null ? array() : $data;
     }
 

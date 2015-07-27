@@ -41,6 +41,7 @@ EOF;
         if (array_key_exists($statusCode, static::$exceptions)) {
             return new static::$exceptions[$statusCode]($message, 0, $previous);
         }
+
         return new self($message, 0, $previous);
     }
 }

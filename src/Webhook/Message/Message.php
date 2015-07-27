@@ -30,7 +30,9 @@ abstract class Message
 
     /**
      * @param array $request
+     *
      * @return Message
+     *
      * @throws InvalidParameterException
      */
     public static function fromArray(array $request)
@@ -40,9 +42,10 @@ abstract class Message
         }
         $notificationType = $request['notification_type'];
         if (!array_key_exists($notificationType, self::$classMap)) {
-            throw new InvalidParameterException('Unknown notification_type in Xsolla webhook request: '. $notificationType);
+            throw new InvalidParameterException('Unknown notification_type in Xsolla webhook request: '.$notificationType);
         }
         $className = self::$classMap[$notificationType];
+
         return new $className($request);
     }
 

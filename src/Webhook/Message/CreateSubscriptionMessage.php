@@ -20,6 +20,7 @@ class CreateSubscriptionMessage extends CancelSubscriptionMessage
         if (!array_key_exists('coupon', $this->request)) {
             return array();
         }
+
         return $this->request['coupon'];
     }
 }

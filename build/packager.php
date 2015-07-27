@@ -1,8 +1,8 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
-$packager = new \Burgomaster(__DIR__ . '/artifacts/staging', __DIR__ . '/../');
+$packager = new \Burgomaster(__DIR__.'/artifacts/staging', __DIR__.'/../');
 
 $packager->exec('rm -rf '.__DIR__.'/artifacts/xsolla.*');
 
@@ -12,9 +12,9 @@ $packager->recursiveCopy('vendor/symfony/event-dispatcher', 'Symfony/Component/E
 $packager->recursiveCopy('vendor/symfony/http-foundation', 'Symfony/Component/HttpFoundation');
 
 $packager->createAutoloader();
-$packager->createPhar(__DIR__ . '/artifacts/xsolla.phar');
-$packager->createZip(__DIR__ . '/artifacts/xsolla.zip');
+$packager->createPhar(__DIR__.'/artifacts/xsolla.phar');
+$packager->createZip(__DIR__.'/artifacts/xsolla.zip');
 
 $packager->startSection('test-phar');
-$packager->exec('php ' . __DIR__ . '/test-phar.php');
+$packager->exec('php '.__DIR__.'/test-phar.php');
 $packager->endSection();
