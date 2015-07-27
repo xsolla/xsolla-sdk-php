@@ -11,8 +11,8 @@ $packager->recursiveCopy('vendor/guzzle/guzzle/src/Guzzle', 'Guzzle', array('php
 $packager->recursiveCopy('vendor/symfony/event-dispatcher', 'Symfony/Component/EventDispatcher');
 $packager->recursiveCopy('vendor/symfony/http-foundation', 'Symfony/Component/HttpFoundation');
 
-$packager->createAutoloader();
-$packager->createPhar(__DIR__.'/artifacts/xsolla.phar');
+$packager->createAutoloader(array(), 'xsolla-autoloader.php');
+$packager->createPhar(__DIR__.'/artifacts/xsolla.phar', null, 'xsolla-autoloader.php');
 $packager->createZip(__DIR__.'/artifacts/xsolla.zip');
 
 $packager->startSection('test-phar');

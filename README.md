@@ -30,16 +30,36 @@ An official PHP SDK for interacting with [Xsolla API](http://developers.xsolla.c
 
 ## Installation
 
+### Installing via Composer
+
 The recommended way to install Xsolla SDK for PHP is through [Composer](http://getcomposer.org).
 
 ``` bash
 $ cd /path/to/your/project
-$ composer require xsolla/xsolla-sdk-php:~2.0
+$ composer require xsolla/xsolla-sdk-php
+```
+
+### Installing via Phar
+
+You can [download the packaged phar](https://github.com/xsolla/xsolla-sdk-php/releases) and include it in your scripts to get started:
+
+``` php
+require '/path/to/xsolla.phar';
+```
+
+### Installing via Zip
+
+You can [download the zip file](https://github.com/xsolla/xsolla-sdk-php/releases), unzip it into your project to a location of your choosing, and include the autoloader:
+
+``` php
+require '/path/to/xsolla-autoloader.php';
 ```
 
 ## Quick Examples
 
-### Generate Payment UI Token
+### Integrate Payment UI
+
+Generate Payment UI token:
 
 ``` php
 <?php
@@ -52,6 +72,8 @@ $client = XsollaClient::factory(array(
 ));
 $paymentUIToken = $client->createCommonPaymentUIToken(PROJECT_ID, USER_ID);
 ```
+
+Render Payment UI script in your page:
 
 ``` php
 <html>
@@ -99,3 +121,4 @@ $webhookServer->start();
 * [Website](http://xsolla.com)
 * [Documentation](http://developers.xsolla.com)
 * [Status](http://status.xsolla.com)
+* [Support and Feedback](mailto:api.developers@xsolla.com)
