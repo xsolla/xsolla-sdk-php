@@ -71,7 +71,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                 'expectedResponseContent' => XsollaClient::jsonEncode(
                     array(
                         'code' => 'INVALID_PARAMETER',
-                        'message' => 'notification_type field not found in request',
+                        'message' => 'notification_type key not found in Xsolla webhook request',
                     )
                 ),
                 'request' => '{"foo": "bar"}',
@@ -83,7 +83,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                 'expectedResponseContent' => XsollaClient::jsonEncode(
                     array(
                         'code' => 'INVALID_PARAMETER',
-                        'message' => 'Unknown notification_type: unknown',
+                        'message' => 'Unknown notification_type in Xsolla webhook request: unknown',
                     )
                 ),
                 'request' => '{"notification_type": "unknown"}',
@@ -95,7 +95,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                 'expectedResponseContent' => XsollaClient::jsonEncode(
                     array(
                         'code' => 'INVALID_SIGNATURE',
-                        'message' => 'Signature provided, but not matched',
+                        'message' => 'Invalid Signature. Signature provided in "Authorization" header (78143a5ac4b892a68ce8b0b8b49e26667db0fa00) does not match with expected',
                     )
                 ),
                 'request' => null,
@@ -107,7 +107,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                 'expectedResponseContent' => XsollaClient::jsonEncode(
                     array(
                         'code' => 'INVALID_SIGNATURE',
-                        'message' => 'Authorization header not found',
+                        'message' => '"Authorization" header not found in Xsolla webhook request',
                     )
                 ),
                 'request' => null,
@@ -119,7 +119,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                 'expectedResponseContent' => XsollaClient::jsonEncode(
                     array(
                         'code' => 'INVALID_SIGNATURE',
-                        'message' => 'Signature not found in Authorization header',
+                        'message' => 'Signature not found in "Authorization" header from Xsolla webhook request: INVALID_FORMAT',
                     )
                 ),
                 'request' => null,
@@ -131,7 +131,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                 'expectedResponseContent' => XsollaClient::jsonEncode(
                     array(
                         'code' => 'INVALID_PARAMETER',
-                        'message' => 'Unable to parse request body into JSON: 4',
+                        'message' => 'Unable to parse Xsolla webhook request into JSON: Syntax error.',
                     )
                 ),
                 'request' => 'INVALID_REQUEST_CONTENT',
@@ -143,7 +143,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                 'expectedResponseContent' => XsollaClient::jsonEncode(
                     array(
                         'code' => 'INVALID_CLIENT_IP',
-                        'message' => '',
+                        'message' => 'Xsolla trusted subnets (159.255.220.240/28, 185.30.20.16/29, 185.30.21.0/24, 185.30.21.16/29) doesn\'t contain client IP address (127.0.0.1). If you use reverse proxy, you should set correct client IPv4 to WebhookRequest. If you are in development environment, you can set $authenticateClientIp = false in $webhookServer->start();',
                     )
                 ),
                 'request' => null,
@@ -155,7 +155,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                 'expectedResponseContent' => XsollaClient::jsonEncode(
                     array(
                         'code' => 'SERVER_ERROR',
-                        'message' => '',
+                        'message' => 'callback_server_error',
                     )
                 ),
                 'request' => '{"notification_type": "payment"}',
@@ -167,7 +167,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                 'expectedResponseContent' => XsollaClient::jsonEncode(
                     array(
                         'code' => 'CLIENT_ERROR',
-                        'message' => '',
+                        'message' => 'callback_client_error',
                     )
                 ),
                 'request' => '{"notification_type": "payment"}',

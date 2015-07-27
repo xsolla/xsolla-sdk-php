@@ -16,12 +16,12 @@ class ServerMock
         switch ($testCase) {
             case 'callback_client_error':
                 $callback = function (Message $message) {
-                    throw new ClientErrorException();
+                    throw new ClientErrorException('callback_client_error');
                 };
                 break;
             case 'callback_server_error':
                 $callback = function (Message $message) {
-                    throw new ServerErrorException();
+                    throw new ServerErrorException('callback_server_error');
                 };
                 break;
             default:
