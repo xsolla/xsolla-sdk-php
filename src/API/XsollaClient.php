@@ -152,11 +152,13 @@ class XsollaClient extends Client
     /**
      * @param  int    $projectId
      * @param  string $userId
+     * @param  bool   $sandboxMode
      * @return string
      */
-    public function createCommonPaymentUIToken($projectId, $userId)
+    public function createCommonPaymentUIToken($projectId, $userId, $sandboxMode = false)
     {
         $tokenRequest = new TokenRequest($projectId, $userId);
+        $tokenRequest->setSandboxMode($sandboxMode);
 
         return $this->createPaymentUITokenFromRequest($tokenRequest);
     }

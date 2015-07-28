@@ -70,7 +70,7 @@ $client = XsollaClient::factory(array(
     'merchant_id' => MERCHANT_ID,
     'api_key' => 'API_KEY'
 ));
-$paymentUIToken = $client->createCommonPaymentUIToken(PROJECT_ID, USER_ID);
+$paymentUIToken = $client->createCommonPaymentUIToken(PROJECT_ID, USER_ID, $sandboxMode = true);
 ```
 
 Render Payment UI script in your page:

@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.0.0-BETA1...master)
+### Fixed
+* Fixed various TLS cURL errors, e.g. '77: error setting certificate verify locations'. Guzzle TLS default options replaced with cURL OS defaults.
+
+### Changed
+* Added optional argument `$sandboxMode` to `XsollaClient::createCommonPaymentUIToken`
 
 ## [v2.0.0-BETA1](https://github.com/xsolla/xsolla-sdk-php/compare/v1.1.1...v2.0.0-BETA1)
 ### Added
