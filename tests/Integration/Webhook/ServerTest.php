@@ -56,7 +56,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         static::assertSame(Version::getVersion(), (string) $response->getHeader('x-xsolla-sdk'));
         static::assertArrayHasKey('content-type', $response->getHeaders());
         if (204 === $response->getStatusCode()) {
-            static::assertSame('text/plain;charset=UTF-8', (string) $response->getHeader('content-type'));
+            static::assertSame('text/plain', (string) $response->getHeader('content-type'));
         } else {
             static::assertSame('application/json', (string) $response->getHeader('content-type'));
         }
