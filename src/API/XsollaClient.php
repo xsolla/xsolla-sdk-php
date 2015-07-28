@@ -123,7 +123,9 @@ class XsollaClient extends Client
      */
     public static function factory($config = array())
     {
-        $default = array('base_url' => 'https://api.xsolla.com');
+        $default = array(
+            'ssl.certificate_authority' => 'system',
+        );
         $required = array(
             'merchant_id',
             'api_key',
