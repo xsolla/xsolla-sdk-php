@@ -46,7 +46,6 @@ class WalletTest extends AbstractAPITest
             'project_id' => $this->projectId,
             'user_id' => static::$userId,
             'request' => array(
-                'user_id' => static::$userId, //TODO
                 'enabled' => true,
             ),
         ));
