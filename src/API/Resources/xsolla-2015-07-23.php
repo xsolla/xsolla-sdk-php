@@ -298,10 +298,10 @@ return array(
                 ),
             ),
         ),
-        'ListSubscriptionPayments' => array(
+        'ListUserSubscriptionPayments' => array(
             'httpMethod' => 'GET',
             'uri' => '/merchant/projects/{project_id}/users/{user_id}/subscriptions/payments',
-            'summary' => 'List all recurrent payments',
+            'summary' => 'List all recurrent payments by user',
             'parameters' => array(
                 'project_id' => array(
                     'location' => 'uri',
@@ -336,6 +336,53 @@ return array(
                 'datetime_to' => array(
                     'location' => 'query',
                     'type' => 'string',
+                    'required' => false,
+                ),
+                'subscription_id' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => false,
+                ),
+            ),
+        ),
+        'ListSubscriptionPayments' => array(
+            'httpMethod' => 'GET',
+            'uri' => '/merchant/projects/{project_id}/subscriptions/payments',
+            'summary' => 'List all recurrent payments',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'status' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'limit' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => false,
+                ),
+                'offset' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => false,
+                ),
+                'datetime_from' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'datetime_to' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'subscription_id' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
                     'required' => false,
                 ),
             ),

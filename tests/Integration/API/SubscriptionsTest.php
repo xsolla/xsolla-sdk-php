@@ -178,11 +178,19 @@ class SubscriptionsTest extends AbstractAPITest
         static::assertInternalType('array', $response);
     }
 
+    public function testListUserSubscriptionPayments()
+    {
+        $response = $this->xsollaClient->ListUserSubscriptionPayments(array(
+            'project_id' => $this->projectId,
+            'user_id' => '1',
+        ));
+        static::assertInternalType('array', $response);
+    }
+
     public function testListSubscriptionPayments()
     {
         $response = $this->xsollaClient->ListSubscriptionPayments(array(
             'project_id' => $this->projectId,
-            'user_id' => 1,
         ));
         static::assertInternalType('array', $response);
     }

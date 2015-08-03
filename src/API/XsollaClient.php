@@ -26,6 +26,7 @@ use Guzzle\Common\Event;
  * @method array ListSubscriptionProducts(array $args = array()) List all recurrent products
  * @method array UpdateSubscription(array $args = array()) Update a recurrent subscription. It's available to update the status of subscription (active or canceled) and to postpone the date of the next charge for current subscription.
  * @method array ListSubscriptions(array $args = array()) List all recurrent subscriptions
+ * @method array ListUserSubscriptionPayments(array $args = array()) List all recurrent payments by user
  * @method array ListSubscriptionPayments(array $args = array()) List all recurrent payments
  * @method array ListSubscriptionCurrencies(array $args = array()) List all recurrent currencies
  *

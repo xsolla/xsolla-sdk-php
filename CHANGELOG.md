@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 * Added optional argument `$sandboxMode` to `XsollaClient::createCommonPaymentUIToken`
+* [BC BREAK] `XsollaClient::ListSubscriptionPayments` returns subscription payments for all users; `user_id` parameter removed. Added `ListUserSubscriptionPayments` instead `ListSubscriptionPayments` with same parameters.
 
 ## [v2.0.0-BETA1](https://github.com/xsolla/xsolla-sdk-php/compare/v1.1.1...v2.0.0-BETA1)
 ### Added
