@@ -199,7 +199,6 @@ class SubscriptionsTest extends AbstractAPITest
     {
         $response = $this->xsollaClient->ListSubscriptionCurrencies(array(
             'project_id' => $this->projectId,
-            'user_id' => 1,
         ));
         static::assertInternalType('array', $response);
     }
