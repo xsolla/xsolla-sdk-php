@@ -122,4 +122,4 @@ $webhookServer->start();
 * [Website](http://xsolla.com)
 * [Documentation](http://developers.xsolla.com)
 * [Status](http://status.xsolla.com)
-* [Support and Feedback](mailto:api.developers@xsolla.com)
+* [Support and Feedback](mailto:integration@xsolla.com)

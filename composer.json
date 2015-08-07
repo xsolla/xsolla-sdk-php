@@ -6,7 +6,7 @@
     "homepage": "http://xsolla.com",
     "license": "MIT",
     "support": {
-      "email": "api.developers@xsolla.com",
+      "email": "integration@xsolla.com",
       "issues": "https://github.com/xsolla/xsolla-sdk-php/issues",
       "docs": "http://developers.xsolla.com",
       "source": "https://github.com/xsolla/xsolla-sdk-php/releases"
