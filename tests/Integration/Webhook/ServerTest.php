@@ -20,7 +20,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->guzzleClient = new Client('http://localhost:8000');
+        $this->guzzleClient = new Client('http://localhost:8999');
     }
 
     /**
@@ -33,7 +33,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $testCase,
         $testHeaders
     ) {
-        $process = new Process('php -S localhost:8000', __DIR__.'/../../resources');
+        $process = new Process('php -S localhost:8999', __DIR__.'/../../resources');
         $process->start();
         sleep(1);
         $signature = sha1($request.ServerMock::PROJECT_SECRET_KEY);
