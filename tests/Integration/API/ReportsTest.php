@@ -7,9 +7,29 @@ namespace Xsolla\SDK\Tests\Integration\API;
  */
 class ReportsTest extends AbstractAPITest
 {
+    public function testSearchPaymentsRegistry()
+    {
+        $response = $this->xsollaClient->SearchPaymentsRegistry(array(
+            'format' => 'json',
+            'type' => 'all',
+            'limit' => 1,
+            'offset' => 0,
+        ));
+        static::assertInternalType('array', $response);
+    }
+
     public function testListPaymentsRegistry()
     {
-        static::markTestSkipped('TODO: 404');
+        $response = $this->xsollaClient->ListPaymentsRegistry(array(
+            'format' => 'json',
+            'datetime_from' => '2015-01-01T00:00:00 UTC',
+            'datetime_to' => '2015-01-02T00:00:00 UTC',
+            'in_transfer_currency' => false,
+            'limit' => 1,
+            'offset' => 0,
+            'show_total' => true,
+        ));
+        static::assertInternalType('array', $response);
     }
 
     public function testListTransfersRegistry()

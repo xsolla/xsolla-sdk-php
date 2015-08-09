@@ -84,9 +84,10 @@ use Guzzle\Common\Event;
  *
  * @method array ListEvents(array $args = array()) List all events from Xsolla Event System
  *
- * @method array ListPayments(array $args = array()) Get information about all transactions for specified data range/transfer/report in different data formats. JSON, CSV or XML will be returned in response from the API.
- * @method array ListTransfers(array $args = array()) List all transfers
- * @method array ListReports(array $args = array()) Get a list of finance reports for specified data range
+ * @method array SearchPaymentsRegistry(array $args = array()) Get a transaction list based on specific search parameters. JSON, CSV or XML will be returned in response from the API.
+ * @method array ListPaymentsRegistry(array $args = array()) Get information about all transactions for specified data range/transfer/report in different data formats. JSON, CSV or XML will be returned in response from the API.
+ * @method array ListTransfersRegistry(array $args = array()) List all transfers
+ * @method array ListReportsRegistry(array $args = array()) Get a list of finance reports for specified data range
  * @method void CreateRefundRequest(array $args = array()) Send a refund request. Money will be returned to user
  *
  * @method array ListSupportTickets(array $args = array()) List all tickets

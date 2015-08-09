@@ -3,8 +3,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.0.0-BETA1...master)
+### Added
+* Added `XsollaClient::SearchPaymentsRegistry` method for getting a transaction list based on specific search parameters.
+
 ### Fixed
 * Fixed various TLS cURL errors, e.g. '77: error setting certificate verify locations'. Guzzle TLS default options replaced with cURL OS defaults.
+* Set `format`, `datetime_from`, `datetime_to`, `limit`, `offset`, `in_transfer_currency`, `show_total` as required parameters in `XsollaClient::ListPaymentsRegistry`
 
 ### Changed
 * Added optional argument `$sandboxMode` to `XsollaClient::createCommonPaymentUIToken`
