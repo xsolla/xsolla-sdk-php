@@ -74,6 +74,8 @@ To integrate Payment UI into your game you should obtain an access token. An acc
 There are number of ways for getting token. The easiest one is to use the _createCommonPaymentUIToken_ method, you will need to pass only ID of project in Xsolla system and ID of the user in your game:
 
 ```
+<?php
+
 use Xsolla\SDK\API\XsollaClient;
 
 $client = XsollaClient::factory(array(
@@ -81,29 +83,6 @@ $client = XsollaClient::factory(array(
     'api_key' => 'API_KEY'
 ));
 $paymentUIToken = $client->createCommonPaymentUIToken(PROJECT_ID, USER_ID, $sandboxMode = true);
-```
-
-You can pass more parameters in JSON for token:
-
-```php
-<?php
-
-use Xsolla\SDK\API\XsollaClient;
-use Xsolla\SDK\API\PaymentUI\TokenRequest;
-
-
-$tokenRequest = new TokenRequest($projectId, $userId);
-$array = $tokenRequest->setUserEmail('email@example.com')
-    ->setExternalPaymentId(12345)
-    ->setSandboxMode(true)
-    ->setUserName('USER_NAME')
-    ->setCustomParameters(array('key1' => 'value1', 'key2' => 'value2'))
-    ->toArray();
-
-$array['settings']['ui']['component']['desktop']['theme'] = 'dark';
-
-$xsollaClient = new XsollaClient($merchantId, $xsollaApiToken);
-$token = $xsollaClient->getPaymentUITokenFromArray($array);
 ```
 
 Render Payment UI script in your page:
@@ -149,63 +128,6 @@ $callback = function (Message $message) {
 
 $webhookServer = WebhookServer::create($callback, PROJECT_KEY);
 $webhookServer->start();
-```
-
-If standard server class does not suit you, you can create your own:
-
-```php
-<?php
-
-use Xsolla\SDK\Webhook\WebhookRequest;
-use Xsolla\SDK\Webhook\Message\Message;
-use Xsolla\SDK\Webhook\WebhookResponse;
-use Xsolla\SDK\Exception\Webhook\XsollaWebhookException;
-
-$httpHeaders = apache_request_headers();
-$httpRequestBody = file_get_contents('php://input');
-$clientIPv4 = $_SERVER['REMOTE_ADDR'];
-$request = new WebhookRequest($httpHeaders, $httpRequestBody, $clientIPv4);
-//or $request = WebhookRequest::fromGlobals();
-
-$this->webhookAuthenticator->authenticate($request, $authenticateClientIp = true);// throws XsollaWebhookException
-
-$requestArray = $request->toArray();
-
-$message = Message::fromArray($requestArray);
-switch ($message->getNotificationType()) {
-    case Message::USER_VALIDATION:
-        $userArray = $message->getUser();
-        $userId = $message->getUserId();
-        $messageArray = $message->toArray();
-        // TODO if user not found, you should throw InvalidUserException
-        break;
-    case Message::PAYMENT:
-        $userArray = $message->getUser();
-        $paymentArray = $message->getTransaction();
-        $paymentId = $message->getPaymentId();
-        $externalPaymentId = $message->getExternalPaymentId();
-        $paymentDetailsArray = $message->getPaymentDetails();
-        $customParametersArray = $message->getCustomParameters();
-        $isDryRun = $message->isDryRun();
-        $messageArray = $message->toArray();
-        // TODO if the payment delivery fails for some reason, you should throw XsollaWebhookException
-        break;
-    case Message::REFUND:
-        $userArray = $message->getUser();
-        $paymentArray = $message->getTransaction();
-        $paymentId = $message->getPaymentId();
-        $externalPaymentId = $message->getExternalPaymentId();
-        $paymentDetailsArray = $message->getPaymentDetails();
-        $customParametersArray = $message->getCustomParameters();
-        $isDryRun = $message->isDryRun();
-        $refundArray = $message->getRefundDetails();
-        $messageArray = $message->toArray();
-        // TODO if you cannot handle the refund, you should throw XsollaWebhookException
-        break;
-    default:
-        throw new XsollaWebhookException('Notification type not implemented');
-}
-
 ```
 
 Once you've finished the handling of notifications on your server, please set up the URL that will receive all webhook notifications on the Settings page for your project.
