@@ -73,14 +73,14 @@ To integrate Payment UI into your game you should obtain an access token. An acc
 
 There are number of ways for getting token. The easiest one is to use the _createCommonPaymentUIToken_ method, you will need to pass only ID of project in Xsolla system and ID of the user in your game:
 
-```
+``` php
 <?php
 
 use Xsolla\SDK\API\XsollaClient;
 
 $client = XsollaClient::factory(array(
     'merchant_id' => MERCHANT_ID,
-    'api_key' => 'API_KEY'
+    'api_key' => API_KEY
 ));
 $paymentUIToken = $client->createCommonPaymentUIToken(PROJECT_ID, USER_ID, $sandboxMode = true);
 ```
