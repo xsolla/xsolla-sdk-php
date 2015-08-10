@@ -11,7 +11,7 @@ class CreatePaymentUITokenTest extends AbstractAPITest
 {
     public function testCreateCommonPaymentUIToken()
     {
-        $token = $this->xsollaClient->createCommonPaymentUIToken($_SERVER['PROJECT_ID'], 'USER_ID');
+        $token = $this->xsollaClient->createCommonPaymentUIToken($_SERVER['PROJECT_ID'], 'USER_ID', true);
         static::assertInternalType('string', $token);
     }
 

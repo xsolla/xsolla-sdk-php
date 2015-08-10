@@ -70,7 +70,7 @@ $client = XsollaClient::factory(array(
     'merchant_id' => MERCHANT_ID,
     'api_key' => 'API_KEY'
 ));
-$paymentUIToken = $client->createCommonPaymentUIToken(PROJECT_ID, USER_ID);
+$paymentUIToken = $client->createCommonPaymentUIToken(PROJECT_ID, USER_ID, $sandboxMode = true);
 ```
 
 Render Payment UI script in your page:
@@ -122,4 +122,4 @@ $webhookServer->start();
 * [Website](http://xsolla.com)
 * [Documentation](http://developers.xsolla.com)
 * [Status](http://status.xsolla.com)
-* [Support and Feedback](mailto:api.developers@xsolla.com)
+* [Support and Feedback](mailto:integration@xsolla.com)

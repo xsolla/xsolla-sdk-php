@@ -22,12 +22,13 @@ abstract class AbstractAPITest extends \PHPUnit_Framework_TestCase
             'api_key' => $_SERVER['API_KEY'],
         ));
         global $argv;
-        if (in_array('--dump-http', $argv, true)) {
+        if (in_array('--debug', $argv, true)) {
             $echoCb = function (Event $event) {
                 echo (string) $event['request'].PHP_EOL;
                 echo (string) $event['response'].PHP_EOL;
             };
             $this->xsollaClient->getEventDispatcher()->addListener('request.complete', $echoCb);
+            $this->xsollaClient->getEventDispatcher()->addListener('request.exception', $echoCb);
         }
     }
 }

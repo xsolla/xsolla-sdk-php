@@ -52,6 +52,7 @@ class SubscriptionsTest extends AbstractAPITest
                 'request' => $this->plan,
             ));
             static::assertArrayHasKey('plan_id', $response);
+            static::assertInternalType('integer', $response['plan_id']);
             static::$planId = $response['plan_id'];
         } catch (UnprocessableEntityException $e) {
             if (false === strpos($e->getMessage(), 'External id is already exist')) {
@@ -178,11 +179,19 @@ class SubscriptionsTest extends AbstractAPITest
         static::assertInternalType('array', $response);
     }
 
+    public function testListUserSubscriptionPayments()
+    {
+        $response = $this->xsollaClient->ListUserSubscriptionPayments(array(
+            'project_id' => $this->projectId,
+            'user_id' => '1',
+        ));
+        static::assertInternalType('array', $response);
+    }
+
     public function testListSubscriptionPayments()
     {
         $response = $this->xsollaClient->ListSubscriptionPayments(array(
             'project_id' => $this->projectId,
-            'user_id' => 1,
         ));
         static::assertInternalType('array', $response);
     }
@@ -191,7 +200,6 @@ class SubscriptionsTest extends AbstractAPITest
     {
         $response = $this->xsollaClient->ListSubscriptionCurrencies(array(
             'project_id' => $this->projectId,
-            'user_id' => 1,
         ));
         static::assertInternalType('array', $response);
     }

@@ -61,7 +61,7 @@ return array(
                 ),
                 'plan_id' => array(
                     'location' => 'uri',
-                    'type' => 'string',
+                    'type' => 'integer',
                     'required' => true,
                 ),
                 'request' => array(
@@ -86,7 +86,7 @@ return array(
                 ),
                 'plan_id' => array(
                     'location' => 'uri',
-                    'type' => 'string',
+                    'type' => 'integer',
                     'required' => true,
                 ),
             ),
@@ -103,7 +103,7 @@ return array(
                 ),
                 'plan_id' => array(
                     'location' => 'uri',
-                    'type' => 'string',
+                    'type' => 'integer',
                     'required' => true,
                 ),
             ),
@@ -120,7 +120,7 @@ return array(
                 ),
                 'plan_id' => array(
                     'location' => 'uri',
-                    'type' => 'string',
+                    'type' => 'integer',
                     'required' => true,
                 ),
             ),
@@ -298,10 +298,10 @@ return array(
                 ),
             ),
         ),
-        'ListSubscriptionPayments' => array(
+        'ListUserSubscriptionPayments' => array(
             'httpMethod' => 'GET',
             'uri' => '/merchant/projects/{project_id}/users/{user_id}/subscriptions/payments',
-            'summary' => 'List all recurrent payments',
+            'summary' => 'List all recurrent payments by user',
             'parameters' => array(
                 'project_id' => array(
                     'location' => 'uri',
@@ -336,6 +336,53 @@ return array(
                 'datetime_to' => array(
                     'location' => 'query',
                     'type' => 'string',
+                    'required' => false,
+                ),
+                'subscription_id' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => false,
+                ),
+            ),
+        ),
+        'ListSubscriptionPayments' => array(
+            'httpMethod' => 'GET',
+            'uri' => '/merchant/projects/{project_id}/subscriptions/payments',
+            'summary' => 'List all recurrent payments',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'status' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'limit' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => false,
+                ),
+                'offset' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => false,
+                ),
+                'datetime_from' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'datetime_to' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'subscription_id' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
                     'required' => false,
                 ),
             ),
@@ -1313,10 +1360,10 @@ return array(
             ),
         ),
         // Reports
-        'ListPaymentsRegistry' => array(
+        'SearchPaymentsRegistry' => array(
             'httpMethod' => 'GET',
-            'uri' => '/merchant/merchants/{merchant_id}/reports/transactions/registry.{format}',
-            'summary' => 'Get information about all transactions for specified data range/transfer/report in different data formats. JSON, CSV or XML will be returned in response from the API.',
+            'uri' => 'https://api.xsolla.com/merchant/merchants/{merchant_id}/reports/transactions/search.{format}',
+            'summary' => 'Get a transaction list based on specific search parameters. JSON, CSV or XML will be returned in response from the API.',
             'parameters' => array(
                 'merchant_id' => array(
                     'location' => 'uri',
@@ -1327,7 +1374,7 @@ return array(
                 'format' => array(
                     'location' => 'uri',
                     'type' => 'string',
-                    'required' => false,
+                    'required' => true,
                 ),
                 'datetime_from' => array(
                     'location' => 'query',
@@ -1349,6 +1396,94 @@ return array(
                     'type' => 'boolean',
                     'required' => false,
                 ),
+                'transaction_id' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => false,
+                ),
+                'phone' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'user_id' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'user_name' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'user_custom' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'email' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'external_id' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'limit' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'offset' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'type' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+            ),
+        ),
+        'ListPaymentsRegistry' => array(
+            'httpMethod' => 'GET',
+            'uri' => '/merchant/merchants/{merchant_id}/reports/transactions/registry.{format}',
+            'summary' => 'Get information about all transactions for specified data range/transfer/report in different data formats. JSON, CSV or XML will be returned in response from the API.',
+            'parameters' => array(
+                'merchant_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'static' => true,
+                    'required' => true,
+                ),
+                'format' => array(
+                    'location' => 'uri',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'datetime_from' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'datetime_to' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'project_id' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => false,
+                ),
+                'show_dry_run' => array(
+                    'location' => 'query',
+                    'type' => 'boolean',
+                    'required' => false,
+                ),
                 'transfer_id' => array(
                     'location' => 'query',
                     'type' => 'integer',
@@ -1359,25 +1494,30 @@ return array(
                     'type' => 'integer',
                     'required' => false,
                 ),
+                'merchant_of_records' => array(
+                    'location' => 'query',
+                    'type' => 'boolean',
+                    'required' => false,
+                ),
                 'limit' => array(
                     'location' => 'query',
                     'type' => 'integer',
-                    'required' => false,
+                    'required' => true,
                 ),
                 'offset' => array(
                     'location' => 'query',
                     'type' => 'integer',
-                    'required' => false,
+                    'required' => true,
                 ),
                 'in_transfer_currency' => array(
                     'location' => 'query',
                     'type' => 'boolean',
-                    'required' => false,
+                    'required' => true,
                 ),
                 'show_total' => array(
                     'location' => 'query',
                     'type' => 'boolean',
-                    'required' => false,
+                    'required' => true,
                 ),
             ),
         ),
