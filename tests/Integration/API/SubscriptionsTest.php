@@ -52,6 +52,7 @@ class SubscriptionsTest extends AbstractAPITest
                 'request' => $this->plan,
             ));
             static::assertArrayHasKey('plan_id', $response);
+            static::assertInternalType('integer', $response['plan_id']);
             static::$planId = $response['plan_id'];
         } catch (UnprocessableEntityException $e) {
             if (false === strpos($e->getMessage(), 'External id is already exist')) {
