@@ -8,7 +8,7 @@
 
 An official PHP SDK for interacting with [Xsolla API](http://developers.xsolla.com)
 
-![Payment UI screenshot](http://xsolla.cachefly.net/img/ps3_github_new.png)
+![Payment UI screenshot](http://xsolla.cachefly.net/img/ps3_github2.png)
 
 ## Features
 
@@ -23,10 +23,20 @@ An official PHP SDK for interacting with [Xsolla API](http://developers.xsolla.c
 ## Requirements
 
 * PHP 5.3.9+
-* Your php.ini needs to have the date.timezone setting
 * The following PHP extensions are required:
   * curl
   * json
+
+## Getting Started
+
+Please register your [Merchant Account](https://merchant.xsolla.com/signup) and create the project.
+In order to use the PHP SDK Library you'll need:
+* MERCHANT_ID
+* API_KEY
+* PROJECT_ID
+* PROJECT_KEY
+
+You can obtain these parameters using the information in your [Company Profile](https://merchant.xsolla.com/company) and [Project Settings](https://merchant.xsolla.com/projects).
 
 ## Installation
 
@@ -59,7 +69,9 @@ require '/path/to/xsolla-autoloader.php';
 
 ### Integrate Payment UI
 
-Generate Payment UI token:
+To integrate Payment UI into your game you should obtain an access token. An access token is a string that identifies game, user and purchase parameters.
+
+There are number of ways for getting token. The easiest one is to use the _createCommonPaymentUIToken_ method, you will need to pass only ID of project in Xsolla system and ID of the user in your game:
 
 ``` php
 <?php
@@ -68,7 +80,7 @@ use Xsolla\SDK\API\XsollaClient;
 
 $client = XsollaClient::factory(array(
     'merchant_id' => MERCHANT_ID,
-    'api_key' => 'API_KEY'
+    'api_key' => API_KEY
 ));
 $paymentUIToken = $client->createCommonPaymentUIToken(PROJECT_ID, USER_ID, $sandboxMode = true);
 ```
@@ -81,16 +93,17 @@ Render Payment UI script in your page:
     <meta charset="UTF-8">
 </head>
 <body>
-    <button data-xpaystation-widget-open>Test Button</button>
+    <button data-xpaystation-widget-open>Buy Credits</button>
     
-    <?php \Xsolla\SDK\API\PaymentUI\PaymentUIScriptRenderer::send($paymentUIToken); ?>
+    <?php \Xsolla\SDK\API\PaymentUI\PaymentUIScriptRenderer::send($paymentUIToken, $isSandbox = true); ?>
 </body>
 </html>
 ```
-
 ### Receive webhooks
 
-``` php
+There is a build in server class to help you to handle the webhooks.
+
+```php
 <?php
 
 use Xsolla\SDK\Webhook\WebhookServer;
@@ -100,22 +113,24 @@ use Xsolla\SDK\Exception\Webhook\XsollaWebhookException;
 $callback = function (Message $message) {
     switch ($message->getNotificationType()) {
         case Message::USER_VALIDATION:
-            //check user existence
+            // TODO if user not found, you should throw InvalidUserException
             break;
         case Message::PAYMENT:
-            //handle payment
+            // TODO if the payment delivery fails for some reason, you should throw XsollaWebhookException
             break;
         case Message::REFUND:
-            //handle refund
+            // TODO if you cannot handle the refund, you should throw XsollaWebhookException
             break;
         default:
             throw new XsollaWebhookException('Notification type not implemented');
     }
 };
 
-$webhookServer = WebhookServer::create($callback, PROJECT_KEY); // https://merchant.xsolla.com/MERCHANT_ID/projects/PROJECT_ID/settings/connection
+$webhookServer = WebhookServer::create($callback, PROJECT_KEY);
 $webhookServer->start();
 ```
+
+Once you've finished the handling of notifications on your server, please set up the URL that will receive all webhook notifications on the Settings page for your project.
 
 ## Additional resources
 
