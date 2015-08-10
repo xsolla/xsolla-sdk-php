@@ -1,7 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.0.0-BETA1...master)
+## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.0.0...master)
+
+## [v2.0.0](https://github.com/xsolla/xsolla-sdk-php/compare/v2.0.0-BETA1...v2.0.0)
 ### Added
 * Added `XsollaClient::SearchPaymentsRegistry` method for getting a transaction list based on specific search parameters.
 
