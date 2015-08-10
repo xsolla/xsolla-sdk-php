@@ -17,7 +17,7 @@ class RefundMessageTest extends PaymentMessageTest
                         'amount' => 100,
                     ),
                 'subscription' => array(
-                        'plan_id' => 'b5dac9c8',
+                        'plan_id' => 1,
                         'subscription_id' => '10',
                         'date_create' => '2014-09-22T19:25:25+04:00',
                         'currency' => 'USD',

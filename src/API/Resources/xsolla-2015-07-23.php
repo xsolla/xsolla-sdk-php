@@ -61,7 +61,7 @@ return array(
                 ),
                 'plan_id' => array(
                     'location' => 'uri',
-                    'type' => 'string',
+                    'type' => 'int',
                     'required' => true,
                 ),
                 'request' => array(
@@ -86,7 +86,7 @@ return array(
                 ),
                 'plan_id' => array(
                     'location' => 'uri',
-                    'type' => 'string',
+                    'type' => 'int',
                     'required' => true,
                 ),
             ),
@@ -103,7 +103,7 @@ return array(
                 ),
                 'plan_id' => array(
                     'location' => 'uri',
-                    'type' => 'string',
+                    'type' => 'int',
                     'required' => true,
                 ),
             ),
@@ -120,7 +120,7 @@ return array(
                 ),
                 'plan_id' => array(
                     'location' => 'uri',
-                    'type' => 'string',
+                    'type' => 'int',
                     'required' => true,
                 ),
             ),

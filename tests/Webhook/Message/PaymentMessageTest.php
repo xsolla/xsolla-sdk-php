@@ -19,7 +19,7 @@ class PaymentMessageTest extends \PHPUnit_Framework_TestCase
                         'amount' => 100,
                     ),
                 'subscription' => array(
-                        'plan_id' => 'b5dac9c8',
+                        'plan_id' => 1,
                         'subscription_id' => '10',
                         'product_id' => 'Demo Product',
                         'date_create' => '2014-09-22T19:25:25+04:00',
