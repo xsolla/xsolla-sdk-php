@@ -1,7 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.0.0...master)
+## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.0.1...master)
+
+## [v2.0.1](https://github.com/xsolla/xsolla-sdk-php/compare/v2.0.0...v2.0.1)
+### Fixed
+* [BC BREAK] `XsollaClient::UpdateVirtualItemOrderInGroup` HTTP method changed from PUT to POST
 
 ## [v2.0.0](https://github.com/xsolla/xsolla-sdk-php/compare/v2.0.0-BETA1...v2.0.0)
 ### Added

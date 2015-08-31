@@ -717,7 +717,7 @@ return array(
             ),
         ),
         'UpdateVirtualItemOrderInGroup' => array(
-            'httpMethod' => 'PUT',
+            'httpMethod' => 'POST',
             'uri' => 'https://api.xsolla.com/merchant/projects/{project_id}/virtual_items/sort',
             'summary' => 'Update items order in group',
             'parameters' => array(
