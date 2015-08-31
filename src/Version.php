@@ -4,7 +4,7 @@ namespace Xsolla\SDK;
 
 class Version
 {
-    const VERSION = 'v2.0.0';
+    const VERSION = 'v2.0.1';
 
     /**
      * @return string
