@@ -123,14 +123,15 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testSetPromotionPeriods()
     {
-        $dateTime = new \DateTime('next month');
+        $randomFutureTimestamp = mt_rand(time() + 60, 2147483647);
+        $datetimeStart = \DateTime::createFromFormat('U', $randomFutureTimestamp);
         $this->xsollaClient->SetPromotionPeriods(array(
             'promotion_id' => static::$promotionId,
             'request' => array(
                 'periods' => array(
                     array(
-                        'from' => $dateTime->format(\DateTime::ISO8601),
-                        'to' => $dateTime->modify('+ 1 month')->format(\DateTime::ISO8601),
+                        'from' => $datetimeStart->format(\DateTime::ISO8601),
+                        'to' => $datetimeStart->modify('+ 1 second')->format(\DateTime::ISO8601),
                     ),
                 ),
             ),
@@ -183,7 +184,6 @@ class PromotionsTest extends AbstractAPITest
             'promotion_id' => static::$promotionId,
         ));
         static::assertInternalType('array', $response);
-        echo PHP_EOL.'ReviewPromotion'.PHP_EOL.'==================='.PHP_EOL.XsollaClient::jsonEncode($response).PHP_EOL;
     }
 
     /**

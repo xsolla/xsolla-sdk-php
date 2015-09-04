@@ -161,7 +161,7 @@ class VirtualItemsTest extends AbstractAPITest
                 'data' => 'iVBORw0KGgoAAAANSUhEUgAAACoAAAAoCAQAAAAiAqDbAAABl0lEQVR4Ae3VsUtVYRjA4VeUa4pRbVENBUoQlEFF\/0CiSEVbwYVoKLBwaYmChiiQmlqagqChOxeCQ0gX27K2xmpKscEhcrlxb54niAOHkvvdzh2c7vlNh+\/wDC+c94tteQwZEHkjQrphi6ri77Z+VDevIoRRK65Lk3VkJtLoPfjDHraKzJG25Ig6qOlPoxXzYNE6Nl1NkMvgRU4m0IJlU1W0rV8NLNvVGQ0nZOCjYZFknxZsGj1qHUBdmu3zLGeHUuh4PsvLajqzB3wGD0UKvYaWqnxmVh1MkF\/Anc4znXFePjOPjYq2nfQDt0UaLdtpN0V5tHQ9tIcW7bGza2jQGVdMGPwXfeJRl+SUb4A1kwrUMb80jXX1XzUB0HSqOFoCC8qjb\/DdpB2mbOB1fuAigOmSZJ8W7udvc\/iZ34q+4q33+KRSCh2QKdbfXbRCCA\/AWZfALVGqD1gxJvIb+F0IhzQAwIa9pdBzILMmA9MhvAQA8FyU6oYGoGFGhHB8S+OiZPvNmjNrX2+h\/Ce6G1zwCks9tIduO\/obgMsmlpJdCMsAAAAASUVORK5CYII="',
             ),
         ));
-        static::assertInternalType('string', filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED));
+        static::assertInternalType('string', $url);
     }
 
     /**

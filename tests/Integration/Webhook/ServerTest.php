@@ -7,6 +7,7 @@ use Guzzle\Http\Exception\BadResponseException;
 use Symfony\Component\Process\Process;
 use Xsolla\SDK\API\XsollaClient;
 use Xsolla\SDK\Version;
+use Guzzle\Common\Event;
 
 /**
  * @group webhook
@@ -20,7 +21,16 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->guzzleClient = new Client('http://localhost:8999');
+        $this->guzzleClient = new Client('http://::1:8999');
+        global $argv;
+        if (in_array('--debug', $argv, true)) {
+            $echoCb = function (Event $event) {
+                echo (string) $event['request'].PHP_EOL;
+                echo (string) $event['response'].PHP_EOL;
+            };
+            $this->guzzleClient->getEventDispatcher()->addListener('request.complete', $echoCb);
+            $this->guzzleClient->getEventDispatcher()->addListener('request.exception', $echoCb);
+        }
     }
 
     /**
@@ -56,9 +66,9 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         static::assertSame(Version::getVersion(), (string) $response->getHeader('x-xsolla-sdk'));
         static::assertArrayHasKey('content-type', $response->getHeaders());
         if (204 === $response->getStatusCode()) {
-            static::assertSame('text/plain', (string) $response->getHeader('content-type'));
+            static::assertStringStartsWith('text/plain', (string) $response->getHeader('content-type'));
         } else {
-            static::assertSame('application/json', (string) $response->getHeader('content-type'));
+            static::assertStringStartsWith('application/json', (string) $response->getHeader('content-type'));
         }
     }
 
@@ -162,7 +172,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                     array(
                         'error' => array(
                             'code' => 'INVALID_CLIENT_IP',
-                            'message' => 'Xsolla trusted subnets (159.255.220.240/28, 185.30.20.16/29, 185.30.21.0/24, 185.30.21.16/29) doesn\'t contain client IP address (127.0.0.1). If you use reverse proxy, you should set correct client IPv4 to WebhookRequest. If you are in development environment, you can set $authenticateClientIp = false in $webhookServer->start();',
+                            'message' => 'Xsolla trusted subnets (159.255.220.240/28, 185.30.20.16/29, 185.30.21.0/24, 185.30.21.16/29) doesn\'t contain client IP address (::1). If you use reverse proxy, you should set correct client IPv4 to WebhookRequest. If you are in development environment, you can set $authenticateClientIp = false in $webhookServer->start();',
                         ),
                     )
                 ),
