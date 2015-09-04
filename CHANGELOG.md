@@ -1,7 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.0.0...master)
+## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.1.0...master)
+
+## [v2.1.0](https://github.com/xsolla/xsolla-sdk-php/compare/v2.0.0...v2.1.0)
+### Added
+* Added `TokenRequest::setPurchase($amount, $currency)` method for [Simple Checkout module](http://developers.xsolla.com/#simple-checkout)
 
 ## [v2.0.0](https://github.com/xsolla/xsolla-sdk-php/compare/v2.0.0-BETA1...v2.0.0)
 ### Added

@@ -23,7 +23,8 @@ class CreatePaymentUITokenTest extends AbstractAPITest
             ->setCurrency('USD')
             ->setExternalPaymentId(12345)
             ->setSandboxMode(true)
-            ->setUserName('USER_NAME');
+            ->setUserName('USER_NAME')
+            ->setPurchase(1.5, 'EUR');
         $token = $this->xsollaClient->createPaymentUITokenFromRequest($tokenRequest);
         static::assertInternalType('string', $token);
     }
