@@ -18,6 +18,7 @@ class TokenRequestTest extends \PHPUnit_Framework_TestCase
             ->setExternalPaymentId(12345)
             ->setSandboxMode(true)
             ->setUserName('USER_NAME')
+            ->setPurchase(1.5, 'EUR')
             ->toArray();
 
         $expectedRequest = array(
@@ -35,6 +36,12 @@ class TokenRequestTest extends \PHPUnit_Framework_TestCase
             'custom_parameters' => array(
                 'a' => 1,
                 'b' => 2,
+            ),
+            'purchase' => array(
+                'checkout' => array(
+                    'amount' => 1.5,
+                    'currency' => 'EUR',
+                ),
             ),
         );
         static::assertSame($expectedRequest, $actualRequest);
