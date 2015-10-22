@@ -583,48 +583,6 @@ return array(
                 ),
             ),
         ),
-        'UpdateVirtualItemImage' => array(
-            'httpMethod' => 'PUT',
-            'uri' => '/merchant/projects/{project_id}/virtual_items/items/{item_id}/image',
-            'summary' => 'Upload an image for virtual item',
-            'parameters' => array(
-                'project_id' => array(
-                    'location' => 'uri',
-                    'type' => 'integer',
-                    'required' => true,
-                ),
-                'item_id' => array(
-                    'location' => 'uri',
-                    'type' => 'integer',
-                    'required' => true,
-                ),
-                'request' => array(
-                    'location' => 'body',
-                    'type' => 'array',
-                    'required' => true,
-                    'filters' => array(
-                        '\Xsolla\SDK\API\XsollaClient::jsonEncode',
-                    ),
-                ),
-            ),
-        ),
-        'DeleteVirtualItemImage' => array(
-            'httpMethod' => 'DELETE',
-            'uri' => '/merchant/projects/{project_id}/virtual_items/items/{item_id}/image',
-            'summary' => 'Change a virtual item image to default',
-            'parameters' => array(
-                'project_id' => array(
-                    'location' => 'uri',
-                    'type' => 'integer',
-                    'required' => true,
-                ),
-                'item_id' => array(
-                    'location' => 'uri',
-                    'type' => 'integer',
-                    'required' => true,
-                ),
-            ),
-        ),
         'CreateVirtualItemsGroup' => array(
             'httpMethod' => 'POST',
             'uri' => '/merchant/projects/{project_id}/virtual_items/groups',

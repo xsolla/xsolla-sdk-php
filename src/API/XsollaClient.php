@@ -41,8 +41,6 @@ use Guzzle\Common\Event;
  * @method void UpdateVirtualItem(array $args = array()) Update a virtual item. http://developers.xsolla.com/api.html#update-an-item
  * @method void DeleteVirtualItem(array $args = array()) Delete a virtual item. http://developers.xsolla.com/api.html#delete-an-item
  * @method array ListVirtualItems(array $args = array()) List a virtual items. http://developers.xsolla.com/api.html#list-all-items
- * @method string UpdateVirtualItemImage(array $args = array()) Upload an image for virtual item. http://developers.xsolla.com/api.html#upload-an-image
- * @method void DeleteVirtualItemImage(array $args = array()) Change a virtual item image to default. http://developers.xsolla.com/api.html#remove-an-item-image
  * @method array CreateVirtualItemsGroup(array $args = array()) Create a virtual items group. http://developers.xsolla.com/api.html#create-a-group
  * @method array GetVirtualItemsGroup(array $args = array()) Get a virtual items group. http://developers.xsolla.com/api.html#get-a-group
  * @method void UpdateVirtualItemsGroup(array $args = array()) Update a virtual items group. http://developers.xsolla.com/api.html#update-a-group
