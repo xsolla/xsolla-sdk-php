@@ -16,8 +16,6 @@ env:
 
 matrix:
   fast_finish: true
-  allow_failures:
-    - php: 7
 
 install:
     - travis_retry composer update $COMPOSER_OPTS --no-interaction --prefer-source

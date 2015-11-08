@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.1.0...master)
+### Removed
+* [BC BREAK] Removed deprecated methods `UpdateVirtualItemImage`, `DeleteVirtualItemImage` from `XsollaClient`.
 
 ## [v2.1.0](https://github.com/xsolla/xsolla-sdk-php/compare/v2.0.0...v2.1.0)
 ### Added
