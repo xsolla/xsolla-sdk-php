@@ -13,13 +13,15 @@
     },
     "require": {
         "php": ">=5.3.9",
+        "ext-curl": "*",
         "ext-json": "*",
         "guzzle/guzzle": "~3.8",
         "symfony/http-foundation": "~2.3"
     },
     "require-dev": {
-      "phpunit/phpunit": "4.*",
+      "phpunit/phpunit": "~4|~5",
       "symfony/process": "~2.3",
+      "fabpot/php-cs-fixer": "1.10.*",
       "mtdowling/burgomaster": "^0.0.2"
     },
     "autoload": {

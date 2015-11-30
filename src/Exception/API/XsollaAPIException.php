@@ -7,11 +7,17 @@ use Xsolla\SDK\Exception\XsollaException;
 
 class XsollaAPIException extends XsollaException
 {
+    /**
+     * @var array
+     */
     protected static $exceptions = array(
         422 => '\Xsolla\SDK\Exception\API\UnprocessableEntityException',
         403 => '\Xsolla\SDK\Exception\API\AccessDeniedException',
     );
 
+    /**
+     * @var string
+     */
     protected static $messageTemplate =
 <<<EOF
 Xsolla API Error Response:
@@ -29,6 +35,10 @@ Response:
 %s
 EOF;
 
+    /**
+     * @param  BadResponseException $previous
+     * @return XsollaAPIException
+     */
     public static function fromBadResponse(BadResponseException $previous)
     {
         $statusCode = $previous->getResponse()->getStatusCode();

@@ -117,9 +117,11 @@ $callback = function (Message $message) {
             // TODO if user not found, you should throw InvalidUserException
             break;
         case Message::PAYMENT:
+            /** @var Message\PaymentMessage $message */
             // TODO if the payment delivery fails for some reason, you should throw XsollaWebhookException
             break;
         case Message::REFUND:
+            /** @var Message\RefundMessage $message */
             // TODO if you cannot handle the refund, you should throw XsollaWebhookException
             break;
         default:

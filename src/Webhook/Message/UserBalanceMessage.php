@@ -58,5 +58,7 @@ class UserBalanceMessage extends Message
         if (array_key_exists('items_operation_type', $this->request)) {
             return $this->request['items_operation_type'];
         }
+
+        return;
     }
 }
