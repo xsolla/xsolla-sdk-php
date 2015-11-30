@@ -20,6 +20,9 @@ class PaymentMessage extends Message
         return $this->request['transaction'];
     }
 
+    /**
+     * @return int
+     */
     public function getPaymentId()
     {
         return $this->request['transaction']['id'];
@@ -33,6 +36,8 @@ class PaymentMessage extends Message
         if (array_key_exists('external_id', $this->request['transaction'])) {
             return $this->request['transaction']['external_id'];
         }
+
+        return;
     }
 
     /**

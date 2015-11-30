@@ -142,6 +142,7 @@ class XsollaClient extends Client
             if ($previous instanceof BadResponseException) {
                 $e = XsollaAPIException::fromBadResponse($previous);
             } else {
+                /* @var \Exception $previous */
                 $e = new XsollaAPIException('XsollaClient Exception: '.$previous->getMessage(), 0, $previous);
             }
             throw $e;

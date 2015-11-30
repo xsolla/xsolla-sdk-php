@@ -14,6 +14,9 @@ abstract class Message
     const CANCEL_SUBSCRIPTION = 'cancel_subscription';
     const USER_BALANCE = 'user_balance_operation';
 
+    /**
+     * @var string[]
+     */
     protected static $classMap = array(
         self::USER_VALIDATION => '\Xsolla\SDK\Webhook\Message\UserValidationMessage',
         self::PAYMENT => '\Xsolla\SDK\Webhook\Message\PaymentMessage',
