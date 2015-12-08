@@ -8,7 +8,7 @@ namespace Xsolla\SDK\API\PaymentUI;
 class PaymentUIScriptRenderer
 {
     /**
-     * @param $token
+     * @param string     $token
      * @param bool|false $isSandbox
      */
     public static function send($token, $isSandbox = false)
@@ -17,7 +17,7 @@ class PaymentUIScriptRenderer
     }
 
     /**
-     * @param $token
+     * @param  string     $token
      * @param  bool|false $isSandbox
      * @return string
      */

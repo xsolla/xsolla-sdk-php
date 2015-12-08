@@ -114,15 +114,16 @@ use Xsolla\SDK\Exception\Webhook\XsollaWebhookException;
 $callback = function (Message $message) {
     switch ($message->getNotificationType()) {
         case Message::USER_VALIDATION:
-            // TODO if user not found, you should throw InvalidUserException
+            /** @var Xsolla\SDK\Webhook\Message\UserValidationMessage $message */
+            // TODO if user not found, you should throw Xsolla\SDK\Exception\Webhook\InvalidUserException
             break;
         case Message::PAYMENT:
-            /** @var Message\PaymentMessage $message */
-            // TODO if the payment delivery fails for some reason, you should throw XsollaWebhookException
+            /** @var Xsolla\SDK\Webhook\Message\PaymentMessage $message */
+            // TODO if the payment delivery fails for some reason, you should throw Xsolla\SDK\Exception\Webhook\XsollaWebhookException
             break;
         case Message::REFUND:
-            /** @var Message\RefundMessage $message */
-            // TODO if you cannot handle the refund, you should throw XsollaWebhookException
+            /** @var Xsolla\SDK\Webhook\Message\RefundMessage $message */
+            // TODO if you cannot handle the refund, you should throw Xsolla\SDK\Exception\Webhook\XsollaWebhookException
             break;
         default:
             throw new XsollaWebhookException('Notification type not implemented');
@@ -134,6 +135,10 @@ $webhookServer->start();
 ```
 
 Once you've finished the handling of notifications on your server, please set up the URL that will receive all webhook notifications on the Settings page for your project.
+
+## Troubleshooting
+
+You can find solutions for the most frequently encountered errors in our [documentation](http://developers.xsolla.com/#php_troubleshooting).
 
 ## Additional resources
 

@@ -36,8 +36,6 @@ class PaymentMessage extends Message
         if (array_key_exists('external_id', $this->request['transaction'])) {
             return $this->request['transaction']['external_id'];
         }
-
-        return;
     }
 
     /**

@@ -8,9 +8,6 @@ use Xsolla\SDK\Exception\Webhook\XsollaWebhookException;
 
 class WebhookRequest
 {
-    /**
-     * @var array
-     */
     protected static $codes = array(
         JSON_ERROR_CTRL_CHAR => 'Control character error, possibly incorrectly encoded.',
         JSON_ERROR_DEPTH => 'The maximum stack depth has been exceeded.',
@@ -36,9 +33,8 @@ class WebhookRequest
     protected $clientIp;
 
     /**
-     * @return WebhookRequest
-     *
      * @throws XsollaWebhookException
+     * @return WebhookRequest
      */
     public static function fromGlobals()
     {
@@ -72,9 +68,8 @@ class WebhookRequest
     }
 
     /**
-     * @return array
-     *
      * @throws XsollaWebhookException
+     * @return array
      */
     public function toArray()
     {

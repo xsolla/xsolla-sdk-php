@@ -2,7 +2,6 @@
 
 namespace Xsolla\SDK\Webhook\Message;
 
-use Symfony\Component\HttpFoundation\ParameterBag;
 use Xsolla\SDK\Exception\Webhook\InvalidParameterException;
 
 abstract class Message
@@ -14,9 +13,6 @@ abstract class Message
     const CANCEL_SUBSCRIPTION = 'cancel_subscription';
     const USER_BALANCE = 'user_balance_operation';
 
-    /**
-     * @var string[]
-     */
     protected static $classMap = array(
         self::USER_VALIDATION => '\Xsolla\SDK\Webhook\Message\UserValidationMessage',
         self::PAYMENT => '\Xsolla\SDK\Webhook\Message\PaymentMessage',
@@ -34,9 +30,8 @@ abstract class Message
     /**
      * @param array $request
      *
-     * @return Message
-     *
      * @throws InvalidParameterException
+     * @return Message
      */
     public static function fromArray(array $request)
     {
@@ -61,7 +56,7 @@ abstract class Message
     }
 
     /**
-     * @return ParameterBag
+     * @return array
      */
     public function toArray()
     {

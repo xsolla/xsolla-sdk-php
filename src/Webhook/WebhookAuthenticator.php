@@ -52,9 +52,9 @@ class WebhookAuthenticator
     {
         if (false === IpUtils::checkIp($clientIp, self::$xsollaSubnets)) {
             throw new InvalidClientIpException(sprintf(
-                'Xsolla trusted subnets (%s) doesn\'t contain client IP address (%s). If you use reverse proxy, you should set correct client IPv4 to WebhookRequest. If you are in development environment, you can set $authenticateClientIp = false in $webhookServer->start();',
-                implode(', ', self::$xsollaSubnets),
-                $clientIp
+                'Client IP address (%s) not found in allowed IP addresses whitelist (%s). Please check troubleshooting section in README.md https://github.com/xsolla/xsolla-sdk-php#troubleshooting',
+                $clientIp,
+                implode(', ', self::$xsollaSubnets)
             ));
         }
     }
@@ -68,7 +68,7 @@ class WebhookAuthenticator
     {
         $headers = $webhookRequest->getHeaders();
         if (!array_key_exists('authorization', $headers)) {
-            throw new InvalidSignatureException('"Authorization" header not found in Xsolla webhook request');
+            throw new InvalidSignatureException('"Authorization" header not found in Xsolla webhook request. Please check troubleshooting section in README.md https://github.com/xsolla/xsolla-sdk-php#troubleshooting');
         }
         $matches = array();
         preg_match('~^Signature ([0-9a-f]{40})$~', $headers['authorization'], $matches);
