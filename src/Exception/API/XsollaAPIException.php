@@ -29,6 +29,10 @@ Response:
 %s
 EOF;
 
+    /**
+     * @param  BadResponseException $previous
+     * @return XsollaAPIException
+     */
     public static function fromBadResponse(BadResponseException $previous)
     {
         $statusCode = $previous->getResponse()->getStatusCode();

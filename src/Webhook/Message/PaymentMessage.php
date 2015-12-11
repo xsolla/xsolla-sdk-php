@@ -20,6 +20,9 @@ class PaymentMessage extends Message
         return $this->request['transaction'];
     }
 
+    /**
+     * @return int
+     */
     public function getPaymentId()
     {
         return $this->request['transaction']['id'];

@@ -96,8 +96,8 @@ class TokenRequest
     }
 
     /**
-     * @param float $amount
-     * @param string $currency
+     * @param  float  $amount
+     * @param  string $currency
      * @return $this
      */
     public function setPurchase($amount, $currency)

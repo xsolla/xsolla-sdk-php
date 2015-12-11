@@ -3,13 +3,13 @@
 namespace Xsolla\SDK\API;
 
 use Guzzle\Common\Collection;
+use Guzzle\Common\Event;
 use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Service\Client;
 use Guzzle\Service\Description\ServiceDescription;
 use Xsolla\SDK\API\PaymentUI\TokenRequest;
 use Xsolla\SDK\Exception\API\XsollaAPIException;
 use Xsolla\SDK\Version;
-use Guzzle\Common\Event;
 
 /**
  * @method array CreatePaymentUIToken(array $args = array()) Create payment UI token. http://developers.xsolla.com/api.html#payment-ui
@@ -104,6 +104,7 @@ class XsollaClient extends Client
     protected $guzzleClient;
 
     /**
+     * @internal
      * @param  mixed  $value
      * @return string
      */
@@ -142,11 +143,18 @@ class XsollaClient extends Client
             if ($previous instanceof BadResponseException) {
                 $e = XsollaAPIException::fromBadResponse($previous);
             } else {
-                $e = new XsollaAPIException('XsollaClient Exception: '.$previous->getMessage(), 0, $previous);
+                /* @var \Exception $previous */
+                $e = new XsollaAPIException(
+                    'XsollaClient Exception: '.$previous->getMessage().' Please check troubleshooting section in README.md https://github.com/xsolla/xsolla-sdk-php#troubleshooting',
+                    0,
+                    $previous
+                );
             }
             throw $e;
         };
-        $client->getEventDispatcher()->addListener('request.exception', $exceptionCb);
+        /* @var \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher */
+        $dispatcher = $client->getEventDispatcher();
+        $dispatcher->addListener('request.exception', $exceptionCb);
 
         return $client;
     }

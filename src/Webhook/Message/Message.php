@@ -2,7 +2,6 @@
 
 namespace Xsolla\SDK\Webhook\Message;
 
-use Symfony\Component\HttpFoundation\ParameterBag;
 use Xsolla\SDK\Exception\Webhook\InvalidParameterException;
 
 abstract class Message
@@ -31,9 +30,8 @@ abstract class Message
     /**
      * @param array $request
      *
-     * @return Message
-     *
      * @throws InvalidParameterException
+     * @return Message
      */
     public static function fromArray(array $request)
     {
@@ -58,7 +56,7 @@ abstract class Message
     }
 
     /**
-     * @return ParameterBag
+     * @return array
      */
     public function toArray()
     {

@@ -2,8 +2,8 @@
 
 require __DIR__.'/artifacts/xsolla.phar';
 
-use Xsolla\SDK\Webhook\WebhookServer;
 use Xsolla\SDK\API\XsollaClient;
+use Xsolla\SDK\Webhook\WebhookServer;
 
 $client = XsollaClient::factory(array(
     'merchant_id' => 'MERCHANT_ID',

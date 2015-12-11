@@ -2,12 +2,12 @@
 
 namespace Xsolla\SDK\Tests\Integration\Webhook;
 
+use Guzzle\Common\Event;
 use Guzzle\Http\Client;
 use Guzzle\Http\Exception\BadResponseException;
 use Symfony\Component\Process\Process;
 use Xsolla\SDK\API\XsollaClient;
 use Xsolla\SDK\Version;
-use Guzzle\Common\Event;
 
 /**
  * @group webhook
@@ -21,7 +21,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->guzzleClient = new Client('http://::1:8999');
+        $this->guzzleClient = new Client('http://[::1]:8999');
         global $argv;
         if (in_array('--debug', $argv, true)) {
             $echoCb = function (Event $event) {
@@ -43,7 +43,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $testCase,
         $testHeaders
     ) {
-        $process = new Process('php -S localhost:8999', __DIR__.'/../../resources');
+        $process = new Process('php -S [::1]:8999', __DIR__.'/../../resources');
         $process->start();
         sleep(1);
         $signature = sha1($request.ServerMock::PROJECT_SECRET_KEY);
@@ -130,7 +130,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                     array(
                         'error' => array(
                             'code' => 'INVALID_SIGNATURE',
-                            'message' => '"Authorization" header not found in Xsolla webhook request',
+                            'message' => '"Authorization" header not found in Xsolla webhook request. Please check troubleshooting section in README.md https://github.com/xsolla/xsolla-sdk-php#troubleshooting',
                         ),
                     )
                 ),
@@ -172,7 +172,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                     array(
                         'error' => array(
                             'code' => 'INVALID_CLIENT_IP',
-                            'message' => 'Xsolla trusted subnets (159.255.220.240/28, 185.30.20.16/29, 185.30.21.0/24, 185.30.21.16/29) doesn\'t contain client IP address (::1). If you use reverse proxy, you should set correct client IPv4 to WebhookRequest. If you are in development environment, you can set $authenticateClientIp = false in $webhookServer->start();',
+                            'message' => 'Client IP address (::1) not found in allowed IP addresses whitelist (159.255.220.240/28, 185.30.20.16/29, 185.30.21.0/24, 185.30.21.16/29). Please check troubleshooting section in README.md https://github.com/xsolla/xsolla-sdk-php#troubleshooting',
                         ),
                     )
                 ),

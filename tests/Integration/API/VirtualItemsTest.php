@@ -69,7 +69,7 @@ class VirtualItemsTest extends AbstractAPITest
             ));
             static::assertInternalType('array', $response);
         } catch (XsollaAPIException $e) {
-            if ($e->getPrevious() instanceof BadResponseException and 500 == $e->getPrevious()->getResponse()->getStatusCode()) {
+            if ($e->getPrevious() instanceof BadResponseException and 500 === $e->getPrevious()->getResponse()->getStatusCode()) {
                 static::markTestSkipped('TODO: random 500 responses in test merchant account');
             } else {
                 throw $e;

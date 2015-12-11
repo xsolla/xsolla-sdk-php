@@ -4,8 +4,8 @@ namespace Xsolla\SDK\Tests\Integration\Webhook;
 
 use Xsolla\SDK\Exception\Webhook\ClientErrorException;
 use Xsolla\SDK\Exception\Webhook\ServerErrorException;
-use Xsolla\SDK\Webhook\WebhookServer;
 use Xsolla\SDK\Webhook\Message\Message;
+use Xsolla\SDK\Webhook\WebhookServer;
 
 class ServerMock
 {

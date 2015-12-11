@@ -33,9 +33,8 @@ class WebhookRequest
     protected $clientIp;
 
     /**
-     * @return WebhookRequest
-     *
      * @throws XsollaWebhookException
+     * @return WebhookRequest
      */
     public static function fromGlobals()
     {
@@ -69,9 +68,8 @@ class WebhookRequest
     }
 
     /**
-     * @return array
-     *
      * @throws XsollaWebhookException
+     * @return array
      */
     public function toArray()
     {
