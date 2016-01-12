@@ -18,3 +18,5 @@ $packager->createZip(__DIR__.'/artifacts/xsolla.zip');
 $packager->startSection('test-phar');
 $packager->exec('php '.__DIR__.'/test-phar.php');
 $packager->endSection();
+
+$packager->exec('rm -rf '.__DIR__.'/artifacts/staging');
