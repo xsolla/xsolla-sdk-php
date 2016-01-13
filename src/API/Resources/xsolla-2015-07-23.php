@@ -1583,5 +1583,93 @@ return array(
                 ),
             ),
         ),
+        // Game Delivery
+        'CreateGameDeliveryEntity' => array(
+            'httpMethod' => 'POST',
+            'uri' => '/merchant/projects/{project_id}/game_delivery',
+            'summary' => 'Create game delivery entity',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'request' => array(
+                    'location' => 'body',
+                    'type' => 'array',
+                    'required' => true,
+                    'filters' => array(
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode',
+                    ),
+                ),
+            ),
+        ),
+        'GetGameDeliveryEntity' => array(
+            'httpMethod' => 'GET',
+            'uri' => '/merchant/projects/{project_id}/game_delivery/{game_delivery_id}',
+            'summary' => 'Get a game delivery entity',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'game_delivery_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+            ),
+        ),
+        'UpdateGameDeliveryEntity' => array(
+            'httpMethod' => 'PUT',
+            'uri' => '/merchant/projects/{project_id}/game_delivery/{game_delivery_id}',
+            'summary' => 'Update a game delivery entity',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'game_delivery_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'request' => array(
+                    'location' => 'body',
+                    'type' => 'array',
+                    'required' => true,
+                    'filters' => array(
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode',
+                    ),
+                ),
+            ),
+        ),
+        'ListGameDeliveryEntities' => array(
+            'httpMethod' => 'GET',
+            'uri' => '/merchant/projects/{project_id}/game_delivery',
+            'summary' => 'List all game delivery entities',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+            ),
+        ),
+        'ListGameDeliveryDrmPlatforms' => array(
+            'httpMethod' => 'GET',
+            'uri' => '/merchant/merchants/{merchant_id}/drm',
+            'summary' => 'List available DRM platforms',
+            'parameters' => array(
+                'merchant_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'static' => true,
+                    'required' => true,
+                ),
+            ),
+        ),
     ),
 );

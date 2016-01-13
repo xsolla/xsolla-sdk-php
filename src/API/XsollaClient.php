@@ -90,6 +90,12 @@ use Xsolla\SDK\Version;
  *
  * @method array ListSupportTickets(array $args = array()) List all tickets. http://developers.xsolla.com/api.html#list-all-tickets
  * @method array ListSupportTicketComments(array $args = array()) List all comments. http://developers.xsolla.com/api.html#list-all-comments
+ *
+ * @method array CreateGameDeliveryEntity(array $args = array()) Create game delivery entity http://developers.xsolla.com/api.html#create-game-delivery-entity
+ * @method array GetGameDeliveryEntity(array $args = array()) Get a game delivery entity http://developers.xsolla.com/api.html#get-a-game-delivery-entity
+ * @method void UpdateGameDeliveryEntity(array $args = array()) Update a game delivery entity http://developers.xsolla.com/api.html#update-a-game-delivery-entity
+ * @method array ListGameDeliveryEntities(array $args = array()) List all game delivery entities http://developers.xsolla.com/api.html#list-all-game-delivery-entities
+ * @method array ListGameDeliveryDrmPlatforms(array $args = array()) List available DRM platforms http://developers.xsolla.com/api.html#list-available-drm-platforms
  */
 class XsollaClient extends Client
 {

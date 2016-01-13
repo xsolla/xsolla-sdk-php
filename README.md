@@ -140,6 +140,10 @@ Once you've finished the handling of notifications on your server, please set up
 
 You can find solutions for the most frequently encountered errors in our [documentation](http://developers.xsolla.com/#php_troubleshooting).
 
+## Contributing
+
+Please take a look at the [CONTRIBUTING.md](CONTRIBUTING.md) to see how to get your changes merged in.
+
 ## Additional resources
 
 * [Website](http://xsolla.com)

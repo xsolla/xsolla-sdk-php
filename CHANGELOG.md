@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.1.0...master)
+### Added
+* Added [Game Delivery](http://developers.xsolla.com/api.html#game-delivery) methods to `XsollaClient`.
+
 ### Removed
 * [BC BREAK] Removed deprecated methods `UpdateVirtualItemImage`, `DeleteVirtualItemImage` from `XsollaClient`.
 
