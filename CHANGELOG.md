@@ -1,7 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.1.0...master)
+## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.2.0...master)
+
+## [v2.2.0](https://github.com/xsolla/xsolla-sdk-php/compare/v2.1.0...v2.2.0) - 2016-01-13
 ### Added
 * Added [Game Delivery](http://developers.xsolla.com/api.html#game-delivery) methods to `XsollaClient`.
 
