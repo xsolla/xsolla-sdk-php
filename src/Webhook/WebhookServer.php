@@ -68,8 +68,10 @@ class WebhookServer
             }
             $this->webhookAuthenticator->authenticate($webhookRequest, $authenticateClientIp);
             $message = Message::fromArray($webhookRequest->toArray());
-            call_user_func($this->webhookCallback, $message);
-            $webhookResponse = new WebhookResponse();
+            $webhookResponse = call_user_func($this->webhookCallback, $message);
+            if (!$webhookResponse instanceof WebhookResponse) {
+                $webhookResponse = new WebhookResponse();
+            }
 
             return $webhookResponse->getSymfonyResponse();
         } catch (\Exception $e) {

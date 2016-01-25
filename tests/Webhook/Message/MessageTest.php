@@ -73,6 +73,13 @@ class MessageTest extends \PHPUnit_Framework_TestCase
                 'isPayment' => false,
                 'isRefund' => false,
             ),
+            array(
+                'notificationType' => 'get_pincode',
+                'expectedClass' => '\Xsolla\SDK\Webhook\Message\GetPinCodeMessage',
+                'isUserValidation' => false,
+                'isPayment' => false,
+                'isRefund' => false,
+            ),
         );
     }
 }
