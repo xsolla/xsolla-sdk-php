@@ -38,7 +38,9 @@ class WebhookServer
     public function __construct($webhookCallback, WebhookAuthenticator $webhookAuthenticator)
     {
         if (!is_callable($webhookCallback)) {
-            throw new XsollaWebhookException('$webhookCallback parameter passed to WebhookServer should be callable. Learn more about callbacks: http://php.net/manual/en/language.types.callable.php');
+            throw new XsollaWebhookException(
+                '$webhookCallback parameter passed to WebhookServer should be callable. Learn more about callbacks: http://php.net/manual/en/language.types.callable.php'
+            );
         }
         $this->webhookCallback = $webhookCallback;
         $this->webhookAuthenticator = $webhookAuthenticator;
@@ -68,8 +70,14 @@ class WebhookServer
             }
             $this->webhookAuthenticator->authenticate($webhookRequest, $authenticateClientIp);
             $message = Message::fromArray($webhookRequest->toArray());
-            call_user_func($this->webhookCallback, $message);
-            $webhookResponse = new WebhookResponse();
+            $webhookResponse = call_user_func($this->webhookCallback, $message);
+            if ($webhookResponse === null) {
+                $webhookResponse = new WebhookResponse();
+            } elseif (!$webhookResponse instanceof WebhookResponse) {
+                throw new XsollaWebhookException(
+                    'Webhook callback should return null or \Xsolla\SDK\Webhook\WebhookResponse.'
+                );
+            }
 
             return $webhookResponse->getSymfonyResponse();
         } catch (\Exception $e) {

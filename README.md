@@ -125,6 +125,11 @@ $callback = function (Message $message) {
             /** @var Xsolla\SDK\Webhook\Message\RefundMessage $message */
             // TODO if you cannot handle the refund, you should throw Xsolla\SDK\Exception\Webhook\XsollaWebhookException
             break;
+        case Message::GET_PIN_CODE:
+            /** @var Xsolla\SDK\Webhook\Message\GetPinCodeMessage $message */
+            // TODO get or generate new pin code or throw Xsolla\SDK\Exception\Webhook\XsollaWebhookException
+            return new \Xsolla\SDK\Webhook\Response\PinCodeResponse('NEW_PIN_CODE');
+            break;
         default:
             throw new XsollaWebhookException('Notification type not implemented');
     }

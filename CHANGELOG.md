@@ -1,7 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.2.0...master)
+## [v2.2.1](https://github.com/xsolla/xsolla-sdk-php/compare/v2.2.1...v2.2.0) - 2016-01-25
+### Added
+* Added [Get Pin Code](http://developers.xsolla.com/api.html#get-pin-code) webhook method.
 
 ## [v2.2.0](https://github.com/xsolla/xsolla-sdk-php/compare/v2.1.0...v2.2.0) - 2016-01-13
 ### Added
