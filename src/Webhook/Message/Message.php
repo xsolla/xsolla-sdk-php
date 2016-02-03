@@ -12,6 +12,7 @@ abstract class Message
     const CREATE_SUBSCRIPTION = 'create_subscription';
     const CANCEL_SUBSCRIPTION = 'cancel_subscription';
     const USER_BALANCE = 'user_balance_operation';
+    const GET_PIN_CODE = 'get_pincode';
 
     protected static $classMap = array(
         self::USER_VALIDATION => '\Xsolla\SDK\Webhook\Message\UserValidationMessage',
@@ -20,6 +21,7 @@ abstract class Message
         self::CREATE_SUBSCRIPTION => '\Xsolla\SDK\Webhook\Message\CreateSubscriptionMessage',
         self::CANCEL_SUBSCRIPTION => '\Xsolla\SDK\Webhook\Message\CancelSubscriptionMessage',
         self::USER_BALANCE => '\Xsolla\SDK\Webhook\Message\UserBalanceMessage',
+        self::GET_PIN_CODE => '\Xsolla\SDK\Webhook\Message\GetPinCodeMessage',
     );
 
     /**

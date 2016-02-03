@@ -101,7 +101,7 @@ class PromotionsTest extends AbstractAPITest
             'promotion_id' => static::$promotionId,
             'request' => array(
                 'payment_systems' => array(
-                    array('id' => 2682),
+                    array('id' => 24),
                 ),
             ),
         ));
