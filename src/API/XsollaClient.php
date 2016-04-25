@@ -96,6 +96,12 @@ use Xsolla\SDK\Version;
  * @method void UpdateGameDeliveryEntity(array $args = array()) Update a game delivery entity http://developers.xsolla.com/api.html#update-a-game-delivery-entity
  * @method array ListGameDeliveryEntities(array $args = array()) List all game delivery entities http://developers.xsolla.com/api.html#list-all-game-delivery-entities
  * @method array ListGameDeliveryDrmPlatforms(array $args = array()) List available DRM platforms http://developers.xsolla.com/api.html#list-available-drm-platforms
+ *
+ * @method array GetPaystationVirtualCurrency(array $args = array()) Get virtual currency packages http://developers.xsolla.com/api.html#list-virtual-currency-packages
+ * @method array GetPaystationVirtualGroups(array $args = array()) Get virtual items groups http://developers.xsolla.com/api.html#list-item-groups
+ * @method array GetPaystationVirtualItems(array $args = array()) Get virtual items http://developers.xsolla.com/api.html#list-virtual-items
+ * @method array GetPaystationSubscriptions(array $args = array()) Get available subscriptions http://developers.xsolla.com/api.html#list-subscription-plans
+ * @method array GetPaystationBonus(array $args = array()) Get the information about active promotion http://developers.xsolla.com/api.html#list-promotions
  */
 class XsollaClient extends Client
 {

@@ -1671,5 +1671,146 @@ return array(
                 ),
             ),
         ),
+        //Frontend API
+        'GetPaystationVirtualCurrency' => array(
+            'httpMethod' => 'GET',
+            'uri' => '/merchant/projects/{project_id}/paystation/virtual_currency',
+            'summary' => 'List virtual currency packages',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'language' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'currency' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'user_id' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+            ),
+        ),
+        'GetPaystationVirtualGroups' => array(
+            'httpMethod' => 'GET',
+            'uri' => '/merchant/projects/{project_id}/paystation/virtual_items/groups',
+            'summary' => 'List of virtual groups',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'language' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'currency' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'user_id' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+            ),
+        ),
+        'GetPaystationVirtualItems' => array(
+            'httpMethod' => 'GET',
+            'uri' => '/merchant/projects/{project_id}/paystation/virtual_items/items',
+            'summary' => 'List of virtual items',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'language' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'currency' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'user_id' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'group_id' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+            ),
+        ),
+        'GetPaystationSubscriptions' => array(
+            'httpMethod' => 'GET',
+            'uri' => '/merchant/projects/{project_id}/paystation/subscriptions',
+            'summary' => 'List of subscriptions',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'language' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'currency' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'user_id' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+            ),
+        ),
+        'GetPaystationBonus' => array(
+            'httpMethod' => 'GET',
+            'uri' => '/merchant/projects/{project_id}/paystation/bonus',
+            'summary' => 'Get active promotion',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'language' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'currency' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'user_id' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+            ),
+        ),
     ),
 );
