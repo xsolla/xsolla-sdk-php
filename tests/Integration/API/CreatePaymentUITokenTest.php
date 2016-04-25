@@ -11,17 +11,16 @@ class CreatePaymentUITokenTest extends AbstractAPITest
 {
     public function testCreateCommonPaymentUIToken()
     {
-        $token = $this->xsollaClient->createCommonPaymentUIToken($_SERVER['PROJECT_ID'], 'USER_ID', true);
+        $token = $this->xsollaClient->createCommonPaymentUIToken((int) $_SERVER['PROJECT_ID'], 'USER_ID', true);
         static::assertInternalType('string', $token);
     }
 
     public function testCreatePaymentUITokenFromRequest()
     {
-        $tokenRequest = new TokenRequest($_SERVER['PROJECT_ID'], 'USER_ID');
+        $tokenRequest = new TokenRequest((int) $_SERVER['PROJECT_ID'], 'USER_ID');
         $tokenRequest->setUserEmail('email@example.com')
             ->setCustomParameters(array('a' => 1, 'b' => 2))
             ->setCurrency('USD')
-            ->setExternalPaymentId(12345)
             ->setSandboxMode(true)
             ->setUserName('USER_NAME')
             ->setPurchase(1.5, 'EUR');
