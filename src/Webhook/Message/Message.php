@@ -11,6 +11,7 @@ abstract class Message
     const REFUND = 'refund';
     const CREATE_SUBSCRIPTION = 'create_subscription';
     const CANCEL_SUBSCRIPTION = 'cancel_subscription';
+    const UPDATE_SUBSCRIPTION = 'update_subscription';
     const USER_BALANCE = 'user_balance_operation';
     const GET_PIN_CODE = 'get_pincode';
 
@@ -20,6 +21,7 @@ abstract class Message
         self::REFUND => '\Xsolla\SDK\Webhook\Message\RefundMessage',
         self::CREATE_SUBSCRIPTION => '\Xsolla\SDK\Webhook\Message\CreateSubscriptionMessage',
         self::CANCEL_SUBSCRIPTION => '\Xsolla\SDK\Webhook\Message\CancelSubscriptionMessage',
+        self::UPDATE_SUBSCRIPTION => '\Xsolla\SDK\Webhook\Message\UpdateSubscriptionMessage',
         self::USER_BALANCE => '\Xsolla\SDK\Webhook\Message\UserBalanceMessage',
         self::GET_PIN_CODE => '\Xsolla\SDK\Webhook\Message\GetPinCodeMessage',
     );
