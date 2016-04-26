@@ -67,6 +67,13 @@ class MessageTest extends \PHPUnit_Framework_TestCase
                 'isRefund' => false,
             ),
             array(
+                'notificationType' => 'update_subscription',
+                'expectedClass' => '\Xsolla\SDK\Webhook\Message\UpdateSubscriptionMessage',
+                'isUserValidation' => false,
+                'isPayment' => false,
+                'isRefund' => false,
+            ),
+            array(
                 'notificationType' => 'user_balance_operation',
                 'expectedClass' => '\Xsolla\SDK\Webhook\Message\UserBalanceMessage',
                 'isUserValidation' => false,
