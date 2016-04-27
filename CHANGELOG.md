@@ -1,7 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.3.0...master)
+## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.4.0...master)
+
+## [v2.4.0](https://github.com/xsolla/xsolla-sdk-php/compare/v2.3.0...v2.4.0) - 2016-04-27
 ### Added
 * Added [Frontend API](http://developers.xsolla.com/api.html#paystation) http methods.
 * Added [Update Subscription](http://developers.xsolla.com/api.html#renew-subscription) webhook method.
