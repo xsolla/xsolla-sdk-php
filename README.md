@@ -50,6 +50,12 @@ $ cd /path/to/your/project
 $ composer require xsolla/xsolla-sdk-php
 ```
 
+After installing, you need to require Composer's autoloader:
+
+```php
+require '/path/to/vendor/autoload.php';
+```
+
 ### Installing via Phar
 
 You can [download the packaged phar](https://github.com/xsolla/xsolla-sdk-php/releases) and include it in your scripts to get started:
