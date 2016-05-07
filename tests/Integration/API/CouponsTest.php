@@ -35,7 +35,7 @@ class CouponsTest extends AbstractAPITest
             if (false === strpos($e->getMessage(), 'You have used too much of coupons. Try again later')) {
                 throw $e;
             } else {
-                static::markTestSkipped('You have used too much of coupons. Try again later');
+                static::markTestIncomplete('You have used too much of coupons. Try again later');
             }
         }
     }

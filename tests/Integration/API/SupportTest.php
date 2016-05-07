@@ -15,6 +15,6 @@ class SupportTest extends AbstractAPITest
 
     public function testListSupportTicketComments()
     {
-        static::markTestSkipped('TODO: add support ticket to test project');
+        static::markTestIncomplete('TODO: add support ticket to test project');
     }
 }

@@ -199,7 +199,7 @@ class PromotionsTest extends AbstractAPITest
             if (false === strpos($e->getMessage(), 'The promotion is not ready for launch')) {
                 throw $e;
             } else {
-                static::markTestSkipped('The promotion is not ready for launch');
+                static::markTestIncomplete('The promotion is not ready for launch');
             }
         }
     }

@@ -58,7 +58,7 @@ class SubscriptionsTest extends AbstractAPITest
             if (false === strpos($e->getMessage(), 'External id is already exist')) {
                 throw $e;
             } else {
-                static::markTestSkipped('External id is already exist');
+                static::markTestIncomplete('External id is already exist');
             }
         }
     }
@@ -167,7 +167,7 @@ class SubscriptionsTest extends AbstractAPITest
 
     public function testUpdateSubscription()
     {
-        static::markTestSkipped('TODO: unit test');
+        static::markTestIncomplete('TODO: unit test');
     }
 
     public function testListSubscriptions()

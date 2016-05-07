@@ -46,6 +46,6 @@ class ReportsTest extends AbstractAPITest
 
     public function testCreateRefundRequest()
     {
-        static::markTestSkipped('TODO: 404');
+        static::markTestIncomplete('TODO: 404');
     }
 }
