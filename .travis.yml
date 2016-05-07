@@ -1,31 +1,42 @@
 language: php
 
-php:
-  - 5.3
-  - 5.4
-  - 5.5
-  - 5.6
-  - 7.0
-  - hhvm
-
 sudo: false
 
 env:
-  - COMPOSER_OPTS=""
-  - COMPOSER_OPTS="--prefer-lowest"
+  global:
+    - RUN_PHP_CS_FIXER=false
+    - RUN_SCRUTINIZER=false
+    - PHPUNIT_OPTIONS=""
+    - COMPOSER_OPTIONS=""
+    # MERCHANT_ID=1 PROJECT_ID=1 API_KEY=secret
+    - secure: "Pov5XTt92woJ3jOQNCi7PazdVdu+vBhQy7rssM2GHTshUvqTtVZplTZryGVxZiJEjb1aRsIITeQfhOf3wTUT4gK+Q+WC+qNzP5udqJYwEwfhwQ0WZwDv//okBRG9oM5+zr+EztcXV3diW8PDFyIXMP691kok3CkZO2sCtP7uiR4="
 
 matrix:
   fast_finish: true
+  include:
+    - php: 7.0
+      env: RUN_PHP_CS_FIXER=true RUN_SCRUTINIZER=true PHPUNIT_OPTIONS="--coverage-clover=coverage.clover"
+    - php: hhvm
+    - php: 5.3
+      env: PHPUNIT_OPTIONS="--exclude-group webhook"
+    - php: 5.3
+      env: COMPOSER_OPTIONS="--prefer-lowest" PHPUNIT_OPTIONS="--exclude-group webhook"
+    - php: 5.4
+    - php: 5.5
+    - php: 5.6
 
 install:
     - travis_retry composer update $COMPOSER_OPTS --no-interaction --prefer-dist
 
+before_script:
+  - if [ "$RUN_PHP_CS_FIXER" == true ]; then vendor/bin/php-cs-fixer fix --dry-run; fi;
+
 script:
-  - if [[ "`phpenv version-name`" == "5.6" && $COMPOSER_OPTS == "" ]]; then phpunit --coverage-clover=coverage.clover; wget https://scrutinizer-ci.com/ocular.phar; php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi;
-  - if [[ "`phpenv version-name`" == "5.6" && $COMPOSER_OPTS != "" ]]; then phpunit; fi;
-  - if [[ "`phpenv version-name`" != "5.6" ]]; then phpunit --exclude-group webhook; fi;
-  - versions=(5.4 5.5 7.0) && if [[ ${versions[*]} =~ "`phpenv version-name`" ]]; then phpunit --group webhook; fi;
-  - vendor/bin/php-cs-fixer fix --dry-run
+  - phpunit $PHPUNIT_OPTIONS
+
+after_script:
+  - if [[ $RUN_SCRUTINIZER == 'true' ]]; then wget https://scrutinizer-ci.com/ocular.phar; php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi;
 
 notifications:
-  slack: xsolla:V74WgCQlV6kas6X9SNQKl5R1
+  slack:
+    secure: "SeYovDlJ1wZ/8obJVytUssD9OU/hm5ea1KitEx3tP4YxZ22Cw0CRz4+1nN5S+BnIVp7Gl4lKmr3GmPTmXiVIFNDSRjYiw8njBw8lXBvxfIa51dPK/YH9OAvbM31SlRtM2a1G3UZ76IsBS1gU+F3xJwMJK8CBMd73kQbEBdCY7p4="
