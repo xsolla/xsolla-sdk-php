@@ -28,4 +28,5 @@ script:
   - vendor/bin/php-cs-fixer fix --dry-run
 
 notifications:
-  slack: xsolla:V74WgCQlV6kas6X9SNQKl5R1
+  slack:
+    secure: "SeYovDlJ1wZ/8obJVytUssD9OU/hm5ea1KitEx3tP4YxZ22Cw0CRz4+1nN5S+BnIVp7Gl4lKmr3GmPTmXiVIFNDSRjYiw8njBw8lXBvxfIa51dPK/YH9OAvbM31SlRtM2a1G3UZ76IsBS1gU+F3xJwMJK8CBMd73kQbEBdCY7p4="
