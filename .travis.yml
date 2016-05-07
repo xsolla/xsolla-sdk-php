@@ -11,8 +11,12 @@ php:
 sudo: false
 
 env:
-  - COMPOSER_OPTS=""
-  - COMPOSER_OPTS="--prefer-lowest"
+  global:
+    # MERCHANT_ID=1 PROJECT_ID=1 API_KEY=secret
+    - secure: "Pov5XTt92woJ3jOQNCi7PazdVdu+vBhQy7rssM2GHTshUvqTtVZplTZryGVxZiJEjb1aRsIITeQfhOf3wTUT4gK+Q+WC+qNzP5udqJYwEwfhwQ0WZwDv//okBRG9oM5+zr+EztcXV3diW8PDFyIXMP691kok3CkZO2sCtP7uiR4="
+  matrix:
+    - COMPOSER_OPTS=""
+    - COMPOSER_OPTS="--prefer-lowest"
 
 matrix:
   fast_finish: true
