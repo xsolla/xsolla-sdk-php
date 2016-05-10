@@ -124,7 +124,7 @@ class PromotionsTest extends AbstractAPITest
     public function testSetPromotionPeriods()
     {
         $randomFutureTimestamp = mt_rand(time() + 60, 2147483647);
-        $datetimeStart = \DateTime::createFromFormat('U', $randomFutureTimestamp);
+        $datetimeStart = \DateTime::createFromFormat('U', $randomFutureTimestamp, new \DateTimeZone('UTC'));
         $this->xsollaClient->SetPromotionPeriods(array(
             'promotion_id' => static::$promotionId,
             'request' => array(
