@@ -1315,6 +1315,16 @@ return array(
                     'static' => true,
                     'required' => true,
                 ),
+                'limit' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'offset' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
             ),
         ),
         // Reports

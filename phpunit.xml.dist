@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="https://raw.github.com/gooh/phpunit-schema/gh-pages/3.7/phpunit.xsd"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/5.2/phpunit.xsd"
 
         backupGlobals               = "false"
         backupStaticAttributes      = "false"
@@ -13,12 +13,6 @@
         stopOnFailure               = "false"
         bootstrap                   = "./vendor/autoload.php"
         >
-
-    <php>
-        <server name="MERCHANT_ID" value="22174" />
-        <server name="PROJECT_ID" value="15861" />
-        <server name="API_KEY" value="a8XxegcLKQMIp3MU" />
-    </php>
 
     <testsuites>
         <testsuite name="default test suite">
