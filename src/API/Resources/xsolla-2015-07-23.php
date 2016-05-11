@@ -1681,10 +1681,10 @@ return array(
                 ),
             ),
         ),
-        //Frontend API
-        'GetPaystationVirtualCurrency' => array(
+        //Storefront
+        'GetStorefrontVirtualCurrency' => array(
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/paystation/virtual_currency',
+            'uri' => '/merchant/projects/{project_id}/storefront/virtual_currency',
             'summary' => 'List virtual currency packages',
             'parameters' => array(
                 'project_id' => array(
@@ -1709,9 +1709,9 @@ return array(
                 ),
             ),
         ),
-        'GetPaystationVirtualGroups' => array(
+        'GetStorefrontVirtualGroups' => array(
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/paystation/virtual_items/groups',
+            'uri' => '/merchant/projects/{project_id}/storefront/virtual_items/groups',
             'summary' => 'List of virtual groups',
             'parameters' => array(
                 'project_id' => array(
@@ -1736,9 +1736,9 @@ return array(
                 ),
             ),
         ),
-        'GetPaystationVirtualItems' => array(
+        'GetStorefrontVirtualItems' => array(
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/paystation/virtual_items/items',
+            'uri' => '/merchant/projects/{project_id}/storefront/virtual_items/items',
             'summary' => 'List of virtual items',
             'parameters' => array(
                 'project_id' => array(
@@ -1768,9 +1768,9 @@ return array(
                 ),
             ),
         ),
-        'GetPaystationSubscriptions' => array(
+        'GetStorefrontSubscriptions' => array(
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/paystation/subscriptions',
+            'uri' => '/merchant/projects/{project_id}/storefront/subscriptions',
             'summary' => 'List of subscriptions',
             'parameters' => array(
                 'project_id' => array(
@@ -1795,9 +1795,9 @@ return array(
                 ),
             ),
         ),
-        'GetPaystationBonus' => array(
+        'GetStorefrontBonus' => array(
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/paystation/bonus',
+            'uri' => '/merchant/projects/{project_id}/storefront/bonus',
             'summary' => 'Get active promotion',
             'parameters' => array(
                 'project_id' => array(
