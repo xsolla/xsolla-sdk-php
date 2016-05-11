@@ -1,7 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.4.0...master)
+## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.4.1...master)
+
+## [v2.4.1](https://github.com/xsolla/xsolla-sdk-php/compare/v2.4.0...v2.4.1) - 2016-05-11
 ### Fixed
 * [BC BREAK] Added required integer parameters `limit` and `offset` to `XsollaClient::ListEvents`.
 * [BC BREAK] Renamed Frontend API to [Storefront](http://developers.xsolla.com/api.html#storefront)
