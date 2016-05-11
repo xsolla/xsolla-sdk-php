@@ -5,7 +5,7 @@ namespace Xsolla\SDK\Tests\Integration\API;
 /**
  * @group api
  */
-class PaystationTest extends AbstractAPITest
+class StorefrontTest extends AbstractAPITest
 {
     protected $currency;
     protected $language;
@@ -19,9 +19,9 @@ class PaystationTest extends AbstractAPITest
         $this->userId = 'test';
     }
 
-    public function testGetPaystationVirtualCurrency()
+    public function testGetStorefrontVirtualCurrency()
     {
-        $response = $this->xsollaClient->GetPaystationVirtualCurrency(
+        $response = $this->xsollaClient->GetStorefrontVirtualCurrency(
             array(
                 'project_id' => $this->projectId,
                 'user_id' => $this->userId,
@@ -32,9 +32,9 @@ class PaystationTest extends AbstractAPITest
         static::assertInternalType('array', $response);
     }
 
-    public function testGetPaystationVirtualGroups()
+    public function testGetStorefrontVirtualGroups()
     {
-        $response = $this->xsollaClient->GetPaystationVirtualGroups(
+        $response = $this->xsollaClient->GetStorefrontVirtualGroups(
             array(
                 'project_id' => $this->projectId,
                 'user_id' => $this->userId,
@@ -45,9 +45,9 @@ class PaystationTest extends AbstractAPITest
         static::assertInternalType('array', $response);
     }
 
-    public function testGetPaystationVirtualItems()
+    public function testGetStorefrontVirtualItems()
     {
-        $response = $this->xsollaClient->GetPaystationVirtualItems(
+        $response = $this->xsollaClient->GetStorefrontVirtualItems(
             array(
                 'project_id' => $this->projectId,
                 'user_id' => $this->userId,
@@ -59,9 +59,9 @@ class PaystationTest extends AbstractAPITest
         static::assertInternalType('array', $response);
     }
 
-    public function testGetPaystationSubscriptions()
+    public function testGetStorefrontSubscriptions()
     {
-        $response = $this->xsollaClient->GetPaystationSubscriptions(
+        $response = $this->xsollaClient->GetStorefrontSubscriptions(
             array(
                 'project_id' => $this->projectId,
                 'user_id' => $this->userId,
@@ -72,9 +72,9 @@ class PaystationTest extends AbstractAPITest
         static::assertInternalType('array', $response);
     }
 
-    public function testGetPaystationBonus()
+    public function testGetStorefrontBonus()
     {
-        $response = $this->xsollaClient->GetPaystationBonus(
+        $response = $this->xsollaClient->GetStorefrontBonus(
             array(
                 'project_id' => $this->projectId,
                 'user_id' => $this->userId,
