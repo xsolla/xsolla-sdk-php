@@ -14,11 +14,14 @@ abstract class AbstractAPITest extends \PHPUnit_Framework_TestCase
 
     protected $projectId;
 
+    protected $merchantId;
+
     public function setUp()
     {
         $this->projectId = (int) $_SERVER['PROJECT_ID'];
+        $this->merchantId = (int) $_SERVER['MERCHANT_ID'];
         $this->xsollaClient = XsollaClient::factory(array(
-            'merchant_id' => $_SERVER['MERCHANT_ID'],
+            'merchant_id' => $this->merchantId,
             'api_key' => $_SERVER['API_KEY'],
         ));
         global $argv;

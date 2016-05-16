@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.4.1...master)
+### Added
+* Added support for [Project Settings](http://developers.xsolla.com/api.html#project-settings) API methods to `XsollaClient`.
 
 ## [v2.4.1](https://github.com/xsolla/xsolla-sdk-php/compare/v2.4.0...v2.4.1) - 2016-05-11
 ### Fixed
