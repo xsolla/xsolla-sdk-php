@@ -102,6 +102,11 @@ use Xsolla\SDK\Version;
  * @method array GetStorefrontVirtualItems(array $args = array()) Get virtual items http://developers.xsolla.com/api.html#list-virtual-items
  * @method array GetStorefrontSubscriptions(array $args = array()) Get available subscriptions http://developers.xsolla.com/api.html#list-subscription-plans
  * @method array GetStorefrontBonus(array $args = array()) Get the information about active promotion http://developers.xsolla.com/api.html#list-promotions
+ *
+ * @method array CreateProject(array $args = array()) Create a new project http://developers.xsolla.com/api.html#create-a-new-project
+ * @method array GetProject(array $args = array()) Get a project http://developers.xsolla.com/api.html#get-a-project
+ * @method array UpdateProject(array $args = array()) Update a project http://developers.xsolla.com/api.html#update-a-project
+ * @method array ListProjects(array $args = array()) List all projects http://developers.xsolla.com/api.html#list-all-projects
  */
 class XsollaClient extends Client
 {

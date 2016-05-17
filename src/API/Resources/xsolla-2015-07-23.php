@@ -1822,5 +1822,72 @@ return array(
                 ),
             ),
         ),
+        // Project Settings
+        'CreateProject' => array(
+            'httpMethod' => 'POST',
+            'uri' => '/merchant/merchants/{merchant_id}/projects',
+            'summary' => 'Create a project',
+            'parameters' => array(
+                'merchant_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'static' => true,
+                    'required' => true,
+                ),
+                'request' => array(
+                    'location' => 'body',
+                    'type' => 'array',
+                    'required' => true,
+                    'filters' => array(
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode',
+                    ),
+                ),
+            ),
+        ),
+        'GetProject' => array(
+            'httpMethod' => 'GET',
+            'uri' => '/merchant/projects/{project_id}',
+            'summary' => 'Get a project',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+            ),
+        ),
+        'UpdateProject' => array(
+            'httpMethod' => 'PUT',
+            'uri' => '/merchant/projects/{project_id}',
+            'summary' => 'Update a project',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'request' => array(
+                    'location' => 'body',
+                    'type' => 'array',
+                    'required' => true,
+                    'filters' => array(
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode',
+                    ),
+                ),
+            ),
+        ),
+        'ListProjects' => array(
+            'httpMethod' => 'GET',
+            'uri' => '/merchant/merchants/{merchant_id}/projects',
+            'summary' => 'List projects',
+            'parameters' => array(
+                'merchant_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'static' => true,
+                    'required' => true,
+                ),
+            ),
+        ),
     ),
 );
