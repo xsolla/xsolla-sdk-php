@@ -6,7 +6,7 @@ use Xsolla\SDK\Exception\XsollaException;
 
 class Version
 {
-    const VERSION = 'v2.4.1';
+    const VERSION = 'v2.5.0';
 
     /**
      * @throws XsollaException
