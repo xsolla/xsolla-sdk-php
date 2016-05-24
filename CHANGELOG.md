@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.5.0...master)
+### Added
+* Added public user id processing for [User Search](http://developers.xsolla.com/api.html#user-search) webhook method.
 
 ## [v2.5.0](https://github.com/xsolla/xsolla-sdk-php/compare/v2.4.1...v2.5.0) - 2016-05-18
 ### Added

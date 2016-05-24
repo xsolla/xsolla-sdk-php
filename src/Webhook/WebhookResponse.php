@@ -81,4 +81,18 @@ class WebhookResponse
     {
         return $this->symfonyResponse;
     }
+
+    protected function validateStringParameter($name, $value)
+    {
+        if (!is_string($value)) {
+            throw new XsollaWebhookException(sprintf(
+                '%s should be non-empty string. %s given',
+                $name,
+                is_object($value) ? get_class($value) : gettype($value)
+            ));
+        }
+        if ('' === $value) {
+            throw new XsollaWebhookException($name.' should be non-empty string. Empty string given');
+        }
+    }
 }

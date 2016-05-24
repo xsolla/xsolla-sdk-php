@@ -87,6 +87,13 @@ class MessageTest extends \PHPUnit_Framework_TestCase
                 'isPayment' => false,
                 'isRefund' => false,
             ),
+            array(
+                'notificationType' => 'user_search',
+                'expectedClass' => '\Xsolla\SDK\Webhook\Message\UserSearchMessage',
+                'isUserValidation' => false,
+                'isPayment' => false,
+                'isRefund' => false,
+            ),
         );
     }
 }
