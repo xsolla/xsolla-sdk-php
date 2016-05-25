@@ -7,6 +7,7 @@ use Xsolla\SDK\Exception\Webhook\InvalidParameterException;
 abstract class Message
 {
     const USER_VALIDATION = 'user_validation';
+    const USER_SEARCH = 'user_search';
     const PAYMENT = 'payment';
     const REFUND = 'refund';
     const CREATE_SUBSCRIPTION = 'create_subscription';
@@ -17,6 +18,7 @@ abstract class Message
 
     protected static $classMap = array(
         self::USER_VALIDATION => '\Xsolla\SDK\Webhook\Message\UserValidationMessage',
+        self::USER_SEARCH => '\Xsolla\SDK\Webhook\Message\UserSearchMessage',
         self::PAYMENT => '\Xsolla\SDK\Webhook\Message\PaymentMessage',
         self::REFUND => '\Xsolla\SDK\Webhook\Message\RefundMessage',
         self::CREATE_SUBSCRIPTION => '\Xsolla\SDK\Webhook\Message\CreateSubscriptionMessage',
