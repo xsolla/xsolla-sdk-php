@@ -107,6 +107,10 @@ use Xsolla\SDK\Version;
  * @method array GetProject(array $args = array()) Get a project http://developers.xsolla.com/api.html#get-a-project
  * @method array UpdateProject(array $args = array()) Update a project http://developers.xsolla.com/api.html#update-a-project
  * @method array ListProjects(array $args = array()) List all projects http://developers.xsolla.com/api.html#list-all-projects
+ *
+ * @method array ListPaymentAccounts(array $args = array()) List of the saved payment accounts http://developers.xsolla.com/api.html#list-saved-payment-accounts
+ * @method array ChargePaymentAccount(array $args = array()) Charge using the saved payment account http://developers.xsolla.com/api.html#charge-using-saved-payment-account
+ * @method array DeletePaymentAccount(array $args = array()) Delete the saved payment account http://developers.xsolla.com/api.html#delete-a-saved-payment-account
  */
 class XsollaClient extends Client
 {
