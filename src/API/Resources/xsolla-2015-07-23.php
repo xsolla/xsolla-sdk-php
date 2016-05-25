@@ -1889,5 +1889,85 @@ return array(
                 ),
             ),
         ),
+        //Payment Accounts
+        'ListPaymentAccounts' => array(
+            'httpMethod' => 'GET',
+            'uri' => '/merchant/projects/{project_id}/users/{user_id}/payment_accounts',
+            'summary' => 'List of the saved payment accounts',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'user_id' => array(
+                    'location' => 'uri',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+            ),
+        ),
+        'ChargePaymentAccount' => array(
+            'httpMethod' => 'POST',
+            'uri' => '/merchant/projects/{project_id}/users/{user_id}/payments/{type}/{account_id}',
+            'summary' => 'Charge using the saved payment account',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'user_id' => array(
+                    'location' => 'uri',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'type' => array(
+                    'location' => 'uri',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'account_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'request' => array(
+                    'location' => 'body',
+                    'type' => 'array',
+                    'required' => true,
+                    'filters' => array(
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode',
+                    ),
+                ),
+            ),
+        ),
+        'DeletePaymentAccount' => array(
+            'httpMethod' => 'DELETE',
+            'uri' => '/merchant/projects/{project_id}/users/{user_id}/payments/{type}/{account_id}',
+            'summary' => 'Delete the saved payment account',
+            'parameters' => array(
+                'project_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+                'user_id' => array(
+                    'location' => 'uri',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'type' => array(
+                    'location' => 'uri',
+                    'type' => 'string',
+                    'required' => true,
+                ),
+                'account_id' => array(
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ),
+            ),
+        ),
     ),
 );
