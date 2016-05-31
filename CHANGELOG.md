@@ -1,7 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.5.0...master)
+## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.6.0...master)
+
+## [v2.6.0](https://github.com/xsolla/xsolla-sdk-php/compare/v2.5.0...v2.6.0) - 2016-05-31
 ### Added
 * Added public user id processing for [User Search](http://developers.xsolla.com/api.html#user-search) webhook method.
 * Added support for [Saved Payment Accounts](http://developers.xsolla.com/api.html#direct-payments) API methods to `XsollaClient`.
