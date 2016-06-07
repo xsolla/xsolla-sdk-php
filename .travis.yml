@@ -2,6 +2,10 @@ language: php
 
 sudo: false
 
+cache:
+  directories:
+    - $HOME/.composer/cache
+
 env:
   global:
     - RUN_PHP_CS_FIXER=false
@@ -17,14 +21,17 @@ matrix:
     - php: 7.0
       env: RUN_PHP_CS_FIXER=true RUN_SCRUTINIZER=true PHPUNIT_OPTIONS="--coverage-clover=coverage.clover"
     - php: hhvm
-      env: PHPUNIT_OPTIONS="--exclude-group webhook"
+      env: PHPUNIT_OPTIONS="--exclude-group webhook-php-server"
     - php: 5.3
-      env: PHPUNIT_OPTIONS="--exclude-group webhook"
+      env: PHPUNIT_OPTIONS="--exclude-group webhook-php-server"
     - php: 5.3
-      env: COMPOSER_OPTIONS="--prefer-lowest" PHPUNIT_OPTIONS="--exclude-group webhook"
+      env: COMPOSER_OPTIONS="--prefer-lowest" PHPUNIT_OPTIONS="--exclude-group webhook-php-server"
     - php: 5.4
     - php: 5.5
     - php: 5.6
+
+before_install:
+    - phpenv config-rm xdebug.ini || true
 
 install:
     - travis_retry composer update $COMPOSER_OPTS --no-interaction --prefer-dist
@@ -33,7 +40,7 @@ before_script:
   - if [ $RUN_PHP_CS_FIXER == true ]; then vendor/bin/php-cs-fixer fix --no-interaction --dry-run; fi;
 
 script:
-  - phpunit $PHPUNIT_OPTIONS
+  - if [ $RUN_SCRUTINIZER == true ]; then phpdbg -qrr vendor/bin/phpunit $PHPUNIT_OPTIONS; else vendor/bin/phpunit $PHPUNIT_OPTIONS; fi;
 
 after_script:
   - if [ $RUN_SCRUTINIZER == true ]; then wget https://scrutinizer-ci.com/ocular.phar; php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi;

@@ -286,7 +286,7 @@ return array(
                     'type' => 'integer',
                     'required' => false,
                 ),
-                'datetime_from' => array(//TODO DATETIME
+                'datetime_from' => array(
                     'location' => 'query',
                     'type' => 'string',
                     'required' => false,

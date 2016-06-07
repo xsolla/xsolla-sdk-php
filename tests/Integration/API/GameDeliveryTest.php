@@ -7,89 +7,74 @@ namespace Xsolla\SDK\Tests\Integration\API;
  */
 class GameDeliveryTest extends AbstractAPITest
 {
-    private static $gameDeliveryEntityId;
+    /**
+     * @var int
+     */
+    protected static $gameDeliveryEntityId;
 
-    private static $gameDeliveryEntitySku;
-
-    private $gameDeliveryEntityTemplate;
-
-    public function setUp()
-    {
-        parent::setUp();
-        $this->gameDeliveryEntityTemplate = array(
-            'sku' => uniqid('sdk-test', true),
-            'name' => array(
-                'en' => 'sdk-test name-en',
-            ),
-            'description' => array(
-                'en' => 'sdk-test description-en',
-            ),
-            'system_requirements' => 'sdk-test system_requirements',
-            'default_currency' => 'USD',
-            'drm' => array(
-                array(
-                    'id' => 1,
-                    'platforms' => array(
-                        array(
-                            'id' => 1,
-                        ),
+    private $gameDeliveryEntityTemplate = array(
+        'sku' => 'sdk-test',
+        'name' => array(
+            'en' => 'sdk-test name-en',
+        ),
+        'description' => array(
+            'en' => 'sdk-test description-en',
+        ),
+        'system_requirements' => 'sdk-test system_requirements',
+        'default_currency' => 'USD',
+        'drm' => array(
+            array(
+                'id' => 1,
+                'platforms' => array(
+                    array(
+                        'id' => 1,
                     ),
                 ),
             ),
-        );
+        ),
+    );
+
+    public static function setUpBeforeClass()
+    {
+        parent::setUpBeforeClass();
+        static::$gameDeliveryEntityId = (int) getenv('GAME_DELIVERY_ENTITY_ID');
     }
 
     public function testListGameDeliveryDrmPlatforms()
     {
-        $response = $this->xsollaClient->ListGameDeliveryDrmPlatforms();
+        $response = static::$xsollaClient->ListGameDeliveryDrmPlatforms();
         static::assertArrayHasKey('platforms', $response);
         static::assertArrayHasKey('drm', $response);
     }
 
     public function testCreateGameDeliveryEntity()
     {
-        $response = $this->xsollaClient->CreateGameDeliveryEntity(array(
-            'project_id' => $this->projectId,
-            'request' => $this->gameDeliveryEntityTemplate,
-        ));
-        static::assertArrayHasKey('id', $response);
-        static::$gameDeliveryEntityId = $response['id'];
-        static::$gameDeliveryEntitySku = $this->gameDeliveryEntityTemplate['sku'];
+        static::markTestIncomplete('Delete game delivery entity API method not implemented yet. We should not create new entities infinitely.');
     }
 
-    /**
-     * @depends testCreateGameDeliveryEntity
-     */
     public function testListGameDeliveryEntities()
     {
-        $response = $this->xsollaClient->ListGameDeliveryEntities(array(
-            'project_id' => $this->projectId,
+        $response = static::$xsollaClient->ListGameDeliveryEntities(array(
+            'project_id' => static::$projectId,
         ));
         static::assertInternalType('array', $response);
         static::assertArrayHasKey('id', current($response));
     }
 
-    /**
-     * @depends testCreateGameDeliveryEntity
-     */
     public function testGetGameDeliveryEntity()
     {
-        $response = $this->xsollaClient->GetGameDeliveryEntity(array(
-            'project_id' => $this->projectId,
-            'game_delivery_id' => self::$gameDeliveryEntityId,
+        $response = static::$xsollaClient->GetGameDeliveryEntity(array(
+            'project_id' => static::$projectId,
+            'game_delivery_id' => static::$gameDeliveryEntityId,
         ));
-        static::assertSame(self::$gameDeliveryEntityId, $response['id']);
-        static::assertSame(self::$gameDeliveryEntitySku, $response['sku']);
+        static::assertSame(static::$gameDeliveryEntityId, $response['id']);
     }
 
-    /**
-     * @depends testCreateGameDeliveryEntity
-     */
     public function testUpdateGameDeliveryEntity()
     {
-        $this->xsollaClient->UpdateGameDeliveryEntity(array(
-            'project_id' => $this->projectId,
-            'game_delivery_id' => self::$gameDeliveryEntityId,
+        static::$xsollaClient->UpdateGameDeliveryEntity(array(
+            'project_id' => static::$projectId,
+            'game_delivery_id' => static::$gameDeliveryEntityId,
             'request' => $this->gameDeliveryEntityTemplate,
         ));
     }

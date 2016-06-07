@@ -9,12 +9,12 @@ class SupportTest extends AbstractAPITest
 {
     public function testListSupportTickets()
     {
-        $response = $this->xsollaClient->ListSupportTickets();
+        $response = static::$xsollaClient->ListSupportTickets();
         static::assertInternalType('array', $response);
     }
 
     public function testListSupportTicketComments()
     {
-        static::markTestIncomplete('TODO: add support ticket to test project');
+        static::markTestIncomplete('We haven\'t support tickets in test account for comments testing.');
     }
 }

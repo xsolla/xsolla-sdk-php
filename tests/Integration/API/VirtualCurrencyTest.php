@@ -9,7 +9,7 @@ class VirtualCurrencyTest extends AbstractAPITest
 {
     public function testUpdateProjectVirtualCurrencySettings()
     {
-        $this->xsollaClient->UpdateProjectVirtualCurrencySettings(array(
+        static::$xsollaClient->UpdateProjectVirtualCurrencySettings(array(
             'request' => array(
                 'vc_name' => array(
                     'en' => 'name',
@@ -21,12 +21,12 @@ class VirtualCurrencyTest extends AbstractAPITest
                 'max' => 100.2,
                 'default_currency' => 'USD',
             ),
-            'project_id' => $this->projectId,
+            'project_id' => static::$projectId,
         ));
     }
 
     public function testGetProjectVirtualCurrencySettings()
     {
-        $this->xsollaClient->GetProjectVirtualCurrencySettings(array('project_id' => $this->projectId));
+        static::$xsollaClient->GetProjectVirtualCurrencySettings(array('project_id' => static::$projectId));
     }
 }

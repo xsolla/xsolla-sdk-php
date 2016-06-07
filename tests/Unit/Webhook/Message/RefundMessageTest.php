@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\Tests\Webhook\Message;
+namespace Xsolla\SDK\Tests\Unit\Webhook\Message;
 
 /**
  * @group unit

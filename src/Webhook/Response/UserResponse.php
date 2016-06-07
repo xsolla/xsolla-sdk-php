@@ -8,7 +8,6 @@ use Xsolla\SDK\Webhook\WebhookResponse;
 class UserResponse extends WebhookResponse
 {
     /**
-     * UserResponse constructor.
      * @param User $user
      */
     public function __construct(User $user)

@@ -7,43 +7,27 @@ namespace Xsolla\SDK\Tests\Integration\API;
  */
 class WalletTest extends AbstractAPITest
 {
-    protected static $userId;
-
-    public function setUp()
-    {
-        parent::setUp();
-        if (!static::$userId) {
-            static::$userId = uniqid('wallet_user_');
-        }
-    }
+    protected static $virtualItemId;
+    protected static $virtualItemSku;
 
     public function testCreateWalletUser()
     {
-        $this->xsollaClient->CreateWalletUser(array(
-            'project_id' => $this->projectId,
-            'request' => array('user_id' => static::$userId),
-        ));
+        static::markTestIncomplete('Delete user API method not implemented yet. We should not create new users infinitely.');
     }
 
-    /**
-     * @depends testCreateWalletUser
-     */
     public function testGetWalletUser()
     {
-        $response = $this->xsollaClient->GetWalletUser(array(
-            'project_id' => $this->projectId,
+        $response = static::$xsollaClient->GetWalletUser(array(
+            'project_id' => static::$projectId,
             'user_id' => static::$userId,
         ));
         static::assertInternalType('array', $response);
     }
 
-    /**
-     * @depends testGetWalletUser
-     */
     public function testUpdateWalletUser()
     {
-        $this->xsollaClient->UpdateWalletUser(array(
-            'project_id' => $this->projectId,
+        static::$xsollaClient->UpdateWalletUser(array(
+            'project_id' => static::$projectId,
             'user_id' => static::$userId,
             'request' => array(
                 'enabled' => true,
@@ -53,21 +37,18 @@ class WalletTest extends AbstractAPITest
 
     public function testListWalletUsers()
     {
-        $response = $this->xsollaClient->ListWalletUsers(array(
-            'project_id' => $this->projectId,
+        $response = static::$xsollaClient->ListWalletUsers(array(
+            'project_id' => static::$projectId,
             'limit' => 1,
             'offset' => 0,
         ));
         static::assertInternalType('array', $response);
     }
 
-    /**
-     * @depends testUpdateWalletUser
-     */
     public function testListWalletUserOperations()
     {
-        $response = $this->xsollaClient->ListWalletUserOperations(array(
-            'project_id' => $this->projectId,
+        $response = static::$xsollaClient->ListWalletUserOperations(array(
+            'project_id' => static::$projectId,
             'user_id' => static::$userId,
             'datetime_from' => '2015-01-01T00:00:00 UTC',
             'datetime_to' => '2016-01-01T00:00:00 UTC',
@@ -75,13 +56,10 @@ class WalletTest extends AbstractAPITest
         static::assertInternalType('array', $response);
     }
 
-    /**
-     * @depends testListWalletUserOperations
-     */
     public function testRechargeWalletUserBalance()
     {
-        $response = $this->xsollaClient->RechargeWalletUserBalance(array(
-            'project_id' => $this->projectId,
+        $response = static::$xsollaClient->RechargeWalletUserBalance(array(
+            'project_id' => static::$projectId,
             'user_id' => static::$userId,
             'request' => array(
                 'amount' => 10,
@@ -91,19 +69,24 @@ class WalletTest extends AbstractAPITest
         static::assertArrayHasKey('amount', $response);
     }
 
-    /**
-     * @depends testCreateWalletUser
-     */
     public function testAddVirtualItemToWalletUser()
     {
-        $this->xsollaClient->AddVirtualItemToWalletUser(array(
-            'project_id' => $this->projectId,
+        static::$virtualItemSku = uniqid('virtual_item_', false);
+        $virtualItemTemplate = $this->generateVirtualItemTemplate(static::$virtualItemSku);
+        $virtualItem = static::$xsollaClient->CreateVirtualItem(array(
+            'project_id' => static::$projectId,
+            'request' => $virtualItemTemplate,
+        ));
+        static::$virtualItemId = $virtualItem['item_id'];
+
+        static::$xsollaClient->AddVirtualItemToWalletUser(array(
+            'project_id' => static::$projectId,
             'user_id' => static::$userId,
             'request' => array(
                 'virtual_items' => array(
                     array(
                         'virtual_item' => array(
-                            'sku' => '1468', // https://merchant.xsolla.com/22174/projects/15861/items/15435
+                            'sku' => static::$virtualItemSku,
                         ),
                         'amount' => 2,
                     ),
@@ -117,8 +100,8 @@ class WalletTest extends AbstractAPITest
      */
     public function testListWalletUserVirtualItems()
     {
-        $response = $this->xsollaClient->ListWalletUserVirtualItems(array(
-            'project_id' => $this->projectId,
+        $response = static::$xsollaClient->ListWalletUserVirtualItems(array(
+            'project_id' => static::$projectId,
             'user_id' => static::$userId,
             'limit' => 1,
             'offset' => 0,
@@ -127,23 +110,27 @@ class WalletTest extends AbstractAPITest
     }
 
     /**
-     * @depends testListWalletUserVirtualItems
+     * @depends testAddVirtualItemToWalletUser
      */
     public function testDeleteVirtualItemFromWalletUser()
     {
-        $this->xsollaClient->DeleteVirtualItemFromWalletUser(array(
-            'project_id' => $this->projectId,
+        static::$xsollaClient->DeleteVirtualItemFromWalletUser(array(
+            'project_id' => static::$projectId,
             'user_id' => static::$userId,
             'request' => array(
                 'virtual_items' => array(
                     array(
                         'virtual_item' => array(
-                            'sku' => '1468',
+                            'sku' => static::$virtualItemSku,
                         ),
                         'amount' => 2,
                     ),
                 ),
             ),
+        ));
+        static::$xsollaClient->DeleteVirtualItem(array(
+            'project_id' => static::$projectId,
+            'item_id' => static::$virtualItemId,
         ));
     }
 }

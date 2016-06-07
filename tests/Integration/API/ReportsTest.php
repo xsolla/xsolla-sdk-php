@@ -9,10 +9,10 @@ class ReportsTest extends AbstractAPITest
 {
     public function testSearchPaymentsRegistry()
     {
-        $response = $this->xsollaClient->SearchPaymentsRegistry(array(
+        $response = static::$xsollaClient->SearchPaymentsRegistry(array(
             'format' => 'json',
             'type' => 'all',
-            'limit' => 1,
+            'limit' => 2,
             'offset' => 0,
         ));
         static::assertInternalType('array', $response);
@@ -20,12 +20,12 @@ class ReportsTest extends AbstractAPITest
 
     public function testListPaymentsRegistry()
     {
-        $response = $this->xsollaClient->ListPaymentsRegistry(array(
+        $response = static::$xsollaClient->ListPaymentsRegistry(array(
             'format' => 'json',
             'datetime_from' => '2015-01-01T00:00:00 UTC',
             'datetime_to' => '2015-01-02T00:00:00 UTC',
             'in_transfer_currency' => false,
-            'limit' => 1,
+            'limit' => 2,
             'offset' => 0,
             'show_total' => true,
         ));
@@ -34,18 +34,18 @@ class ReportsTest extends AbstractAPITest
 
     public function testListTransfersRegistry()
     {
-        $response = $this->xsollaClient->ListTransfersRegistry();
+        $response = static::$xsollaClient->ListTransfersRegistry();
         static::assertInternalType('array', $response);
     }
 
     public function testListReportsRegistry()
     {
-        $response = $this->xsollaClient->ListReportsRegistry();
+        $response = static::$xsollaClient->ListReportsRegistry();
         static::assertInternalType('array', $response);
     }
 
     public function testCreateRefundRequest()
     {
-        static::markTestIncomplete('TODO: 404');
+        static::markTestIncomplete('We haven\'t payments in test account for refund testing.');
     }
 }
