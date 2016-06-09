@@ -2,36 +2,56 @@
 
 namespace Xsolla\SDK\Tests\Integration\API;
 
-use Guzzle\Common\Event;
 use Xsolla\SDK\API\XsollaClient;
+use Xsolla\SDK\Tests\Helper\XsollaClientHelper;
 
 abstract class AbstractAPITest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var XsollaClient
      */
-    protected $xsollaClient;
+    protected static $xsollaClient;
 
-    protected $projectId;
+    /**
+     * @var int
+     */
+    protected static $projectId;
 
-    protected $merchantId;
+    /**
+     * @var int
+     */
+    protected static $merchantId;
 
-    public function setUp()
+    /**
+     * @var string
+     */
+    protected static $userId;
+
+    public static function setUpBeforeClass()
     {
-        $this->projectId = (int) $_SERVER['PROJECT_ID'];
-        $this->merchantId = (int) $_SERVER['MERCHANT_ID'];
-        $this->xsollaClient = XsollaClient::factory(array(
-            'merchant_id' => $this->merchantId,
-            'api_key' => $_SERVER['API_KEY'],
-        ));
-        global $argv;
-        if (in_array('--debug', $argv, true)) {
-            $echoCb = function (Event $event) {
-                echo (string) $event['request'].PHP_EOL;
-                echo (string) $event['response'].PHP_EOL;
-            };
-            $this->xsollaClient->getEventDispatcher()->addListener('request.complete', $echoCb);
-            $this->xsollaClient->getEventDispatcher()->addListener('request.exception', $echoCb);
-        }
+        static::$projectId = (int) getenv('PROJECT_ID');
+        static::$merchantId = (int) getenv('MERCHANT_ID');
+        static::$userId = getenv('USER_ID');
+        static::$xsollaClient = XsollaClientHelper::getXsollaClient(static::$merchantId, getenv('API_KEY'));
+    }
+
+    public function generateVirtualItemTemplate($sku)
+    {
+        return array(
+            'sku' => $sku,
+            'name' => array(
+                'en' => 'Virtual Item',
+            ),
+            'description' => array(
+                'en' => 'Virtual Item Description',
+            ),
+            'prices' => array(
+                'USD' => 1,
+            ),
+            'default_currency' => 'USD',
+            'enabled' => true,
+            'disposable' => false,
+            'item_type' => 'Consumable',
+        );
     }
 }

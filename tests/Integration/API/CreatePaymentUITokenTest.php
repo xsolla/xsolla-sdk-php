@@ -11,32 +11,34 @@ class CreatePaymentUITokenTest extends AbstractAPITest
 {
     public function testCreateCommonPaymentUIToken()
     {
-        $token = $this->xsollaClient->createCommonPaymentUIToken((int) $_SERVER['PROJECT_ID'], 'USER_ID', true);
+        $token = static::$xsollaClient->createCommonPaymentUIToken(static::$projectId, static::$userId, true);
         static::assertInternalType('string', $token);
     }
 
     public function testCreatePaymentUITokenFromRequest()
     {
-        $tokenRequest = new TokenRequest((int) $_SERVER['PROJECT_ID'], 'USER_ID');
+        $tokenRequest = new TokenRequest(static::$projectId, static::$userId);
         $tokenRequest->setUserEmail('email@example.com')
             ->setCustomParameters(array('a' => 1, 'b' => 2))
             ->setCurrency('USD')
             ->setSandboxMode(true)
             ->setUserName('USER_NAME')
             ->setPurchase(1.5, 'EUR');
-        $token = $this->xsollaClient->createPaymentUITokenFromRequest($tokenRequest);
+        $token = static::$xsollaClient->createPaymentUITokenFromRequest($tokenRequest);
         static::assertInternalType('string', $token);
     }
 
     public function testCreatePaymentUIToken()
     {
-        $requestJsonFileName = __DIR__.'/../../resources/token.json';
+        $requestJsonFileName = __DIR__.'/../../Resources/Fixtures/token.json';
         $tokenPayload = file_get_contents($requestJsonFileName);
         if (false === $tokenPayload) {
             static::fail('Could not read token request from tests/resources/token.json');
         }
         $request = json_decode($tokenPayload, true);
-        $tokenResponse = $this->xsollaClient->CreatePaymentUIToken(array('request' => $request));
+        $request['settings']['project_id'] = static::$projectId;
+        $request['user']['id']['value'] = static::$userId;
+        $tokenResponse = static::$xsollaClient->CreatePaymentUIToken(array('request' => $request));
         static::assertArrayHasKey('token', $tokenResponse);
         static::assertInternalType('string', $tokenResponse['token']);
     }

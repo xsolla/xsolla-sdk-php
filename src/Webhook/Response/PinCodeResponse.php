@@ -7,6 +7,9 @@ use Xsolla\SDK\Webhook\WebhookResponse;
 
 class PinCodeResponse extends WebhookResponse
 {
+    /**
+     * @param string $pinCode
+     */
     public function __construct($pinCode)
     {
         $this->validateStringParameter('Pin code', $pinCode);

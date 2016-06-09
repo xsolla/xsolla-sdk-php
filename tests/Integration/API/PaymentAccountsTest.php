@@ -7,20 +7,10 @@ namespace Xsolla\SDK\Tests\Integration\API;
  */
 class PaymentAccountsTest extends AbstractAPITest
 {
-    protected static $userId;
-
-    public function setUp()
-    {
-        parent::setUp();
-        if (!static::$userId) {
-            static::$userId = 'Game User';
-        }
-    }
-
     public function testListPaymentAccounts()
     {
-        $response = $this->xsollaClient->ListPaymentAccounts(array(
-            'project_id' => $this->projectId,
+        $response = static::$xsollaClient->ListPaymentAccounts(array(
+            'project_id' => static::$projectId,
             'user_id' => static::$userId,
         ));
         static::assertInternalType('array', $response);
@@ -28,11 +18,11 @@ class PaymentAccountsTest extends AbstractAPITest
 
     public function testChargePaymentAccount()
     {
-        static::markTestIncomplete('TODO: 404');
+        static::markTestIncomplete('We haven\'t test payment account yet.');
     }
 
     public function testDeletePaymentAccount()
     {
-        static::markTestIncomplete('TODO: 404');
+        static::markTestIncomplete('We haven\'t test payment account yet.');
     }
 }

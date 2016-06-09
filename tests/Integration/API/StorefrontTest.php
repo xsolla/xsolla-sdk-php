@@ -7,26 +7,17 @@ namespace Xsolla\SDK\Tests\Integration\API;
  */
 class StorefrontTest extends AbstractAPITest
 {
-    protected $currency;
-    protected $language;
-    protected $userId;
-
-    public function setUp()
-    {
-        parent::setUp();
-        $this->currency = 'USD';
-        $this->language = 'en';
-        $this->userId = 'test';
-    }
+    const LANGUAGE = 'en';
+    const CURRENCY = 'USD';
 
     public function testGetStorefrontVirtualCurrency()
     {
-        $response = $this->xsollaClient->GetStorefrontVirtualCurrency(
+        $response = static::$xsollaClient->GetStorefrontVirtualCurrency(
             array(
-                'project_id' => $this->projectId,
-                'user_id' => $this->userId,
-                'language' => $this->language,
-                'currency' => $this->currency,
+                'project_id' => static::$projectId,
+                'user_id' => static::$userId,
+                'language' => self::LANGUAGE,
+                'currency' => self::CURRENCY,
             )
         );
         static::assertInternalType('array', $response);
@@ -34,12 +25,12 @@ class StorefrontTest extends AbstractAPITest
 
     public function testGetStorefrontVirtualGroups()
     {
-        $response = $this->xsollaClient->GetStorefrontVirtualGroups(
+        $response = static::$xsollaClient->GetStorefrontVirtualGroups(
             array(
-                'project_id' => $this->projectId,
-                'user_id' => $this->userId,
-                'language' => $this->language,
-                'currency' => $this->currency,
+                'project_id' => static::$projectId,
+                'user_id' => static::$userId,
+                'language' => self::LANGUAGE,
+                'currency' => self::CURRENCY,
             )
         );
         static::assertInternalType('array', $response);
@@ -47,12 +38,12 @@ class StorefrontTest extends AbstractAPITest
 
     public function testGetStorefrontVirtualItems()
     {
-        $response = $this->xsollaClient->GetStorefrontVirtualItems(
+        $response = static::$xsollaClient->GetStorefrontVirtualItems(
             array(
-                'project_id' => $this->projectId,
-                'user_id' => $this->userId,
-                'language' => $this->language,
-                'currency' => $this->currency,
+                'project_id' => static::$projectId,
+                'user_id' => static::$userId,
+                'language' => self::LANGUAGE,
+                'currency' => self::CURRENCY,
                 'group_id' => 7,
             )
         );
@@ -61,12 +52,12 @@ class StorefrontTest extends AbstractAPITest
 
     public function testGetStorefrontSubscriptions()
     {
-        $response = $this->xsollaClient->GetStorefrontSubscriptions(
+        $response = static::$xsollaClient->GetStorefrontSubscriptions(
             array(
-                'project_id' => $this->projectId,
-                'user_id' => $this->userId,
-                'language' => $this->language,
-                'currency' => $this->currency,
+                'project_id' => static::$projectId,
+                'user_id' => static::$userId,
+                'language' => self::LANGUAGE,
+                'currency' => self::CURRENCY,
             )
         );
         static::assertInternalType('array', $response);
@@ -74,12 +65,12 @@ class StorefrontTest extends AbstractAPITest
 
     public function testGetStorefrontBonus()
     {
-        $response = $this->xsollaClient->GetStorefrontBonus(
+        $response = static::$xsollaClient->GetStorefrontBonus(
             array(
-                'project_id' => $this->projectId,
-                'user_id' => $this->userId,
-                'language' => $this->language,
-                'currency' => $this->currency,
+                'project_id' => static::$projectId,
+                'user_id' => static::$userId,
+                'language' => self::LANGUAGE,
+                'currency' => self::CURRENCY,
             )
         );
         static::assertInternalType('array', $response);

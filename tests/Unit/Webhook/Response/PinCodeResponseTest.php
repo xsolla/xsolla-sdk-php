@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\Tests\Webhook\Message;
+namespace Xsolla\SDK\Tests\Unit\Webhook\Message;
 
 use Xsolla\SDK\Webhook\Response\PinCodeResponse;
 
@@ -15,7 +15,7 @@ class PinCodeResponseTest extends \PHPUnit_Framework_TestCase
             '\Xsolla\SDK\Exception\Webhook\XsollaWebhookException',
             'Pin code should be non-empty string. stdClass given'
         );
-        new PinCodeResponse(new \StdClass());
+        new PinCodeResponse(new \stdClass());
     }
 
     public function testPinCodeIsEmptyString()

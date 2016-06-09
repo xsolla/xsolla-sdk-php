@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\Tests\API\PaymentUI;
+namespace Xsolla\SDK\Tests\Unit\API\PaymentUI;
 
 use Xsolla\SDK\API\PaymentUI\TokenRequest;
 

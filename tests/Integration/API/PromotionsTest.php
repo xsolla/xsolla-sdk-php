@@ -2,9 +2,6 @@
 
 namespace Xsolla\SDK\Tests\Integration\API;
 
-use Xsolla\SDK\API\XsollaClient;
-use Xsolla\SDK\Exception\API\UnprocessableEntityException;
-
 /**
  * @group api
  */
@@ -18,26 +15,26 @@ class PromotionsTest extends AbstractAPITest
     {
         parent::setUp();
         $this->promotion = array(
-            'technical_name' => uniqid('promotion_'),
+            'technical_name' => uniqid('promotion_', false),
             'name' => array(
                 'en' => 'name',
             ),
             'description' => array(
                 'en' => 'description',
             ),
-            'project_id' => $this->projectId,
+            'project_id' => static::$projectId,
         );
     }
 
     public function testListPromotions()
     {
-        $response = $this->xsollaClient->ListPromotions();
+        $response = static::$xsollaClient->ListPromotions();
         static::assertInternalType('array', $response);
     }
 
     public function testCreatePromotion()
     {
-        $response = $this->xsollaClient->CreatePromotion(array(
+        $response = static::$xsollaClient->CreatePromotion(array(
             'request' => $this->promotion,
         ));
         static::assertArrayHasKey('id', $response);
@@ -49,7 +46,7 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testGetPromotion()
     {
-        $response = $this->xsollaClient->GetPromotion(array(
+        $response = static::$xsollaClient->GetPromotion(array(
             'promotion_id' => static::$promotionId,
         ));
         static::assertInternalType('array', $response);
@@ -60,7 +57,7 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testUpdatePromotion()
     {
-        $this->xsollaClient->UpdatePromotion(array(
+        static::$xsollaClient->UpdatePromotion(array(
             'promotion_id' => static::$promotionId,
             'request' => $this->promotion,
         ));
@@ -71,7 +68,7 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testSetPromotionSubject()
     {
-        $this->xsollaClient->SetPromotionSubject(array(
+        static::$xsollaClient->SetPromotionSubject(array(
             'promotion_id' => static::$promotionId,
             'request' => array(
                 'purchase' => false,
@@ -86,33 +83,23 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testGetPromotionSubject()
     {
-        $response = $this->xsollaClient->GetPromotionSubject(array(
+        $response = static::$xsollaClient->GetPromotionSubject(array(
             'promotion_id' => static::$promotionId,
         ));
         static::assertInternalType('array', $response);
     }
 
-    /**
-     * @depends testGetPromotionSubject
-     */
     public function testSetPromotionPaymentSystems()
     {
-        $this->xsollaClient->SetPromotionPaymentSystems(array(
-            'promotion_id' => static::$promotionId,
-            'request' => array(
-                'payment_systems' => array(
-                    array('id' => 24),
-                ),
-            ),
-        ));
+        static::markTestIncomplete('We haven\'t allowed payment systems for test project yet.');
     }
 
     /**
-     * @depends testSetPromotionPaymentSystems
+     * @depends testGetPromotionSubject
      */
     public function testGetPromotionPaymentSystems()
     {
-        $response = $this->xsollaClient->GetPromotionPaymentSystems(array(
+        $response = static::$xsollaClient->GetPromotionPaymentSystems(array(
             'promotion_id' => static::$promotionId,
         ));
         static::assertInternalType('array', $response);
@@ -125,7 +112,7 @@ class PromotionsTest extends AbstractAPITest
     {
         $randomFutureTimestamp = mt_rand(time() + 60, 2147483647);
         $datetimeStart = \DateTime::createFromFormat('U', $randomFutureTimestamp, new \DateTimeZone('UTC'));
-        $this->xsollaClient->SetPromotionPeriods(array(
+        static::$xsollaClient->SetPromotionPeriods(array(
             'promotion_id' => static::$promotionId,
             'request' => array(
                 'periods' => array(
@@ -143,7 +130,7 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testGetPromotionPeriods()
     {
-        $response = $this->xsollaClient->GetPromotionPeriods(array(
+        $response = static::$xsollaClient->GetPromotionPeriods(array(
             'promotion_id' => static::$promotionId,
         ));
         static::assertInternalType('array', $response);
@@ -154,7 +141,7 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testSetPromotionRewards()
     {
-        $this->xsollaClient->SetPromotionRewards(array(
+        static::$xsollaClient->SetPromotionRewards(array(
             'promotion_id' => static::$promotionId,
             'request' => array(
                 'purchase' => array(
@@ -169,7 +156,7 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testGetPromotionRewards()
     {
-        $response = $this->xsollaClient->GetPromotionRewards(array(
+        $response = static::$xsollaClient->GetPromotionRewards(array(
             'promotion_id' => static::$promotionId,
         ));
         static::assertInternalType('array', $response);
@@ -180,7 +167,7 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testReviewPromotion()
     {
-        $response = $this->xsollaClient->ReviewPromotion(array(
+        $response = static::$xsollaClient->ReviewPromotion(array(
             'promotion_id' => static::$promotionId,
         ));
         static::assertInternalType('array', $response);
@@ -191,17 +178,9 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testTogglePromotion()
     {
-        try {
-            $this->xsollaClient->TogglePromotion(array(
-                'promotion_id' => static::$promotionId,
-            ));
-        } catch (UnprocessableEntityException $e) {
-            if (false === strpos($e->getMessage(), 'The promotion is not ready for launch')) {
-                throw $e;
-            } else {
-                static::markTestIncomplete('The promotion is not ready for launch');
-            }
-        }
+        static::$xsollaClient->TogglePromotion(array(
+            'promotion_id' => static::$promotionId,
+        ));
     }
 
     /**
@@ -209,7 +188,7 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testDeletePromotion()
     {
-        $this->xsollaClient->DeletePromotion(array(
+        static::$xsollaClient->DeletePromotion(array(
             'promotion_id' => static::$promotionId,
         ));
     }

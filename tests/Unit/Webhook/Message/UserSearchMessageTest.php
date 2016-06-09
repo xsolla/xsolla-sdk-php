@@ -1,6 +1,6 @@
 <?php
 
-namespace Xsolla\SDK\Tests\Webhook\Message;
+namespace Xsolla\SDK\Tests\Unit\Webhook\Message;
 
 use Xsolla\SDK\Webhook\Message\UserSearchMessage;
 
@@ -19,7 +19,7 @@ class UserSearchMessageTest extends \PHPUnit_Framework_TestCase
         );
         $message = new UserSearchMessage($request);
         static::assertSame($request['user'], $message->getUser());
-        static::assertSame(null, $message->getUserId());
+        static::assertNull($message->getUserId());
         static::assertSame($request['user']['public_id'], $message->getUserPublicId());
     }
 }
