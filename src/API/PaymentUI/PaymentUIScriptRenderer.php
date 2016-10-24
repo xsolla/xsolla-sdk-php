@@ -24,7 +24,7 @@ class PaymentUIScriptRenderer
     public static function render($token, $isSandbox = false)
     {
         $template =
-<<<EOF
+<<<'EOF'
 <script>
     var options = {
         access_token: '%s',

@@ -18,16 +18,29 @@ class ReportsTest extends AbstractAPITest
         static::assertInternalType('array', $response);
     }
 
+    public function testSearchPaymentsRegistryWithParams()
+    {
+        $response = static::$xsollaClient->SearchPaymentsRegistry(array(
+            'format' => 'json',
+            'type' => 'all',
+            'limit' => 2,
+            'offset' => 0,
+            'status' => 'created',
+        ));
+        static::assertInternalType('array', $response);
+    }
+
     public function testListPaymentsRegistry()
     {
         $response = static::$xsollaClient->ListPaymentsRegistry(array(
             'format' => 'json',
-            'datetime_from' => '2015-01-01T00:00:00 UTC',
-            'datetime_to' => '2015-01-02T00:00:00 UTC',
+            'datetime_from' => '2015-01-01',
+            'datetime_to' => '2015-01-02',
             'in_transfer_currency' => false,
             'limit' => 2,
             'offset' => 0,
             'show_total' => true,
+            'status' => 'done',
         ));
         static::assertInternalType('array', $response);
     }

@@ -81,7 +81,6 @@ switch ($testCase) {
         break;
     default:
         $callback = function () {
-
         };
 }
 $server = WebhookServer::create($callback, ServerTest::PROJECT_SECRET_KEY);

@@ -50,6 +50,17 @@ class VirtualItemsTest extends AbstractAPITest
         static::assertInternalType('array', $response);
     }
 
+    public function testListVirtualItemsWithParams()
+    {
+        $response = static::$xsollaClient->ListVirtualItems(array(
+            'project_id' => static::$projectId,
+            'offset' => 0,
+            'limit' => 100,
+            'has_price' => 'virtual_currency',
+        ));
+        static::assertInternalType('array', $response);
+    }
+
     public function testCreateVirtualItemsGroup()
     {
         $response = static::$xsollaClient->CreateVirtualItemsGroup(array(

@@ -13,7 +13,7 @@ class XsollaAPIException extends XsollaException
     );
 
     protected static $messageTemplate =
-<<<EOF
+<<<'EOF'
 Xsolla API Error Response:
 
 Previous Exception:
