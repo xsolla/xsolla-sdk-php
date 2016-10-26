@@ -45,13 +45,36 @@ class WalletTest extends AbstractAPITest
         static::assertInternalType('array', $response);
     }
 
+    public function testListWalletUsersWithParams()
+    {
+        $response = static::$xsollaClient->ListWalletUsers(array(
+            'project_id' => static::$projectId,
+            'limit' => 1,
+            'offset' => 0,
+            'user_requisites' => static::$userId,
+        ));
+        static::assertInternalType('array', $response);
+    }
+
     public function testListWalletUserOperations()
     {
         $response = static::$xsollaClient->ListWalletUserOperations(array(
             'project_id' => static::$projectId,
             'user_id' => static::$userId,
-            'datetime_from' => '2015-01-01T00:00:00 UTC',
-            'datetime_to' => '2016-01-01T00:00:00 UTC',
+            'datetime_from' => '2015-01-01T00:00:00Z',
+            'datetime_to' => '2016-01-01T00:00:00Z',
+        ));
+        static::assertInternalType('array', $response);
+    }
+
+    public function testListWalletUserOperationsWithParams()
+    {
+        $response = static::$xsollaClient->ListWalletUserOperations(array(
+            'project_id' => static::$projectId,
+            'user_id' => static::$userId,
+            'datetime_from' => '2015-01-01T00:00:00Z',
+            'datetime_to' => '2016-01-01T00:00:00Z',
+            'transaction_type' => 'payment',
         ));
         static::assertInternalType('array', $response);
     }

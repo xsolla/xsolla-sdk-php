@@ -135,6 +135,31 @@ return array(
                     'type' => 'integer',
                     'required' => true,
                 ),
+                'external_id' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'limit' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => false,
+                ),
+                'offset' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => false,
+                ),
+                'group_id' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'product_id' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => false,
+                ),
             ),
         ),
         'CreateSubscriptionProduct' => array(
@@ -212,6 +237,11 @@ return array(
                 'group_id' => array(
                     'location' => 'query',
                     'type' => 'string',
+                    'required' => false,
+                ),
+                'product_id' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
                     'required' => false,
                 ),
                 'limit' => array(
@@ -292,6 +322,16 @@ return array(
                     'required' => false,
                 ),
                 'datetime_to' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'plan_id' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'product_id' => array(
                     'location' => 'query',
                     'type' => 'string',
                     'required' => false,
@@ -581,6 +621,21 @@ return array(
                     'type' => 'integer',
                     'required' => true,
                 ),
+                'offset' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => false,
+                ),
+                'limit' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => false,
+                ),
+                'has_price' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
             ),
         ),
         'CreateVirtualItemsGroup' => array(
@@ -805,7 +860,7 @@ return array(
                     'type' => 'string',
                     'required' => false,
                 ),
-                'phone' => array(
+                'user_requisites' => array(
                     'location' => 'query',
                     'type' => 'string',
                     'required' => false,
@@ -846,6 +901,11 @@ return array(
                     'location' => 'query',
                     'type' => 'string',
                     'required' => true,
+                ),
+                'transaction_type' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
                 ),
             ),
         ),
@@ -1414,6 +1474,11 @@ return array(
                     'type' => 'string',
                     'required' => true,
                 ),
+                'status' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
             ),
         ),
         'ListPaymentsRegistry' => array(
@@ -1486,6 +1551,11 @@ return array(
                     'location' => 'query',
                     'type' => 'boolean',
                     'required' => true,
+                ),
+                'status' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
                 ),
             ),
         ),
@@ -1572,6 +1642,41 @@ return array(
                     'type' => 'integer',
                     'static' => true,
                     'required' => true,
+                ),
+                'datetime_from' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'datetime_to' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'status' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'type' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ),
+                'offset' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => false,
+                ),
+                'limit' => array(
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => false,
+                ),
+                'sender' => array(
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
                 ),
             ),
         ),

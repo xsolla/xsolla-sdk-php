@@ -10,4 +10,5 @@ $client = XsollaClient::factory(array(
     'api_key' => 'API_KEY',
 ));
 
-$webhookServer = WebhookServer::create(function () {}, 'PROJECT_SECRET_KEY');
+$webhookServer = WebhookServer::create(function () {
+}, 'PROJECT_SECRET_KEY');
