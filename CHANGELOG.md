@@ -1,7 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.6.0...master)
+## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.6.1...master)
+
+## [v2.6.1](https://github.com/xsolla/xsolla-sdk-php/compare/v2.6.0...v2.6.1) - 2016-10-26
 ### Fixed
 * Added missing parameters for GET requests
 
