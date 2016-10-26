@@ -30,14 +30,14 @@ An official PHP SDK for interacting with [Xsolla API](http://developers.xsolla.c
 
 ## Getting Started
 
-Please register your [Merchant Account](https://merchant.xsolla.com/signup) and create the project.
+Please register your [Merchant Account](https://publisher.xsolla.com/signup) and create the project.
 In order to use the PHP SDK Library you'll need:
 * MERCHANT_ID
 * API_KEY
 * PROJECT_ID
 * PROJECT_KEY
 
-You can obtain these parameters using the information in your [Company Profile](https://merchant.xsolla.com/company) and [Project Settings](https://merchant.xsolla.com/projects).
+You can obtain these parameters using the information in your [Company Profile](https://publisher.xsolla.com/company) and [Project Settings](https://publisher.xsolla.com/projects).
 
 ## Installation
 
