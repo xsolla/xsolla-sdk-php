@@ -109,6 +109,18 @@ class TokenRequest
     }
 
     /**
+     * @param array $userAttributes
+     *
+     * @return self
+     */
+    public function setUserAttributes(array $userAttributes)
+    {
+        $this->data['user']['attributes'] = $userAttributes;
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function toArray()
