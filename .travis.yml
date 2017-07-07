@@ -1,5 +1,4 @@
 language: php
-dist: trusty
 
 sudo: false
 
@@ -22,6 +21,7 @@ matrix:
     - php: 7.0
       env: RUN_PHP_CS_FIXER=true RUN_SCRUTINIZER=true PHPUNIT_OPTIONS="--coverage-clover=coverage.clover"
     - php: hhvm
+      dist: trusty
       env: PHPUNIT_OPTIONS="--exclude-group webhook-php-server"
     - php: 5.3
       env: PHPUNIT_OPTIONS="--exclude-group webhook-php-server"
