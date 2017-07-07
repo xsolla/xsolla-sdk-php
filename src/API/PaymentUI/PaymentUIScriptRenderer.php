@@ -33,7 +33,7 @@ class PaymentUIScriptRenderer
     var s = document.createElement('script');
     s.type = "text/javascript";
     s.async = true;
-    s.src = "//static.xsolla.com/embed/paystation/1.0.2/widget.min.js";
+    s.src = "//static.xsolla.com/embed/paystation/1.0.7/widget.min.js";
     s.addEventListener('load', function (e) {
         XPayStationWidget.init(options);
     }, false);
