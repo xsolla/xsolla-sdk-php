@@ -144,7 +144,7 @@ Once you've finished the handling of notifications on your server, please set up
 
 ## Troubleshooting
 
-You can find solutions for the most frequently encountered errors in our [documentation](http://developers.xsolla.com/#php_troubleshooting).
+You can find solutions for the most frequently encountered errors in our [documentation](https://developers.xsolla.com/sdk.html#php_troubleshooting).
 
 ## Contributing
 
