@@ -7,7 +7,7 @@
 [![Join the chat at https://gitter.im/xsolla/xsolla-sdk-php](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/xsolla/xsolla-sdk-php?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/xsolla/xsolla-sdk-php/master/LICENSE)
 
-An official PHP SDK for interacting with [Xsolla API](http://developers.xsolla.com)
+An official PHP SDK for interacting with [Xsolla API](https://developers.xsolla.com/api/)
 
 ![Payment UI screenshot](http://xsolla.cachefly.net/img/ps3_github2.png)
 
@@ -144,7 +144,7 @@ Once you've finished the handling of notifications on your server, please set up
 
 ## Troubleshooting
 
-You can find solutions for the most frequently encountered errors in our [documentation](https://developers.xsolla.com/sdk.html#php_troubleshooting).
+You can find solutions for the most frequently encountered errors in our [documentation](https://developers.xsolla.com/doc/sdk/#php_sdk_troubleshooting).
 
 ## Contributing
 
