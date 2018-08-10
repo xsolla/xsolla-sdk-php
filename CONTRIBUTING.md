@@ -14,7 +14,7 @@
 1. Make changes. Please make sure that you don't break backward compatibility
 1. Add unit tests. Also add integration tests if needed
 1. Add new section to [CHANGELOG.md](CHANGELOG.md) with clear description. Please follow [keepachangelog.com](http://keepachangelog.com/) guide.
-1. Run `php vendor/bin/php-cs-fixer fix .` before commit
+1. Run `php vendor/bin/php-cs-fixer fix . --allow-risky=yes` before commit
 1. Run tests before commit `php vendor/bin/phpunit`
 1. Commit changes. Please use description of your patch from [CHANGELOG.md](CHANGELOG.md) for commit message.
 

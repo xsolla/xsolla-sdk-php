@@ -14,16 +14,16 @@ class PromotionsTest extends AbstractAPITest
     public function setUp()
     {
         parent::setUp();
-        $this->promotion = array(
+        $this->promotion = [
             'technical_name' => uniqid('promotion_', false),
-            'name' => array(
+            'name' => [
                 'en' => 'name',
-            ),
-            'description' => array(
+            ],
+            'description' => [
                 'en' => 'description',
-            ),
+            ],
             'project_id' => static::$projectId,
-        );
+        ];
     }
 
     public function testListPromotions()
@@ -34,9 +34,9 @@ class PromotionsTest extends AbstractAPITest
 
     public function testCreatePromotion()
     {
-        $response = static::$xsollaClient->CreatePromotion(array(
+        $response = static::$xsollaClient->CreatePromotion([
             'request' => $this->promotion,
-        ));
+        ]);
         static::assertArrayHasKey('id', $response);
         static::$promotionId = $response['id'];
     }
@@ -46,9 +46,9 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testGetPromotion()
     {
-        $response = static::$xsollaClient->GetPromotion(array(
+        $response = static::$xsollaClient->GetPromotion([
             'promotion_id' => static::$promotionId,
-        ));
+        ]);
         static::assertInternalType('array', $response);
     }
 
@@ -57,10 +57,10 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testUpdatePromotion()
     {
-        static::$xsollaClient->UpdatePromotion(array(
+        static::$xsollaClient->UpdatePromotion([
             'promotion_id' => static::$promotionId,
             'request' => $this->promotion,
-        ));
+        ]);
     }
 
     /**
@@ -68,14 +68,14 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testSetPromotionSubject()
     {
-        static::$xsollaClient->SetPromotionSubject(array(
+        static::$xsollaClient->SetPromotionSubject([
             'promotion_id' => static::$promotionId,
-            'request' => array(
+            'request' => [
                 'purchase' => false,
                 'items' => null,
-                'packages' => array(1),
-            ),
-        ));
+                'packages' => [1],
+            ],
+        ]);
     }
 
     /**
@@ -83,9 +83,9 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testGetPromotionSubject()
     {
-        $response = static::$xsollaClient->GetPromotionSubject(array(
+        $response = static::$xsollaClient->GetPromotionSubject([
             'promotion_id' => static::$promotionId,
-        ));
+        ]);
         static::assertInternalType('array', $response);
     }
 
@@ -99,9 +99,9 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testGetPromotionPaymentSystems()
     {
-        $response = static::$xsollaClient->GetPromotionPaymentSystems(array(
+        $response = static::$xsollaClient->GetPromotionPaymentSystems([
             'promotion_id' => static::$promotionId,
-        ));
+        ]);
         static::assertInternalType('array', $response);
     }
 
@@ -112,17 +112,17 @@ class PromotionsTest extends AbstractAPITest
     {
         $randomFutureTimestamp = mt_rand(time() + 60, 2147483647);
         $datetimeStart = \DateTime::createFromFormat('U', $randomFutureTimestamp, new \DateTimeZone('UTC'));
-        static::$xsollaClient->SetPromotionPeriods(array(
+        static::$xsollaClient->SetPromotionPeriods([
             'promotion_id' => static::$promotionId,
-            'request' => array(
-                'periods' => array(
-                    array(
+            'request' => [
+                'periods' => [
+                    [
                         'from' => $datetimeStart->format(\DateTime::ISO8601),
                         'to' => $datetimeStart->modify('+ 1 second')->format(\DateTime::ISO8601),
-                    ),
-                ),
-            ),
-        ));
+                    ],
+                ],
+            ],
+        ]);
     }
 
     /**
@@ -130,9 +130,9 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testGetPromotionPeriods()
     {
-        $response = static::$xsollaClient->GetPromotionPeriods(array(
+        $response = static::$xsollaClient->GetPromotionPeriods([
             'promotion_id' => static::$promotionId,
-        ));
+        ]);
         static::assertInternalType('array', $response);
     }
 
@@ -141,14 +141,14 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testSetPromotionRewards()
     {
-        static::$xsollaClient->SetPromotionRewards(array(
+        static::$xsollaClient->SetPromotionRewards([
             'promotion_id' => static::$promotionId,
-            'request' => array(
-                'purchase' => array(
+            'request' => [
+                'purchase' => [
                     'discount_percent' => 10,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
     }
 
     /**
@@ -156,9 +156,9 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testGetPromotionRewards()
     {
-        $response = static::$xsollaClient->GetPromotionRewards(array(
+        $response = static::$xsollaClient->GetPromotionRewards([
             'promotion_id' => static::$promotionId,
-        ));
+        ]);
         static::assertInternalType('array', $response);
     }
 
@@ -167,9 +167,9 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testReviewPromotion()
     {
-        $response = static::$xsollaClient->ReviewPromotion(array(
+        $response = static::$xsollaClient->ReviewPromotion([
             'promotion_id' => static::$promotionId,
-        ));
+        ]);
         static::assertInternalType('array', $response);
     }
 
@@ -178,9 +178,9 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testTogglePromotion()
     {
-        static::$xsollaClient->TogglePromotion(array(
+        static::$xsollaClient->TogglePromotion([
             'promotion_id' => static::$promotionId,
-        ));
+        ]);
     }
 
     /**
@@ -188,8 +188,8 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testDeletePromotion()
     {
-        static::$xsollaClient->DeletePromotion(array(
+        static::$xsollaClient->DeletePromotion([
             'promotion_id' => static::$promotionId,
-        ));
+        ]);
     }
 }

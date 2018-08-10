@@ -15,7 +15,7 @@ class SupportTest extends AbstractAPITest
 
     public function testListSupportTicketsWithParams()
     {
-        $response = static::$xsollaClient->ListSupportTickets(array(
+        $response = static::$xsollaClient->ListSupportTickets([
             'merchant_id' => static::$merchantId,
             'datetime_from' => '2015-01-01T00:00:00Z',
             'datetime_to' => '2015-01-02T00:00:00Z',
@@ -24,7 +24,7 @@ class SupportTest extends AbstractAPITest
             'offset' => 0,
             'limit' => 100,
             'sender' => 'user',
-        ));
+        ]);
         static::assertInternalType('array', $response);
     }
 

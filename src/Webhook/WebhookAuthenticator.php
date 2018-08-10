@@ -8,12 +8,12 @@ use Xsolla\SDK\Exception\Webhook\InvalidSignatureException;
 
 class WebhookAuthenticator
 {
-    protected static $xsollaSubnets = array(
+    protected static $xsollaSubnets = [
         '159.255.220.240/28',
         '185.30.20.16/29',
         '185.30.21.0/24',
         '185.30.21.16/29',
-    );
+    ];
 
     /**
      * @var string
@@ -70,7 +70,7 @@ class WebhookAuthenticator
         if (!array_key_exists('authorization', $headers)) {
             throw new InvalidSignatureException('"Authorization" header not found in Xsolla webhook request. Please check troubleshooting section in README.md https://github.com/xsolla/xsolla-sdk-php#troubleshooting');
         }
-        $matches = array();
+        $matches = [];
         preg_match('~^Signature ([0-9a-f]{40})$~', $headers['authorization'], $matches);
         if (array_key_exists(1, $matches)) {
             $clientSignature = $matches[1];
