@@ -12,17 +12,17 @@
       "source": "https://github.com/xsolla/xsolla-sdk-php/releases"
     },
     "require": {
-        "php": ">=5.3.9",
+        "php": ">=7.1.3 <7.3",
         "ext-curl": "*",
         "ext-json": "*",
         "guzzle/guzzle": "~3.8",
-        "symfony/http-foundation": "~2.3 || ~3.0"
+        "symfony/http-foundation": "~4.1"
     },
     "require-dev": {
-      "phpunit/phpunit": "~4.0 || ~5.0",
-      "symfony/process": "~2.3 || ~3.0",
-      "friendsofphp/php-cs-fixer": "~1.10",
-      "mtdowling/burgomaster": "^0.0.2"
+      "phpunit/phpunit": "~7.0",
+      "symfony/process": "~4.0",
+      "friendsofphp/php-cs-fixer": "~2.12",
+      "mtdowling/burgomaster": "^0.0.3"
     },
     "autoload": {
         "psr-4": {
