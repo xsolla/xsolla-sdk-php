@@ -2,35 +2,36 @@
 
 namespace Xsolla\SDK\Tests\Unit\Webhook\Message;
 
+use PHPUnit\Framework\TestCase;
 use Xsolla\SDK\Webhook\Message\CreateSubscriptionMessage;
 
 /**
  * @group unit
  */
-class CreateSubscriptionMessageTest extends \PHPUnit_Framework_TestCase
+class CreateSubscriptionMessageTest extends TestCase
 {
-    protected $request = array(
+    protected $request = [
         'notification_type' => 'create_subscription',
-        'user' => array(
+        'user' => [
                 'id' => '1234567',
                 'name' => 'Xsolla User',
-            ),
-        'subscription' => array(
+            ],
+        'subscription' => [
                 'plan_id' => 1,
                 'subscription_id' => '10',
                 'product_id' => 'Demo Product',
                 'date_create' => '2014-09-22T19:25:25+04:00',
                 'date_next_charge' => '2015-01-22T19:25:25+04:00',
-                'trial' => array(
+                'trial' => [
                         'value' => 90,
                         'type' => 'day',
-                    ),
-            ),
-        'coupon' => array(
+                    ],
+            ],
+        'coupon' => [
                 'coupon_code' => 'ICvj45S4FUOyy',
                 'campaign_code' => '1507',
-            ),
-    );
+            ],
+    ];
 
     public function test()
     {

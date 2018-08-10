@@ -9,10 +9,10 @@ class EventsTest extends AbstractAPITest
 {
     public function testListEvents()
     {
-        $events = static::$xsollaClient->ListEvents(array(
+        $events = static::$xsollaClient->ListEvents([
             'limit' => 1,
             'offset' => 0,
-        ));
+        ]);
         static::assertInternalType('array', $events);
     }
 }
