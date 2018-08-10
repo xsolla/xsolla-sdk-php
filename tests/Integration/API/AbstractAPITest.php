@@ -2,10 +2,11 @@
 
 namespace Xsolla\SDK\Tests\Integration\API;
 
+use PHPUnit\Framework\TestCase;
 use Xsolla\SDK\API\XsollaClient;
 use Xsolla\SDK\Tests\Helper\XsollaClientHelper;
 
-abstract class AbstractAPITest extends \PHPUnit_Framework_TestCase
+abstract class AbstractAPITest extends TestCase
 {
     /**
      * @var XsollaClient
@@ -37,21 +38,21 @@ abstract class AbstractAPITest extends \PHPUnit_Framework_TestCase
 
     public function generateVirtualItemTemplate($sku)
     {
-        return array(
+        return [
             'sku' => $sku,
-            'name' => array(
+            'name' => [
                 'en' => 'Virtual Item',
-            ),
-            'description' => array(
+            ],
+            'description' => [
                 'en' => 'Virtual Item Description',
-            ),
-            'prices' => array(
+            ],
+            'prices' => [
                 'USD' => 1,
-            ),
+            ],
             'default_currency' => 'USD',
             'enabled' => true,
             'disposable' => false,
             'item_type' => 'Consumable',
-        );
+        ];
     }
 }

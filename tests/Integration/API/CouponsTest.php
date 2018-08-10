@@ -9,22 +9,22 @@ class CouponsTest extends AbstractAPITest
 {
     public function testGetCoupon()
     {
-        $actualCouponData = static::$xsollaClient->GetCoupon(array(
+        $actualCouponData = static::$xsollaClient->GetCoupon([
             'project_id' => static::$projectId,
             'code' => getenv('COUPON_CODE'),
-        ));
+        ]);
         static::assertInternalType('array', $actualCouponData);
     }
 
     public function testRedeemCoupon()
     {
-        $actualCouponData = static::$xsollaClient->RedeemCoupon(array(
+        $actualCouponData = static::$xsollaClient->RedeemCoupon([
             'project_id' => static::$projectId,
             'code' => getenv('COUPON_CODE'),
-            'request' => array(
+            'request' => [
                 'user_id' => static::$userId,
-            ),
-        ));
+            ],
+        ]);
         static::assertInternalType('array', $actualCouponData);
     }
 }

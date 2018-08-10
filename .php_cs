@@ -1,25 +1,25 @@
 <?php
 
-$finder = Symfony\CS\Finder\DefaultFinder::create()
+$finder = PhpCsFixer\Finder::create()
     ->in(__DIR__)
     ->exclude('build/artifacts')
     ->exclude('vendor')
 ;
 
-return Symfony\CS\Config\Config::create()
-    ->fixers(array(
-        '-psr0',
-        'symfony',
-        'long_array_syntax',
-        '-phpdoc_separation',
-        'strict',
-        'short_echo_tag',
-        'phpdoc_order',
-        'php_unit_strict',
-        'php_unit_construct',
-        'php4_constructor',
-        'ordered_use',
-        'newline_after_open_tag',
-    ))
-    ->finder($finder)
+return PhpCsFixer\Config::create()
+    ->setRules([
+        '@Symfony' => true,
+        'array_syntax' => [
+            'syntax' => 'short'
+        ],
+        'phpdoc_separation' => false,
+        'strict_comparison' => true,
+        'phpdoc_order' => true,
+        'php_unit_strict' => true,
+        'php_unit_construct' => true,
+        'no_php4_constructor' => true,
+        'ordered_imports' => true,
+        'no_short_echo_tag' => true,
+    ])
+    ->setFinder($finder)
     ;
