@@ -19,10 +19,10 @@ class XsollaClientHelper
 
     private static function createXsollaClient($merchantId, $apiKey)
     {
-        $xsollaClient = XsollaClient::factory(array(
+        $xsollaClient = XsollaClient::factory([
             'merchant_id' => $merchantId,
             'api_key' => $apiKey,
-        ));
+        ]);
         if (DebugHelper::isDebug()) {
             DebugHelper::addDebugOptionsToHttpClient($xsollaClient);
         }

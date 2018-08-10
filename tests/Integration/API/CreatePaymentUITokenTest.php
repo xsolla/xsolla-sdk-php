@@ -19,7 +19,7 @@ class CreatePaymentUITokenTest extends AbstractAPITest
     {
         $tokenRequest = new TokenRequest(static::$projectId, static::$userId);
         $tokenRequest->setUserEmail('email@example.com')
-            ->setCustomParameters(array('a' => 1, 'b' => 2))
+            ->setCustomParameters(['a' => 1, 'b' => 2])
             ->setCurrency('USD')
             ->setSandboxMode(true)
             ->setUserName('USER_NAME')
@@ -38,7 +38,7 @@ class CreatePaymentUITokenTest extends AbstractAPITest
         $request = json_decode($tokenPayload, true);
         $request['settings']['project_id'] = static::$projectId;
         $request['user']['id']['value'] = static::$userId;
-        $tokenResponse = static::$xsollaClient->CreatePaymentUIToken(array('request' => $request));
+        $tokenResponse = static::$xsollaClient->CreatePaymentUIToken(['request' => $request]);
         static::assertArrayHasKey('token', $tokenResponse);
         static::assertInternalType('string', $tokenResponse['token']);
     }

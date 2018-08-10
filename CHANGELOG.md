@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v2.6.1...master)
+### Changed
+* Changed support version of php from 5.* to 7.1.*
 
 ## [v2.6.1](https://github.com/xsolla/xsolla-sdk-php/compare/v2.6.0...v2.6.1) - 2016-10-26
 ### Fixed

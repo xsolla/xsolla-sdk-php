@@ -16,7 +16,7 @@ class UserBalanceMessage extends Message
     public function getVirtualCurrencyBalance()
     {
         if (!array_key_exists('virtual_currency_balance', $this->request)) {
-            return array();
+            return [];
         }
 
         return $this->request['virtual_currency_balance'];
@@ -44,7 +44,7 @@ class UserBalanceMessage extends Message
     public function getCoupon()
     {
         if (!array_key_exists('coupon', $this->request)) {
-            return array();
+            return [];
         }
 
         return $this->request['coupon'];
