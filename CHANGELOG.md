@@ -1,8 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-
 ## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v3.0.0...master)
+### Changed
+* Changed php images at .travis.yml (add php72, php71, delete old php versions)
+* Changed README.md
 
 ## [v3.0.0](https://github.com/xsolla/xsolla-sdk-php/compare/v2.6.2...master)
 ### Added
