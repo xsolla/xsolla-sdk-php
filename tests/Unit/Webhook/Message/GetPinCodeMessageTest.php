@@ -2,25 +2,24 @@
 
 namespace Xsolla\SDK\Tests\Unit\Webhook\Message;
 
-use PHPUnit\Framework\TestCase;
 use Xsolla\SDK\Webhook\Message\GetPinCodeMessage;
 
 /**
  * @group unit
  */
-class GetPinCodeMessageTest extends TestCase
+class GetPinCodeMessageTest extends \PHPUnit_Framework_TestCase
 {
-    protected $request = [
-        'user' => [
+    protected $request = array(
+        'user' => array(
                 'name' => 'Xsolla User',
                 'id' => '1234567',
-            ],
+            ),
         'notification_type' => 'get_pincode',
-        'pin_code' => [
+        'pin_code' => array(
             'digital_content' => 'test123',
             'DRM' => 'steam',
-        ],
-    ];
+        ),
+    );
 
     public function test()
     {

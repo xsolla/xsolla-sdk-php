@@ -74,7 +74,7 @@ class User
 
     public function toJson()
     {
-        $response = [];
+        $response = array();
         if ($this->id) {
             $response['id'] = $this->id;
         }
@@ -91,6 +91,6 @@ class User
             $response['phone'] = $this->phone;
         }
 
-        return XsollaClient::jsonEncode(['user' => $response]);
+        return XsollaClient::jsonEncode(array('user' => $response));
     }
 }

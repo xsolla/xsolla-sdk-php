@@ -2,22 +2,21 @@
 
 namespace Xsolla\SDK\Tests\Unit\Webhook\Message;
 
-use PHPUnit\Framework\TestCase;
 use Xsolla\SDK\Webhook\Message\UserSearchMessage;
 
 /**
  * @group unit
  */
-class UserSearchMessageTest extends TestCase
+class UserSearchMessageTest extends \PHPUnit_Framework_TestCase
 {
     public function testUserPublicId()
     {
-        $request = [
-            'user' => [
+        $request = array(
+            'user' => array(
                 'public_id' => '1234567',
-            ],
+            ),
             'notification_type' => 'user_search',
-        ];
+        );
         $message = new UserSearchMessage($request);
         static::assertSame($request['user'], $message->getUser());
         static::assertNull($message->getUserId());

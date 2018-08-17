@@ -2,38 +2,37 @@
 
 namespace Xsolla\SDK\Tests\Unit\Webhook\Message;
 
-use PHPUnit\Framework\TestCase;
 use Xsolla\SDK\Webhook\Message\UserBalanceMessage;
 
 /**
  * @group unit
  */
-class UserBalanceMessageTest extends TestCase
+class UserBalanceMessageTest extends \PHPUnit_Framework_TestCase
 {
-    protected $request = [
-        'virtual_currency_balance' => [
+    protected $request = array(
+        'virtual_currency_balance' => array(
                 'old_value' => '0',
                 'new_value' => '200',
                 'diff' => '200',
-            ],
-        'user' => [
+            ),
+        'user' => array(
                 'name' => 'Xsolla User',
                 'id' => '1234567',
                 'email' => 'support@xsolla.com',
-            ],
-        'transaction' => [
+            ),
+        'transaction' => array(
                 'id' => '123456789',
                 'date' => '2015-05-19T15:54:40+03:00',
-            ],
+            ),
         'operation_type' => 'payment',
         'notification_type' => 'user_balance_operation',
         'id_operation' => '66989',
-        'coupon' => [
+        'coupon' => array(
             'coupon_code' => 'test123',
             'campaign_code' => 'Xsolla Campaign',
-        ],
+        ),
         'items_operation_type' => 'add',
-    ];
+    );
 
     public function test()
     {
@@ -54,8 +53,8 @@ class UserBalanceMessageTest extends TestCase
             $requestCopy['items_operation_type']
         );
         $message = new UserBalanceMessage($requestCopy);
-        static::assertSame([], $message->getCoupon());
-        static::assertSame([], $message->getVirtualCurrencyBalance());
+        static::assertSame(array(), $message->getCoupon());
+        static::assertSame(array(), $message->getVirtualCurrencyBalance());
         static::assertNull($message->getItemsOperationType());
     }
 }

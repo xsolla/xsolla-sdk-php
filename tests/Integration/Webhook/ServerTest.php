@@ -4,7 +4,6 @@ namespace Xsolla\SDK\Tests\Integration\Webhook;
 
 use Guzzle\Http\Client;
 use Guzzle\Http\Exception\BadResponseException;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Process\Process;
 use Xsolla\SDK\API\XsollaClient;
@@ -14,7 +13,7 @@ use Xsolla\SDK\Version;
 /**
  * @group webhook-php-server
  */
-class ServerTest extends TestCase
+class ServerTest extends \PHPUnit_Framework_TestCase
 {
     const PROJECT_SECRET_KEY = 'PROJECT_SECRET_KEY';
 
@@ -69,7 +68,7 @@ class ServerTest extends TestCase
         if ($testHeaders) {
             $headers = $testHeaders;
         } else {
-            $headers = ['Authorization' => 'Signature '.$signature];
+            $headers = array('Authorization' => 'Signature '.$signature);
         }
         $request = self::$httpClient->post('/webhook_server.php?test_case='.$testCase, $headers, $request);
         try {
@@ -91,250 +90,250 @@ class ServerTest extends TestCase
 
     public function cbProvider()
     {
-        return [
+        return array(
             // notifications
-            'notification_type:payment success' => [
+            'notification_type:payment success' => array(
                 'expectedStatusCode' => 204,
                 'expectedResponseContent' => '',
                 'request' => '{"notification_type": "payment"}',
                 'testCase' => 'payment_success',
                 'testHeaders' => null,
-            ],
-            'notification_type:user_validation success' => [
+            ),
+            'notification_type:user_validation success' => array(
                 'expectedStatusCode' => 204,
                 'expectedResponseContent' => '',
                 'request' => '{"notification_type": "user_validation"}',
                 'testCase' => 'user_validation_success',
                 'testHeaders' => null,
-            ],
-            'notification_type:refund success' => [
+            ),
+            'notification_type:refund success' => array(
                 'expectedStatusCode' => 204,
                 'expectedResponseContent' => '',
                 'request' => '{"notification_type": "refund"}',
                 'testCase' => 'refund_success',
                 'testHeaders' => null,
-            ],
-            'notification_type:create_subscription success' => [
+            ),
+            'notification_type:create_subscription success' => array(
                 'expectedStatusCode' => 204,
                 'expectedResponseContent' => '',
                 'request' => '{"notification_type": "create_subscription"}',
                 'testCase' => 'create_subscription_success',
                 'testHeaders' => null,
-            ],
-            'notification_type:cancel_subscription success' => [
+            ),
+            'notification_type:cancel_subscription success' => array(
                 'expectedStatusCode' => 204,
                 'expectedResponseContent' => '',
                 'request' => '{"notification_type": "cancel_subscription"}',
                 'testCase' => 'cancel_subscription_success',
                 'testHeaders' => null,
-            ],
-            'notification_type:update_subscription success' => [
+            ),
+            'notification_type:update_subscription success' => array(
                 'expectedStatusCode' => 204,
                 'expectedResponseContent' => '',
                 'request' => '{"notification_type": "update_subscription"}',
                 'testCase' => 'update_subscription_success',
                 'testHeaders' => null,
-            ],
-            'notification_type:user_balance_operation success' => [
+            ),
+            'notification_type:user_balance_operation success' => array(
                 'expectedStatusCode' => 204,
                 'expectedResponseContent' => '',
                 'request' => '{"notification_type": "user_balance_operation"}',
                 'testCase' => 'user_balance_operation_success',
                 'testHeaders' => null,
-            ],
+            ),
             //common errors
-            'notification_type not sent' => [
+            'notification_type not sent' => array(
                 'expectedStatusCode' => 422,
                 'expectedResponseContent' => XsollaClient::jsonEncode(
-                    [
-                        'error' => [
+                    array(
+                        'error' => array(
                             'code' => 'INVALID_PARAMETER',
                             'message' => 'notification_type key not found in Xsolla webhook request',
-                        ],
-                    ]
+                        ),
+                    )
                 ),
                 'request' => '{"foo": "bar"}',
                 'testCase' => 'empty_request',
                 'testHeaders' => null,
-            ],
-            'Unknown notification_type sent' => [
+            ),
+            'Unknown notification_type sent' => array(
                 'expectedStatusCode' => 422,
                 'expectedResponseContent' => XsollaClient::jsonEncode(
-                    [
-                        'error' => [
+                    array(
+                        'error' => array(
                             'code' => 'INVALID_PARAMETER',
                             'message' => 'Unknown notification_type in Xsolla webhook request: unknown',
-                        ],
-                    ]
+                        ),
+                    )
                 ),
                 'request' => '{"notification_type": "unknown"}',
                 'testCase' => 'unknown_notification_type',
                 'testHeaders' => null,
-            ],
-            'Invalid signature' => [
+            ),
+            'Invalid signature' => array(
                 'expectedStatusCode' => 401,
                 'expectedResponseContent' => XsollaClient::jsonEncode(
-                    [
-                        'error' => [
+                    array(
+                        'error' => array(
                             'code' => 'INVALID_SIGNATURE',
                             'message' => 'Invalid Signature. Signature provided in "Authorization" header (78143a5ac4b892a68ce8b0b8b49e26667db0fa00) does not match with expected',
-                        ],
-                    ]
+                        ),
+                    )
                 ),
                 'request' => null,
                 'testCase' => 'invalid_signature',
-                'testHeaders' => ['Authorization' => 'Signature 78143a5ac4b892a68ce8b0b8b49e26667db0fa00'],
-            ],
-            'Authorization header not sent' => [
+                'testHeaders' => array('Authorization' => 'Signature 78143a5ac4b892a68ce8b0b8b49e26667db0fa00'),
+            ),
+            'Authorization header not sent' => array(
                 'expectedStatusCode' => 401,
                 'expectedResponseContent' => XsollaClient::jsonEncode(
-                    [
-                        'error' => [
+                    array(
+                        'error' => array(
                             'code' => 'INVALID_SIGNATURE',
                             'message' => '"Authorization" header not found in Xsolla webhook request. Please check troubleshooting section in README.md https://github.com/xsolla/xsolla-sdk-php#troubleshooting',
-                        ],
-                    ]
+                        ),
+                    )
                 ),
                 'request' => null,
                 'testCase' => 'authorization_header_not_found',
-                'testHeaders' => ['foo' => 'bar'],
-            ],
-            'Authorization header has invalid format' => [
+                'testHeaders' => array('foo' => 'bar'),
+            ),
+            'Authorization header has invalid format' => array(
                 'expectedStatusCode' => 401,
                 'expectedResponseContent' => XsollaClient::jsonEncode(
-                    [
-                        'error' => [
+                    array(
+                        'error' => array(
                             'code' => 'INVALID_SIGNATURE',
                             'message' => 'Signature not found in "Authorization" header from Xsolla webhook request: INVALID_FORMAT',
-                        ],
-                    ]
+                        ),
+                    )
                 ),
                 'request' => null,
                 'testCase' => 'invalid_signature_format',
-                'testHeaders' => ['Authorization' => 'INVALID_FORMAT'],
-            ],
-            'Invalid JSON sent' => [
+                'testHeaders' => array('Authorization' => 'INVALID_FORMAT'),
+            ),
+            'Invalid JSON sent' => array(
                 'expectedStatusCode' => 422,
                 'expectedResponseContent' => XsollaClient::jsonEncode(
-                    [
-                        'error' => [
+                    array(
+                        'error' => array(
                             'code' => 'INVALID_PARAMETER',
                             'message' => 'Unable to parse Xsolla webhook request into JSON: Syntax error.',
-                        ],
-                    ]
+                        ),
+                    )
                 ),
                 'request' => 'INVALID_REQUEST_CONTENT',
                 'testCase' => 'invalid_request_content',
                 'testHeaders' => null,
-            ],
-            'Request from unknown client ip address rejected' => [
+            ),
+            'Request from unknown client ip address rejected' => array(
                 'expectedStatusCode' => 401,
                 'expectedResponseContent' => XsollaClient::jsonEncode(
-                    [
-                        'error' => [
+                    array(
+                        'error' => array(
                             'code' => 'INVALID_CLIENT_IP',
                             'message' => 'Client IP address (::1) not found in allowed IP addresses whitelist (159.255.220.240/28, 185.30.20.16/29, 185.30.21.0/24, 185.30.21.16/29). Please check troubleshooting section in README.md https://github.com/xsolla/xsolla-sdk-php#troubleshooting',
-                        ],
-                    ]
+                        ),
+                    )
                 ),
                 'request' => null,
                 'testCase' => 'invalid_ip',
                 'testHeaders' => null,
-            ],
+            ),
             // exceptions from callback
-            'Callback throws ServerErrorException' => [
+            'Callback throws ServerErrorException' => array(
                 'expectedStatusCode' => 500,
                 'expectedResponseContent' => XsollaClient::jsonEncode(
-                    [
-                        'error' => [
+                    array(
+                        'error' => array(
                             'code' => 'SERVER_ERROR',
                             'message' => 'callback_server_error',
-                        ],
-                    ]
+                        ),
+                    )
                 ),
                 'request' => '{"notification_type": "payment"}',
                 'testCase' => 'callback_server_error',
                 'testHeaders' => null,
-            ],
-            'Callback throws ClientErrorException' => [
+            ),
+            'Callback throws ClientErrorException' => array(
                 'expectedStatusCode' => 400,
                 'expectedResponseContent' => XsollaClient::jsonEncode(
-                    [
-                        'error' => [
+                    array(
+                        'error' => array(
                             'code' => 'CLIENT_ERROR',
                             'message' => 'callback_client_error',
-                        ],
-                    ]
+                        ),
+                    )
                 ),
                 'request' => '{"notification_type": "payment"}',
                 'testCase' => 'callback_client_error',
                 'testHeaders' => null,
-            ],
-            'Callback throws \Exception' => [
+            ),
+            'Callback throws \Exception' => array(
                 'expectedStatusCode' => 500,
                 'expectedResponseContent' => XsollaClient::jsonEncode(
-                    [
-                        'error' => [
+                    array(
+                        'error' => array(
                             'code' => 'FATAL_ERROR',
                             'message' => 'callback_exception',
-                        ],
-                    ]
+                        ),
+                    )
                 ),
                 'request' => '{"notification_type": "payment"}',
                 'testCase' => 'callback_exception',
                 'testHeaders' => null,
-            ],
-            'Callback throws InvalidUserException' => [
+            ),
+            'Callback throws InvalidUserException' => array(
                 'expectedStatusCode' => 422,
                 'expectedResponseContent' => XsollaClient::jsonEncode(
-                    [
-                        'error' => [
+                    array(
+                        'error' => array(
                             'code' => 'INVALID_USER',
                             'message' => 'callback_invalid_user_exception',
-                        ],
-                    ]
+                        ),
+                    )
                 ),
                 'request' => '{"notification_type": "payment"}',
                 'testCase' => 'callback_invalid_user_exception',
                 'testHeaders' => null,
-            ],
-            'Callback throws InvalidAmountException' => [
+            ),
+            'Callback throws InvalidAmountException' => array(
                 'expectedStatusCode' => 422,
                 'expectedResponseContent' => XsollaClient::jsonEncode(
-                    [
-                        'error' => [
+                    array(
+                        'error' => array(
                             'code' => 'INCORRECT_AMOUNT',
                             'message' => 'callback_invalid_amount_exception',
-                        ],
-                    ]
+                        ),
+                    )
                 ),
                 'request' => '{"notification_type": "payment"}',
                 'testCase' => 'callback_invalid_amount_exception',
                 'testHeaders' => null,
-            ],
-            'Callback throws InvalidInvoiceException' => [
+            ),
+            'Callback throws InvalidInvoiceException' => array(
                 'expectedStatusCode' => 422,
                 'expectedResponseContent' => XsollaClient::jsonEncode(
-                    [
-                        'error' => [
+                    array(
+                        'error' => array(
                             'code' => 'INCORRECT_INVOICE',
                             'message' => 'callback_invalid_invoice_exception',
-                        ],
-                    ]
+                        ),
+                    )
                 ),
                 'request' => '{"notification_type": "payment"}',
                 'testCase' => 'callback_invalid_invoice_exception',
                 'testHeaders' => null,
-            ],
+            ),
             // get_pincode
-            'get_pincode with empty webhook response' => [
+            'get_pincode with empty webhook response' => array(
                 'expectedStatusCode' => 204,
                 'expectedResponseContent' => '',
                 'request' => '{"notification_type": "get_pincode"}',
                 'testCase' => 'get_pincode_empty',
                 'testHeaders' => null,
-            ],
-            'get_pincode with webhook response' => [
+            ),
+            'get_pincode with webhook response' => array(
                 'expectedStatusCode' => 200,
                 'expectedResponseContent' => '{
     "pin_code": "CODE"
@@ -342,30 +341,30 @@ class ServerTest extends TestCase
                 'request' => '{"notification_type": "get_pincode"}',
                 'testCase' => 'get_pincode_success',
                 'testHeaders' => null,
-            ],
-            'get_pincode invalid pin code from callback' => [
+            ),
+            'get_pincode invalid pin code from callback' => array(
                 'expectedStatusCode' => 500,
                 'expectedResponseContent' => XsollaClient::jsonEncode(
-                    [
-                        'error' => [
+                    array(
+                        'error' => array(
                             'code' => 'SERVER_ERROR',
                             'message' => 'Pin code should be non-empty string. NULL given',
-                        ],
-                    ]
+                        ),
+                    )
                 ),
                 'request' => '{"notification_type": "get_pincode"}',
                 'testCase' => 'get_pincode_invalid',
                 'testHeaders' => null,
-            ],
+            ),
             // user_search
-            'user_search with empty webhook response' => [
+            'user_search with empty webhook response' => array(
                 'expectedStatusCode' => 204,
                 'expectedResponseContent' => '',
                 'request' => '{"notification_type": "user_search"}',
                 'testCase' => 'user_search_empty',
                 'testHeaders' => null,
-            ],
-            'user_search with webhook response' => [
+            ),
+            'user_search with webhook response' => array(
                 'expectedStatusCode' => 200,
                 'expectedResponseContent' => '{
     "user": {
@@ -379,21 +378,21 @@ class ServerTest extends TestCase
                 'request' => '{"notification_type": "user_search"}',
                 'testCase' => 'user_search_success',
                 'testHeaders' => null,
-            ],
-            'user_search invalid user id from callback' => [
+            ),
+            'user_search invalid user id from callback' => array(
                 'expectedStatusCode' => 500,
                 'expectedResponseContent' => XsollaClient::jsonEncode(
-                    [
-                        'error' => [
+                    array(
+                        'error' => array(
                             'code' => 'SERVER_ERROR',
                             'message' => 'User id should be non-empty string. NULL given',
-                        ],
-                    ]
+                        ),
+                    )
                 ),
                 'request' => '{"notification_type": "user_search"}',
                 'testCase' => 'user_search_invalid',
                 'testHeaders' => null,
-            ],
-        ];
+            ),
+        );
     }
 }

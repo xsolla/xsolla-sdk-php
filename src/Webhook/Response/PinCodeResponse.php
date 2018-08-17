@@ -13,6 +13,6 @@ class PinCodeResponse extends WebhookResponse
     public function __construct($pinCode)
     {
         $this->validateStringParameter('Pin code', $pinCode);
-        parent::__construct(200, XsollaClient::jsonEncode(['pin_code' => $pinCode]));
+        parent::__construct(200, XsollaClient::jsonEncode(array('pin_code' => $pinCode)));
     }
 }

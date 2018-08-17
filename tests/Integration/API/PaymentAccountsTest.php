@@ -9,10 +9,10 @@ class PaymentAccountsTest extends AbstractAPITest
 {
     public function testListPaymentAccounts()
     {
-        $response = static::$xsollaClient->ListPaymentAccounts([
+        $response = static::$xsollaClient->ListPaymentAccounts(array(
             'project_id' => static::$projectId,
             'user_id' => static::$userId,
-        ]);
+        ));
         static::assertInternalType('array', $response);
     }
 

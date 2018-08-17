@@ -18,7 +18,7 @@ class CreateSubscriptionMessage extends CancelSubscriptionMessage
     public function getCoupon()
     {
         if (!array_key_exists('coupon', $this->request)) {
-            return [];
+            return array();
         }
 
         return $this->request['coupon'];

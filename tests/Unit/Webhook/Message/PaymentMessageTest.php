@@ -2,102 +2,101 @@
 
 namespace Xsolla\SDK\Tests\Unit\Webhook\Message;
 
-use PHPUnit\Framework\TestCase;
 use Xsolla\SDK\Webhook\Message\PaymentMessage;
 
 /**
  * @group unit
  */
-class PaymentMessageTest extends TestCase
+class PaymentMessageTest extends \PHPUnit_Framework_TestCase
 {
-    protected $request = [
+    protected $request = array(
         'notification_type' => 'payment',
-        'purchase' => [
-                'virtual_currency' => [
+        'purchase' => array(
+                'virtual_currency' => array(
                         'name' => 'Coins',
                         'quantity' => 10,
                         'currency' => 'USD',
                         'amount' => 100,
-                    ],
-                'subscription' => [
+                    ),
+                'subscription' => array(
                         'plan_id' => 1,
                         'subscription_id' => '10',
                         'product_id' => 'Demo Product',
                         'date_create' => '2014-09-22T19:25:25+04:00',
                         'currency' => 'USD',
                         'amount' => 9.99,
-                    ],
-                'checkout' => [
+                    ),
+                'checkout' => array(
                         'currency' => 'USD',
                         'amount' => 50,
-                    ],
-                'virtual_items' => [
-                        'items' => [
-                                0 => [
+                    ),
+                'virtual_items' => array(
+                        'items' => array(
+                                0 => array(
                                         'sku' => 'test_item1',
                                         'amount' => 1,
-                                    ],
-                            ],
+                                    ),
+                            ),
                         'currency' => 'USD',
                         'amount' => 50,
-                    ],
-                'total' => [
+                    ),
+                'total' => array(
                         'currency' => 'USD',
                         'amount' => 200,
-                    ],
-                'promotions[0]' => [
+                    ),
+                'promotions[0]' => array(
                         'technical_name' => 'Demo Promotion',
                         'id' => '853',
-                    ],
-                'coupon' => [
+                    ),
+                'coupon' => array(
                         'coupon_code' => 'ICvj45S4FUOyy',
                         'campaign_code' => '1507',
-                    ],
-        ],
-        'user' => [
+                    ),
+        ),
+        'user' => array(
                 'ip' => '127.0.0.1',
                 'phone' => '18777976552',
                 'email' => 'support@xsolla.com',
                 'id' => '1234567',
                 'name' => 'Xsolla User',
                 'country' => 'US',
-        ],
-        'transaction' => [
+        ),
+        'transaction' => array(
                 'id' => 1,
                 'external_id' => 1,
                 'payment_date' => '2014-09-24T20:38:16+04:00',
                 'payment_method' => 1,
                 'dry_run' => 1,
                 'agreement' => 1,
-        ],
-        'payment_details' => [
-                'payment' => [
+        ),
+        'payment_details' => array(
+                'payment' => array(
                         'currency' => 'USD',
                         'amount' => 230,
-                    ],
-                'vat' => [
+                    ),
+                'vat' => array(
                         'currency' => 'USD',
                         'amount' => 0,
-                    ],
+                    ),
                 'payout_currency_rate' => 1,
-                'payout' => [
+                'payout' => array(
                         'currency' => 'USD',
                         'amount' => 200,
-                    ],
-                'xsolla_fee' => [
+                    ),
+                'xsolla_fee' => array(
                         'currency' => 'USD',
                         'amount' => 10,
-                    ],
-                'payment_method_fee' => [
+                    ),
+                'payment_method_fee' => array(
                         'currency' => 'USD',
                         'amount' => 20,
-                    ],
-        ],
-        'custom_parameters' => [
+                    ),
+        ),
+        'custom_parameters' => array(
                 'parameter1' => 'value1',
                 'parameter2' => 'value2',
-        ],
-    ];
+        ),
+    );
 
     public function test()
     {
@@ -122,7 +121,7 @@ class PaymentMessageTest extends TestCase
         $message = new PaymentMessage($requestCopy);
 
         static::assertNull($message->getExternalPaymentId());
-        static::assertSame([], $message->getCustomParameters());
+        static::assertSame(array(), $message->getCustomParameters());
         static::assertFalse($message->isDryRun());
     }
 }

@@ -52,7 +52,7 @@ class PaymentMessage extends Message
     public function getCustomParameters()
     {
         if (!array_key_exists('custom_parameters', $this->request)) {
-            return [];
+            return array();
         }
 
         return $this->request['custom_parameters'];
