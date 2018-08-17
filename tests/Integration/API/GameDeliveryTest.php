@@ -31,6 +31,21 @@ class GameDeliveryTest extends AbstractAPITest
                     ],
                 ],
             ],
+            [
+                'id' => 6,
+                'enabled' => true,
+            ],
+        ],
+        'delivery' => [
+            'release_date_type' => 'exact_date',
+            'delivery_method' => [
+                'default' => [
+                    'link',
+                ],
+                'exceptions' => [],
+            ],
+            'is_pre_order' => false,
+            'is_partner_side_processing' => false,
         ],
     ];
 
@@ -72,10 +87,11 @@ class GameDeliveryTest extends AbstractAPITest
 
     public function testUpdateGameDeliveryEntity()
     {
-        static::$xsollaClient->UpdateGameDeliveryEntity([
+        $response = static::$xsollaClient->UpdateGameDeliveryEntity([
             'project_id' => static::$projectId,
             'game_delivery_id' => static::$gameDeliveryEntityId,
             'request' => $this->gameDeliveryEntityTemplate,
         ]);
+        static::assertSame(204, $response->getStatusCode());
     }
 }

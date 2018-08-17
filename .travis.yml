@@ -19,8 +19,6 @@ matrix:
   fast_finish: true
   include:
     - php: 7.1
-      env: RUN_PHP_CS_FIXER=true RUN_SCRUTINIZER=true PHPUNIT_OPTIONS="--coverage-clover=coverage.clover"
-    - php: 7.1
       env: PHPUNIT_OPTIONS="--exclude-group webhook-php-server"
     - php: 7.1
       env: COMPOSER_OPTIONS="--prefer-lowest" PHPUNIT_OPTIONS="--exclude-group webhook-php-server"

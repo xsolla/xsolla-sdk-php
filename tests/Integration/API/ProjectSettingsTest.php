@@ -70,12 +70,13 @@ class ProjectSettingsTest extends AbstractAPITest
 
     public function testUpdateProject()
     {
-        static::$xsollaClient->UpdateProject(
+        $response = static::$xsollaClient->UpdateProject(
             [
                 'project_id' => static::$projectId,
                 'request' => $this->projectSettings,
             ]
         );
+        static::assertSame(204, $response->getStatusCode());
     }
 
     public function testListProjects()

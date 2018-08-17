@@ -50,11 +50,12 @@ class UserAttributesTest extends AbstractAPITest
      */
     public function testUpdateUserAttribute()
     {
-        static::$xsollaClient->UpdateUserAttribute([
+        $response = static::$xsollaClient->UpdateUserAttribute([
             'project_id' => static::$projectId,
             'user_attribute_id' => static::$attributeId,
             'request' => $this->userAttribute,
         ]);
+        static::assertSame(204, $response->getStatusCode());
     }
 
     /**
@@ -73,9 +74,10 @@ class UserAttributesTest extends AbstractAPITest
      */
     public function testDeleteUserAttribute()
     {
-        static::$xsollaClient->DeleteUserAttribute([
+        $response = static::$xsollaClient->DeleteUserAttribute([
             'project_id' => static::$projectId,
             'user_attribute_id' => static::$attributeId,
         ]);
+        static::assertSame(204, $response->getStatusCode());
     }
 }
