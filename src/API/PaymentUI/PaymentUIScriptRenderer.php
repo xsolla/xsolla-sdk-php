@@ -3,7 +3,7 @@
 namespace Xsolla\SDK\API\PaymentUI;
 
 /**
- * @see https://github.com/xsolla/paystation-embed
+ * @link https://github.com/xsolla/paystation-embed
  */
 class PaymentUIScriptRenderer
 {

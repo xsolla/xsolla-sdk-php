@@ -11,36 +11,36 @@ class SubscriptionsTest extends AbstractAPITest
 
     protected static $productId;
 
-    protected $plan = [
-        'name' => [
+    protected $plan = array(
+        'name' => array(
             'en' => 'Subscription Plan Name',
-        ],
+        ),
         'group_id' => 'group_id',
-        'charge' => [
+        'charge' => array(
             'amount' => 1,
             'currency' => 'USD',
-            'period' => [
+            'period' => array(
                 'value' => 1,
                 'type' => 'month',
-            ],
-        ],
-        'expiration' => [
+            ),
+        ),
+        'expiration' => array(
             'value' => 3,
             'type' => 'month',
-        ],
-    ];
+        ),
+    );
 
-    protected $product = [
+    protected $product = array(
         'name' => 'Product Name',
         'group_id' => 'group_id',
-    ];
+    );
 
     public function testCreateSubscriptionPlan()
     {
-        $response = static::$xsollaClient->CreateSubscriptionPlan([
+        $response = static::$xsollaClient->CreateSubscriptionPlan(array(
             'project_id' => static::$projectId,
             'request' => $this->plan,
-        ]);
+        ));
         static::assertArrayHasKey('plan_id', $response);
         static::assertInternalType('integer', $response['plan_id']);
         static::$planId = $response['plan_id'];
@@ -51,10 +51,10 @@ class SubscriptionsTest extends AbstractAPITest
      */
     public function testListSubscriptionPlans()
     {
-        $response = static::$xsollaClient->ListSubscriptionPlans([
+        $response = static::$xsollaClient->ListSubscriptionPlans(array(
             'project_id' => static::$projectId,
             'limit' => 100,
-        ]);
+        ));
         static::assertInternalType('array', $response);
     }
 
@@ -63,11 +63,11 @@ class SubscriptionsTest extends AbstractAPITest
      */
     public function testUpdateSubscriptionPlan()
     {
-        $response = static::$xsollaClient->UpdateSubscriptionPlan([
+        $response = static::$xsollaClient->UpdateSubscriptionPlan(array(
             'project_id' => static::$projectId,
             'plan_id' => static::$planId,
             'request' => $this->plan,
-        ]);
+        ));
         static::assertInternalType('array', $response);
     }
 
@@ -76,10 +76,10 @@ class SubscriptionsTest extends AbstractAPITest
      */
     public function testDisableSubscriptionPlan()
     {
-        static::$xsollaClient->DisableSubscriptionPlan([
+        static::$xsollaClient->DisableSubscriptionPlan(array(
             'project_id' => static::$projectId,
             'plan_id' => static::$planId,
-        ]);
+        ));
     }
 
     /**
@@ -87,10 +87,10 @@ class SubscriptionsTest extends AbstractAPITest
      */
     public function testEnableSubscriptionPlan()
     {
-        static::$xsollaClient->EnableSubscriptionPlan([
+        static::$xsollaClient->EnableSubscriptionPlan(array(
             'project_id' => static::$projectId,
             'plan_id' => static::$planId,
-        ]);
+        ));
     }
 
     /**
@@ -98,10 +98,10 @@ class SubscriptionsTest extends AbstractAPITest
      */
     public function testDeleteSubscriptionPlan()
     {
-        static::$xsollaClient->DeleteSubscriptionPlan([
+        static::$xsollaClient->DeleteSubscriptionPlan(array(
             'project_id' => static::$projectId,
             'plan_id' => static::$planId,
-        ]);
+        ));
     }
 
     /**
@@ -109,10 +109,10 @@ class SubscriptionsTest extends AbstractAPITest
      */
     public function testCreateSubscriptionProduct()
     {
-        $response = static::$xsollaClient->CreateSubscriptionProduct([
+        $response = static::$xsollaClient->CreateSubscriptionProduct(array(
             'project_id' => static::$projectId,
             'request' => $this->product,
-        ]);
+        ));
         static::assertArrayHasKey('product_id', $response);
         static::$productId = $response['product_id'];
     }
@@ -122,14 +122,14 @@ class SubscriptionsTest extends AbstractAPITest
      */
     public function testListSubscriptionPlansWithParams()
     {
-        $response = static::$xsollaClient->ListSubscriptionPlans([
+        $response = static::$xsollaClient->ListSubscriptionPlans(array(
             'project_id' => static::$projectId,
             'limit' => 100,
             'offset' => 0,
             'product_id' => static::$productId,
             'group_id' => $this->product['group_id'],
             'external_id' => 12345,
-        ]);
+        ));
         static::assertInternalType('array', $response);
     }
 
@@ -138,11 +138,11 @@ class SubscriptionsTest extends AbstractAPITest
      */
     public function testUpdateSubscriptionProduct()
     {
-        $response = static::$xsollaClient->UpdateSubscriptionProduct([
+        $response = static::$xsollaClient->UpdateSubscriptionProduct(array(
             'project_id' => static::$projectId,
             'product_id' => static::$productId,
             'request' => $this->product,
-        ]);
+        ));
         static::assertInternalType('array', $response);
     }
 
@@ -151,26 +151,26 @@ class SubscriptionsTest extends AbstractAPITest
      */
     public function testDeleteSubscriptionProduct()
     {
-        static::$xsollaClient->DeleteSubscriptionProduct([
+        static::$xsollaClient->DeleteSubscriptionProduct(array(
             'project_id' => static::$projectId,
             'product_id' => static::$productId,
-        ]);
+        ));
     }
 
     public function testListSubscriptionProducts()
     {
-        $response = static::$xsollaClient->ListSubscriptionProducts([
+        $response = static::$xsollaClient->ListSubscriptionProducts(array(
             'project_id' => static::$projectId,
-        ]);
+        ));
         static::assertInternalType('array', $response);
     }
 
     public function testListSubscriptionProductsWithParams()
     {
-        $response = static::$xsollaClient->ListSubscriptionProducts([
+        $response = static::$xsollaClient->ListSubscriptionProducts(array(
             'project_id' => static::$projectId,
             'product_id' => static::$productId,
-        ]);
+        ));
         static::assertInternalType('array', $response);
     }
 
@@ -181,46 +181,46 @@ class SubscriptionsTest extends AbstractAPITest
 
     public function testListSubscriptions()
     {
-        $response = static::$xsollaClient->ListSubscriptions([
+        $response = static::$xsollaClient->ListSubscriptions(array(
             'project_id' => static::$projectId,
             'user_id' => static::$userId,
-        ]);
+        ));
         static::assertInternalType('array', $response);
     }
 
     public function testListSubscriptionWithParams()
     {
-        $response = static::$xsollaClient->ListSubscriptions([
+        $response = static::$xsollaClient->ListSubscriptions(array(
             'project_id' => static::$projectId,
             'user_id' => static::$userId,
             'plan_id' => static::$planId,
             'product_id' => static::$productId,
-        ]);
+        ));
         static::assertInternalType('array', $response);
     }
 
     public function testListUserSubscriptionPayments()
     {
-        $response = static::$xsollaClient->ListUserSubscriptionPayments([
+        $response = static::$xsollaClient->ListUserSubscriptionPayments(array(
             'project_id' => static::$projectId,
             'user_id' => static::$userId,
-        ]);
+        ));
         static::assertInternalType('array', $response);
     }
 
     public function testListSubscriptionPayments()
     {
-        $response = static::$xsollaClient->ListSubscriptionPayments([
+        $response = static::$xsollaClient->ListSubscriptionPayments(array(
             'project_id' => static::$projectId,
-        ]);
+        ));
         static::assertInternalType('array', $response);
     }
 
     public function testListSubscriptionCurrencies()
     {
-        $response = static::$xsollaClient->ListSubscriptionCurrencies([
+        $response = static::$xsollaClient->ListSubscriptionCurrencies(array(
             'project_id' => static::$projectId,
-        ]);
+        ));
         static::assertInternalType('array', $response);
     }
 }

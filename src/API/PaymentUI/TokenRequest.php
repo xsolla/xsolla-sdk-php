@@ -7,7 +7,7 @@ class TokenRequest
     /**
      * @var array
      */
-    protected $data = [];
+    protected $data = array();
 
     /**
      * @param int    $projectId
@@ -96,9 +96,8 @@ class TokenRequest
     }
 
     /**
-     * @param float  $amount
-     * @param string $currency
-     *
+     * @param  float  $amount
+     * @param  string $currency
      * @return $this
      */
     public function setPurchase($amount, $currency)

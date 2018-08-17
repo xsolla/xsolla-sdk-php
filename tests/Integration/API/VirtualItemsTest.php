@@ -15,15 +15,15 @@ class VirtualItemsTest extends AbstractAPITest
 
     protected static $virtualItem;
 
-    protected $virtualItemsGroup = [
-        'name' => [
+    protected $virtualItemsGroup = array(
+        'name' => array(
             'en' => 'Virtual Item Group',
-        ],
-        'description' => [
+        ),
+        'description' => array(
             'en' => 'Virtual Item Group Description',
-        ],
+        ),
         'enabled' => true,
-    ];
+    );
 
     public function setUp()
     {
@@ -36,40 +36,40 @@ class VirtualItemsTest extends AbstractAPITest
 
     public function testListVirtualItemsGroups()
     {
-        $response = static::$xsollaClient->ListVirtualItemsGroups([
+        $response = static::$xsollaClient->ListVirtualItemsGroups(array(
             'project_id' => static::$projectId,
-        ]);
+        ));
         static::assertInternalType('array', $response);
     }
 
     public function testListVirtualItems()
     {
-        $response = static::$xsollaClient->ListVirtualItems([
+        $response = static::$xsollaClient->ListVirtualItems(array(
             'project_id' => static::$projectId,
-        ]);
+        ));
         static::assertInternalType('array', $response);
     }
 
     public function testListVirtualItemsWithParams()
     {
-        $response = static::$xsollaClient->ListVirtualItems([
+        $response = static::$xsollaClient->ListVirtualItems(array(
             'project_id' => static::$projectId,
             'offset' => 0,
             'limit' => 100,
             'has_price' => 'virtual_currency',
-        ]);
+        ));
         static::assertInternalType('array', $response);
     }
 
     public function testCreateVirtualItemsGroup()
     {
-        $response = static::$xsollaClient->CreateVirtualItemsGroup([
+        $response = static::$xsollaClient->CreateVirtualItemsGroup(array(
             'project_id' => static::$projectId,
             'request' => $this->virtualItemsGroup,
-        ]);
+        ));
         static::assertArrayHasKey('group_id', $response);
         static::$virtualItemsGroupId = $response['group_id'];
-        static::$virtualItem['groups'] = [static::$virtualItemsGroupId];
+        static::$virtualItem['groups'] = array(static::$virtualItemsGroupId);
     }
 
     /**
@@ -77,10 +77,10 @@ class VirtualItemsTest extends AbstractAPITest
      */
     public function testGetVirtualItemsGroup()
     {
-        $response = static::$xsollaClient->GetVirtualItemsGroup([
+        $response = static::$xsollaClient->GetVirtualItemsGroup(array(
             'project_id' => static::$projectId,
             'group_id' => static::$virtualItemsGroupId,
-        ]);
+        ));
         static::assertInternalType('array', $response);
     }
 
@@ -89,11 +89,11 @@ class VirtualItemsTest extends AbstractAPITest
      */
     public function testUpdateVirtualItemsGroup()
     {
-        static::$xsollaClient->UpdateVirtualItemsGroup([
+        static::$xsollaClient->UpdateVirtualItemsGroup(array(
             'project_id' => static::$projectId,
             'group_id' => static::$virtualItemsGroupId,
             'request' => $this->virtualItemsGroup,
-        ]);
+        ));
     }
 
     /**
@@ -101,10 +101,10 @@ class VirtualItemsTest extends AbstractAPITest
      */
     public function testCreateVirtualItem()
     {
-        $response = static::$xsollaClient->CreateVirtualItem([
+        $response = static::$xsollaClient->CreateVirtualItem(array(
             'project_id' => static::$projectId,
             'request' => static::$virtualItem,
-        ]);
+        ));
         static::assertArrayHasKey('item_id', $response);
         static::$virtualItemId = $response['item_id'];
     }
@@ -114,10 +114,10 @@ class VirtualItemsTest extends AbstractAPITest
      */
     public function testGetVirtualItem()
     {
-        $response = static::$xsollaClient->GetVirtualItem([
+        $response = static::$xsollaClient->GetVirtualItem(array(
             'project_id' => static::$projectId,
             'item_id' => static::$virtualItemId,
-        ]);
+        ));
         static::assertInternalType('array', $response);
     }
 
@@ -126,11 +126,11 @@ class VirtualItemsTest extends AbstractAPITest
      */
     public function testUpdateVirtualItem()
     {
-        static::$xsollaClient->UpdateVirtualItem([
+        static::$xsollaClient->UpdateVirtualItem(array(
             'project_id' => static::$projectId,
             'item_id' => static::$virtualItemId,
             'request' => static::$virtualItem,
-        ]);
+        ));
     }
 
     /**
@@ -138,13 +138,13 @@ class VirtualItemsTest extends AbstractAPITest
      */
     public function testUpdateVirtualItemOrderInGroup()
     {
-        static::$xsollaClient->UpdateVirtualItemOrderInGroup([
+        static::$xsollaClient->UpdateVirtualItemOrderInGroup(array(
             'project_id' => static::$projectId,
-            'request' => [
+            'request' => array(
                 'group_id' => static::$virtualItemsGroupId,
-                'virtual_items' => [static::$virtualItemSku],
-            ],
-        ]);
+                'virtual_items' => array(static::$virtualItemSku),
+            ),
+        ));
     }
 
     /**
@@ -152,10 +152,10 @@ class VirtualItemsTest extends AbstractAPITest
      */
     public function testDeleteVirtualItem()
     {
-        static::$xsollaClient->DeleteVirtualItem([
+        static::$xsollaClient->DeleteVirtualItem(array(
             'project_id' => static::$projectId,
             'item_id' => static::$virtualItemId,
-        ]);
+        ));
     }
 
     /**
@@ -163,9 +163,9 @@ class VirtualItemsTest extends AbstractAPITest
      */
     public function testDeleteVirtualItemsGroup()
     {
-        static::$xsollaClient->DeleteVirtualItemsGroup([
+        static::$xsollaClient->DeleteVirtualItemsGroup(array(
             'project_id' => static::$projectId,
             'group_id' => static::$virtualItemsGroupId,
-        ]);
+        ));
     }
 }

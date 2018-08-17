@@ -8,14 +8,14 @@ use Xsolla\SDK\Exception\Webhook\XsollaWebhookException;
 
 class WebhookRequest
 {
-    protected static $codes = [
+    protected static $codes = array(
         JSON_ERROR_CTRL_CHAR => 'Control character error, possibly incorrectly encoded.',
         JSON_ERROR_DEPTH => 'The maximum stack depth has been exceeded.',
         JSON_ERROR_NONE => 'No error has occurred.',
         JSON_ERROR_STATE_MISMATCH => 'Invalid or malformed JSON.',
         JSON_ERROR_SYNTAX => 'Syntax error.',
         JSON_ERROR_UTF8 => 'Malformed UTF-8 characters, possibly incorrectly encoded.',
-    ];
+    );
 
     /**
      * @var string
@@ -39,7 +39,7 @@ class WebhookRequest
     public static function fromGlobals()
     {
         $request = Request::createFromGlobals();
-        $headers = [];
+        $headers = array();
         foreach ($request->headers->all() as $header => $arrayValue) {
             $headers[$header] = $arrayValue[0];
         }
@@ -83,7 +83,7 @@ class WebhookRequest
             throw new InvalidParameterException('Unable to parse Xsolla webhook request into JSON: '.$message);
         }
 
-        return null === $data ? [] : $data;
+        return $data === null ? array() : $data;
     }
 
     /**
