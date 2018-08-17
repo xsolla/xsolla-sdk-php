@@ -14,21 +14,21 @@ class UserAttributesTest extends AbstractAPITest
     public function setUp()
     {
         parent::setUp();
-        $this->userAttribute = array(
+        $this->userAttribute = [
             'key' => uniqid('user_attribute_', false),
-            'name' => array(
+            'name' => [
                 'en' => 'name',
-            ),
+            ],
             'type' => 'string',
-        );
+        ];
     }
 
     public function testCreateUserAttribute()
     {
-        $response = static::$xsollaClient->CreateUserAttribute(array(
+        $response = static::$xsollaClient->CreateUserAttribute([
             'project_id' => static::$projectId,
             'request' => $this->userAttribute,
-        ));
+        ]);
         static::assertArrayHasKey('id', $response);
         static::$attributeId = (int) $response['id'];
     }
@@ -38,10 +38,10 @@ class UserAttributesTest extends AbstractAPITest
      */
     public function testGetUserAttribute()
     {
-        $response = static::$xsollaClient->GetUserAttribute(array(
+        $response = static::$xsollaClient->GetUserAttribute([
             'project_id' => static::$projectId,
             'user_attribute_id' => static::$attributeId,
-        ));
+        ]);
         static::assertInternalType('array', $response);
     }
 
@@ -50,11 +50,11 @@ class UserAttributesTest extends AbstractAPITest
      */
     public function testUpdateUserAttribute()
     {
-        static::$xsollaClient->UpdateUserAttribute(array(
+        static::$xsollaClient->UpdateUserAttribute([
             'project_id' => static::$projectId,
             'user_attribute_id' => static::$attributeId,
             'request' => $this->userAttribute,
-        ));
+        ]);
     }
 
     /**
@@ -62,9 +62,9 @@ class UserAttributesTest extends AbstractAPITest
      */
     public function testListUserAttributes()
     {
-        $response = static::$xsollaClient->ListUserAttributes(array(
+        $response = static::$xsollaClient->ListUserAttributes([
             'project_id' => static::$projectId,
-        ));
+        ]);
         static::assertInternalType('array', $response);
     }
 
@@ -73,9 +73,9 @@ class UserAttributesTest extends AbstractAPITest
      */
     public function testDeleteUserAttribute()
     {
-        static::$xsollaClient->DeleteUserAttribute(array(
+        static::$xsollaClient->DeleteUserAttribute([
             'project_id' => static::$projectId,
             'user_attribute_id' => static::$attributeId,
-        ));
+        ]);
     }
 }

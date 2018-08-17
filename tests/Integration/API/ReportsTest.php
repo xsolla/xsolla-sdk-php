@@ -9,30 +9,30 @@ class ReportsTest extends AbstractAPITest
 {
     public function testSearchPaymentsRegistry()
     {
-        $response = static::$xsollaClient->SearchPaymentsRegistry(array(
+        $response = static::$xsollaClient->SearchPaymentsRegistry([
             'format' => 'json',
             'type' => 'all',
             'limit' => 2,
             'offset' => 0,
-        ));
+        ]);
         static::assertInternalType('array', $response);
     }
 
     public function testSearchPaymentsRegistryWithParams()
     {
-        $response = static::$xsollaClient->SearchPaymentsRegistry(array(
+        $response = static::$xsollaClient->SearchPaymentsRegistry([
             'format' => 'json',
             'type' => 'all',
             'limit' => 2,
             'offset' => 0,
             'status' => 'created',
-        ));
+        ]);
         static::assertInternalType('array', $response);
     }
 
     public function testListPaymentsRegistry()
     {
-        $response = static::$xsollaClient->ListPaymentsRegistry(array(
+        $response = static::$xsollaClient->ListPaymentsRegistry([
             'format' => 'json',
             'datetime_from' => '2015-01-01',
             'datetime_to' => '2015-01-02',
@@ -41,7 +41,7 @@ class ReportsTest extends AbstractAPITest
             'offset' => 0,
             'show_total' => true,
             'status' => 'done',
-        ));
+        ]);
         static::assertInternalType('array', $response);
     }
 

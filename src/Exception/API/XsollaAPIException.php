@@ -7,10 +7,10 @@ use Xsolla\SDK\Exception\XsollaException;
 
 class XsollaAPIException extends XsollaException
 {
-    protected static $exceptions = array(
+    protected static $exceptions = [
         422 => '\Xsolla\SDK\Exception\API\UnprocessableEntityException',
         403 => '\Xsolla\SDK\Exception\API\AccessDeniedException',
-    );
+    ];
 
     protected static $messageTemplate =
 <<<'EOF'
