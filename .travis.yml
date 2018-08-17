@@ -30,7 +30,7 @@ install:
     - travis_retry composer update $COMPOSER_OPTS --no-interaction --prefer-dist
 
 before_script:
-  - if [ $RUN_PHP_CS_FIXER == true ]; then vendor/bin/php-cs-fixer fix --no-interaction --dry-run; fi;
+  - if [ $RUN_PHP_CS_FIXER == true ]; then vendor/bin/php-cs-fixer fix --no-interaction --dry-run --allow-risky=yes; fi;
 
 script:
   - if [ $RUN_SCRUTINIZER == true ]; then phpdbg -qrr vendor/bin/phpunit $PHPUNIT_OPTIONS; else vendor/bin/phpunit $PHPUNIT_OPTIONS; fi;
