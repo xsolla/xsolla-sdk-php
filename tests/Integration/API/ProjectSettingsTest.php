@@ -7,51 +7,51 @@ namespace Xsolla\SDK\Tests\Integration\API;
  */
 class ProjectSettingsTest extends AbstractAPITest
 {
-    protected $projectSettings = array(
+    protected $projectSettings = [
         'descriptor' => 'demo',
-        'name' => array(
+        'name' => [
             'en' => 'Demo Project for Universal Protocol',
-        ),
+        ],
         'url' => 'http://xsolla.com',
-        'description' => array(),
+        'description' => [],
         'payment_url' => 'https://mygame.com/sample.universal.php',
         'key' => 'KEY',
         'return_url' => 'http://mygame.com/return.php',
         'user_billing_enabled' => true,
         'show_user_in_paystation' => true,
-        'locale_list' => array(
+        'locale_list' => [
             'en',
-        ),
-        'components' => array(
-            'virtual_currency' => array(
+        ],
+        'components' => [
+            'virtual_currency' => [
                 'enabled' => true,
-                'custom_name' => array(
+                'custom_name' => [
                     'en' => 'Virtual currency custom name',
-                ),
-            ),
-            'items' => array(
+                ],
+            ],
+            'items' => [
                 'enabled' => true,
-                'custom_name' => array(
+                'custom_name' => [
                     'en' => 'Items custom name',
-                ),
-            ),
-            'simple_checkout' => array(
+                ],
+            ],
+            'simple_checkout' => [
                 'enabled' => true,
-                'custom_name' => array(
+                'custom_name' => [
                     'en' => 'Simple checkout custom name',
-                ),
-            ),
-            'subscriptions' => array(
+                ],
+            ],
+            'subscriptions' => [
                 'enabled' => true,
-                'custom_name' => array(
+                'custom_name' => [
                     'en' => 'Subscriptions custom name',
-                ),
-            ),
-        ),
+                ],
+            ],
+        ],
         'send_json_to_paystation' => false,
         'is_external_id_required' => false,
         'ipn_enabled' => true,
-    );
+    ];
 
     public function testCreateProject()
     {
@@ -61,9 +61,9 @@ class ProjectSettingsTest extends AbstractAPITest
     public function testGetProject()
     {
         $response = static::$xsollaClient->GetProject(
-            array(
+            [
                 'project_id' => static::$projectId,
-            )
+            ]
         );
         static::assertInternalType('array', $response);
     }
@@ -71,10 +71,10 @@ class ProjectSettingsTest extends AbstractAPITest
     public function testUpdateProject()
     {
         static::$xsollaClient->UpdateProject(
-            array(
+            [
                 'project_id' => static::$projectId,
                 'request' => $this->projectSettings,
-            )
+            ]
         );
     }
 

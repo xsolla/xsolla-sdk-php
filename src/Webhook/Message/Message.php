@@ -16,7 +16,7 @@ abstract class Message
     const USER_BALANCE = 'user_balance_operation';
     const GET_PIN_CODE = 'get_pincode';
 
-    protected static $classMap = array(
+    protected static $classMap = [
         self::USER_VALIDATION => '\Xsolla\SDK\Webhook\Message\UserValidationMessage',
         self::USER_SEARCH => '\Xsolla\SDK\Webhook\Message\UserSearchMessage',
         self::PAYMENT => '\Xsolla\SDK\Webhook\Message\PaymentMessage',
@@ -26,7 +26,7 @@ abstract class Message
         self::UPDATE_SUBSCRIPTION => '\Xsolla\SDK\Webhook\Message\UpdateSubscriptionMessage',
         self::USER_BALANCE => '\Xsolla\SDK\Webhook\Message\UserBalanceMessage',
         self::GET_PIN_CODE => '\Xsolla\SDK\Webhook\Message\GetPinCodeMessage',
-    );
+    ];
 
     /**
      * @var array
