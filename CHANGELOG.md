@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v3.0.1...master)
+### Fixed
+* Fixed tests
 
 ## [v3.0.1](https://github.com/xsolla/xsolla-sdk-php/compare/v3.0.0...v3.0.1)
 ### Fixed

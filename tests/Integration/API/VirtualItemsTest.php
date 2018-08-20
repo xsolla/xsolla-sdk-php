@@ -89,11 +89,12 @@ class VirtualItemsTest extends AbstractAPITest
      */
     public function testUpdateVirtualItemsGroup()
     {
-        static::$xsollaClient->UpdateVirtualItemsGroup([
+        $response = static::$xsollaClient->UpdateVirtualItemsGroup([
             'project_id' => static::$projectId,
             'group_id' => static::$virtualItemsGroupId,
             'request' => $this->virtualItemsGroup,
         ]);
+        static::assertSame(204, $response->getStatusCode());
     }
 
     /**
@@ -126,11 +127,12 @@ class VirtualItemsTest extends AbstractAPITest
      */
     public function testUpdateVirtualItem()
     {
-        static::$xsollaClient->UpdateVirtualItem([
+        $response = static::$xsollaClient->UpdateVirtualItem([
             'project_id' => static::$projectId,
             'item_id' => static::$virtualItemId,
             'request' => static::$virtualItem,
         ]);
+        static::assertSame(204, $response->getStatusCode());
     }
 
     /**
@@ -138,13 +140,14 @@ class VirtualItemsTest extends AbstractAPITest
      */
     public function testUpdateVirtualItemOrderInGroup()
     {
-        static::$xsollaClient->UpdateVirtualItemOrderInGroup([
+        $response = static::$xsollaClient->UpdateVirtualItemOrderInGroup([
             'project_id' => static::$projectId,
             'request' => [
                 'group_id' => static::$virtualItemsGroupId,
                 'virtual_items' => [static::$virtualItemSku],
             ],
         ]);
+        static::assertSame(204, $response->getStatusCode());
     }
 
     /**
@@ -152,10 +155,11 @@ class VirtualItemsTest extends AbstractAPITest
      */
     public function testDeleteVirtualItem()
     {
-        static::$xsollaClient->DeleteVirtualItem([
+        $response = static::$xsollaClient->DeleteVirtualItem([
             'project_id' => static::$projectId,
             'item_id' => static::$virtualItemId,
         ]);
+        static::assertSame(204, $response->getStatusCode());
     }
 
     /**
@@ -163,9 +167,10 @@ class VirtualItemsTest extends AbstractAPITest
      */
     public function testDeleteVirtualItemsGroup()
     {
-        static::$xsollaClient->DeleteVirtualItemsGroup([
+        $response = static::$xsollaClient->DeleteVirtualItemsGroup([
             'project_id' => static::$projectId,
             'group_id' => static::$virtualItemsGroupId,
         ]);
+        static::assertSame(204, $response->getStatusCode());
     }
 }

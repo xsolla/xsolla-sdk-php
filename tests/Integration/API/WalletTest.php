@@ -26,13 +26,14 @@ class WalletTest extends AbstractAPITest
 
     public function testUpdateWalletUser()
     {
-        static::$xsollaClient->UpdateWalletUser([
+        $response = static::$xsollaClient->UpdateWalletUser([
             'project_id' => static::$projectId,
             'user_id' => static::$userId,
             'request' => [
                 'enabled' => true,
             ],
         ]);
+        static::assertSame(204, $response->getStatusCode());
     }
 
     public function testListWalletUsers()
@@ -102,7 +103,7 @@ class WalletTest extends AbstractAPITest
         ]);
         static::$virtualItemId = $virtualItem['item_id'];
 
-        static::$xsollaClient->AddVirtualItemToWalletUser([
+        $response = static::$xsollaClient->AddVirtualItemToWalletUser([
             'project_id' => static::$projectId,
             'user_id' => static::$userId,
             'request' => [
@@ -116,6 +117,7 @@ class WalletTest extends AbstractAPITest
                 ],
             ],
         ]);
+        static::assertSame(204, $response->getStatusCode());
     }
 
     /**
@@ -151,9 +153,10 @@ class WalletTest extends AbstractAPITest
                 ],
             ],
         ]);
-        static::$xsollaClient->DeleteVirtualItem([
+        $response = static::$xsollaClient->DeleteVirtualItem([
             'project_id' => static::$projectId,
             'item_id' => static::$virtualItemId,
         ]);
+        static::assertSame(204, $response->getStatusCode());
     }
 }

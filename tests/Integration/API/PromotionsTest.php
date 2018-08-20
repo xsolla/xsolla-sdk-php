@@ -57,10 +57,11 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testUpdatePromotion()
     {
-        static::$xsollaClient->UpdatePromotion([
+        $response = static::$xsollaClient->UpdatePromotion([
             'promotion_id' => static::$promotionId,
             'request' => $this->promotion,
         ]);
+        static::assertSame(204, $response->getStatusCode());
     }
 
     /**
@@ -68,7 +69,7 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testSetPromotionSubject()
     {
-        static::$xsollaClient->SetPromotionSubject([
+        $response = static::$xsollaClient->SetPromotionSubject([
             'promotion_id' => static::$promotionId,
             'request' => [
                 'purchase' => false,
@@ -76,6 +77,7 @@ class PromotionsTest extends AbstractAPITest
                 'packages' => [1],
             ],
         ]);
+        static::assertSame(204, $response->getStatusCode());
     }
 
     /**
@@ -112,7 +114,7 @@ class PromotionsTest extends AbstractAPITest
     {
         $randomFutureTimestamp = mt_rand(time() + 60, 2147483647);
         $datetimeStart = \DateTime::createFromFormat('U', $randomFutureTimestamp, new \DateTimeZone('UTC'));
-        static::$xsollaClient->SetPromotionPeriods([
+        $response = static::$xsollaClient->SetPromotionPeriods([
             'promotion_id' => static::$promotionId,
             'request' => [
                 'periods' => [
@@ -123,6 +125,7 @@ class PromotionsTest extends AbstractAPITest
                 ],
             ],
         ]);
+        static::assertSame(204, $response->getStatusCode());
     }
 
     /**
@@ -141,7 +144,7 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testSetPromotionRewards()
     {
-        static::$xsollaClient->SetPromotionRewards([
+        $response = static::$xsollaClient->SetPromotionRewards([
             'promotion_id' => static::$promotionId,
             'request' => [
                 'purchase' => [
@@ -149,6 +152,7 @@ class PromotionsTest extends AbstractAPITest
                 ],
             ],
         ]);
+        static::assertSame(204, $response->getStatusCode());
     }
 
     /**
@@ -178,9 +182,10 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testTogglePromotion()
     {
-        static::$xsollaClient->TogglePromotion([
+        $response = static::$xsollaClient->TogglePromotion([
             'promotion_id' => static::$promotionId,
         ]);
+        static::assertSame(204, $response->getStatusCode());
     }
 
     /**
@@ -188,8 +193,9 @@ class PromotionsTest extends AbstractAPITest
      */
     public function testDeletePromotion()
     {
-        static::$xsollaClient->DeletePromotion([
+        $response = static::$xsollaClient->DeletePromotion([
             'promotion_id' => static::$promotionId,
         ]);
+        static::assertSame(204, $response->getStatusCode());
     }
 }
