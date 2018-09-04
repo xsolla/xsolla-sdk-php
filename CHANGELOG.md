@@ -1,7 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v3.0.2...master)
+## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v3.0.3...master)
+
+## [v3.0.3](https://github.com/xsolla/xsolla-sdk-php/compare/v3.0.2...v3.0.3) - 2018-09-04
 ### Added
 * Backward compatibility for symfony < 4.0
 
