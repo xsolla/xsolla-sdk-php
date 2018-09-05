@@ -26,7 +26,7 @@
 
 ## Add new API command to client
 
-1. Add new command to [guzzle3 service description config](http://guzzle3.readthedocs.org/webservice-client/guzzle-service-descriptions.html) in [src/API/Resources/xsolla-2015-07-23.php](src/API/Resources/xsolla-2015-07-23.php)
+1. Add new command to [guzzle3 service description config](http://guzzle3.readthedocs.org/webservice-client/guzzle-service-descriptions.html) in [src/API/Resources/api.php](src/API/Resources/api.php)
 1. Add phpDocumentor DocBlocks with new methods to [src/API/XsollaClient.php](src/API/XsollaClient.php)
 1. Add new tests to [tests/Integration/API/](tests/Integration/API/)
 

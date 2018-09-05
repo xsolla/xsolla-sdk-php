@@ -2,25 +2,32 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v3.0.3...master)
+### Added
+* Methods CreateCouponPromotion, ListCouponPromotions, CreateCoupon
+* Tests
+* Fixation version of api
+
+### Fixed
+* Date of releases
 
 ## [v3.0.3](https://github.com/xsolla/xsolla-sdk-php/compare/v3.0.2...v3.0.3) - 2018-09-04
 ### Added
 * Backward compatibility for symfony < 4.0
 
-## [v3.0.2](https://github.com/xsolla/xsolla-sdk-php/compare/v3.0.1...v3.0.2)
+## [v3.0.2](https://github.com/xsolla/xsolla-sdk-php/compare/v3.0.1...v3.0.2) - 2018-08-17
 ### Fixed
 * Fixed tests
 
-## [v3.0.1](https://github.com/xsolla/xsolla-sdk-php/compare/v3.0.0...v3.0.1)
+## [v3.0.1](https://github.com/xsolla/xsolla-sdk-php/compare/v3.0.0...v3.0.1) - 2018-08-17
 ### Fixed
 * Changed php images at .travis.yml (add php72, php71, delete old php versions)
 * Changed README.md
 
-## [v3.0.0](https://github.com/xsolla/xsolla-sdk-php/compare/v2.6.2...v3.0.0)
+## [v3.0.0](https://github.com/xsolla/xsolla-sdk-php/compare/v2.6.2...v3.0.0) - 2018-08-10
 ### Added
 * Changed support version of php from 5.* to 7.1.*
 
-## [v2.6.2](https://github.com/xsolla/xsolla-sdk-php/compare/v2.6.1...v2.6.2)
+## [v2.6.2](https://github.com/xsolla/xsolla-sdk-php/compare/v2.6.1...v2.6.2) - 2017-07-07
 ### Updated
 * Updated version of the paystation widget used to open the lightbox from 1.0.2 to 1.0.7.
 

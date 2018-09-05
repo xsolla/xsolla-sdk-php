@@ -36,7 +36,7 @@ class ServerTest extends TestCase
 
     private static function setUpPhpServer()
     {
-        self::$process = new Process('php -S [::1]:8999', __DIR__.'/../../Resources/Scripts');
+        self::$process = new Process('php -S 127.0.0.1:8999', __DIR__.'/../../Resources/Scripts');
         self::$process->setTimeout(1);
         self::$process->start();
         usleep(100000);
@@ -44,7 +44,7 @@ class ServerTest extends TestCase
 
     private static function setUpHttpClient()
     {
-        self::$httpClient = new Client('http://[::1]:8999');
+        self::$httpClient = new Client('http://127.0.0.1:8999');
         if (DebugHelper::isDebug()) {
             DebugHelper::addDebugOptionsToHttpClient(self::$httpClient);
         }
@@ -56,15 +56,16 @@ class ServerTest extends TestCase
     }
 
     /**
+     * @param $expectedStatusCode
+     * @param $expectedResponseContent
+     * @param $request
+     * @param $testCase
+     * @param $testHeaders
+     *
      * @dataProvider cbProvider
      */
-    public function testResponse(
-        $expectedStatusCode,
-        $expectedResponseContent,
-        $request,
-        $testCase,
-        $testHeaders
-    ) {
+    public function testResponse($expectedStatusCode, $expectedResponseContent, $request, $testCase, $testHeaders)
+    {
         $signature = sha1($request.self::PROJECT_SECRET_KEY);
         if ($testHeaders) {
             $headers = $testHeaders;
@@ -233,7 +234,7 @@ class ServerTest extends TestCase
                     [
                         'error' => [
                             'code' => 'INVALID_CLIENT_IP',
-                            'message' => 'Client IP address (::1) not found in allowed IP addresses whitelist (159.255.220.240/28, 185.30.20.16/29, 185.30.21.0/24, 185.30.21.16/29). Please check troubleshooting section in README.md https://github.com/xsolla/xsolla-sdk-php#troubleshooting',
+                            'message' => 'Client IP address (127.0.0.1) not found in allowed IP addresses whitelist (159.255.220.240/28, 185.30.20.16/29, 185.30.21.0/24, 185.30.21.16/29). Please check troubleshooting section in README.md https://github.com/xsolla/xsolla-sdk-php#troubleshooting',
                         ],
                     ]
                 ),

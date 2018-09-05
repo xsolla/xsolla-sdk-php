@@ -61,6 +61,7 @@ use Xsolla\SDK\Version;
  * @method void  AddVirtualItemToWalletUser(array $args = array())      Add the virtual items to the user's account. http://developers.xsolla.com/api.html#add-items-to-the-user
  * @method void  DeleteVirtualItemFromWalletUser(array $args = array()) Delete the virtual items from the user's account. http://developers.xsolla.com/api.html#delete-items-from-the-user
  *
+ * @method void  CreateCoupon(array $args = array()) Create coupon for a campaign by given code
  * @method array GetCoupon(array $args = array())    Get information about coupon by code. http://developers.xsolla.com/api.html#get-a-coupon
  * @method array RedeemCoupon(array $args = array()) Redeem coupon by code. http://developers.xsolla.com/api.html#redeem-a-coupon
  *
@@ -79,6 +80,8 @@ use Xsolla\SDK\Version;
  * @method void  SetPromotionPeriods(array $args = array())        Set the periods of the promotion. If the promotion is read-only (read_only = true), you are not allowed to edit existing periods, add new periods only. http://developers.xsolla.com/api.html#set-the-periods
  * @method array GetPromotionRewards(array $args = array())        Get the rewards of the promotion. http://developers.xsolla.com/api.html#get-the-rewards
  * @method void  SetPromotionRewards(array $args = array())        Set the rewards to the promotion. If the promotion is read-only (read_only = true), you are not allowed to update the rewards. http://developers.xsolla.com/api.html#set-the-rewards
+ * @method array ListCouponPromotions(array $args = array())       Get coupon promotions
+ * @method array CreateCouponPromotion(array $args = array())      Create coupon promotion
  *
  * @method array ListEvents(array $args = array()) List all events from Xsolla Event System. http://developers.xsolla.com/api.html#list-all-events
  *
@@ -154,7 +157,7 @@ class XsollaClient extends Client
         ];
         $config = Collection::fromConfig($config, $default, $required);
         $client = new static(isset($config['base_url']) ? $config['base_url'] : null, $config);
-        $client->setDescription(ServiceDescription::factory(__DIR__.'/Resources/xsolla-2015-07-23.php'));
+        $client->setDescription(ServiceDescription::factory(__DIR__.'/Resources/api.php'));
         $client->setDefaultOption('auth', [$config['merchant_id'], $config['api_key'], 'Basic']);
         $client->setDefaultOption('headers', ['Accept' => 'application/json', 'Content-Type' => 'application/json']);
         $client->setDefaultOption('command.params', ['merchant_id' => $config['merchant_id']]);
