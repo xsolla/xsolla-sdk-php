@@ -1,7 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v3.0.3...master)
+## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v3.1.0...master)
+
+## [v3.1.0](https://github.com/xsolla/xsolla-sdk-php/compare/v3.0.3...3.1.0) - 2018-09-05
 ### Added
 * Methods CreateCouponPromotion, ListCouponPromotions, CreateCoupon
 * Tests
