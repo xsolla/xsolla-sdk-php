@@ -198,4 +198,28 @@ class PromotionsTest extends AbstractAPITest
         ]);
         static::assertSame(204, $response->getStatusCode());
     }
+
+    public function testGetCouponPromotions()
+    {
+        $response = static::$xsollaClient->ListCouponPromotions([
+           'limit' => 20,
+           'offset' => 0,
+        ]);
+        static::assertInternalType('array', $response);
+    }
+
+    public function testCreateCouponPromotion()
+    {
+        $response = static::$xsollaClient->CreateCouponPromotion([
+            'request' => [
+                'campaign_code' => uniqid('xsolla_api_test_campaign_code_', false),
+                'project_id' => self::$projectId,
+                'campaign_names' => ['en' => 'xsolla_api_test_campaign_code'],
+                'redeems_count_for_user' => 1,
+                'campaign_redeems_count_for_user' => 1,
+                'expiration_date' => (new \DateTime('+3day'))->format(DATE_RFC3339),
+            ],
+        ]);
+        static::assertInternalType('array', $response);
+    }
 }

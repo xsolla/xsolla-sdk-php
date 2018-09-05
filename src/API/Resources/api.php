@@ -2,14 +2,14 @@
 
 return [
     'name' => 'Xsolla API',
-    'apiVersion' => '2015-07-23',
+    'apiVersion' => '2018-09-05',
     'description' => '',
     'baseUrl' => 'https://api.xsolla.com',
     'operations' => [
         // Payment UI
         'CreatePaymentUIToken' => [
             'httpMethod' => 'POST',
-            'uri' => '/merchant/merchants/{merchant_id}/token',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/token',
             'summary' => 'Create payment UI token',
             'parameters' => [
                 'merchant_id' => [
@@ -31,7 +31,7 @@ return [
         // Subscriptions
         'CreateSubscriptionPlan' => [
             'httpMethod' => 'POST',
-            'uri' => '/merchant/projects/{project_id}/subscriptions/plans',
+            'uri' => '/merchant/v2/projects/{project_id}/subscriptions/plans',
             'summary' => 'Create a recurrent plan',
             'parameters' => [
                 'project_id' => [
@@ -51,7 +51,7 @@ return [
         ],
         'UpdateSubscriptionPlan' => [
             'httpMethod' => 'PUT',
-            'uri' => '/merchant/projects/{project_id}/subscriptions/plans/{plan_id}',
+            'uri' => '/merchant/v2/projects/{project_id}/subscriptions/plans/{plan_id}',
             'summary' => 'Update a recurrent plan',
             'parameters' => [
                 'project_id' => [
@@ -76,7 +76,7 @@ return [
         ],
         'DeleteSubscriptionPlan' => [
             'httpMethod' => 'DELETE',
-            'uri' => '/merchant/projects/{project_id}/subscriptions/plans/{plan_id}/delete',
+            'uri' => '/merchant/v2/projects/{project_id}/subscriptions/plans/{plan_id}/delete',
             'summary' => 'Delete a recurrent plan',
             'parameters' => [
                 'project_id' => [
@@ -93,7 +93,7 @@ return [
         ],
         'DisableSubscriptionPlan' => [
             'httpMethod' => 'DELETE',
-            'uri' => '/merchant/projects/{project_id}/subscriptions/plans/{plan_id}',
+            'uri' => '/merchant/v2/projects/{project_id}/subscriptions/plans/{plan_id}',
             'summary' => 'Disable a recurrent plan',
             'parameters' => [
                 'project_id' => [
@@ -110,7 +110,7 @@ return [
         ],
         'EnableSubscriptionPlan' => [
             'httpMethod' => 'PATCH',
-            'uri' => '/merchant/projects/{project_id}/subscriptions/plans/{plan_id}',
+            'uri' => '/merchant/v2/projects/{project_id}/subscriptions/plans/{plan_id}',
             'summary' => 'Enable a recurrent plan',
             'parameters' => [
                 'project_id' => [
@@ -127,7 +127,7 @@ return [
         ],
         'ListSubscriptionPlans' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/subscriptions/plans',
+            'uri' => '/merchant/v2/projects/{project_id}/subscriptions/plans',
             'summary' => 'List all recurrent plans',
             'parameters' => [
                 'project_id' => [
@@ -164,7 +164,7 @@ return [
         ],
         'CreateSubscriptionProduct' => [
             'httpMethod' => 'POST',
-            'uri' => '/merchant/projects/{project_id}/subscriptions/products',
+            'uri' => '/merchant/v2/projects/{project_id}/subscriptions/products',
             'summary' => 'Create a product',
             'parameters' => [
                 'project_id' => [
@@ -184,7 +184,7 @@ return [
         ],
         'UpdateSubscriptionProduct' => [
             'httpMethod' => 'PUT',
-            'uri' => '/merchant/projects/{project_id}/subscriptions/products/{product_id}',
+            'uri' => '/merchant/v2/projects/{project_id}/subscriptions/products/{product_id}',
             'summary' => 'Update a product',
             'parameters' => [
                 'project_id' => [
@@ -209,7 +209,7 @@ return [
         ],
         'DeleteSubscriptionProduct' => [
             'httpMethod' => 'DELETE',
-            'uri' => '/merchant/projects/{project_id}/subscriptions/products/{product_id}',
+            'uri' => '/merchant/v2/projects/{project_id}/subscriptions/products/{product_id}',
             'summary' => 'Delete a product',
             'parameters' => [
                 'project_id' => [
@@ -226,7 +226,7 @@ return [
         ],
         'ListSubscriptionProducts' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/subscriptions/products',
+            'uri' => '/merchant/v2/projects/{project_id}/subscriptions/products',
             'summary' => 'List all recurrent products',
             'parameters' => [
                 'project_id' => [
@@ -258,7 +258,7 @@ return [
         ],
         'UpdateSubscription' => [
             'httpMethod' => 'PUT',
-            'uri' => '/merchant/projects/{project_id}/users/{user_id}/subscriptions/{subscription_id}',
+            'uri' => '/merchant/v2/projects/{project_id}/users/{user_id}/subscriptions/{subscription_id}',
             'summary' => 'Update a recurrent subscription. It\'s available to update the status of subscription (active or canceled) and to postpone the date of the next charge for current subscription.',
             'parameters' => [
                 'project_id' => [
@@ -288,7 +288,7 @@ return [
         ],
         'ListSubscriptions' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/users/{user_id}/subscriptions',
+            'uri' => '/merchant/v2/projects/{project_id}/users/{user_id}/subscriptions',
             'summary' => 'List all recurrent subscriptions',
             'parameters' => [
                 'project_id' => [
@@ -340,7 +340,7 @@ return [
         ],
         'ListUserSubscriptionPayments' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/users/{user_id}/subscriptions/payments',
+            'uri' => '/merchant/v2/projects/{project_id}/users/{user_id}/subscriptions/payments',
             'summary' => 'List all recurrent payments by user',
             'parameters' => [
                 'project_id' => [
@@ -387,7 +387,7 @@ return [
         ],
         'ListSubscriptionPayments' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/subscriptions/payments',
+            'uri' => '/merchant/v2/projects/{project_id}/subscriptions/payments',
             'summary' => 'List all recurrent payments',
             'parameters' => [
                 'project_id' => [
@@ -429,7 +429,7 @@ return [
         ],
         'ListSubscriptionCurrencies' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/subscriptions/currencies',
+            'uri' => '/merchant/v2/projects/{project_id}/subscriptions/currencies',
             'summary' => 'List all recurrent currencies',
             'parameters' => [
                 'project_id' => [
@@ -442,7 +442,7 @@ return [
         //User attributes
         'ListUserAttributes' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/user_attributes',
+            'uri' => '/merchant/v2/projects/{project_id}/user_attributes',
             'summary' => 'Get list of user attributes',
             'parameters' => [
                 'project_id' => [
@@ -454,7 +454,7 @@ return [
         ],
         'GetUserAttribute' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/user_attributes/{user_attribute_id}',
+            'uri' => '/merchant/v2/projects/{project_id}/user_attributes/{user_attribute_id}',
             'summary' => 'Show a user attribute',
             'parameters' => [
                 'project_id' => [
@@ -471,7 +471,7 @@ return [
         ],
         'CreateUserAttribute' => [
             'httpMethod' => 'POST',
-            'uri' => '/merchant/projects/{project_id}/user_attributes',
+            'uri' => '/merchant/v2/projects/{project_id}/user_attributes',
             'summary' => 'Create user attribute',
             'parameters' => [
                 'project_id' => [
@@ -491,7 +491,7 @@ return [
         ],
         'UpdateUserAttribute' => [
             'httpMethod' => 'PUT',
-            'uri' => '/merchant/projects/{project_id}/user_attributes/{user_attribute_id}',
+            'uri' => '/merchant/v2/projects/{project_id}/user_attributes/{user_attribute_id}',
             'summary' => 'Update user attribute',
             'parameters' => [
                 'project_id' => [
@@ -516,7 +516,7 @@ return [
         ],
         'DeleteUserAttribute' => [
             'httpMethod' => 'DELETE',
-            'uri' => '/merchant/projects/{project_id}/user_attributes/{user_attribute_id}',
+            'uri' => '/merchant/v2/projects/{project_id}/user_attributes/{user_attribute_id}',
             'summary' => 'Delete a user attribute',
             'parameters' => [
                 'project_id' => [
@@ -534,7 +534,7 @@ return [
         // Virtual Items
         'CreateVirtualItem' => [
             'httpMethod' => 'POST',
-            'uri' => '/merchant/projects/{project_id}/virtual_items/items',
+            'uri' => '/merchant/v2/projects/{project_id}/virtual_items/items',
             'summary' => 'Create a virtual item',
             'parameters' => [
                 'project_id' => [
@@ -554,7 +554,7 @@ return [
         ],
         'GetVirtualItem' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/virtual_items/items/{item_id}',
+            'uri' => '/merchant/v2/projects/{project_id}/virtual_items/items/{item_id}',
             'summary' => 'Get a virtual item',
             'parameters' => [
                 'project_id' => [
@@ -571,7 +571,7 @@ return [
         ],
         'UpdateVirtualItem' => [
             'httpMethod' => 'PUT',
-            'uri' => '/merchant/projects/{project_id}/virtual_items/items/{item_id}',
+            'uri' => '/merchant/v2/projects/{project_id}/virtual_items/items/{item_id}',
             'summary' => 'Update a virtual item',
             'parameters' => [
                 'project_id' => [
@@ -596,7 +596,7 @@ return [
         ],
         'DeleteVirtualItem' => [
             'httpMethod' => 'DELETE',
-            'uri' => '/merchant/projects/{project_id}/virtual_items/items/{item_id}',
+            'uri' => '/merchant/v2/projects/{project_id}/virtual_items/items/{item_id}',
             'summary' => 'Delete a virtual item',
             'parameters' => [
                 'project_id' => [
@@ -613,7 +613,7 @@ return [
         ],
         'ListVirtualItems' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/virtual_items/items',
+            'uri' => '/merchant/v2/projects/{project_id}/virtual_items/items',
             'summary' => 'List a virtual items',
             'parameters' => [
                 'project_id' => [
@@ -640,7 +640,7 @@ return [
         ],
         'CreateVirtualItemsGroup' => [
             'httpMethod' => 'POST',
-            'uri' => '/merchant/projects/{project_id}/virtual_items/groups',
+            'uri' => '/merchant/v2/projects/{project_id}/virtual_items/groups',
             'summary' => 'Create a virtual items group',
             'parameters' => [
                 'project_id' => [
@@ -660,7 +660,7 @@ return [
         ],
         'GetVirtualItemsGroup' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/virtual_items/groups/{group_id}',
+            'uri' => '/merchant/v2/projects/{project_id}/virtual_items/groups/{group_id}',
             'summary' => 'Get a virtual items group',
             'parameters' => [
                 'project_id' => [
@@ -677,7 +677,7 @@ return [
         ],
         'UpdateVirtualItemsGroup' => [
             'httpMethod' => 'PUT',
-            'uri' => '/merchant/projects/{project_id}/virtual_items/groups/{group_id}',
+            'uri' => '/merchant/v2/projects/{project_id}/virtual_items/groups/{group_id}',
             'summary' => 'Update a virtual items group',
             'parameters' => [
                 'project_id' => [
@@ -702,7 +702,7 @@ return [
         ],
         'DeleteVirtualItemsGroup' => [
             'httpMethod' => 'DELETE',
-            'uri' => '/merchant/projects/{project_id}/virtual_items/groups/{group_id}',
+            'uri' => '/merchant/v2/projects/{project_id}/virtual_items/groups/{group_id}',
             'summary' => 'Delete a virtual items group',
             'parameters' => [
                 'project_id' => [
@@ -719,7 +719,7 @@ return [
         ],
         'ListVirtualItemsGroups' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/virtual_items/groups',
+            'uri' => '/merchant/v2/projects/{project_id}/virtual_items/groups',
             'summary' => 'List all virtual items groups',
             'parameters' => [
                 'project_id' => [
@@ -731,7 +731,7 @@ return [
         ],
         'UpdateVirtualItemOrderInGroup' => [
             'httpMethod' => 'PUT',
-            'uri' => 'https://api.xsolla.com/merchant/projects/{project_id}/virtual_items/sort',
+            'uri' => '/merchant/v2/projects/{project_id}/virtual_items/sort',
             'summary' => 'Update items order in group',
             'parameters' => [
                 'project_id' => [
@@ -752,7 +752,7 @@ return [
         // Virtual Currency
         'GetProjectVirtualCurrencySettings' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/virtual_currency',
+            'uri' => '/merchant/v2/projects/{project_id}/virtual_currency',
             'summary' => 'Get project virtual currency settings',
             'parameters' => [
                 'project_id' => [
@@ -764,7 +764,7 @@ return [
         ],
         'UpdateProjectVirtualCurrencySettings' => [
             'httpMethod' => 'PUT',
-            'uri' => '/merchant/projects/{project_id}/virtual_currency',
+            'uri' => '/merchant/v2/projects/{project_id}/virtual_currency',
             'summary' => 'Update project virtual currency settings',
             'parameters' => [
                 'project_id' => [
@@ -785,7 +785,7 @@ return [
         // Wallet
         'CreateWalletUser' => [
             'httpMethod' => 'POST',
-            'uri' => '/merchant/projects/{project_id}/users',
+            'uri' => '/merchant/v2/projects/{project_id}/users',
             'summary' => 'Create a new user',
             'parameters' => [
                 'project_id' => [
@@ -805,7 +805,7 @@ return [
         ],
         'GetWalletUser' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/users/{user_id}',
+            'uri' => '/merchant/v2/projects/{project_id}/users/{user_id}',
             'summary' => 'Retrieve a user data',
             'parameters' => [
                 'project_id' => [
@@ -822,7 +822,7 @@ return [
         ],
         'UpdateWalletUser' => [
             'httpMethod' => 'PUT',
-            'uri' => '/merchant/projects/{project_id}/users/{user_id}',
+            'uri' => '/merchant/v2/projects/{project_id}/users/{user_id}',
             'summary' => 'Update user\'s information',
             'parameters' => [
                 'project_id' => [
@@ -847,7 +847,7 @@ return [
         ],
         'ListWalletUsers' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/users',
+            'uri' => '/merchant/v2/projects/{project_id}/users',
             'summary' => 'List all users',
             'parameters' => [
                 'project_id' => [
@@ -879,7 +879,7 @@ return [
         ],
         'ListWalletUserOperations' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/users/{user_id}/transactions',
+            'uri' => '/merchant/v2/projects/{project_id}/users/{user_id}/transactions',
             'summary' => 'List all operations',
             'parameters' => [
                 'project_id' => [
@@ -911,7 +911,7 @@ return [
         ],
         'RechargeWalletUserBalance' => [
             'httpMethod' => 'POST',
-            'uri' => '/merchant/projects/{project_id}/users/{user_id}/recharge',
+            'uri' => '/merchant/v2/projects/{project_id}/users/{user_id}/recharge',
             'summary' => 'Change a balance',
             'parameters' => [
                 'project_id' => [
@@ -936,7 +936,7 @@ return [
         ],
         'ListWalletUserVirtualItems' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/users/{user_id}/virtual_items',
+            'uri' => '/merchant/v2/projects/{project_id}/users/{user_id}/virtual_items',
             'summary' => 'Get user\'s virtual items',
             'parameters' => [
                 'project_id' => [
@@ -963,7 +963,7 @@ return [
         ],
         'AddVirtualItemToWalletUser' => [
             'httpMethod' => 'POST ',
-            'uri' => 'https://api.xsolla.com/merchant/projects/{project_id}/users/{user_id}/virtual_items/add',
+            'uri' => '/merchant/v2/projects/{project_id}/users/{user_id}/virtual_items/add',
             'summary' => 'Add the virtual items to the user\'s account',
             'parameters' => [
                 'project_id' => [
@@ -988,7 +988,7 @@ return [
         ],
         'DeleteVirtualItemFromWalletUser' => [
             'httpMethod' => 'POST ',
-            'uri' => 'https://api.xsolla.com/merchant/projects/{project_id}/users/{user_id}/virtual_items/remove',
+            'uri' => '/merchant/v2/projects/{project_id}/users/{user_id}/virtual_items/remove',
             'summary' => 'Delete the virtual items from the user\'s account',
             'parameters' => [
                 'project_id' => [
@@ -1014,7 +1014,7 @@ return [
         // Coupons
         'GetCoupon' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/coupons/{code}',
+            'uri' => '/merchant/v2/projects/{project_id}/coupons/{code}',
             'summary' => 'Get information about coupon by code',
             'parameters' => [
                 'project_id' => [
@@ -1031,7 +1031,7 @@ return [
         ],
         'RedeemCoupon' => [
             'httpMethod' => 'POST ',
-            'uri' => '/merchant/projects/{project_id}/coupons/{code}/redeem',
+            'uri' => '/merchant/v2/projects/{project_id}/coupons/{code}/redeem',
             'summary' => 'Redeem coupon by code',
             'parameters' => [
                 'project_id' => [
@@ -1057,7 +1057,7 @@ return [
         // Promotions
         'CreatePromotion' => [
             'httpMethod' => 'POST',
-            'uri' => '/merchant/merchants/{merchant_id}/promotions',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/promotions',
             'summary' => 'Create a new promotion',
             'parameters' => [
                 'merchant_id' => [
@@ -1078,7 +1078,7 @@ return [
         ],
         'GetPromotion' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/merchants/{merchant_id}/promotions/{promotion_id}',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/promotions/{promotion_id}',
             'summary' => 'Get a promotion',
             'parameters' => [
                 'merchant_id' => [
@@ -1096,7 +1096,7 @@ return [
         ],
         'UpdatePromotion' => [
             'httpMethod' => 'PUT',
-            'uri' => '/merchant/merchants/{merchant_id}/promotions/{promotion_id}',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/promotions/{promotion_id}',
             'summary' => 'Update a promotion. If the promotion is read-only (read_only = true), you are not allowed to change "project_id" parameter.',
             'parameters' => [
                 'merchant_id' => [
@@ -1122,7 +1122,7 @@ return [
         ],
         'ReviewPromotion' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/merchants/{merchant_id}/promotions/{promotion_id}/review',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/promotions/{promotion_id}/review',
             'summary' => 'Check the promotion, if it is ready for activation. This method returns the list of errors (if they exist).',
             'parameters' => [
                 'merchant_id' => [
@@ -1140,7 +1140,7 @@ return [
         ],
         'TogglePromotion' => [
             'httpMethod' => 'PUT',
-            'uri' => '/merchant/merchants/{merchant_id}/promotions/{promotion_id}/toggle',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/promotions/{promotion_id}/toggle',
             'summary' => 'Toggle the promotion. Change the status of promotion from enabled to disabled and vice versa.',
             'parameters' => [
                 'merchant_id' => [
@@ -1158,7 +1158,7 @@ return [
         ],
         'DeletePromotion' => [
             'httpMethod' => 'DELETE',
-            'uri' => '/merchant/merchants/{merchant_id}/promotions/{promotion_id}',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/promotions/{promotion_id}',
             'summary' => 'Delete a promotion. Only disabled promotion is allowed to delete (enabled = false).',
             'parameters' => [
                 'merchant_id' => [
@@ -1176,7 +1176,7 @@ return [
         ],
         'ListPromotions' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/merchants/{merchant_id}/promotions',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/promotions',
             'summary' => 'List all promotions',
             'parameters' => [
                 'merchant_id' => [
@@ -1189,7 +1189,7 @@ return [
         ],
         'GetPromotionSubject' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/merchants/{merchant_id}/promotions/{promotion_id}/subject',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/promotions/{promotion_id}/subject',
             'summary' => 'Get the subject of the promotion',
             'parameters' => [
                 'merchant_id' => [
@@ -1207,7 +1207,7 @@ return [
         ],
         'SetPromotionSubject' => [
             'httpMethod' => 'PUT',
-            'uri' => '/merchant/merchants/{merchant_id}/promotions/{promotion_id}/subject',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/promotions/{promotion_id}/subject',
             'summary' => 'Set the subject of the promotion. If the promotion is read-only (read_only = true), you are not allowed to update the subject. The subject can take the following values: "purchase", or "items", or "packages".',
             'parameters' => [
                 'merchant_id' => [
@@ -1233,7 +1233,7 @@ return [
         ],
         'GetPromotionPaymentSystems' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/merchants/{merchant_id}/promotions/{promotion_id}/payment_systems',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/promotions/{promotion_id}/payment_systems',
             'summary' => 'Get the payment systems of the promotion. If the payment systems list is empty, the promotion will be valid for all payment systems.',
             'parameters' => [
                 'merchant_id' => [
@@ -1251,7 +1251,7 @@ return [
         ],
         'SetPromotionPaymentSystems' => [
             'httpMethod' => 'PUT',
-            'uri' => '/merchant/merchants/{merchant_id}/promotions/{promotion_id}/payment_systems',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/promotions/{promotion_id}/payment_systems',
             'summary' => 'Set the payment systems of the promotion. If the payment systems list is empty, the promotion will be applied for all payment systems. If the promotion is read-only (read_only = true), you are not allowed to call this command.',
             'parameters' => [
                 'merchant_id' => [
@@ -1277,7 +1277,7 @@ return [
         ],
         'GetPromotionPeriods' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/merchants/{merchant_id}/promotions/{promotion_id}/periods',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/promotions/{promotion_id}/periods',
             'summary' => 'Get the periods of the promotion',
             'parameters' => [
                 'merchant_id' => [
@@ -1295,7 +1295,7 @@ return [
         ],
         'SetPromotionPeriods' => [
             'httpMethod' => 'PUT',
-            'uri' => '/merchant/merchants/{merchant_id}/promotions/{promotion_id}/periods',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/promotions/{promotion_id}/periods',
             'summary' => 'Set the periods of the promotion. If the promotion is read-only (read_only = true), you are not allowed to edit existing periods, add new periods only.',
             'parameters' => [
                 'merchant_id' => [
@@ -1321,7 +1321,7 @@ return [
         ],
         'GetPromotionRewards' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/merchants/{merchant_id}/promotions/{promotion_id}/rewards',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/promotions/{promotion_id}/rewards',
             'summary' => 'Get the rewards of the promotion',
             'parameters' => [
                 'merchant_id' => [
@@ -1339,7 +1339,7 @@ return [
         ],
         'SetPromotionRewards' => [
             'httpMethod' => 'PUT',
-            'uri' => '/merchant/merchants/{merchant_id}/promotions/{promotion_id}/rewards',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/promotions/{promotion_id}/rewards',
             'summary' => 'Set the rewards to the promotion. If the promotion is read-only (read_only = true), you are not allowed to update the rewards.',
             'parameters' => [
                 'merchant_id' => [
@@ -1363,10 +1363,100 @@ return [
                 ],
             ],
         ],
+        'ListCouponPromotions' => [
+            'httpMethod' => 'GET',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/coupon_promotions',
+            'summary' => 'Get coupon promotions.',
+            'parameters' => [
+                'merchant_id' => [
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'static' => true,
+                    'required' => true,
+                ],
+                'offset' => [
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => true,
+                ],
+                'limit' => [
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => true,
+                ],
+                'project_id' => [
+                    'location' => 'query',
+                    'type' => 'integer',
+                    'required' => false,
+                ],
+                'campaign_code' => [
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ],
+                'status' => [
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ],
+                'has_reward' => [
+                    'location' => 'query',
+                    'type' => 'string',
+                    'required' => false,
+                ],
+            ],
+        ],
+        'CreateCouponPromotion' => [
+            'httpMethod' => 'POST',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/coupon_promotions',
+            'summary' => 'Create coupon promotion.',
+            'parameters' => [
+                'merchant_id' => [
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'static' => true,
+                    'required' => true,
+                ],
+                'request' => [
+                    'location' => 'body',
+                    'type' => 'array',
+                    'required' => true,
+                    'filters' => [
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode',
+                    ],
+                ],
+            ],
+        ],
+        'CreateCoupon' => [
+            'httpMethod' => 'POST',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/coupon_promotions/{campaign_id}/coupons',
+            'summary' => 'Create coupon for a campaign by given code.',
+            'parameters' => [
+                'merchant_id' => [
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'static' => true,
+                    'required' => true,
+                ],
+                'campaign_id' => [
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ],
+                'request' => [
+                    'location' => 'body',
+                    'type' => 'array',
+                    'required' => true,
+                    'filters' => [
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode',
+                    ],
+                ],
+            ],
+        ],
         // Events
         'ListEvents' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/merchants/{merchant_id}/events/messages',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/events/messages',
             'summary' => 'List all events from Xsolla Event System',
             'parameters' => [
                 'merchant_id' => [
@@ -1390,7 +1480,7 @@ return [
         // Reports
         'SearchPaymentsRegistry' => [
             'httpMethod' => 'GET',
-            'uri' => 'https://api.xsolla.com/merchant/merchants/{merchant_id}/reports/transactions/search.{format}',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/reports/transactions/search.{format}',
             'summary' => 'Get a transaction list based on specific search parameters. JSON, CSV or XML will be returned in response from the API.',
             'parameters' => [
                 'merchant_id' => [
@@ -1483,7 +1573,7 @@ return [
         ],
         'ListPaymentsRegistry' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/merchants/{merchant_id}/reports/transactions/registry.{format}',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/reports/transactions/registry.{format}',
             'summary' => 'Get information about all transactions for specified data range/transfer/report in different data formats. JSON, CSV or XML will be returned in response from the API.',
             'parameters' => [
                 'merchant_id' => [
@@ -1561,7 +1651,7 @@ return [
         ],
         'ListTransfersRegistry' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/merchants/{merchant_id}/reports/transfers',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/reports/transfers',
             'summary' => 'List all transfers',
             'parameters' => [
                 'merchant_id' => [
@@ -1584,7 +1674,7 @@ return [
         ],
         'ListReportsRegistry' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/merchants/{merchant_id}/reports',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/reports',
             'summary' => 'Get a list of finance reports for specified data range',
             'parameters' => [
                 'merchant_id' => [
@@ -1607,7 +1697,7 @@ return [
         ],
         'CreateRefundRequest' => [
             'httpMethod' => 'PUT',
-            'uri' => '/merchant/merchants/{merchant_id}/reports/transactions/{transaction_id}/refund',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/reports/transactions/{transaction_id}/refund',
             'summary' => 'Send a refund request. Money will be returned to user',
             'parameters' => [
                 'merchant_id' => [
@@ -1634,7 +1724,7 @@ return [
         // Support
         'ListSupportTickets' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/merchants/{merchant_id}/support/tickets',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/support/tickets',
             'summary' => 'List all tickets',
             'parameters' => [
                 'merchant_id' => [
@@ -1682,7 +1772,7 @@ return [
         ],
         'ListSupportTicketComments' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/merchants/{merchant_id}/support/tickets/{ticket_id}/comments',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/support/tickets/{ticket_id}/comments',
             'summary' => 'List all comments',
             'parameters' => [
                 'merchant_id' => [
@@ -1701,7 +1791,7 @@ return [
         // Game Delivery
         'CreateGameDeliveryEntity' => [
             'httpMethod' => 'POST',
-            'uri' => '/merchant/projects/{project_id}/game_delivery',
+            'uri' => '/merchant/v2/projects/{project_id}/game_delivery',
             'summary' => 'Create game delivery entity',
             'parameters' => [
                 'project_id' => [
@@ -1721,7 +1811,7 @@ return [
         ],
         'GetGameDeliveryEntity' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/game_delivery/{game_delivery_id}',
+            'uri' => '/merchant/v2/projects/{project_id}/game_delivery/{game_delivery_id}',
             'summary' => 'Get a game delivery entity',
             'parameters' => [
                 'project_id' => [
@@ -1738,7 +1828,7 @@ return [
         ],
         'UpdateGameDeliveryEntity' => [
             'httpMethod' => 'PUT',
-            'uri' => '/merchant/projects/{project_id}/game_delivery/{game_delivery_id}',
+            'uri' => '/merchant/v2/projects/{project_id}/game_delivery/{game_delivery_id}',
             'summary' => 'Update a game delivery entity',
             'parameters' => [
                 'project_id' => [
@@ -1763,7 +1853,7 @@ return [
         ],
         'ListGameDeliveryEntities' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/game_delivery',
+            'uri' => '/merchant/v2/projects/{project_id}/game_delivery',
             'summary' => 'List all game delivery entities',
             'parameters' => [
                 'project_id' => [
@@ -1775,7 +1865,7 @@ return [
         ],
         'ListGameDeliveryDrmPlatforms' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/merchants/{merchant_id}/drm',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/drm',
             'summary' => 'List available DRM platforms',
             'parameters' => [
                 'merchant_id' => [
@@ -1789,7 +1879,7 @@ return [
         //Storefront
         'GetStorefrontVirtualCurrency' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/storefront/virtual_currency',
+            'uri' => '/merchant/v2/projects/{project_id}/storefront/virtual_currency',
             'summary' => 'List virtual currency packages',
             'parameters' => [
                 'project_id' => [
@@ -1816,7 +1906,7 @@ return [
         ],
         'GetStorefrontVirtualGroups' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/storefront/virtual_items/groups',
+            'uri' => '/merchant/v2/projects/{project_id}/storefront/virtual_items/groups',
             'summary' => 'List of virtual groups',
             'parameters' => [
                 'project_id' => [
@@ -1843,7 +1933,7 @@ return [
         ],
         'GetStorefrontVirtualItems' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/storefront/virtual_items/items',
+            'uri' => '/merchant/v2/projects/{project_id}/storefront/virtual_items/items',
             'summary' => 'List of virtual items',
             'parameters' => [
                 'project_id' => [
@@ -1875,7 +1965,7 @@ return [
         ],
         'GetStorefrontSubscriptions' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/storefront/subscriptions',
+            'uri' => '/merchant/v2/projects/{project_id}/storefront/subscriptions',
             'summary' => 'List of subscriptions',
             'parameters' => [
                 'project_id' => [
@@ -1902,7 +1992,7 @@ return [
         ],
         'GetStorefrontBonus' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/storefront/bonus',
+            'uri' => '/merchant/v2/projects/{project_id}/storefront/bonus',
             'summary' => 'Get active promotion',
             'parameters' => [
                 'project_id' => [
@@ -1930,7 +2020,7 @@ return [
         // Project Settings
         'CreateProject' => [
             'httpMethod' => 'POST',
-            'uri' => '/merchant/merchants/{merchant_id}/projects',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/projects',
             'summary' => 'Create a project',
             'parameters' => [
                 'merchant_id' => [
@@ -1951,7 +2041,7 @@ return [
         ],
         'GetProject' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}',
+            'uri' => '/merchant/v2/projects/{project_id}',
             'summary' => 'Get a project',
             'parameters' => [
                 'project_id' => [
@@ -1963,7 +2053,7 @@ return [
         ],
         'UpdateProject' => [
             'httpMethod' => 'PUT',
-            'uri' => '/merchant/projects/{project_id}',
+            'uri' => '/merchant/v2/projects/{project_id}',
             'summary' => 'Update a project',
             'parameters' => [
                 'project_id' => [
@@ -1983,7 +2073,7 @@ return [
         ],
         'ListProjects' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/merchants/{merchant_id}/projects',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/projects',
             'summary' => 'List projects',
             'parameters' => [
                 'merchant_id' => [
@@ -1997,7 +2087,7 @@ return [
         //Payment Accounts
         'ListPaymentAccounts' => [
             'httpMethod' => 'GET',
-            'uri' => '/merchant/projects/{project_id}/users/{user_id}/payment_accounts',
+            'uri' => '/merchant/v2/projects/{project_id}/users/{user_id}/payment_accounts',
             'summary' => 'List of the saved payment accounts',
             'parameters' => [
                 'project_id' => [
@@ -2014,7 +2104,7 @@ return [
         ],
         'ChargePaymentAccount' => [
             'httpMethod' => 'POST',
-            'uri' => '/merchant/projects/{project_id}/users/{user_id}/payments/{type}/{account_id}',
+            'uri' => '/merchant/v2/projects/{project_id}/users/{user_id}/payments/{type}/{account_id}',
             'summary' => 'Charge using the saved payment account',
             'parameters' => [
                 'project_id' => [
@@ -2049,7 +2139,7 @@ return [
         ],
         'DeletePaymentAccount' => [
             'httpMethod' => 'DELETE',
-            'uri' => '/merchant/projects/{project_id}/users/{user_id}/payments/{type}/{account_id}',
+            'uri' => '/merchant/v2/projects/{project_id}/users/{user_id}/payments/{type}/{account_id}',
             'summary' => 'Delete the saved payment account',
             'parameters' => [
                 'project_id' => [
