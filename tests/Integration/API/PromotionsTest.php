@@ -8,6 +8,7 @@ namespace Xsolla\SDK\Tests\Integration\API;
 class PromotionsTest extends AbstractAPITest
 {
     protected static $promotionId;
+    protected static $couponPromotionId;
 
     protected $promotion;
 
@@ -180,34 +181,6 @@ class PromotionsTest extends AbstractAPITest
     /**
      * @depends testReviewPromotion
      */
-    public function testTogglePromotion()
-    {
-        $response = static::$xsollaClient->TogglePromotion([
-            'promotion_id' => static::$promotionId,
-        ]);
-        static::assertSame(204, $response->getStatusCode());
-    }
-
-    /**
-     * @depends testTogglePromotion
-     */
-    public function testDeletePromotion()
-    {
-        $response = static::$xsollaClient->DeletePromotion([
-            'promotion_id' => static::$promotionId,
-        ]);
-        static::assertSame(204, $response->getStatusCode());
-    }
-
-    public function testGetCouponPromotions()
-    {
-        $response = static::$xsollaClient->ListCouponPromotions([
-           'limit' => 20,
-           'offset' => 0,
-        ]);
-        static::assertInternalType('array', $response);
-    }
-
     public function testCreateCouponPromotion()
     {
         $response = static::$xsollaClient->CreateCouponPromotion([
@@ -221,5 +194,54 @@ class PromotionsTest extends AbstractAPITest
             ],
         ]);
         static::assertInternalType('array', $response);
+        static::$couponPromotionId = $response['id'];
+    }
+
+    /**
+     * @depends testCreateCouponPromotion
+     */
+    public function testGetCouponPromotions()
+    {
+        $response = static::$xsollaClient->ListCouponPromotions([
+            'limit' => 20,
+            'offset' => 0,
+        ]);
+        static::assertInternalType('array', $response);
+    }
+
+    /**
+     * @depends testCreateCouponPromotion
+     */
+    public function testUpdatePromotionCampaigns()
+    {
+        $response = static::$xsollaClient->UpdatePromotionCampaigns([
+            'promotion_id' => static::$promotionId,
+            'request' => [
+                'campaigns' => [static::$couponPromotionId],
+            ],
+        ]);
+        static::assertSame(204, $response->getStatusCode());
+    }
+
+    /**
+     * @depends testUpdatePromotionCampaigns
+     */
+    public function testTogglePromotion()
+    {
+        $response = static::$xsollaClient->TogglePromotion([
+            'promotion_id' => static::$promotionId,
+        ]);
+        static::assertSame(204, $response->getStatusCode());
+    }
+
+    /**
+     * @depends testUpdatePromotionCampaigns
+     */
+    public function testDeletePromotion()
+    {
+        $response = static::$xsollaClient->DeletePromotion([
+            'promotion_id' => static::$promotionId,
+        ]);
+        static::assertSame(204, $response->getStatusCode());
     }
 }

@@ -1453,6 +1453,32 @@ return [
                 ],
             ],
         ],
+        'UpdatePromotionCampaigns' => [
+            'httpMethod' => 'PUT',
+            'uri' => '/merchant/v2/merchants/{merchant_id}/promotions/{promotion_id}/coupons',
+            'summary' => 'Update the promotion campaigns.',
+            'parameters' => [
+                'merchant_id' => [
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'static' => true,
+                    'required' => true,
+                ],
+                'promotion_id' => [
+                    'location' => 'uri',
+                    'type' => 'integer',
+                    'required' => true,
+                ],
+                'request' => [
+                    'location' => 'body',
+                    'type' => 'array',
+                    'required' => true,
+                    'filters' => [
+                        '\Xsolla\SDK\API\XsollaClient::jsonEncode',
+                    ],
+                ],
+            ],
+        ],
         // Events
         'ListEvents' => [
             'httpMethod' => 'GET',

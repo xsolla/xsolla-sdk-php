@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v3.1.0...master)
+### Added
+* Method UpdatePromotionCampaigns
+* Tests
+
+### Fixed
+* Dates of license
+* Descriptions of methods
 
 ## [v3.1.0](https://github.com/xsolla/xsolla-sdk-php/compare/v3.0.3...3.1.0) - 2018-09-05
 ### Added
