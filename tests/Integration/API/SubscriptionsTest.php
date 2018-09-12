@@ -76,11 +76,11 @@ class SubscriptionsTest extends AbstractAPITest
      */
     public function testDisableSubscriptionPlan()
     {
-        $response = static::$xsollaClient->DisableSubscriptionPlan([
+        static::$xsollaClient->DisableSubscriptionPlan([
             'project_id' => static::$projectId,
             'plan_id' => static::$planId,
         ]);
-        static::assertSame(204, $response->getStatusCode());
+        static::assertTrue(true);
     }
 
     /**
@@ -88,11 +88,11 @@ class SubscriptionsTest extends AbstractAPITest
      */
     public function testEnableSubscriptionPlan()
     {
-        $response = static::$xsollaClient->EnableSubscriptionPlan([
+        static::$xsollaClient->EnableSubscriptionPlan([
             'project_id' => static::$projectId,
             'plan_id' => static::$planId,
         ]);
-        static::assertSame(204, $response->getStatusCode());
+        static::assertTrue(true);
     }
 
     /**
@@ -100,11 +100,11 @@ class SubscriptionsTest extends AbstractAPITest
      */
     public function testDeleteSubscriptionPlan()
     {
-        $response = static::$xsollaClient->DeleteSubscriptionPlan([
+        static::$xsollaClient->DeleteSubscriptionPlan([
             'project_id' => static::$projectId,
             'plan_id' => static::$planId,
         ]);
-        static::assertSame(204, $response->getStatusCode());
+        static::assertTrue(true);
     }
 
     /**
@@ -154,11 +154,11 @@ class SubscriptionsTest extends AbstractAPITest
      */
     public function testDeleteSubscriptionProduct()
     {
-        $response = static::$xsollaClient->DeleteSubscriptionProduct([
+        static::$xsollaClient->DeleteSubscriptionProduct([
             'project_id' => static::$projectId,
             'product_id' => static::$productId,
         ]);
-        static::assertSame(204, $response->getStatusCode());
+        static::assertTrue(true);
     }
 
     public function testListSubscriptionProducts()

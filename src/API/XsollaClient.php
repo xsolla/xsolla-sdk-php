@@ -2,11 +2,10 @@
 
 namespace Xsolla\SDK\API;
 
-use Guzzle\Common\Collection;
-use Guzzle\Common\Event;
-use Guzzle\Http\Exception\BadResponseException;
-use Guzzle\Service\Client;
-use Guzzle\Service\Description\ServiceDescription;
+use GuzzleHttp\Client;
+use GuzzleHttp\Collection;
+use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\ClientException;
 use Xsolla\SDK\API\PaymentUI\TokenRequest;
 use Xsolla\SDK\Exception\API\XsollaAPIException;
 use Xsolla\SDK\Version;
@@ -109,7 +108,7 @@ use Xsolla\SDK\Version;
  *
  * @method array CreateProject(array $args = []) Create a new project http://developers.xsolla.com/api.html#create-a-new-project
  * @method array GetProject(array $args = [])    Get a project http://developers.xsolla.com/api.html#get-a-project
- * @method array UpdateProject(array $args = []) Update a project http://developers.xsolla.com/api.html#update-a-project
+ * @method void  UpdateProject(array $args = []) Update a project http://developers.xsolla.com/api.html#update-a-project
  * @method array ListProjects(array $args = [])  List all projects http://developers.xsolla.com/api.html#list-all-projects
  *
  * @method array ListPaymentAccounts(array $args = [])  List of the saved payment accounts http://developers.xsolla.com/api.html#list-saved-payment-accounts
@@ -118,15 +117,8 @@ use Xsolla\SDK\Version;
  */
 class XsollaClient extends Client
 {
-    /**
-     * @var int
-     */
-    protected $merchantId;
-
-    /**
-     * @var Client
-     */
-    protected $guzzleClient;
+    private static $merchantId;
+    private static $serviceDescription;
 
     /**
      * @internal
@@ -135,10 +127,7 @@ class XsollaClient extends Client
      */
     public static function jsonEncode($value)
     {
-        $flags = 0;
-        if (defined('JSON_PRETTY_PRINT')) {
-            $flags = JSON_PRETTY_PRINT;
-        }
+        $flags = defined('JSON_PRETTY_PRINT') ? JSON_PRETTY_PRINT : 0;
 
         return json_encode($value, $flags);
     }
@@ -149,39 +138,59 @@ class XsollaClient extends Client
      */
     public static function factory($config = [])
     {
-        $default = [
-            'ssl.certificate_authority' => 'system',
-        ];
-        $required = [
-            'merchant_id',
-            'api_key',
-        ];
-        $config = Collection::fromConfig($config, $default, $required);
-        $client = new static(isset($config['base_url']) ? $config['base_url'] : null, $config);
-        $client->setDescription(ServiceDescription::factory(__DIR__.'/Resources/api.php'));
+        $required = ['merchant_id', 'api_key'];
+        $default = ['ssl.certificate_authority' => 'system'];
+
+        $config = Collection::fromConfig($config, $default, $required)->toArray();
+
+        $client = new static($config);
         $client->setDefaultOption('auth', [$config['merchant_id'], $config['api_key'], 'Basic']);
-        $client->setDefaultOption('headers', ['Accept' => 'application/json', 'Content-Type' => 'application/json']);
-        $client->setDefaultOption('command.params', ['merchant_id' => $config['merchant_id']]);
-        $client->setUserAgent(Version::getVersion());
-        $exceptionCb = function (Event $event) {
-            $previous = $event['exception'];
-            if ($previous instanceof BadResponseException) {
-                $e = XsollaAPIException::fromBadResponse($previous);
-            } else {
-                /* @var \Exception $previous */
-                $e = new XsollaAPIException(
-                    'XsollaClient Exception: '.$previous->getMessage().' Please check troubleshooting section in README.md https://github.com/xsolla/xsolla-sdk-php#troubleshooting',
-                    0,
-                    $previous
-                );
-            }
-            throw $e;
-        };
-        /* @var \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher */
-        $dispatcher = $client->getEventDispatcher();
-        $dispatcher->addListener('request.exception', $exceptionCb);
+        $client->setDefaultOption('headers', [
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+            'User-Agent' => Version::getVersion(),
+        ]);
+
+        self::$serviceDescription = require __DIR__.'/Resources/api.php';
+        self::$merchantId = (int) $config['merchant_id'];
 
         return $client;
+    }
+
+    /**
+     * @param $name
+     * @param $arguments
+     * @return mixed
+     */
+    public function __call($name, $arguments)
+    {
+        $params = count($arguments) > 0 ? $arguments[0] : [];
+
+        $operation = self::$serviceDescription['operations'][$name];
+        $uri = self::$serviceDescription['baseUrl'].$operation['uri'];
+
+        foreach ($operation['parameters'] as $parameterName => $parameterValue) {
+            if ('uri' === $parameterValue['location'] && null !== strpos($uri, sprintf('{%s}', $parameterName))) {
+                $replacementValue = 'merchant_id' === $parameterName ? self::$merchantId : $params[$parameterName];
+
+                $uri = str_replace(sprintf('{%s}', $parameterName), $replacementValue, $uri);
+            } elseif ('query' === $parameterValue['location']) {
+                $params['request'][$parameterName] = $params[$parameterName] ?? null;
+            }
+        }
+
+        $requestParams = 'GET' === $operation['httpMethod'] ? ['query' => $params['request'] ?? []] : ['json' => $params['request'] ?? []];
+
+        try {
+            $request = $this->createRequest($operation['httpMethod'], $uri, $requestParams);
+            $response = $this->send($request);
+        } catch (BadResponseException | ClientException $exception) {
+            throw XsollaAPIException::fromBadResponse($exception);
+        } catch (\Exception $exception) {
+            throw new XsollaAPIException('XsollaClient Exception: '.$exception->getMessage().' Please check troubleshooting section in README.md https://github.com/xsolla/xsolla-sdk-php#troubleshooting', 0, $exception);
+        }
+
+        return json_decode($response->getBody(), true);
     }
 
     /**

@@ -2,8 +2,8 @@
 
 namespace Xsolla\SDK\Tests\Helper;
 
-use Guzzle\Common\Event;
-use Guzzle\Http\Client;
+use GuzzleHttp\Client;
+use GuzzleHttp\Event\EventInterface;
 
 class DebugHelper
 {
@@ -15,11 +15,12 @@ class DebugHelper
     public static function addDebugOptionsToHttpClient(Client $guzzleClient)
     {
         $guzzleClient->setDefaultOption('debug', true);
-        $echoCb = function (Event $event) {
-            echo (string) $event['request'].PHP_EOL;
-            echo (string) $event['response'].PHP_EOL;
+        $echoCb = function (EventInterface $event) {
+            echo (string) $event->getRequest().PHP_EOL;
+            echo (string) $event->getResponse().PHP_EOL;
         };
-        $guzzleClient->getEventDispatcher()->addListener('request.complete', $echoCb);
-        $guzzleClient->getEventDispatcher()->addListener('request.exception', $echoCb);
+
+        $guzzleClient->getEmitter()->on('complete', $echoCb);
+        $guzzleClient->getEmitter()->on('error', $echoCb);
     }
 }

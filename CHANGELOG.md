@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v3.2.0...master)
+### Fixed
+* Update version of guzzle from 3.8 to 5.3
+* Fixed descriptions of methods
+
+### Added
+* Test for check exception of guzzle
 
 ## [v3.2.0](https://github.com/xsolla/xsolla-sdk-php/compare/v3.1.0...v3.2.0) - 2018-09-11
 ### Added
