@@ -16,7 +16,7 @@ $packager->recursiveCopy('vendor/symfony/http-foundation', 'Symfony/Component/Ht
 $packager->createAutoloader([
     'GuzzleHttp/functions_include.php',
     'GuzzleHttp/Promise/functions_include.php',
-    'GuzzleHttp/Psr7/functions_include.php'
+    'GuzzleHttp/Psr7/functions_include.php',
 ], 'xsolla-autoloader.php');
 
 $packager->createPhar(__DIR__.'/artifacts/xsolla.phar', null, 'xsolla-autoloader.php');
