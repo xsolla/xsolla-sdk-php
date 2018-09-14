@@ -2,6 +2,8 @@
 
 namespace Xsolla\SDK\Tests\Integration\API;
 
+use Xsolla\SDK\Exception\API\AccessDeniedException;
+
 /**
  * @group api
  */
@@ -9,13 +11,24 @@ class CouponsTest extends AbstractAPITest
 {
     public function testCreateCoupon()
     {
-        $response = static::$xsollaClient->CreateCoupon([
+        static::$xsollaClient->CreateCoupon([
             'campaign_id' => (int) getenv('CAMPAIGN_ID'),
             'request' => [
                 'coupon_code' => uniqid('sdk_coupon_', false),
             ],
         ]);
-        static::assertSame(204, $response->getStatusCode());
+        static::assertTrue(true);
+    }
+
+    public function testWrongCreateCoupon()
+    {
+        static::expectException(AccessDeniedException::class);
+        static::$xsollaClient->CreateCoupon([
+            'campaign_id' => (int) 2222,
+            'request' => [
+                'coupon_code' => uniqid('sdk_coupon_', false),
+            ],
+        ]);
     }
 
     public function testGetCoupon()

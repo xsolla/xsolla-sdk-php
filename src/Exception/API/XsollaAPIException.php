@@ -2,7 +2,7 @@
 
 namespace Xsolla\SDK\Exception\API;
 
-use Guzzle\Http\Exception\BadResponseException;
+use GuzzleHttp\Exception\BadResponseException;
 use Xsolla\SDK\Exception\XsollaException;
 
 class XsollaAPIException extends XsollaException

@@ -2,8 +2,9 @@
 
 namespace Xsolla\SDK\Tests\Integration\Webhook;
 
-use Guzzle\Http\Client;
-use Guzzle\Http\Exception\BadResponseException;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Process\Process;
@@ -44,7 +45,7 @@ class ServerTest extends TestCase
 
     private static function setUpHttpClient()
     {
-        self::$httpClient = new Client('http://127.0.0.1:8999');
+        self::$httpClient = new Client(['base_url' => 'http://127.0.0.1:8999']);
         if (DebugHelper::isDebug()) {
             DebugHelper::addDebugOptionsToHttpClient(self::$httpClient);
         }
@@ -67,22 +68,18 @@ class ServerTest extends TestCase
     public function testResponse($expectedStatusCode, $expectedResponseContent, $request, $testCase, $testHeaders)
     {
         $signature = sha1($request.self::PROJECT_SECRET_KEY);
-        if ($testHeaders) {
-            $headers = $testHeaders;
-        } else {
-            $headers = ['Authorization' => 'Signature '.$signature];
-        }
-        $request = self::$httpClient->post('/webhook_server.php?test_case='.$testCase, $headers, $request);
+        $headers = $testHeaders ? $testHeaders : ['Authorization' => 'Signature '.$signature];
+
         try {
-            $response = $request->send();
-        } catch (BadResponseException $e) {
+            $response = self::$httpClient->post('/webhook_server.php?test_case='.$testCase, ['headers' => $headers, 'body' => $request]);
+        } catch (BadResponseException | ClientException $e) {
             $response = $e->getResponse();
         }
-        static::assertSame($expectedResponseContent, $response->getBody(true));
+        static::assertSame($expectedResponseContent, $response->getBody()->getContents());
         static::assertSame($expectedStatusCode, $response->getStatusCode());
         static::assertArrayHasKey('x-xsolla-sdk', $response->getHeaders());
         static::assertSame(Version::getVersion(), (string) $response->getHeader('x-xsolla-sdk'));
-        static::assertArrayHasKey('content-type', $response->getHeaders());
+        static::assertNotNull((string) $response->getHeader('content-type'));
         if (Response::HTTP_NO_CONTENT === $response->getStatusCode()) {
             static::assertStringStartsWith('text/plain', (string) $response->getHeader('content-type'));
         } else {
