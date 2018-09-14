@@ -7,7 +7,9 @@ $packager = new \Burgomaster(__DIR__.'/artifacts/staging', __DIR__.'/../');
 $packager->exec('rm -rf '.__DIR__.'/artifacts/xsolla.*');
 
 $packager->recursiveCopy('src', 'Xsolla/SDK');
-$packager->recursiveCopy('vendor/guzzle/guzzle/src/Guzzle', 'Guzzle', ['php', 'pem']);
+$packager->recursiveCopy('vendor/guzzlehttp/guzzle/src', 'GuzzleHttp', ['php', 'pem']);
+$packager->recursiveCopy('vendor/guzzlehttp/ringphp/src', 'GuzzleHttp/Ring', ['php', 'pem']);
+$packager->recursiveCopy('vendor/guzzlehttp/streams/src', 'GuzzleHttp/Stream', ['php', 'pem']);
 $packager->recursiveCopy('vendor/symfony/event-dispatcher', 'Symfony/Component/EventDispatcher');
 $packager->recursiveCopy('vendor/symfony/http-foundation', 'Symfony/Component/HttpFoundation');
 
