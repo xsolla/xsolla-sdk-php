@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v3.3.0...master)
+### Fixed
+* Update guzzle version from 5.3 to 6.0
+* Change code and tests for new guzzle version
+* Change phar build
+* Change debug output format for tests
 
 ## [v3.3.0](https://github.com/xsolla/xsolla-sdk-php/compare/v3.2.0...v3.3.0) - 2018-09-14
 ### Fixed

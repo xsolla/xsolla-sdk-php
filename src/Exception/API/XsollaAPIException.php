@@ -39,8 +39,8 @@ EOF;
         $message = sprintf(
             static::$messageTemplate,
             $previous->getMessage(),
-            $previous->getRequest(),
-            $previous->getResponse()
+            \GuzzleHttp\Psr7\str($previous->getRequest()),
+            \GuzzleHttp\Psr7\str($previous->getResponse())
         );
         if (array_key_exists($statusCode, static::$exceptions)) {
             return new static::$exceptions[$statusCode]($message, 0, $previous);

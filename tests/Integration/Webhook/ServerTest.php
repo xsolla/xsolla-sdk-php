@@ -45,10 +45,10 @@ class ServerTest extends TestCase
 
     private static function setUpHttpClient()
     {
-        self::$httpClient = new Client(['base_url' => 'http://127.0.0.1:8999']);
-        if (DebugHelper::isDebug()) {
-            DebugHelper::addDebugOptionsToHttpClient(self::$httpClient);
-        }
+        self::$httpClient = new Client([
+            'base_uri' => 'http://127.0.0.1:8999',
+            'debug' => DebugHelper::isDebug(),
+        ]);
     }
 
     public static function tearDownAfterClass()
@@ -78,12 +78,12 @@ class ServerTest extends TestCase
         static::assertSame($expectedResponseContent, $response->getBody()->getContents());
         static::assertSame($expectedStatusCode, $response->getStatusCode());
         static::assertArrayHasKey('x-xsolla-sdk', $response->getHeaders());
-        static::assertSame(Version::getVersion(), (string) $response->getHeader('x-xsolla-sdk'));
-        static::assertNotNull((string) $response->getHeader('content-type'));
+        static::assertSame(Version::getVersion(), (string) $response->getHeader('x-xsolla-sdk')[0]);
+        static::assertNotNull((string) $response->getHeader('content-type')[0]);
         if (Response::HTTP_NO_CONTENT === $response->getStatusCode()) {
-            static::assertStringStartsWith('text/plain', (string) $response->getHeader('content-type'));
+            static::assertStringStartsWith('text/plain', (string) $response->getHeader('content-type')[0]);
         } else {
-            static::assertStringStartsWith('application/json', (string) $response->getHeader('content-type'));
+            static::assertStringStartsWith('application/json', (string) $response->getHeader('content-type')[0]);
         }
     }
 

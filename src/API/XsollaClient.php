@@ -3,9 +3,9 @@
 namespace Xsolla\SDK\API;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Collection;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\GuzzleException;
 use Xsolla\SDK\API\PaymentUI\TokenRequest;
 use Xsolla\SDK\Exception\API\XsollaAPIException;
 use Xsolla\SDK\Version;
@@ -139,22 +139,23 @@ class XsollaClient extends Client
     public static function factory($config = [])
     {
         $required = ['merchant_id', 'api_key'];
-        $default = ['ssl.certificate_authority' => 'system'];
+        $config += ['ssl.certificate_authority' => 'system'];
 
-        $config = Collection::fromConfig($config, $default, $required)->toArray();
+        if ($missing = array_diff($required, array_keys($config))) {
+            throw new \InvalidArgumentException('Config is missing the following keys: '.implode(', ', $missing));
+        }
 
-        $client = new static($config);
-        $client->setDefaultOption('auth', [$config['merchant_id'], $config['api_key'], 'Basic']);
-        $client->setDefaultOption('headers', [
+        $config['auth'] = [$config['merchant_id'], $config['api_key'], 'Basic'];
+        $config['headers'] = [
             'Accept' => 'application/json',
             'Content-Type' => 'application/json',
             'User-Agent' => Version::getVersion(),
-        ]);
+        ];
 
         self::$serviceDescription = require __DIR__.'/Resources/api.php';
         self::$merchantId = (int) $config['merchant_id'];
 
-        return $client;
+        return new static($config);
     }
 
     /**
@@ -182,15 +183,14 @@ class XsollaClient extends Client
         $requestParams = 'GET' === $operation['httpMethod'] ? ['query' => $params['request'] ?? []] : ['json' => $params['request'] ?? []];
 
         try {
-            $request = $this->createRequest($operation['httpMethod'], $uri, $requestParams);
-            $response = $this->send($request);
+            $response = $this->request($operation['httpMethod'], $uri, $requestParams);
         } catch (BadResponseException | ClientException $exception) {
             throw XsollaAPIException::fromBadResponse($exception);
-        } catch (\Exception $exception) {
+        } catch (\Exception | GuzzleException $exception) {
             throw new XsollaAPIException('XsollaClient Exception: '.$exception->getMessage().' Please check troubleshooting section in README.md https://github.com/xsolla/xsolla-sdk-php#troubleshooting', 0, $exception);
         }
 
-        return json_decode($response->getBody(), true);
+        return json_decode($response->getBody()->getContents(), true);
     }
 
     /**
