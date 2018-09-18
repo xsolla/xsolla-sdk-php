@@ -10,6 +10,7 @@ $packager->recursiveCopy('src', 'Xsolla/SDK');
 $packager->recursiveCopy('vendor/guzzlehttp/guzzle/src', 'GuzzleHttp', ['php', 'pem']);
 $packager->recursiveCopy('vendor/guzzlehttp/promises/src', 'GuzzleHttp/Promise', ['php', 'pem']);
 $packager->recursiveCopy('vendor/guzzlehttp/psr7/src', 'GuzzleHttp/Psr7', ['php', 'pem']);
+$packager->recursiveCopy('vendor/psr/http-message/src', 'Psr/Http/Message');
 $packager->recursiveCopy('vendor/symfony/event-dispatcher', 'Symfony/Component/EventDispatcher');
 $packager->recursiveCopy('vendor/symfony/http-foundation', 'Symfony/Component/HttpFoundation');
 
