@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v4.0.0...master)
+### Fixed
+* Phar and rar archive
 
 ## [v4.0.0](https://github.com/xsolla/xsolla-sdk-php/compare/v3.3.0...v4.0.0) - 2018-09-14
 ### Fixed
