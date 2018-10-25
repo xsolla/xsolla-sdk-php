@@ -13,6 +13,13 @@ class AfsRejectMessage extends Message
         return $this->request['transaction'];
     }
 
+    /**
+     * @return int
+     */
+    public function getPaymentId()
+    {
+        return $this->request['transaction']['id'];
+    }
 
     /**
      * @return string|null
@@ -22,6 +29,14 @@ class AfsRejectMessage extends Message
         if (array_key_exists('external_id', $this->request['transaction'])) {
             return $this->request['transaction']['external_id'];
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function getPaymentAgreement()
+    {
+        return $this->request['transaction']['agreement'];
     }
 
     /**
