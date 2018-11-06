@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 ## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v4.0.1...master)
 
+## [v4.0.2](https://github.com/vlepigeo/xsolla-sdk-php/compare/v4.0.1...afs_reject) - 2018-11-06
+### Fixed
+* Add AFS reject class
+
 ## [v4.0.1](https://github.com/xsolla/xsolla-sdk-php/compare/v4.0.0...v4.0.1) - 2018-09-18
 ### Fixed
 * Phar and rar archive
