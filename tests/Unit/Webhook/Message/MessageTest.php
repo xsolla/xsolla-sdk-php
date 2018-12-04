@@ -54,6 +54,13 @@ class MessageTest extends TestCase
                 'isRefund' => true,
             ],
             [
+                'notificationType' => 'afs_reject',
+                'expectedClass' => '\Xsolla\SDK\Webhook\Message\AfsRejectMessage',
+                'isUserValidation' => false,
+                'isPayment' => false,
+                'isRefund' => false,
+            ],
+            [
                 'notificationType' => 'create_subscription',
                 'expectedClass' => '\Xsolla\SDK\Webhook\Message\CreateSubscriptionMessage',
                 'isUserValidation' => false,
