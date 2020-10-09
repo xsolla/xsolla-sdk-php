@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
-## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v4.1.1...master)
+## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v4.1.2...master)
+
+## [v4.1.2](https://github.com/xsolla/xsolla-sdk-php/compare/v4.1.1...v4.1.2) - 2020-10-09
+### Added
 * Changed support version of PHP from 7.1.3 to 7.4.x
 
 ## [v4.1.1](https://github.com/xsolla/xsolla-sdk-php/compare/v4.1.0...v4.1.1) - 2020-07-16
