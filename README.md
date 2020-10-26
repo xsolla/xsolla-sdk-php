@@ -14,31 +14,40 @@ An official PHP SDK for interacting with [Xsolla API](https://developers.xsolla.
 
 ## Features
 
-* Full customisation of Payment UI with the help of different methods of getting token.
-* Client for all API methods, making your integration easy and convenient. You can use it for setting up and updating virtual currency, items and subscription plans, for managing the users balance, for checking the finance information with the help of Report API and so on.
-* Convenient webhook server:
-  * To start you need only one callback function.
-  * All security checking already implemented: signature authentication and IP whitelisting.
-  * Full customisation of notification processing logic, if standard server class doesn’t suit you.
-* SDK is built on Guzzle v3, and utilizes many of its features, including persistent connections, parallel requests, events and plugins (via Symfony2 EventDispatcher), service descriptions, over-the-wire logging, caching, flexible batching, and request retrying with truncated exponential back off.
+To make integration with [Xsolla API](https://developers.xsolla.com/ru/api/) easier, use Pay Station PHP SDK on your server. SDK provides you with ready solutions for getting a token and processing webhooks. You can also use the Pay Station PHP SDK to realize the following functions in your app:
 
-## Requirements
+*   managing virtual currency packages
+*   managing in-game items
+*   managing renewable subscriptions
+*   managing the user’s balance
+*   reconciling financial data
 
-* PHP >=7.1.3 <= 7.4.5
-* The following PHP extensions are required:
-  * curl
-  * json
+After integrating Pay Station PHP SDK, you can do the following:
 
-## Getting Started
+*   integrate all Xsolla API methods with a single client
+*   use the simplified and advanced methods of getting a token
+*   use a convenient app for processing requests from Xsolla servers
 
-Please register your [Publisher Account](https://publisher.xsolla.com/signup) and create the project.
-In order to use the PHP SDK Library you'll need:
-* MERCHANT_ID
-* API_KEY
-* PROJECT_ID
-* PROJECT_KEY
+## System Requirements
 
-You can obtain these parameters using the information in your [Company Profile](https://publisher.xsolla.com/company) and [Project Settings](https://publisher.xsolla.com/projects).
+*   PHP 7.1.3 - 7.4
+*   PHP extensions:
+    *   curl
+    *   json
+
+
+## Get Started
+
+Before you start, you need to register your [Publisher Account](https://publisher.xsolla.com/signup) and create a project. During the installation process, you will need the following parameters from your Publisher Account:
+
+
+
+*   Merchant ID
+*   API key
+*   Project ID
+*   Secret key
+
+Read more about prerequisites at [Xsolla Developers portal](https://developers.xsolla.com/sdk/others/php/).
 
 ## Installation
 
@@ -73,87 +82,24 @@ You can [download the zip file](https://github.com/xsolla/xsolla-sdk-php/release
 require '/path/to/xsolla-autoloader.php';
 ```
 
-## Quick Examples
+## Usage
 
-### Integrate Payment UI
+See instructions on how to get a token, open the payment UI, and handle webhooks at [Xsolla Developers portal](https://developers.xsolla.com/sdk/others/php/).
 
-To integrate Payment UI into your game you should obtain an access token. An access token is a string that identifies game, user and purchase parameters.
-
-There are number of ways for getting token. The easiest one is to use the _createCommonPaymentUIToken_ method, you will need to pass only ID of project in Xsolla system and ID of the user in your game:
-
-``` php
-<?php
-
-use Xsolla\SDK\API\XsollaClient;
-
-$client = XsollaClient::factory(array(
-    'merchant_id' => MERCHANT_ID,
-    'api_key' => API_KEY
-));
-$paymentUIToken = $client->createCommonPaymentUIToken(PROJECT_ID, USER_ID, $sandboxMode = true);
-```
-
-Render Payment UI script in your page:
-
-``` php
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-</head>
-<body>
-    <button data-xpaystation-widget-open>Buy Credits</button>
-    
-    <?php \Xsolla\SDK\API\PaymentUI\PaymentUIScriptRenderer::send($paymentUIToken, $isSandbox = true); ?>
-</body>
-</html>
-```
-### Receive webhooks
-
-There is a build in server class to help you to handle the webhooks.
-
-```php
-<?php
-
-use Xsolla\SDK\Webhook\WebhookServer;
-use Xsolla\SDK\Webhook\Message\Message;
-use Xsolla\SDK\Exception\Webhook\XsollaWebhookException;
-
-$callback = function (Message $message) {
-    switch ($message->getNotificationType()) {
-        case Message::USER_VALIDATION:
-            /** @var Xsolla\SDK\Webhook\Message\UserValidationMessage $message */
-            // TODO if user not found, you should throw Xsolla\SDK\Exception\Webhook\InvalidUserException
-            break;
-        case Message::PAYMENT:
-            /** @var Xsolla\SDK\Webhook\Message\PaymentMessage $message */
-            // TODO if the payment delivery fails for some reason, you should throw Xsolla\SDK\Exception\Webhook\XsollaWebhookException
-            break;
-        case Message::REFUND:
-            /** @var Xsolla\SDK\Webhook\Message\RefundMessage $message */
-            // TODO if you cannot handle the refund, you should throw Xsolla\SDK\Exception\Webhook\XsollaWebhookException
-            break;
-        default:
-            throw new XsollaWebhookException('Notification type not implemented');
-    }
-};
-
-$webhookServer = WebhookServer::create($callback, PROJECT_KEY);
-$webhookServer->start();
-```
-
-Once you've finished the handling of notifications on your server, please set up the URL that will receive all webhook notifications on the Settings page for your project.
 
 ## Troubleshooting
 
 You can find solutions for the most frequently encountered errors in our [documentation](https://developers.xsolla.com/doc/sdk/#php_sdk_troubleshooting).
 
+
 ## Contributing
 
-Please take a look at the [CONTRIBUTING.md](CONTRIBUTING.md) to see how to get your changes merged in.
+Take a look at the [CONTRIBUTING.md](https://github.com/xsolla/xsolla-sdk-php/blob/master/CONTRIBUTING.md) to see how to merge your changes.
+
 
 ## Additional resources
 
-* [Website](http://xsolla.com)
-* [Documentation](http://developers.xsolla.com)
-* [Status](http://status.xsolla.com)
-* [Support and Feedback](mailto:integration@xsolla.com)
+*   [Xsolla website](http://xsolla.com/)
+*   [Xsolla documentation](http://developers.xsolla.com/)
+*   [Xsolla status](http://status.xsolla.com/)
+*   [Xsolla Support and Feedback](mailto:integration@xsolla.com)
