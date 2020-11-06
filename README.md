@@ -89,7 +89,7 @@ See instructions on how to get a token, open the payment UI, and handle webhooks
 
 ## Troubleshooting
 
-You can find solutions for the most frequently encountered errors in our [documentation](https://developers.xsolla.com/doc/sdk/#php_sdk_troubleshooting).
+You can find solutions for the most frequently encountered errors in our [documentation](https://developers.xsolla.com/sdk/others/php/#php_pay_station_sdk_troubleshooting).
 
 
 ## Contributing
