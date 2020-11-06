@@ -100,6 +100,6 @@ Take a look at the [CONTRIBUTING.md](https://github.com/xsolla/xsolla-sdk-php/bl
 ## Additional resources
 
 *   [Xsolla website](http://xsolla.com/)
-*   [Xsolla documentation](http://developers.xsolla.com/)
+*   [Xsolla documentation](https://developers.xsolla.com/sdk/others/php/)
 *   [Xsolla status](http://status.xsolla.com/)
 *   [Xsolla Support and Feedback](mailto:integration@xsolla.com)
