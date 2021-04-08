@@ -49,7 +49,7 @@ class GameDeliveryTest extends AbstractAPITest
         ],
     ];
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
         static::$gameDeliveryEntityId = (int) getenv('GAME_DELIVERY_ENTITY_ID');
@@ -72,7 +72,7 @@ class GameDeliveryTest extends AbstractAPITest
         $response = static::$xsollaClient->ListGameDeliveryEntities([
             'project_id' => static::$projectId,
         ]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
         static::assertArrayHasKey('id', current($response));
     }
 

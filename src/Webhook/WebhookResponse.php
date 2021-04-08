@@ -2,6 +2,7 @@
 
 namespace Xsolla\SDK\Webhook;
 
+use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Xsolla\SDK\API\XsollaClient;
 use Xsolla\SDK\Exception\Webhook\XsollaWebhookException;
@@ -25,11 +26,9 @@ class WebhookResponse
     protected $symfonyResponse;
 
     /**
-     * @param \Exception $e
-     *
      * @return WebhookResponse
      */
-    public static function fromException(\Exception $e)
+    public static function fromException(Exception $e)
     {
         if ($e instanceof XsollaWebhookException) {
             return static::fromErrorCode($e->getXsollaErrorCode(), $e->getMessage(), $e->getHttpStatusCode());
@@ -85,11 +84,7 @@ class WebhookResponse
     protected function validateStringParameter($name, $value)
     {
         if (!is_string($value)) {
-            throw new XsollaWebhookException(sprintf(
-                '%s should be non-empty string. %s given',
-                $name,
-                is_object($value) ? get_class($value) : gettype($value)
-            ));
+            throw new XsollaWebhookException(sprintf('%s should be non-empty string. %s given', $name, is_object($value) ? get_class($value) : gettype($value)));
         }
         if ('' === $value) {
             throw new XsollaWebhookException($name.' should be non-empty string. Empty string given');

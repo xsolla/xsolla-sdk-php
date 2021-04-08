@@ -29,7 +29,7 @@ class ServerTest extends TestCase
      */
     protected static $httpClient;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::setUpPhpServer();
         self::setUpHttpClient();
@@ -37,7 +37,7 @@ class ServerTest extends TestCase
 
     private static function setUpPhpServer()
     {
-        self::$process = new Process('php -S 127.0.0.1:8999', __DIR__ . '/../../Resources/Scripts');
+        self::$process = new Process(['php', '-S', '127.0.0.1:8999'], __DIR__.'/../../Resources/Scripts');
         self::$process->setTimeout(1);
         self::$process->start();
         usleep(100000);
@@ -51,7 +51,7 @@ class ServerTest extends TestCase
         ]);
     }
 
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         self::$process->stop(0);
     }
@@ -67,11 +67,11 @@ class ServerTest extends TestCase
      */
     public function testResponse($expectedStatusCode, $expectedResponseContent, $request, $testCase, $testHeaders)
     {
-        $signature = sha1($request . self::PROJECT_SECRET_KEY);
-        $headers = $testHeaders ? $testHeaders : ['Authorization' => 'Signature ' . $signature];
+        $signature = sha1($request.self::PROJECT_SECRET_KEY);
+        $headers = $testHeaders ? $testHeaders : ['Authorization' => 'Signature '.$signature];
 
         try {
-            $response = self::$httpClient->post('/webhook_server.php?test_case=' . $testCase,
+            $response = self::$httpClient->post('/webhook_server.php?test_case='.$testCase,
                 ['headers' => $headers, 'body' => $request]);
         } catch (BadResponseException | ClientException $e) {
             $response = $e->getResponse();
@@ -79,12 +79,12 @@ class ServerTest extends TestCase
         static::assertSame($expectedResponseContent, $response->getBody()->getContents());
         static::assertSame($expectedStatusCode, $response->getStatusCode());
         static::assertArrayHasKey('x-xsolla-sdk', $response->getHeaders());
-        static::assertSame(Version::getVersion(), (string)$response->getHeader('x-xsolla-sdk')[0]);
-        static::assertNotNull((string)$response->getHeader('content-type')[0]);
+        static::assertSame(Version::getVersion(), (string) $response->getHeader('x-xsolla-sdk')[0]);
+        static::assertNotNull((string) $response->getHeader('content-type')[0]);
         if (Response::HTTP_NO_CONTENT === $response->getStatusCode()) {
-            static::assertStringStartsWith('text/plain', (string)$response->getHeader('content-type')[0]);
+            static::assertStringStartsWith('text/plain', (string) $response->getHeader('content-type')[0]);
         } else {
-            static::assertStringStartsWith('application/json', (string)$response->getHeader('content-type')[0]);
+            static::assertStringStartsWith('application/json', (string) $response->getHeader('content-type')[0]);
         }
     }
 

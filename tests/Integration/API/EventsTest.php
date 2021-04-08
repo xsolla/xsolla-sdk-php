@@ -13,6 +13,6 @@ class EventsTest extends AbstractAPITest
             'limit' => 1,
             'offset' => 0,
         ]);
-        static::assertInternalType('array', $events);
+        static::assertIsArray($events);
     }
 }

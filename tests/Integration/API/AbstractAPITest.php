@@ -28,7 +28,7 @@ abstract class AbstractAPITest extends TestCase
      */
     protected static $userId;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         static::$projectId = (int) getenv('PROJECT_ID');
         static::$merchantId = (int) getenv('MERCHANT_ID');

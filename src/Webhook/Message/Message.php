@@ -27,7 +27,7 @@ abstract class Message
         self::UPDATE_SUBSCRIPTION => '\Xsolla\SDK\Webhook\Message\UpdateSubscriptionMessage',
         self::USER_BALANCE => '\Xsolla\SDK\Webhook\Message\UserBalanceMessage',
         self::GET_PIN_CODE => '\Xsolla\SDK\Webhook\Message\GetPinCodeMessage',
-        self::AFS_REJECT => '\Xsolla\SDK\Webhook\Message\AfsRejectMessage'
+        self::AFS_REJECT => '\Xsolla\SDK\Webhook\Message\AfsRejectMessage',
     ];
 
     /**
@@ -36,8 +36,6 @@ abstract class Message
     protected $request;
 
     /**
-     * @param array $request
-     *
      * @throws InvalidParameterException
      * @return Message
      */
@@ -55,9 +53,6 @@ abstract class Message
         return new $className($request);
     }
 
-    /**
-     * @param array $request
-     */
     public function __construct(array $request)
     {
         $this->request = $request;

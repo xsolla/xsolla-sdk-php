@@ -7,9 +7,6 @@ use Xsolla\SDK\Webhook\WebhookResponse;
 
 class UserResponse extends WebhookResponse
 {
-    /**
-     * @param User $user
-     */
     public function __construct(User $user)
     {
         $this->validateStringParameter('User id', $user->getId());

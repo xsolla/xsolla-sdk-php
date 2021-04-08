@@ -4,7 +4,6 @@ namespace Xsolla\SDK\Webhook\Message;
 
 class AfsRejectMessage extends Message
 {
-
     /**
      * @return array
      */
@@ -29,6 +28,8 @@ class AfsRejectMessage extends Message
         if (array_key_exists('external_id', $this->request['transaction'])) {
             return $this->request['transaction']['external_id'];
         }
+
+        return null;
     }
 
     /**
@@ -46,5 +47,4 @@ class AfsRejectMessage extends Message
     {
         return $this->request['refund_details'];
     }
-
 }

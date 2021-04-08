@@ -2,7 +2,6 @@
 
 namespace Xsolla\SDK\Tests\Unit\Webhook\Message;
 
-
 use PHPUnit\Framework\TestCase;
 use Xsolla\SDK\Webhook\Message\AfsRejectMessage;
 
@@ -18,20 +17,19 @@ class AfsRejectMessageTest extends TestCase
             'phone' => '18777976552',
             'email' => 'email@example.com',
             'id' => '1234567',
-            'country' => 'US'
+            'country' => 'US',
          ],
         'transaction' => [
             'id' => 87654321,
             'payment_date' => '2014-09-23T19:25:25+04:00',
             'payment_method' => 1380,
-            'external_id' => 12345678
+            'external_id' => 12345678,
         ],
         'refund_details' => [
             'code' => 4,
-            'reason' => 'Potential fraud'
-        ]
+            'reason' => 'Potential fraud',
+        ],
     ];
-
 
     public function test()
     {
@@ -39,6 +37,5 @@ class AfsRejectMessageTest extends TestCase
         static::assertSame($this->request['transaction']['id'], $message->getPaymentId());
         static::assertSame($this->request['transaction']['external_id'], $message->getExternalPaymentId());
         static::assertSame($this->request['refund_details'], $message->getRefundDetails());
-
     }
 }

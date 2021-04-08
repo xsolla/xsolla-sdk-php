@@ -21,7 +21,7 @@ class WalletTest extends AbstractAPITest
             'project_id' => static::$projectId,
             'user_id' => static::$userId,
         ]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     public function testUpdateWalletUser()
@@ -43,7 +43,7 @@ class WalletTest extends AbstractAPITest
             'limit' => 1,
             'offset' => 0,
         ]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     public function testListWalletUsersWithParams()
@@ -54,7 +54,7 @@ class WalletTest extends AbstractAPITest
             'offset' => 0,
             'user_requisites' => static::$userId,
         ]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     public function testListWalletUserOperations()
@@ -65,7 +65,7 @@ class WalletTest extends AbstractAPITest
             'datetime_from' => '2015-01-01T00:00:00Z',
             'datetime_to' => '2016-01-01T00:00:00Z',
         ]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     public function testListWalletUserOperationsWithParams()
@@ -77,7 +77,7 @@ class WalletTest extends AbstractAPITest
             'datetime_to' => '2016-01-01T00:00:00Z',
             'transaction_type' => 'payment',
         ]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     public function testRechargeWalletUserBalance()
@@ -131,7 +131,7 @@ class WalletTest extends AbstractAPITest
             'limit' => 1,
             'offset' => 0,
         ]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     /**

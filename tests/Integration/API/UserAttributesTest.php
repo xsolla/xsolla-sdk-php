@@ -11,7 +11,7 @@ class UserAttributesTest extends AbstractAPITest
 
     protected $userAttribute;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->userAttribute = [
@@ -42,7 +42,7 @@ class UserAttributesTest extends AbstractAPITest
             'project_id' => static::$projectId,
             'user_attribute_id' => static::$attributeId,
         ]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     /**
@@ -66,7 +66,7 @@ class UserAttributesTest extends AbstractAPITest
         $response = static::$xsollaClient->ListUserAttributes([
             'project_id' => static::$projectId,
         ]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     /**

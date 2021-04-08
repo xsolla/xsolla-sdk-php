@@ -2,10 +2,12 @@
 
 namespace Xsolla\SDK\API;
 
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
+use InvalidArgumentException;
 use Xsolla\SDK\API\PaymentUI\TokenRequest;
 use Xsolla\SDK\Exception\API\XsollaAPIException;
 use Xsolla\SDK\Version;
@@ -142,7 +144,7 @@ class XsollaClient extends Client
         $config += ['ssl.certificate_authority' => 'system'];
 
         if ($missing = array_diff($required, array_keys($config))) {
-            throw new \InvalidArgumentException('Config is missing the following keys: '.implode(', ', $missing));
+            throw new InvalidArgumentException('Config is missing the following keys: '.implode(', ', $missing));
         }
 
         $config['auth'] = [$config['merchant_id'], $config['api_key'], 'Basic'];
@@ -186,7 +188,7 @@ class XsollaClient extends Client
             $response = $this->request($operation['httpMethod'], $uri, $requestParams);
         } catch (BadResponseException | ClientException $exception) {
             throw XsollaAPIException::fromBadResponse($exception);
-        } catch (\Exception | GuzzleException $exception) {
+        } catch (Exception | GuzzleException $exception) {
             throw new XsollaAPIException('XsollaClient Exception: '.$exception->getMessage().' Please check troubleshooting section in README.md https://github.com/xsolla/xsolla-sdk-php#troubleshooting', 0, $exception);
         }
 
@@ -208,7 +210,6 @@ class XsollaClient extends Client
     }
 
     /**
-     * @param  TokenRequest $tokenRequest
      * @return string
      */
     public function createPaymentUITokenFromRequest(TokenRequest $tokenRequest)

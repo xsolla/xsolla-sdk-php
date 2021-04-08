@@ -4,6 +4,7 @@ namespace Xsolla\SDK\Exception\API;
 
 use GuzzleHttp\Exception\BadResponseException;
 use Xsolla\SDK\Exception\XsollaException;
+use function GuzzleHttp\Psr7\str;
 
 class XsollaAPIException extends XsollaException
 {
@@ -30,7 +31,6 @@ Response:
 EOF;
 
     /**
-     * @param  BadResponseException $previous
      * @return XsollaAPIException
      */
     public static function fromBadResponse(BadResponseException $previous)
@@ -39,8 +39,8 @@ EOF;
         $message = sprintf(
             static::$messageTemplate,
             $previous->getMessage(),
-            \GuzzleHttp\Psr7\str($previous->getRequest()),
-            \GuzzleHttp\Psr7\str($previous->getResponse())
+            str($previous->getRequest()),
+            str($previous->getResponse())
         );
         if (array_key_exists($statusCode, static::$exceptions)) {
             return new static::$exceptions[$statusCode]($message, 0, $previous);

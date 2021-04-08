@@ -37,7 +37,7 @@ class CouponsTest extends AbstractAPITest
             'project_id' => static::$projectId,
             'code' => getenv('COUPON_CODE'),
         ]);
-        static::assertInternalType('array', $actualCouponData);
+        static::assertIsArray($actualCouponData);
     }
 
     public function testRedeemCoupon()
@@ -49,6 +49,6 @@ class CouponsTest extends AbstractAPITest
                 'user_id' => static::$userId,
             ],
         ]);
-        static::assertInternalType('array', $actualCouponData);
+        static::assertIsArray($actualCouponData);
     }
 }

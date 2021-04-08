@@ -2,6 +2,7 @@
 
 namespace Xsolla\SDK\Webhook;
 
+use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Xsolla\SDK\Exception\Webhook\XsollaWebhookException;
 use Xsolla\SDK\Webhook\Message\Message;
@@ -30,8 +31,7 @@ class WebhookServer
     }
 
     /**
-     * @param callable             $webhookCallback
-     * @param WebhookAuthenticator $webhookAuthenticator
+     * @param callable $webhookCallback
      *
      * @throws XsollaWebhookException
      */
@@ -74,7 +74,7 @@ class WebhookServer
             }
 
             return $webhookResponse->getSymfonyResponse();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return WebhookResponse::fromException($e)->getSymfonyResponse();
         }
     }

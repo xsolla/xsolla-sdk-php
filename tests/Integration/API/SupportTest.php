@@ -10,7 +10,7 @@ class SupportTest extends AbstractAPITest
     public function testListSupportTickets()
     {
         $response = static::$xsollaClient->ListSupportTickets();
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     public function testListSupportTicketsWithParams()
@@ -25,7 +25,7 @@ class SupportTest extends AbstractAPITest
             'limit' => 100,
             'sender' => 'user',
         ]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     public function testListSupportTicketComments()

@@ -2,6 +2,9 @@
 
 namespace Xsolla\SDK\Tests\Integration\API;
 
+use DateTime;
+use DateTimeZone;
+
 /**
  * @group api
  */
@@ -12,7 +15,7 @@ class PromotionsTest extends AbstractAPITest
 
     protected $promotion;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->promotion = [
@@ -30,7 +33,7 @@ class PromotionsTest extends AbstractAPITest
     public function testListPromotions()
     {
         $response = static::$xsollaClient->ListPromotions();
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     public function testCreatePromotion()
@@ -50,7 +53,7 @@ class PromotionsTest extends AbstractAPITest
         $response = static::$xsollaClient->GetPromotion([
             'promotion_id' => static::$promotionId,
         ]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     /**
@@ -89,7 +92,7 @@ class PromotionsTest extends AbstractAPITest
         $response = static::$xsollaClient->GetPromotionSubject([
             'promotion_id' => static::$promotionId,
         ]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     public function testSetPromotionPaymentSystems()
@@ -105,7 +108,7 @@ class PromotionsTest extends AbstractAPITest
         $response = static::$xsollaClient->GetPromotionPaymentSystems([
             'promotion_id' => static::$promotionId,
         ]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     /**
@@ -114,14 +117,14 @@ class PromotionsTest extends AbstractAPITest
     public function testSetPromotionPeriods()
     {
         $randomFutureTimestamp = mt_rand(time() + 60, 2147483647);
-        $datetimeStart = \DateTime::createFromFormat('U', $randomFutureTimestamp, new \DateTimeZone('UTC'));
+        $datetimeStart = DateTime::createFromFormat('U', $randomFutureTimestamp, new DateTimeZone('UTC'));
         static::$xsollaClient->SetPromotionPeriods([
             'promotion_id' => static::$promotionId,
             'request' => [
                 'periods' => [
                     [
-                        'from' => $datetimeStart->format(\DateTime::ISO8601),
-                        'to' => $datetimeStart->modify('+ 1 second')->format(\DateTime::ISO8601),
+                        'from' => $datetimeStart->format(DateTime::ISO8601),
+                        'to' => $datetimeStart->modify('+ 1 second')->format(DateTime::ISO8601),
                     ],
                 ],
             ],
@@ -137,7 +140,7 @@ class PromotionsTest extends AbstractAPITest
         $response = static::$xsollaClient->GetPromotionPeriods([
             'promotion_id' => static::$promotionId,
         ]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     /**
@@ -164,7 +167,7 @@ class PromotionsTest extends AbstractAPITest
         $response = static::$xsollaClient->GetPromotionRewards([
             'promotion_id' => static::$promotionId,
         ]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     /**
@@ -175,7 +178,7 @@ class PromotionsTest extends AbstractAPITest
         $response = static::$xsollaClient->ReviewPromotion([
             'promotion_id' => static::$promotionId,
         ]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     /**
@@ -190,10 +193,10 @@ class PromotionsTest extends AbstractAPITest
                 'campaign_names' => ['en' => 'xsolla_api_test_campaign_code'],
                 'redeems_count_for_user' => 1,
                 'campaign_redeems_count_for_user' => 1,
-                'expiration_date' => (new \DateTime('+3day'))->format(DATE_RFC3339),
+                'expiration_date' => (new DateTime('+3day'))->format(DATE_RFC3339),
             ],
         ]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
         static::$couponPromotionId = $response['id'];
     }
 
@@ -206,7 +209,7 @@ class PromotionsTest extends AbstractAPITest
             'limit' => 20,
             'offset' => 0,
         ]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     /**

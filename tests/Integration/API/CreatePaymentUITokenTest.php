@@ -12,7 +12,7 @@ class CreatePaymentUITokenTest extends AbstractAPITest
     public function testCreateCommonPaymentUIToken()
     {
         $token = static::$xsollaClient->createCommonPaymentUIToken(static::$projectId, static::$userId, true);
-        static::assertInternalType('string', $token);
+        static::assertIsString($token);
     }
 
     public function testCreatePaymentUITokenFromRequest()
@@ -25,7 +25,7 @@ class CreatePaymentUITokenTest extends AbstractAPITest
             ->setUserName('USER_NAME')
             ->setPurchase(1.5, 'EUR');
         $token = static::$xsollaClient->createPaymentUITokenFromRequest($tokenRequest);
-        static::assertInternalType('string', $token);
+        static::assertIsString($token);
     }
 
     public function testCreatePaymentUIToken()
@@ -40,6 +40,6 @@ class CreatePaymentUITokenTest extends AbstractAPITest
         $request['user']['id']['value'] = static::$userId;
         $tokenResponse = static::$xsollaClient->CreatePaymentUIToken(['request' => $request]);
         static::assertArrayHasKey('token', $tokenResponse);
-        static::assertInternalType('string', $tokenResponse['token']);
+        static::assertIsString($tokenResponse['token']);
     }
 }

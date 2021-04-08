@@ -20,7 +20,7 @@ class StorefrontTest extends AbstractAPITest
                 'currency' => self::CURRENCY,
             ]
         );
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     public function testGetStorefrontVirtualGroups()
@@ -33,7 +33,7 @@ class StorefrontTest extends AbstractAPITest
                 'currency' => self::CURRENCY,
             ]
         );
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     public function testGetStorefrontVirtualItems()
@@ -47,7 +47,7 @@ class StorefrontTest extends AbstractAPITest
                 'group_id' => 7,
             ]
         );
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     public function testGetStorefrontSubscriptions()
@@ -60,7 +60,7 @@ class StorefrontTest extends AbstractAPITest
                 'currency' => self::CURRENCY,
             ]
         );
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     public function testGetStorefrontBonus()
@@ -73,6 +73,6 @@ class StorefrontTest extends AbstractAPITest
                 'currency' => self::CURRENCY,
             ]
         );
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 }

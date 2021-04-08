@@ -15,7 +15,7 @@ class ReportsTest extends AbstractAPITest
             'limit' => 2,
             'offset' => 0,
         ]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     public function testSearchPaymentsRegistryWithParams()
@@ -27,7 +27,7 @@ class ReportsTest extends AbstractAPITest
             'offset' => 0,
             'status' => 'created',
         ]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     public function testListPaymentsRegistry()
@@ -42,19 +42,19 @@ class ReportsTest extends AbstractAPITest
             'show_total' => true,
             'status' => 'done',
         ]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     public function testListTransfersRegistry()
     {
         $response = static::$xsollaClient->ListTransfersRegistry();
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     public function testListReportsRegistry()
     {
         $response = static::$xsollaClient->ListReportsRegistry();
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     public function testCreateRefundRequest()

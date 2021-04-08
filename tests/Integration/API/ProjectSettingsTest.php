@@ -65,7 +65,7 @@ class ProjectSettingsTest extends AbstractAPITest
                 'project_id' => static::$projectId,
             ]
         );
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     public function testUpdateProject()
@@ -82,6 +82,6 @@ class ProjectSettingsTest extends AbstractAPITest
     public function testListProjects()
     {
         $response = static::$xsollaClient->ListProjects();
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 }

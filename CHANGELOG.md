@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 ## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v4.1.2...master)
+* Changed support version of PHP to ^7.1.3|^8.0
+* Changed version of phpunit/phpunit from ~7.3 to ^9.0
+* Fixed null-return in AfsRejectMessage::getExternalPaymentId() (Missing 'return' statement)
+* Fixed process creation in ServerTest::setUpPhpServer() (expected parameter of type 'array')
+* Fixed "Qualifier can be replaced with an import"
+* Fixed "Redundant default attribute value assignment" in phpunit.xml.dist
 
 ## [v4.1.2](https://github.com/xsolla/xsolla-sdk-php/compare/v4.1.1...v4.1.2) - 2020-10-09
 ### Added

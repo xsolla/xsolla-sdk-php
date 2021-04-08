@@ -13,7 +13,7 @@ class PaymentAccountsTest extends AbstractAPITest
             'project_id' => static::$projectId,
             'user_id' => static::$userId,
         ]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 
     public function testChargePaymentAccount()

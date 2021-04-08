@@ -29,6 +29,6 @@ class VirtualCurrencyTest extends AbstractAPITest
     public function testGetProjectVirtualCurrencySettings()
     {
         $response = static::$xsollaClient->GetProjectVirtualCurrencySettings(['project_id' => static::$projectId]);
-        static::assertInternalType('array', $response);
+        static::assertIsArray($response);
     }
 }
