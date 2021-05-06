@@ -32,6 +32,7 @@ class WebhookServer
 
     /**
      * @param callable $webhookCallback
+     * @param WebhookAuthenticator $webhookAuthenticator
      *
      * @throws XsollaWebhookException
      */

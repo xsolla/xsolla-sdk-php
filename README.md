@@ -24,7 +24,7 @@ An official PHP SDK for interacting with [Xsolla API](https://developers.xsolla.
 
 ## Requirements
 
-* PHP ^7.1.3 or ^8.0
+* PHP ^7.3 or ^8.0
 * The following PHP extensions are required:
   * curl
   * json

@@ -29,6 +29,7 @@ class WebhookAuthenticator
     }
 
     /**
+     * @param WebhookRequest $webhookRequest
      * @param bool $checkClientIp
      *
      * @throws InvalidClientIpException
@@ -50,7 +51,13 @@ class WebhookAuthenticator
     public function authenticateClientIp($clientIp)
     {
         if (false === IpUtils::checkIp($clientIp, self::$xsollaSubnets)) {
-            throw new InvalidClientIpException(sprintf('Client IP address (%s) not found in allowed IP addresses whitelist (%s). Please check troubleshooting section in README.md https://github.com/xsolla/xsolla-sdk-php#troubleshooting', $clientIp, implode(', ', self::$xsollaSubnets)));
+            throw new InvalidClientIpException(
+                sprintf(
+                    'Client IP address (%s) not found in allowed IP addresses whitelist (%s). Please check troubleshooting section in README.md https://github.com/xsolla/xsolla-sdk-php#troubleshooting',
+                    $clientIp,
+                    implode(', ', self::$xsollaSubnets)
+                )
+            );
         }
     }
 

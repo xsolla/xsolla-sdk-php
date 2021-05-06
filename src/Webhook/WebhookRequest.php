@@ -48,6 +48,7 @@ class WebhookRequest
     }
 
     /**
+     * @param array $headers
      * @param string $body
      * @param string $clientIp
      */

@@ -56,6 +56,7 @@ class TokenRequest
     }
 
     /**
+     * @param array $customParameters
      * @return self
      */
     public function setCustomParameters(array $customParameters)
@@ -108,6 +109,7 @@ class TokenRequest
     }
 
     /**
+     * @param array $userAttributes
      * @return self
      */
     public function setUserAttributes(array $userAttributes)
