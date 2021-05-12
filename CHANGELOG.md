@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
-## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v4.1.2...master)
+## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v4.2.0...master)
+
+## [v4.2.0](https://github.com/xsolla/xsolla-sdk-php/compare/v4.1.2...v4.2.0) - 2021-05-12
+### Added
 * Changed support version of PHP to ^7.3|^8.0
 * Changed version of phpunit/phpunit from ~7.3 to ^9.0
 * Fixed null-return in AfsRejectMessage::getExternalPaymentId() (Missing 'return' statement)
