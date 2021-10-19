@@ -1,6 +1,8 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 ## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v4.2.0...master)
+### Added
+* [Non Renewal Subscription](https://developers.xsolla.com/api/getting-started/#api_webhooks_non_renewing_subscription) webhook method.
 
 ## [v4.2.0](https://github.com/xsolla/xsolla-sdk-php/compare/v4.1.2...v4.2.0) - 2021-05-12
 ### Added

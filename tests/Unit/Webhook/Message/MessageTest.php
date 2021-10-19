@@ -82,6 +82,13 @@ class MessageTest extends TestCase
                 'isRefund' => false,
             ],
             [
+                'notificationType' => 'non_renewal_subscription',
+                'expectedClass' => '\Xsolla\SDK\Webhook\Message\NonRenewalSubscriptionMessage',
+                'isUserValidation' => false,
+                'isPayment' => false,
+                'isRefund' => false,
+            ],
+            [
                 'notificationType' => 'user_balance_operation',
                 'expectedClass' => '\Xsolla\SDK\Webhook\Message\UserBalanceMessage',
                 'isUserValidation' => false,
