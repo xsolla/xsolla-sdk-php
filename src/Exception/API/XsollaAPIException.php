@@ -3,6 +3,8 @@
 namespace Xsolla\SDK\Exception\API;
 
 use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Psr7\Message;
+use Psr\Http\Message\MessageInterface;
 use Xsolla\SDK\Exception\XsollaException;
 use function GuzzleHttp\Psr7\str;
 
@@ -39,13 +41,30 @@ EOF;
         $message = sprintf(
             static::$messageTemplate,
             $previous->getMessage(),
-            str($previous->getRequest()),
-            str($previous->getResponse())
+            self::str($previous->getRequest()),
+            self::str($previous->getResponse())
         );
         if (array_key_exists($statusCode, static::$exceptions)) {
             return new static::$exceptions[$statusCode]($message, 0, $previous);
         }
 
         return new self($message, 0, $previous);
+    }
+
+    /**
+     * Returns the string representation of an HTTP message.
+     *
+     * Function str() is removed in guzzlehttp/psr7:2.0. Use method Message::toString() instead.
+     *
+     * @return string
+     * @see https://github.com/guzzle/psr7#upgrading-from-function-api
+     */
+    protected static function str(MessageInterface $message)
+    {
+        if (method_exists(Message::class, 'toString')) {
+            return Message::toString($message);
+        }
+
+        return str($message);
     }
 }
