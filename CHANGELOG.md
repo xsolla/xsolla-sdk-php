@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
-## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v4.2.0...master)
+## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v4.2.1...master)
+
+## [v4.2.1](https://github.com/xsolla/xsolla-sdk-php/compare/v4.2.0...v4.2.1) - 2022-07-19
+### Fixed
+* Fixed case sensitive Authorization header key check in class WebhookAuthenticator, function authenticateSignature.
+
 
 ## [v4.2.0](https://github.com/xsolla/xsolla-sdk-php/compare/v4.1.2...v4.2.0) - 2021-05-12
 ### Added
