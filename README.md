@@ -12,6 +12,12 @@ An official PHP SDK for interacting with [Xsolla API](https://developers.xsolla.
 
 ![Payment UI screenshot](http://xsolla.cachefly.net/img/ps3_github2.png)
 
+## This SDK has been deprecated
+
+This SDK can be used for:
+* obtaining an authorization token
+* processing of basic webhooks (user_validation, payment, refund, etc)
+
 ## Features
 
 * Full customisation of Payment UI with the help of different methods of getting token.
