@@ -1,4 +1,4 @@
-# Xsolla SDK for PHP
+# [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/) DEPRECATED Xsolla SDK for PHP
 
 [![Latest Stable Version](https://poser.pugx.org/xsolla/xsolla-sdk-php/v/stable.png)](https://packagist.org/packages/xsolla/xsolla-sdk-php)
 [![Build Status](https://travis-ci.org/xsolla/xsolla-sdk-php.png?branch=master)](https://travis-ci.org/xsolla/xsolla-sdk-php)
@@ -11,6 +11,10 @@
 An official PHP SDK for interacting with [Xsolla API](https://developers.xsolla.com/api/)
 
 ![Payment UI screenshot](http://xsolla.cachefly.net/img/ps3_github2.png)
+
+This SDK can be used for:
+* obtaining an authorization token
+* processing of basic webhooks (user_validation, payment, refund, etc)
 
 ## Features
 
