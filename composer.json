@@ -1,5 +1,5 @@
 {
-    "name": "xsolla/xsolla-sdk-php",
+    "name": "own3d/xsolla-sdk-php",
     "type": "library",
     "description":"Xsolla SDK for PHP. Xsolla is the authorized reseller and merchant providing e-commerce services for online games.",
     "keywords": ["sdk", "xsolla", "api", "payment", "games"],
@@ -13,7 +13,7 @@
       "source": "https://github.com/xsolla/xsolla-sdk-php/releases"
     },
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.0",
         "ext-curl": "*",
         "ext-json": "*",
         "guzzlehttp/guzzle": "~6.0 || ~7.0",
