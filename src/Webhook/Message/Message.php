@@ -13,6 +13,7 @@ abstract class Message
     const CREATE_SUBSCRIPTION = 'create_subscription';
     const CANCEL_SUBSCRIPTION = 'cancel_subscription';
     const UPDATE_SUBSCRIPTION = 'update_subscription';
+    const NON_RENEWAL_SUBSCRIPTION = 'non_renewal_subscription';
     const USER_BALANCE = 'user_balance_operation';
     const GET_PIN_CODE = 'get_pincode';
     const AFS_REJECT = 'afs_reject';
@@ -25,6 +26,7 @@ abstract class Message
         self::CREATE_SUBSCRIPTION => '\Xsolla\SDK\Webhook\Message\CreateSubscriptionMessage',
         self::CANCEL_SUBSCRIPTION => '\Xsolla\SDK\Webhook\Message\CancelSubscriptionMessage',
         self::UPDATE_SUBSCRIPTION => '\Xsolla\SDK\Webhook\Message\UpdateSubscriptionMessage',
+        self::NON_RENEWAL_SUBSCRIPTION => '\Xsolla\SDK\Webhook\Message\NonRenewalSubscriptionMessage',
         self::USER_BALANCE => '\Xsolla\SDK\Webhook\Message\UserBalanceMessage',
         self::GET_PIN_CODE => '\Xsolla\SDK\Webhook\Message\GetPinCodeMessage',
         self::AFS_REJECT => '\Xsolla\SDK\Webhook\Message\AfsRejectMessage',
