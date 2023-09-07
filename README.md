@@ -1,4 +1,4 @@
-# [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/) DEPRECATED Xsolla SDK for PHP
+# Xsolla SDK for PHP
 
 [![Latest Stable Version](https://poser.pugx.org/xsolla/xsolla-sdk-php/v/stable.png)](https://packagist.org/packages/xsolla/xsolla-sdk-php)
 [![Build Status](https://travis-ci.org/xsolla/xsolla-sdk-php.png?branch=master)](https://travis-ci.org/xsolla/xsolla-sdk-php)
@@ -120,19 +120,20 @@ There is a build in server class to help you to handle the webhooks.
 
 use Xsolla\SDK\Webhook\WebhookServer;
 use Xsolla\SDK\Webhook\Message\Message;
+use Xsolla\SDK\Webhook\Message\NotificationTypeDictionary;
 use Xsolla\SDK\Exception\Webhook\XsollaWebhookException;
 
 $callback = function (Message $message) {
     switch ($message->getNotificationType()) {
-        case Message::USER_VALIDATION:
+        case NotificationTypeDictionary::USER_VALIDATION:
             /** @var Xsolla\SDK\Webhook\Message\UserValidationMessage $message */
             // TODO if user not found, you should throw Xsolla\SDK\Exception\Webhook\InvalidUserException
             break;
-        case Message::PAYMENT:
+        case NotificationTypeDictionary::PAYMENT:
             /** @var Xsolla\SDK\Webhook\Message\PaymentMessage $message */
             // TODO if the payment delivery fails for some reason, you should throw Xsolla\SDK\Exception\Webhook\XsollaWebhookException
             break;
-        case Message::REFUND:
+        case NotificationTypeDictionary::REFUND:
             /** @var Xsolla\SDK\Webhook\Message\RefundMessage $message */
             // TODO if you cannot handle the refund, you should throw Xsolla\SDK\Exception\Webhook\XsollaWebhookException
             break;

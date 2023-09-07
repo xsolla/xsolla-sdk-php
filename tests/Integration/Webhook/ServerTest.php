@@ -31,6 +31,7 @@ class ServerTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
+        //@TODO: rework for mock-server
         self::setUpPhpServer();
         self::setUpHttpClient();
     }
@@ -146,6 +147,48 @@ class ServerTest extends TestCase
                 'expectedResponseContent' => '',
                 'request' => '{"notification_type": "afs_reject"}',
                 'testCase' => 'afs_reject_success',
+                'testHeaders' => null,
+            ],
+            'notification_type:order_canceled success' => [
+                'expectedStatusCode' => 204,
+                'expectedResponseContent' => '',
+                'request' => '{"notification_type": "order_canceled"}',
+                'testCase' => 'order_canceled_success',
+                'testHeaders' => null,
+            ],
+            'notification_type:order_paid success' => [
+                'expectedStatusCode' => 204,
+                'expectedResponseContent' => '',
+                'request' => '{"notification_type": "order_paid"}',
+                'testCase' => 'order_paid_success',
+                'testHeaders' => null,
+            ],
+            'notification_type:partial_refund success' => [
+                'expectedStatusCode' => 204,
+                'expectedResponseContent' => '',
+                'request' => '{"notification_type": "partial_refund"}',
+                'testCase' => 'partial_refund_success',
+                'testHeaders' => null,
+            ],
+            'notification_type:payment_account_add success' => [
+                'expectedStatusCode' => 204,
+                'expectedResponseContent' => '',
+                'request' => '{"notification_type": "payment_account_add"}',
+                'testCase' => 'payment_account_add_success',
+                'testHeaders' => null,
+            ],
+            'notification_type:payment_account_remove success' => [
+                'expectedStatusCode' => 204,
+                'expectedResponseContent' => '',
+                'request' => '{"notification_type": "payment_account_remove"}',
+                'testCase' => 'payment_account_remove',
+                'testHeaders' => null,
+            ],
+            'notification_type:redeem_key success' => [
+                'expectedStatusCode' => 204,
+                'expectedResponseContent' => '',
+                'request' => '{"notification_type": "redeem_key"}',
+                'testCase' => 'redeem_key_success',
                 'testHeaders' => null,
             ],
             //common errors

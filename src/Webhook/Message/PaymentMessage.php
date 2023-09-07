@@ -43,6 +43,10 @@ class PaymentMessage extends Message
      */
     public function getPaymentDetails()
     {
+        if (!array_key_exists('payment_details', $this->request)) {
+            return [];
+        }
+
         return $this->request['payment_details'];
     }
 
@@ -68,5 +72,17 @@ class PaymentMessage extends Message
         }
 
         return (bool) $this->request['transaction']['dry_run'];
+    }
+
+    /**
+     * @return array
+     */
+    public function getSettings()
+    {
+        if (!array_key_exists('settings', $this->request)) {
+            return [];
+        }
+
+        return $this->request['settings'];
     }
 }
