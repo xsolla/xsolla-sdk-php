@@ -4,12 +4,6 @@ namespace Xsolla\SDK\Webhook\Message;
 
 class UserBalanceMessage extends Message
 {
-    const PAYMENT = 'payment';
-    const IN_GAME_PURCHASE = 'inGamePurchase';
-    const COUPON = 'coupon';
-    const INTERNAL = 'internal';
-    const CANCELLATION = 'cancellation';
-
     /**
      * @return array
      */

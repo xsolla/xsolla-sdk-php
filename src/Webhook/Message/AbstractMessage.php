@@ -5,27 +5,8 @@ namespace Xsolla\SDK\Webhook\Message;
 use Xsolla\SDK\Exception\Webhook\InvalidParameterException;
 use Xsolla\SDK\Webhook\Message\NotificationTypeDictionary;
 
-/**
- * @deprecated Classname is wrong and can be reason by some errors
- * class Message will be deleted after few versions of SDK
- * please use AbstractMessage instead
- */
-abstract class Message extends AbstractMessage
+abstract class AbstractMessage
 {
-    /**
-     * @deprecated
-     */
-    const USER_VALIDATION = 'user_validation';
-    const USER_SEARCH = 'user_search';
-    const PAYMENT = 'payment';
-    const REFUND = 'refund';
-    const CREATE_SUBSCRIPTION = 'create_subscription';
-    const CANCEL_SUBSCRIPTION = 'cancel_subscription';
-    const UPDATE_SUBSCRIPTION = 'update_subscription';
-    const USER_BALANCE = 'user_balance_operation';
-    const GET_PIN_CODE = 'get_pincode';
-    const AFS_REJECT = 'afs_reject';
-
     protected static $classMap = [
         NotificationTypeDictionary::USER_VALIDATION => '\Xsolla\SDK\Webhook\Message\UserValidationMessage',
         NotificationTypeDictionary::USER_SEARCH => '\Xsolla\SDK\Webhook\Message\UserSearchMessage',
@@ -52,7 +33,7 @@ abstract class Message extends AbstractMessage
     protected $request;
 
     /**
-     * @return Message
+     * @return AbstractMessage
      *@throws InvalidParameterException
      */
     public static function fromArray(array $request)

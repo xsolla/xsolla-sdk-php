@@ -2,10 +2,13 @@
 
 namespace Xsolla\SDK\Tests\Unit\Webhook\Message;
 
+use PHPUnit\Framework\TestCase;
+use Xsolla\SDK\Webhook\Message\RefundMessage;
+
 /**
  * @group unit
  */
-class RefundMessageTest extends PaymentMessageTest
+class RefundMessageTest extends TestCase
 {
     protected $request = [
         'notification_type' => 'refund',
@@ -83,4 +86,31 @@ class RefundMessageTest extends PaymentMessageTest
             'parameter2' => 'value2',
         ],
     ];
+
+    public function test()
+    {
+        $message = new RefundMessage($this->request);
+        static::assertSame($this->request['purchase'], $message->getPurchase());
+        static::assertSame($this->request['transaction'], $message->getTransaction());
+        static::assertSame($this->request['transaction']['id'], $message->getPaymentId());
+        static::assertSame($this->request['transaction']['external_id'], $message->getExternalPaymentId());
+        static::assertSame($this->request['payment_details'], $message->getPaymentDetails());
+        static::assertSame($this->request['custom_parameters'], $message->getCustomParameters());
+        static::assertTrue($message->isDryRun());
+    }
+
+    public function testEmptyFields()
+    {
+        $requestCopy = $this->request;
+        unset(
+            $requestCopy['custom_parameters'],
+            $requestCopy['transaction']['dry_run'],
+            $requestCopy['transaction']['external_id']
+        );
+        $message = new RefundMessage($requestCopy);
+
+        static::assertNull($message->getExternalPaymentId());
+        static::assertSame([], $message->getCustomParameters());
+        static::assertFalse($message->isDryRun());
+    }
 }
