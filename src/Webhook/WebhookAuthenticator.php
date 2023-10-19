@@ -67,6 +67,9 @@ class WebhookAuthenticator
     public function authenticateSignature(WebhookRequest $webhookRequest)
     {
         $headers = $webhookRequest->getHeaders();
+        if(isset($headers["Authorization"])){
+            $headers["authorization"]=$headers["Authorization"];
+        }
         if (!array_key_exists('authorization', $headers)) {
             throw new InvalidSignatureException('"Authorization" header not found in Xsolla webhook request. Please check troubleshooting section in README.md https://github.com/xsolla/xsolla-sdk-php#troubleshooting');
         }
