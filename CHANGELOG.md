@@ -2,6 +2,20 @@
 All notable changes to this project will be documented in this file.
 ## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v4.2.0...master)
 
+## [v4.3.1](https://github.com/xsolla/xsolla-sdk-php/compare/v4.3.0...v4.3.1) - 2024-30-01
+### Fixed
+* Add support version of PHP to ~8.0 (8.0 and higher)
+* Add support for http-foundation ~6.0.0 (6.0 to 6.1)
+
+## [v4.3.0](https://github.com/xsolla/xsolla-sdk-php/compare/v4.2.0...v4.3.0) - 2023-18-09
+### Added
+* New webhooks to handle by web-server
+
+### Fixed
+* Tests refactoring
+* Move all webhooks types into new class NotificationTypeDictionary
+* Remove "abandoned" status
+
 ## [v4.2.0](https://github.com/xsolla/xsolla-sdk-php/compare/v4.1.2...v4.2.0) - 2021-05-12
 ### Added
 * Changed support version of PHP to ^7.3|^8.0
