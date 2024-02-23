@@ -120,6 +120,17 @@ class TokenRequest
     }
 
     /**
+     * @param int $paymentMethod
+     * @return self
+     */
+    public function setPaymentMethod($paymentMethod)
+    {
+        $this->data['settings']['payment_method'] = $paymentMethod;
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function toArray()

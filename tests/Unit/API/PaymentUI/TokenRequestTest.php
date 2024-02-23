@@ -20,6 +20,7 @@ class TokenRequestTest extends TestCase
             ->setSandboxMode(true)
             ->setUserName('USER_NAME')
             ->setPurchase(1.5, 'EUR')
+            ->setPaymentMethod(1380)
             ->toArray();
 
         $expectedRequest = [
@@ -33,6 +34,7 @@ class TokenRequestTest extends TestCase
                 'currency' => 'USD',
                 'external_id' => 12345,
                 'mode' => 'sandbox',
+                'payment_method' => 1380,
             ],
             'custom_parameters' => [
                 'a' => 1,
