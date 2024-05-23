@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 ## [Unreleased](https://github.com/xsolla/xsolla-sdk-php/compare/v4.3.2...master)
 
-## [v4.3.2](https://github.com/xsolla/xsolla-sdk-php/compare/v4.3.0...v4.3.1) - 2024-26-04
+## [v4.3.2](https://github.com/xsolla/xsolla-sdk-php/compare/v4.3.1...v4.3.2) - 2024-26-04
 ### Fixed
 * Documentation fixes and new instruction for contributing
 * Increase guzzle support version and symfony/http
