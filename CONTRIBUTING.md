@@ -42,13 +42,12 @@ If new changes don't contain new valuable features for end users or urgent bug f
 ### Release process
 
 1. Merge all needed pull requests to master branch
-1. Review diff between last released version and master branch, include [CHANGELOG.md](CHANGELOG.md)
-1. Create _bump version_ commit with message "bump version to vMAJOR.MINOR.PATCH" and push to master branch
-    1. Change version in [src/Version.php](src/Version.php)
-    1. Set new version number instead _Unreleased_ section name in [CHANGELOG.md](CHANGELOG.md). Add New _Unreleased_ section to top of the [CHANGELOG.md](CHANGELOG.md) file
+   1. Change version in [src/Version.php](src/Version.php)
+   1. Set new version number instead _Unreleased_ section name in [CHANGELOG.md](CHANGELOG.md). Add New _Unreleased_ section to top of the [CHANGELOG.md](CHANGELOG.md) file
+1. Create tag with version "vMAJOR.MINOR.PATCH" and push it (tag must be linked to merge commit)
+1. Review diff between new released version and master branch, include [CHANGELOG.md](CHANGELOG.md)
 1. Create new release at github
     1. Create new release draft with version name
     1. Copy release description from changelog
     1. Run `php build/packager.php` locally
     1. Attach to release _xsolla.zip_, _xsolla.phar_ from [build/artifacts](build/artifacts)
-

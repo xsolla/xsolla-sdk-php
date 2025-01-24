@@ -1,4 +1,4 @@
-# [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/) DEPRECATED Xsolla SDK for PHP
+# Xsolla SDK for PHP
 
 [![Latest Stable Version](https://poser.pugx.org/xsolla/xsolla-sdk-php/v/stable.png)](https://packagist.org/packages/xsolla/xsolla-sdk-php)
 [![Build Status](https://travis-ci.org/xsolla/xsolla-sdk-php.png?branch=master)](https://travis-ci.org/xsolla/xsolla-sdk-php)
@@ -14,7 +14,7 @@ An official PHP SDK for interacting with [Xsolla API](https://developers.xsolla.
 
 This SDK can be used for:
 * obtaining an authorization token
-* processing of basic webhooks (user_validation, payment, refund, etc)
+* processing of basic webhooks (user_validation, payment, refund, etc.)
 
 ## Features
 
@@ -79,60 +79,30 @@ require '/path/to/xsolla-autoloader.php';
 
 ## Quick Examples
 
-### Integrate Payment UI
-
-To integrate Payment UI into your game you should obtain an access token. An access token is a string that identifies game, user and purchase parameters.
-
-There are number of ways for getting token. The easiest one is to use the _createCommonPaymentUIToken_ method, you will need to pass only ID of project in Xsolla system and ID of the user in your game:
-
-``` php
-<?php
-
-use Xsolla\SDK\API\XsollaClient;
-
-$client = XsollaClient::factory(array(
-    'merchant_id' => MERCHANT_ID,
-    'api_key' => API_KEY
-));
-$paymentUIToken = $client->createCommonPaymentUIToken(PROJECT_ID, USER_ID, $sandboxMode = true);
-```
-
-Render Payment UI script in your page:
-
-``` php
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-</head>
-<body>
-    <button data-xpaystation-widget-open>Buy Credits</button>
-    
-    <?php \Xsolla\SDK\API\PaymentUI\PaymentUIScriptRenderer::send($paymentUIToken, $isSandbox = true); ?>
-</body>
-</html>
-```
 ### Receive webhooks
 
 There is a build in server class to help you to handle the webhooks.
 
+Solution with webhook server:
 ```php
 <?php
 
 use Xsolla\SDK\Webhook\WebhookServer;
 use Xsolla\SDK\Webhook\Message\Message;
+use Xsolla\SDK\Webhook\Message\NotificationTypeDictionary;
 use Xsolla\SDK\Exception\Webhook\XsollaWebhookException;
 
 $callback = function (Message $message) {
     switch ($message->getNotificationType()) {
-        case Message::USER_VALIDATION:
+        case NotificationTypeDictionary::USER_VALIDATION:
             /** @var Xsolla\SDK\Webhook\Message\UserValidationMessage $message */
             // TODO if user not found, you should throw Xsolla\SDK\Exception\Webhook\InvalidUserException
             break;
-        case Message::PAYMENT:
+        case NotificationTypeDictionary::PAYMENT:
             /** @var Xsolla\SDK\Webhook\Message\PaymentMessage $message */
             // TODO if the payment delivery fails for some reason, you should throw Xsolla\SDK\Exception\Webhook\XsollaWebhookException
             break;
-        case Message::REFUND:
+        case NotificationTypeDictionary::REFUND:
             /** @var Xsolla\SDK\Webhook\Message\RefundMessage $message */
             // TODO if you cannot handle the refund, you should throw Xsolla\SDK\Exception\Webhook\XsollaWebhookException
             break;
@@ -143,6 +113,40 @@ $callback = function (Message $message) {
 
 $webhookServer = WebhookServer::create($callback, PROJECT_KEY);
 $webhookServer->start();
+```
+
+Solution with just helper classes in some php function:
+```php
+
+public function handleRequest()
+{
+    $request = Request::createFromGlobals();
+    $message = Message::fromArray($request->toArray());
+
+    switch ($message->getNotificationType()) {
+        case NotificationTypeDictionary::USER_VALIDATION:
+            /**
+             * https://developers.xsolla.com/webhooks/operation/user-validation/
+             * @var Xsolla\SDK\Webhook\Message\UserValidationMessage $message 
+             */
+            if ($message->getUserId() !== 'our_user_id') {
+                return YourResponseClass(json_encode(['error' => ['code' => 'INVALID_USER', 'message' => 'Invalid user']]), 400);
+            }
+            
+            break;
+        case NotificationTypeDictionary::PAYMENT:
+            /** @var Xsolla\SDK\Webhook\Message\PaymentMessage $message */
+            break;
+        case NotificationTypeDictionary::REFUND:
+            /** @var Xsolla\SDK\Webhook\Message\RefundMessage $message */
+            break;
+        default:
+            throw new \Exception('Notification type not implemented');
+    }
+    
+    return YourResponseClass('', 200);
+}
+
 ```
 
 Once you've finished the handling of notifications on your server, please set up the URL that will receive all webhook notifications on the Settings page for your project.

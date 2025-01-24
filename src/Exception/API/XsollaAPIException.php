@@ -3,6 +3,8 @@
 namespace Xsolla\SDK\Exception\API;
 
 use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Psr7\Message;
+use Psr\Http\Message\MessageInterface;
 use Xsolla\SDK\Exception\XsollaException;
 use function GuzzleHttp\Psr7\str;
 
@@ -35,17 +37,38 @@ EOF;
      */
     public static function fromBadResponse(BadResponseException $previous)
     {
-        $statusCode = $previous->getResponse()->getStatusCode();
+        $message = '$previous getResponse() return null';
+
+        $response = $previous->getResponse();
+        if ($response === null) {
+            return new self ($message, 0, $previous);
+        }
+
+        $statusCode = $response->getStatusCode();
         $message = sprintf(
             static::$messageTemplate,
             $previous->getMessage(),
-            str($previous->getRequest()),
-            str($previous->getResponse())
+            self::str($previous->getRequest()),
+            self::str($previous->getResponse())
         );
         if (array_key_exists($statusCode, static::$exceptions)) {
             return new static::$exceptions[$statusCode]($message, 0, $previous);
         }
 
         return new self($message, 0, $previous);
+    }
+
+    /**
+     * Alternative function for str() cuz it's deleted in guzzlehttp/psr7:2.0. Now Message::toString() instead of it.
+     *
+     * @return string
+     */
+    protected static function str(MessageInterface $message)
+    {
+        if (method_exists(Message::class, 'toString')) {
+            return Message::toString($message);
+        }
+
+        return str($message);
     }
 }
