@@ -10,7 +10,7 @@
 
 An official PHP SDK for interacting with [Xsolla API](https://developers.xsolla.com/api/)
 
-![Payment UI screenshot](http://xsolla.cachefly.net/img/ps3_github2.png)
+![Payment UI screenshot](https://cdn.xsolla.net/developers/current/images/api_docs/ps-github.svg)
 
 This SDK can be used for:
 * obtaining an authorization token
@@ -127,12 +127,12 @@ public function handleRequest()
         case NotificationTypeDictionary::USER_VALIDATION:
             /**
              * https://developers.xsolla.com/webhooks/operation/user-validation/
-             * @var Xsolla\SDK\Webhook\Message\UserValidationMessage $message 
+             * @var Xsolla\SDK\Webhook\Message\UserValidationMessage $message
              */
             if ($message->getUserId() !== 'our_user_id') {
                 return YourResponseClass(json_encode(['error' => ['code' => 'INVALID_USER', 'message' => 'Invalid user']]), 400);
             }
-            
+
             break;
         case NotificationTypeDictionary::PAYMENT:
             /** @var Xsolla\SDK\Webhook\Message\PaymentMessage $message */
@@ -143,7 +143,7 @@ public function handleRequest()
         default:
             throw new \Exception('Notification type not implemented');
     }
-    
+
     return YourResponseClass('', 200);
 }
 
