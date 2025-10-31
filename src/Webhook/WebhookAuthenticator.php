@@ -8,11 +8,20 @@ use Xsolla\SDK\Exception\Webhook\InvalidSignatureException;
 
 class WebhookAuthenticator
 {
+    /**
+     * info about xsolla ip subnets - https://developers.xsolla.com/webhooks/overview/#section/Webhook-listener
+     * @var string[]
+     */
     protected static $xsollaSubnets = [
-        '159.255.220.240/28',
-        '185.30.20.16/29',
+        '185.30.20.0/24',
         '185.30.21.0/24',
-        '185.30.21.16/29',
+        '185.30.22.0/24',
+        '185.30.23.0/24',
+        '34.102.38.178',
+        '34.94.43.207',
+        '35.236.73.234',
+        '34.94.69.44',
+        '34.102.22.197',
     ];
 
     /**
