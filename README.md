@@ -8,13 +8,9 @@
 [![Join the chat at https://gitter.im/xsolla/xsolla-sdk-php](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/xsolla/xsolla-sdk-php?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/xsolla/xsolla-sdk-php/master/LICENSE)
 
-An official PHP SDK for interacting with [Xsolla API](https://developers.xsolla.com/api/)
+This SDK provides a starting point for implementing server-side functionality to work with [Xsolla API](https://developers.xsolla.com/#api). It includes ready-to-use classes to process webhooks such as `user_validation`, `payment`, and `refund`.
 
 ![Payment UI screenshot](https://cdn.xsolla.net/developers/current/images/api_docs/ps-github.svg)
-
-This SDK can be used for:
-* obtaining an authorization token
-* processing of basic webhooks (user_validation, payment, refund, etc.)
 
 ## Features
 
