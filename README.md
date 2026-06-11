@@ -7,7 +7,7 @@
 > **The current recommended version is [Xsolla SDK 3](https://developers.xsolla.com/sdk/)**, which provides:
 > - ✅ Up-to-date server-side and client-side payment integrations
 > - ✅ Active development with ongoing bug fixes, new features, and security updates
-> - ✅ 700+ payment methods across 200+ countries and territories
+> - ✅ 1000+ payment methods across 200+ countries and territories
 > - ✅ Modern API with comprehensive webhook handling, authentication, and catalog management
 >
 > **Get started with SDK 3:**
