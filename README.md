@@ -1,3 +1,11 @@
+> [!WARNING]
+> **This repository is deprecated and is no longer actively maintained.**
+>
+> If you arrived here from a web search, you are looking at a legacy Xsolla PHP SDK. Use the current **Xsolla SDK** and API documentation instead — they provide up-to-date server-side integration guides with active support.
+>
+> - 📖 **[Xsolla SDK Documentation](https://developers.xsolla.com/sdk/)** — get started with the current integration
+> - 🔭 **[SDK Explorer](https://developers.xsolla.com/sdk/demo/)** — try the SDK interactively before writing any code
+
 # Xsolla SDK for PHP
 
 ![License](https://img.shields.io/github/license/xsolla/xsolla-sdk-php)
