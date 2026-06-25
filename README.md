@@ -1,23 +1,3 @@
-> [!CAUTION]
-> ## ⚠️ This repository is deprecated — use Xsolla SDK 3 instead
->
-> **This is a legacy Xsolla PHP SDK that is no longer actively maintained or updated.**
-> If you arrived here from a web search, do not use this repository for new integrations.
->
-> **The current recommended version is [Xsolla SDK 3](https://developers.xsolla.com/sdk/)**, which provides:
-> - ✅ Up-to-date server-side and client-side payment integrations
-> - ✅ Active development with ongoing bug fixes, new features, and security updates
-> - ✅ 1000+ payment methods across 200+ countries and territories
-> - ✅ Modern API with comprehensive webhook handling, authentication, and catalog management
->
-> **Get started with SDK 3:**
-> | Resource | Link |
-> |---|---|
-> | 📖 SDK 3 Documentation | https://developers.xsolla.com/sdk/ |
-> | 🔭 SDK Explorer (try before you code) | https://developers.xsolla.com/sdk/demo/ |
->
-> _Do not start new integrations on this repository._
-
 # Xsolla SDK for PHP
 
 [![Latest Stable Version](https://poser.pugx.org/xsolla/xsolla-sdk-php/v/stable.png)](https://packagist.org/packages/xsolla/xsolla-sdk-php)
